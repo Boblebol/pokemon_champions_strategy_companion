@@ -2,10 +2,16 @@ export type RefreshResult =
   | { ok: true; message: string; importedAt: string }
   | { ok: false; message: string };
 
+export type SnapshotRefreshFetcher = (input: string) => Promise<{
+  ok: boolean;
+  status: number;
+  json(): Promise<unknown>;
+}>;
+
 export async function refreshSnapshots({
   fetcher = fetch,
 }: {
-  fetcher?: typeof fetch;
+  fetcher?: SnapshotRefreshFetcher;
 } = {}): Promise<RefreshResult> {
   try {
     const response = await fetcher('https://play.pokemonshowdown.com/data/pokedex.json');
