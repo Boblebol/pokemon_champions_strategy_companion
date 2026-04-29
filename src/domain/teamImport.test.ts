@@ -6,6 +6,7 @@ describe('parseShowdownTeam', () => {
     const result = parseShowdownTeam(`
 Great Tusk @ Booster Energy
 Ability: Protosynthesis
+Level: 50
 Tera Type: Ground
 EVs: 252 Atk / 4 SpD / 252 Spe
 Jolly Nature
@@ -22,6 +23,7 @@ Jolly Nature
       species: 'Great Tusk',
       item: 'Booster Energy',
       ability: 'Protosynthesis',
+      level: 50,
       teraType: 'Ground',
       nature: 'Jolly',
       evs: { atk: 252, spd: 4, spe: 252 },
@@ -62,6 +64,24 @@ Ability: Levitate
     expect(result.errors[0]).toContain('Block 1');
   });
 
+  it('rejects IV metadata-only blocks and keeps following valid members', () => {
+    const result = parseShowdownTeam(`
+IVs: 0 Atk
+- Thunderbolt
+
+Rotom-Wash @ Leftovers
+Ability: Levitate
+- Hydro Pump
+`);
+
+    expect(result.members).toHaveLength(1);
+    expect(result.members[0]).toMatchObject({
+      slot: 1,
+      species: 'Rotom-Wash',
+    });
+    expect(result.errors[0]).toContain('Block 1');
+  });
+
   it('supports nicknames with explicit species', () => {
     const result = parseShowdownTeam(`
 Washer (Rotom-Wash) @ Leftovers
@@ -71,5 +91,40 @@ Ability: Levitate
 
     expect(result.members[0].nickname).toBe('Washer');
     expect(result.members[0].species).toBe('Rotom-Wash');
+  });
+
+  it('ignores gender suffixes on bare species and nicknamed sets', () => {
+    const result = parseShowdownTeam(`
+Ogerpon-Wellspring (F) @ Wellspring Mask
+- Ivy Cudgel
+
+Buddy (Kingambit) (M) @ Black Glasses
+- Kowtow Cleave
+`);
+
+    expect(result.errors).toEqual([]);
+    expect(result.members[0]).toMatchObject({
+      slot: 1,
+      species: 'Ogerpon-Wellspring',
+      item: 'Wellspring Mask',
+    });
+    expect(result.members[0].nickname).toBeUndefined();
+    expect(result.members[1]).toMatchObject({
+      slot: 2,
+      nickname: 'Buddy',
+      species: 'Kingambit',
+      item: 'Black Glasses',
+    });
+  });
+
+  it('warns on malformed levels without setting level', () => {
+    const result = parseShowdownTeam(`
+Rotom-Wash @ Leftovers
+Level: nope
+- Hydro Pump
+`);
+
+    expect(result.members[0].level).toBeUndefined();
+    expect(result.members[0].parseWarnings).toEqual([expect.stringContaining('Invalid Level')]);
   });
 });

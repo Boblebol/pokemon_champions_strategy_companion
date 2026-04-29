@@ -10,13 +10,17 @@ const STAT_ALIASES: Record<string, StatId> = {
   Spe: 'spe',
 };
 
+const METADATA_LINE_PATTERN =
+  /^(Ability|Level|Tera Type|EVs|IVs|Shiny|Gender|Happiness|Tera Blast Type|Dynamax Level|Gigantamax):/i;
+
 function parseHeader(header: string) {
   const [namePart, itemPart] = header.split('@').map((part) => part.trim());
-  const nicknameMatch = namePart.match(/^(.+)\s+\((.+)\)$/);
+  const nameWithoutGender = namePart.replace(/\s+\((M|F|N)\)$/i, '').trim();
+  const nicknameMatch = nameWithoutGender.match(/^(.+)\s+\((.+)\)$/);
 
   return {
     nickname: nicknameMatch ? nicknameMatch[1].trim() : undefined,
-    species: nicknameMatch ? nicknameMatch[2].trim() : namePart.trim(),
+    species: nicknameMatch ? nicknameMatch[2].trim() : nameWithoutGender,
     item: itemPart || undefined,
   };
 }
@@ -40,8 +44,8 @@ function parseTeraType(line: string): PokemonType | undefined {
   return POKEMON_TYPES.includes(value as PokemonType) ? (value as PokemonType) : undefined;
 }
 
-function isInvalidHeaderLine(line: string): boolean {
-  return /^(Ability|Level|Tera Type|EVs):/i.test(line) || /^[A-Za-z]+ Nature$/i.test(line) || line.startsWith('-');
+function isMetadataLine(line: string): boolean {
+  return METADATA_LINE_PATTERN.test(line) || /^[A-Za-z]+ Nature$/i.test(line) || line.startsWith('-');
 }
 
 function parseBlock(block: string, slot: number): TeamMember | string {
@@ -54,7 +58,7 @@ function parseBlock(block: string, slot: number): TeamMember | string {
     return `Block ${slot} is empty.`;
   }
 
-  if (isInvalidHeaderLine(lines[0])) {
+  if (isMetadataLine(lines[0])) {
     return `Block ${slot} could not be parsed as a Pokemon set.`;
   }
 
@@ -73,7 +77,12 @@ function parseBlock(block: string, slot: number): TeamMember | string {
     if (/^Ability:/i.test(line)) {
       member.ability = line.replace(/^Ability:\s*/i, '').trim();
     } else if (/^Level:/i.test(line)) {
-      member.level = Number(line.replace(/^Level:\s*/i, '').trim());
+      const level = Number(line.replace(/^Level:\s*/i, '').trim());
+      if (Number.isFinite(level)) {
+        member.level = level;
+      } else {
+        member.parseWarnings.push(`Invalid Level in line: ${line}`);
+      }
     } else if (/^Tera Type:/i.test(line)) {
       member.teraType = parseTeraType(line);
       if (!member.teraType) {
