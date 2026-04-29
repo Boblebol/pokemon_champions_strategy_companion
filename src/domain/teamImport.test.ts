@@ -44,6 +44,24 @@ Ability: Levitate
     expect(result.errors[0]).toContain('Block 1');
   });
 
+  it('rejects metadata-only blocks and keeps following valid members', () => {
+    const result = parseShowdownTeam(`
+Ability: Levitate
+- Thunderbolt
+
+Rotom-Wash @ Leftovers
+Ability: Levitate
+- Hydro Pump
+`);
+
+    expect(result.members).toHaveLength(1);
+    expect(result.members[0]).toMatchObject({
+      slot: 1,
+      species: 'Rotom-Wash',
+    });
+    expect(result.errors[0]).toContain('Block 1');
+  });
+
   it('supports nicknames with explicit species', () => {
     const result = parseShowdownTeam(`
 Washer (Rotom-Wash) @ Leftovers

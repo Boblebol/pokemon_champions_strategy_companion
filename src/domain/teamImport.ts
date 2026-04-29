@@ -40,6 +40,10 @@ function parseTeraType(line: string): PokemonType | undefined {
   return POKEMON_TYPES.includes(value as PokemonType) ? (value as PokemonType) : undefined;
 }
 
+function isInvalidHeaderLine(line: string): boolean {
+  return /^(Ability|Level|Tera Type|EVs):/i.test(line) || /^[A-Za-z]+ Nature$/i.test(line) || line.startsWith('-');
+}
+
 function parseBlock(block: string, slot: number): TeamMember | string {
   const lines = block
     .split('\n')
@@ -48,6 +52,10 @@ function parseBlock(block: string, slot: number): TeamMember | string {
 
   if (lines.length === 0) {
     return `Block ${slot} is empty.`;
+  }
+
+  if (isInvalidHeaderLine(lines[0])) {
+    return `Block ${slot} could not be parsed as a Pokemon set.`;
   }
 
   const header = parseHeader(lines[0]);
