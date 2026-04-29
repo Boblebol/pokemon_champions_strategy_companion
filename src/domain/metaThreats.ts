@@ -85,9 +85,9 @@ export function rankMetaThreats({
       const score = entry.usage + superEffectiveTargets * 12 - resists * 5;
       const severity: RankedThreat['severity'] = score >= 45 ? 'high' : score >= 25 ? 'medium' : 'low';
       const reasons = [
-        `${entry.usage.toFixed(1)}% usage in ${snapshot.label}`,
-        `${superEffectiveTargets} team member(s) hit super effectively by known damaging common moves`,
-        `${resists} team member(s) resist the known damaging common attacks`,
+        `${entry.usage.toFixed(1)}% d'usage dans ${snapshot.label}`,
+        `${superEffectiveTargets} membre(s) touches super efficacement par les attaques connues`,
+        `${resists} membre(s) resistent aux attaques connues`,
       ];
 
       return {

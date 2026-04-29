@@ -3,8 +3,8 @@ import type { RankedThreat } from '../domain/metaThreats';
 export function ThreatPanel({ threats }: { threats: RankedThreat[] }) {
   return (
     <section className="panel">
-      <h2>Meta threats</h2>
-      {threats.length === 0 ? <p>No usage snapshot available for this format.</p> : null}
+      <h2>Menaces méta</h2>
+      {threats.length === 0 ? <p>Aucun snapshot d'usage disponible pour ce format.</p> : null}
       <div className="threat-list">
         {threats.map((threat) => (
           <article className={`threat ${threat.severity}`} key={threat.species}>

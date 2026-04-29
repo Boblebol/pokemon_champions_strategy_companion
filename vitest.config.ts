@@ -1,9 +1,8 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig, type Plugin } from 'vitest/config';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  // Vitest 2 installs Vite 5 internally while the scaffold uses Vite 6.
-  plugins: [react() as unknown as Plugin[]],
+  plugins: [react()],
   test: {
     environment: 'jsdom',
     globals: true,

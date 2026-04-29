@@ -1,15 +1,15 @@
 import { useMemo, useState } from 'react';
 import { AuditPanel } from './components/AuditPanel';
-import { FormatSelector } from './components/FormatSelector';
+import { HelpPanel } from './components/HelpPanel';
+import { SetupWizard } from './components/SetupWizard';
 import { SnapshotStatus } from './components/SnapshotStatus';
-import { TeamInput } from './components/TeamInput';
 import { TeamPreview } from './components/TeamPreview';
 import { ThreatPanel } from './components/ThreatPanel';
 import { demoDataBundle } from './data/demoSnapshots';
 import { analyzeTeam } from './domain/analysis';
 import { createDataStore } from './domain/dataStore';
 import { refreshSnapshots } from './domain/snapshotRefresh';
-import type { FormatId } from './domain/types';
+import type { DataBundle, FormatId } from './domain/types';
 
 const initialPaste = `Great Tusk @ Booster Energy
 Ability: Protosynthesis
@@ -21,43 +21,62 @@ Jolly Nature
 - Stealth Rock
 - Ice Beam`;
 
-const store = createDataStore(demoDataBundle);
-
 export default function App() {
   const [format, setFormat] = useState<FormatId>('champions-vgc');
   const [paste, setPaste] = useState(initialPaste);
+  const [dataBundle, setDataBundle] = useState<DataBundle>(demoDataBundle);
   const [refreshMessage, setRefreshMessage] = useState<string>();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const analysis = useMemo(() => analyzeTeam({ paste, format, store }), [paste, format]);
+  const store = useMemo(() => createDataStore(dataBundle), [dataBundle]);
+  const analysis = useMemo(() => analyzeTeam({ paste, format, store }), [paste, format, store]);
 
   async function handleRefresh() {
-    const result = await refreshSnapshots();
+    setIsRefreshing(true);
+    const result = await refreshSnapshots({ format, useProxy: import.meta.env.DEV });
+    if (result.ok) {
+      setDataBundle((currentBundle) => ({
+        ...currentBundle,
+        meta: {
+          ...currentBundle.meta,
+          [result.snapshot.format]: result.snapshot,
+        },
+      }));
+    }
     setRefreshMessage(result.message);
+    setIsRefreshing(false);
   }
 
   return (
     <main className="app-shell">
       <header className="top-bar">
         <div>
-          <h1>Pokemon Champions Strategy Companion</h1>
-          <p>Local team audit and meta threat companion.</p>
+          <span className="eyebrow">V1 locale · Smogon-ready</span>
+          <h1>Assistant stratégique Pokémon Champions</h1>
+          <p>Importe ton équipe, lis les faiblesses et cible les menaces du méta.</p>
         </div>
-        <FormatSelector value={format} onChange={setFormat} />
         <SnapshotStatus
           label={analysis.snapshotStatus.label}
           source={analysis.snapshotStatus.source}
           onRefresh={handleRefresh}
           refreshMessage={refreshMessage}
+          isRefreshing={isRefreshing}
         />
       </header>
 
+      <SetupWizard
+        format={format}
+        onFormatChange={setFormat}
+        paste={paste}
+        onPasteChange={setPaste}
+        analysis={analysis}
+      />
+
       <div className="dashboard">
-        <aside className="left-column">
-          <TeamInput value={paste} onChange={setPaste} />
-          <TeamPreview team={analysis.team} />
-        </aside>
+        <TeamPreview team={analysis.team} />
         <AuditPanel audit={analysis.audit} />
         <ThreatPanel threats={analysis.threats} />
+        <HelpPanel />
       </div>
     </main>
   );

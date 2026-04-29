@@ -43,7 +43,7 @@ Ability: Levitate
 
     expect(result.members).toHaveLength(1);
     expect(result.members[0].species).toBe('Rotom-Wash');
-    expect(result.errors[0]).toContain('Block 1');
+    expect(result.errors[0]).toContain('Bloc 1');
   });
 
   it('rejects metadata-only blocks and keeps following valid members', () => {
@@ -61,7 +61,7 @@ Ability: Levitate
       slot: 1,
       species: 'Rotom-Wash',
     });
-    expect(result.errors[0]).toContain('Block 1');
+    expect(result.errors[0]).toContain('Bloc 1');
   });
 
   it('rejects IV metadata-only blocks and keeps following valid members', () => {
@@ -79,7 +79,7 @@ Ability: Levitate
       slot: 1,
       species: 'Rotom-Wash',
     });
-    expect(result.errors[0]).toContain('Block 1');
+    expect(result.errors[0]).toContain('Bloc 1');
   });
 
   it('supports nicknames with explicit species', () => {
@@ -125,6 +125,6 @@ Level: nope
 `);
 
     expect(result.members[0].level).toBeUndefined();
-    expect(result.members[0].parseWarnings).toEqual([expect.stringContaining('Invalid Level')]);
+    expect(result.members[0].parseWarnings).toEqual([expect.stringContaining('Niveau invalide')]);
   });
 });

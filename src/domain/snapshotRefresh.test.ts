@@ -38,15 +38,88 @@ describe('refreshSnapshots', () => {
     const fetcher = vi.fn().mockResolvedValue({
       ok: true,
       status: 200,
-      json: vi.fn().mockResolvedValue({ pokemon: {} }),
+      json: vi.fn().mockResolvedValue({
+        info: {
+          metagame: 'gen9bssregi',
+          cutoff: 1760,
+          'number of battles': 27977,
+        },
+        data: {
+          Dragonite: {
+            usage: 31.4,
+            Moves: {
+              extremespeed: 77.2,
+              earthquake: 41.8,
+            },
+          },
+          Kingambit: {
+            usage: 25.6,
+            Moves: {
+              suckerpunch: 88.1,
+            },
+          },
+        },
+      }),
     });
-    const result = await refreshSnapshots({ fetcher });
+    const result = await refreshSnapshots({ fetcher, format: 'champions-bss' });
 
     expect(result.ok).toBe(true);
     if (!result.ok) {
       throw new Error(result.message);
     }
-    expect(result.message).toBe('Reference source reachable. Local snapshot kept for this V1 session.');
+    expect(result.message).toBe('Données Smogon 2026-03 importées pour Champions BSS.');
     expect(result.importedAt).toEqual(expect.any(String));
+    expect(result.snapshot.entries).toEqual([
+      {
+        rank: 1,
+        species: 'Dragonite',
+        usage: 31.4,
+        commonMoves: ['extremespeed', 'earthquake'],
+      },
+      {
+        rank: 2,
+        species: 'Kingambit',
+        usage: 25.6,
+        commonMoves: ['suckerpunch'],
+      },
+    ]);
+    expect(result.snapshot.battleCount).toBe(27977);
+    expect(fetcher).toHaveBeenCalledWith(
+      'https://www.smogon.com/stats/2026-03/chaos/gen9bssregi-1760.json',
+    );
+  });
+
+  it('can fetch through the local Vite proxy while keeping the Smogon source URL', async () => {
+    const fetcher = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: vi.fn().mockResolvedValue({
+        info: {
+          metagame: 'gen9nationaldex',
+          cutoff: 1760,
+          'number of battles': 100,
+        },
+        data: {
+          'Great Tusk': {
+            usage: 0.352,
+            Moves: {
+              earthquake: 90,
+            },
+          },
+        },
+      }),
+    });
+
+    const result = await refreshSnapshots({ fetcher, format: 'champions-ou', useProxy: true });
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) {
+      throw new Error(result.message);
+    }
+    expect(fetcher).toHaveBeenCalledWith('/smogon-stats/stats/2026-03/chaos/gen9nationaldex-1760.json');
+    expect(result.snapshot.entries[0].usage).toBeCloseTo(35.2);
+    expect(result.snapshot.source).toBe(
+      'https://www.smogon.com/stats/2026-03/chaos/gen9nationaldex-1760.json',
+    );
   });
 });

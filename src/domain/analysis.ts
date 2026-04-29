@@ -38,15 +38,15 @@ export function analyzeTeam({
     threats: rankMetaThreats({ team: team.members, store, format, limit: 10 }),
     snapshotStatus: metaSnapshot
       ? {
-          label: `${metaSnapshot.isDemo ? 'Demo' : 'Live'} snapshot: ${metaSnapshot.label}`,
+          label: `Snapshot ${metaSnapshot.isDemo ? 'demo' : 'live'} : ${metaSnapshot.label}`,
           source: metaSnapshot.source,
           date: metaSnapshot.date,
           isDemo: metaSnapshot.isDemo,
         }
       : {
-          label: 'No usage snapshot for this format',
-          source: 'none',
-          date: 'unknown',
+          label: "Aucun snapshot d'usage pour ce format",
+          source: 'aucune',
+          date: 'inconnue',
           isDemo: false,
         },
   };

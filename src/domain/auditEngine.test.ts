@@ -22,7 +22,7 @@ describe('auditTeam', () => {
       format: 'champions-ou',
     });
 
-    expect(result.defensive[0].title).toContain('Ice');
+    expect(result.defensive[0].title).toContain('Glace');
     expect(result.defensive[0].evidence.join(' ')).toContain('Garchomp');
   });
 
@@ -36,7 +36,7 @@ describe('auditTeam', () => {
       format: 'champions-bss',
     });
 
-    expect(result.offensive.some((finding) => finding.title.includes('Offensive coverage'))).toBe(true);
+    expect(result.offensive.some((finding) => finding.title.includes('Couverture offensive'))).toBe(true);
     expect(result.roles.detected.map((role) => role.role)).toContain('hazard removal');
     expect(result.roles.detected).toContainEqual({
       role: 'hazard removal',
@@ -88,8 +88,8 @@ describe('auditTeam', () => {
       format: 'champions-ou',
     });
 
-    expect(result.dataWarnings).toContain('Unknown Pokemon: Missingno');
-    expect(result.dataWarnings).toContain('Unknown move for Garchomp: Made Up Move');
+    expect(result.dataWarnings).toContain('Pokémon inconnu : Missingno');
+    expect(result.dataWarnings).toContain('Attaque inconnue pour Garchomp : Made Up Move');
   });
 
   it('marks speed tiers as estimated even with Speed EVs and nature', () => {
@@ -100,7 +100,7 @@ describe('auditTeam', () => {
     });
 
     expect(result.speed[0].estimated).toBe(true);
-    expect(result.speed[0].note).toContain('Approximate');
+    expect(result.speed[0].note).toContain('approximatif');
   });
 
   it('includes selected format context in speed notes while keeping speed estimated', () => {
@@ -112,6 +112,6 @@ describe('auditTeam', () => {
 
     expect(result.speed[0].estimated).toBe(true);
     expect(result.speed[0].note).toContain('Champions OU');
-    expect(result.speed[0].note).toContain('level 100');
+    expect(result.speed[0].note).toContain('niveau par défaut 100');
   });
 });

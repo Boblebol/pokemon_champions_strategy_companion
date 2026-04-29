@@ -55,11 +55,11 @@ function parseBlock(block: string, slot: number): TeamMember | string {
     .filter(Boolean);
 
   if (lines.length === 0) {
-    return `Block ${slot} is empty.`;
+    return `Bloc ${slot} vide.`;
   }
 
   if (isMetadataLine(lines[0])) {
-    return `Block ${slot} could not be parsed as a Pokemon set.`;
+    return `Bloc ${slot} impossible à parser comme set Pokémon.`;
   }
 
   const header = parseHeader(lines[0]);
@@ -81,12 +81,12 @@ function parseBlock(block: string, slot: number): TeamMember | string {
       if (Number.isFinite(level)) {
         member.level = level;
       } else {
-        member.parseWarnings.push(`Invalid Level in line: ${line}`);
+        member.parseWarnings.push(`Niveau invalide dans la ligne : ${line}`);
       }
     } else if (/^Tera Type:/i.test(line)) {
       member.teraType = parseTeraType(line);
       if (!member.teraType) {
-        member.parseWarnings.push(`Unknown Tera Type in line: ${line}`);
+        member.parseWarnings.push(`Type Tera inconnu dans la ligne : ${line}`);
       }
     } else if (/^EVs:/i.test(line)) {
       member.evs = parseEvs(line);
@@ -98,7 +98,7 @@ function parseBlock(block: string, slot: number): TeamMember | string {
   }
 
   if (!member.species || member.moves.length === 0) {
-    return `Block ${slot} could not be parsed as a Pokemon set.`;
+    return `Bloc ${slot} impossible à parser comme set Pokémon.`;
   }
 
   return member;

@@ -47,7 +47,7 @@ describe('rankMetaThreats', () => {
 
     expect(threats[0].species).toBe('Flutter Mane');
     expect(threats[0].reasons.join(' ')).toContain('usage');
-    expect(threats[0].reasons.join(' ')).toContain('super effectively');
+    expect(threats[0].reasons.join(' ')).toContain('super efficacement');
   });
 
   it('ignores status moves when scoring common attack coverage', () => {
@@ -60,7 +60,7 @@ describe('rankMetaThreats', () => {
     const dragonite = threats.find((threat) => threat.species === 'Dragonite');
 
     expect(dragonite?.score).toBeCloseTo(31.4);
-    expect(dragonite?.reasons).toContain('0 team member(s) hit super effectively by known damaging common moves');
+    expect(dragonite?.reasons).toContain('0 membre(s) touches super efficacement par les attaques connues');
   });
 
   it('skips unknown common moves when checking resisted known attacks', () => {
@@ -83,7 +83,7 @@ describe('rankMetaThreats', () => {
       species: 'Known Plus Unknown',
       score: 25,
     });
-    expect(threats[0].reasons).toContain('1 team member(s) resist the known damaging common attacks');
+    expect(threats[0].reasons).toContain('1 membre(s) resistent aux attaques connues');
   });
 
   it('orders equal scores by usage, rank, then species', () => {

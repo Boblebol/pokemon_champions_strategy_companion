@@ -29,6 +29,35 @@ export interface TeamAudit {
   dataWarnings: string[];
 }
 
+const TYPE_LABELS_FR: Record<PokemonType, string> = {
+  Normal: 'Normal',
+  Fire: 'Feu',
+  Water: 'Eau',
+  Electric: 'Electrik',
+  Grass: 'Plante',
+  Ice: 'Glace',
+  Fighting: 'Combat',
+  Poison: 'Poison',
+  Ground: 'Sol',
+  Flying: 'Vol',
+  Psychic: 'Psy',
+  Bug: 'Insecte',
+  Rock: 'Roche',
+  Ghost: 'Spectre',
+  Dragon: 'Dragon',
+  Dark: 'Ténèbres',
+  Steel: 'Acier',
+  Fairy: 'Fée',
+};
+
+function typeLabel(type: PokemonType): string {
+  return TYPE_LABELS_FR[type];
+}
+
+function typeList(types: PokemonType[]): string {
+  return types.map(typeLabel).join(', ');
+}
+
 function getAuditFormatContext(format: FormatId): AuditFormatContext {
   const definition = getFormatDefinition(format);
   if (!definition) {
@@ -55,11 +84,11 @@ function buildDefensiveFindings(team: TeamMember[], store: DataStore): AuditFind
     .slice(0, 5)
     .map((entry) => ({
       severity: entry.weakCount >= 3 ? 'high' : 'medium',
-      title: `${entry.type} pressure: ${entry.weakCount} team members weak`,
+      title: `Pression ${typeLabel(entry.type)} : ${entry.weakCount} membre(s) faibles`,
       evidence: [
-        `Weak: ${entry.weakTo.join(', ')}`,
-        entry.quadWeak.length > 0 ? `4x weak: ${entry.quadWeak.join(', ')}` : 'No 4x weakness',
-        `${entry.resistOrImmuneCount} resist or are immune`,
+        `Faibles : ${entry.weakTo.join(', ')}`,
+        entry.quadWeak.length > 0 ? `Faiblesse x4 : ${entry.quadWeak.join(', ')}` : 'Aucune faiblesse x4',
+        `${entry.resistOrImmuneCount} résistance(s) ou immunité(s)`,
       ],
     }));
 }
@@ -86,8 +115,8 @@ function buildOffensiveFindings(team: TeamMember[], store: DataStore): AuditFind
   return [
     {
       severity: missing.length > 8 ? 'high' : missing.length > 4 ? 'medium' : 'low',
-      title: `Offensive coverage: ${coveredTypes.size} defensive types covered by attacking moves`,
-      evidence: [`Missing super-effective coverage into: ${missing.join(', ') || 'none'}`],
+      title: `Couverture offensive : ${coveredTypes.size} types défensifs couverts par les attaques`,
+      evidence: [`Couverture super efficace manquante sur : ${typeList(missing) || 'aucune'}`],
     },
   ];
 }
@@ -97,12 +126,12 @@ function collectDataWarnings(team: TeamMember[], store: DataStore): string[] {
 
   for (const member of team) {
     if (!store.getPokemon(member.species)) {
-      warnings.push(`Unknown Pokemon: ${member.species}`);
+      warnings.push(`Pokémon inconnu : ${member.species}`);
     }
 
     for (const moveName of member.moves) {
       if (!store.getMove(moveName)) {
-        warnings.push(`Unknown move for ${member.species}: ${moveName}`);
+        warnings.push(`Attaque inconnue pour ${member.species} : ${moveName}`);
       }
     }
   }
@@ -118,15 +147,15 @@ function estimateSpeed(member: TeamMember, store: DataStore, format: AuditFormat
 
   const hasSpeedEvs = typeof member.evs.spe === 'number';
   const speed = reference.baseStats.spe + Math.floor((member.evs.spe ?? 0) / 8);
-  const formatNote = `Shown for ${format.label} at default level ${format.defaultLevel}.`;
+  const formatNote = `Affiché pour ${format.label} au niveau par défaut ${format.defaultLevel}.`;
 
   return {
     species: reference.name,
     speed,
     estimated: true,
     note: hasSpeedEvs
-      ? `${formatNote} Approximate speed marker based on base Speed plus entered Speed EVs; ignores actual level, IV, and nature modifiers.`
-      : `${formatNote} Approximate speed marker based on base Speed plus entered Speed EVs; no Speed EVs entered and actual level, IV, and nature modifiers are ignored.`,
+      ? `${formatNote} Repère de Vitesse approximatif basé sur la Vitesse de base et les EV Vitesse saisis ; ignore le niveau réel, les IV et la nature.`
+      : `${formatNote} Repère de Vitesse approximatif basé sur la Vitesse de base ; aucun EV Vitesse saisi, le niveau réel, les IV et la nature sont ignorés.`,
   };
 }
 

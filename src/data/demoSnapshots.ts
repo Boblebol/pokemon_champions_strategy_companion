@@ -3,7 +3,7 @@ import type { DataBundle } from '../domain/types';
 export const demoDataBundle: DataBundle = {
   reference: {
     id: 'demo-reference-2026-04-29',
-    source: 'Bundled demo data based on Pokemon Showdown-style records',
+    source: 'Données démo locales inspirées de Pokémon Showdown',
     importedAt: '2026-04-29T00:00:00.000Z',
     pokemon: {
       greattusk: {
@@ -194,8 +194,8 @@ export const demoDataBundle: DataBundle = {
     'champions-vgc': {
       id: 'demo-vgc-2026-04',
       format: 'champions-vgc',
-      label: 'Champions VGC Demo',
-      source: 'Demo VGC usage snapshot',
+      label: 'Champions VGC démo locale',
+      source: "Snapshot d'usage VGC démo",
       date: '2026-04',
       importedAt: '2026-04-29T00:00:00.000Z',
       battleCount: 1200,
@@ -224,8 +224,8 @@ export const demoDataBundle: DataBundle = {
     'champions-bss': {
       id: 'demo-bss-2026-04',
       format: 'champions-bss',
-      label: 'Champions BSS Demo',
-      source: 'Demo BSS usage snapshot',
+      label: 'Champions BSS démo locale',
+      source: "Snapshot d'usage BSS démo",
       date: '2026-04',
       importedAt: '2026-04-29T00:00:00.000Z',
       battleCount: 900,
@@ -254,8 +254,8 @@ export const demoDataBundle: DataBundle = {
     'champions-ou': {
       id: 'demo-ou-2026-04',
       format: 'champions-ou',
-      label: 'Champions OU Demo',
-      source: 'Demo OU usage snapshot',
+      label: 'Champions OU démo locale',
+      source: "Snapshot d'usage OU démo",
       date: '2026-04',
       importedAt: '2026-04-29T00:00:00.000Z',
       battleCount: 2500,

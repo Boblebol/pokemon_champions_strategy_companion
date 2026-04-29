@@ -25,16 +25,16 @@ Ability: Multiscale
     expect(result.team.members).toHaveLength(2);
     expect(result.audit.defensive.length).toBeGreaterThan(0);
     expect(result.threats.length).toBeGreaterThan(0);
-    expect(result.snapshotStatus.label).toContain('Demo');
+    expect(result.snapshotStatus.label).toContain('demo');
   });
 
   it('returns fallback snapshot metadata when the selected format has no usage snapshot', () => {
     const meta = { ...demoDataBundle.meta };
     delete (meta as Partial<typeof demoDataBundle.meta>)['champions-ou'];
     const missingSnapshotStatus: SnapshotStatus = {
-      label: 'No usage snapshot for this format',
-      source: 'none',
-      date: 'unknown',
+      label: "Aucun snapshot d'usage pour ce format",
+      source: 'aucune',
+      date: 'inconnue',
       isDemo: false,
     };
 
