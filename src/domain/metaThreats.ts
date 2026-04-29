@@ -1,6 +1,6 @@
 import type { DataStore } from './dataStore';
 import { getDefensiveMultiplier } from './typeEffectiveness';
-import type { FormatId, TeamMember } from './types';
+import type { FormatId, MoveReference, TeamMember } from './types';
 
 export interface RankedThreat {
   species: string;
@@ -11,7 +11,14 @@ export interface RankedThreat {
   reasons: string[];
 }
 
-function countSuperEffectiveTargets(attackingMoves: string[], team: TeamMember[], store: DataStore) {
+function resolveKnownDamagingMoves(commonMoves: string[], store: DataStore): MoveReference[] {
+  return commonMoves.flatMap((moveName) => {
+    const move = store.getMove(moveName);
+    return move && move.category !== 'Status' ? [move] : [];
+  });
+}
+
+function countSuperEffectiveTargets(attackingMoves: MoveReference[], team: TeamMember[], store: DataStore) {
   let count = 0;
 
   for (const member of team) {
@@ -20,9 +27,8 @@ function countSuperEffectiveTargets(attackingMoves: string[], team: TeamMember[]
       continue;
     }
 
-    const isHit = attackingMoves.some((moveName) => {
-      const move = store.getMove(moveName);
-      return move ? getDefensiveMultiplier(move.type, defender.types) > 1 : false;
+    const isHit = attackingMoves.some((move) => {
+      return getDefensiveMultiplier(move.type, defender.types) > 1;
     });
 
     if (isHit) {
@@ -33,7 +39,7 @@ function countSuperEffectiveTargets(attackingMoves: string[], team: TeamMember[]
   return count;
 }
 
-function countResists(attackingMoves: string[], team: TeamMember[], store: DataStore) {
+function countResists(attackingMoves: MoveReference[], team: TeamMember[], store: DataStore) {
   let count = 0;
 
   for (const member of team) {
@@ -42,9 +48,8 @@ function countResists(attackingMoves: string[], team: TeamMember[], store: DataS
       continue;
     }
 
-    const resistsAllKnownAttacks = attackingMoves.every((moveName) => {
-      const move = store.getMove(moveName);
-      return move ? getDefensiveMultiplier(move.type, defender.types) < 1 : false;
+    const resistsAllKnownAttacks = attackingMoves.every((move) => {
+      return getDefensiveMultiplier(move.type, defender.types) < 1;
     });
 
     if (resistsAllKnownAttacks && attackingMoves.length > 0) {
@@ -74,14 +79,15 @@ export function rankMetaThreats({
 
   return snapshot.entries
     .map((entry) => {
-      const superEffectiveTargets = countSuperEffectiveTargets(entry.commonMoves, team, store);
-      const resists = countResists(entry.commonMoves, team, store);
+      const commonDamagingMoves = resolveKnownDamagingMoves(entry.commonMoves, store);
+      const superEffectiveTargets = countSuperEffectiveTargets(commonDamagingMoves, team, store);
+      const resists = countResists(commonDamagingMoves, team, store);
       const score = entry.usage + superEffectiveTargets * 12 - resists * 5;
       const severity: RankedThreat['severity'] = score >= 45 ? 'high' : score >= 25 ? 'medium' : 'low';
       const reasons = [
         `${entry.usage.toFixed(1)}% usage in ${snapshot.label}`,
-        `${superEffectiveTargets} team member(s) hit super effectively by common moves`,
-        `${resists} team member(s) resist the known common attacks`,
+        `${superEffectiveTargets} team member(s) hit super effectively by known damaging common moves`,
+        `${resists} team member(s) resist the known damaging common attacks`,
       ];
 
       return {
@@ -93,6 +99,6 @@ export function rankMetaThreats({
         reasons,
       };
     })
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.score - a.score || b.usage - a.usage || a.rank - b.rank || a.species.localeCompare(b.species))
     .slice(0, limit);
 }
