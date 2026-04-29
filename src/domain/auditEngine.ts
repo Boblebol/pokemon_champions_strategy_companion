@@ -78,6 +78,24 @@ function buildOffensiveFindings(team: TeamMember[], store: DataStore): AuditFind
   ];
 }
 
+function collectDataWarnings(team: TeamMember[], store: DataStore): string[] {
+  const warnings: string[] = [];
+
+  for (const member of team) {
+    if (!store.getPokemon(member.species)) {
+      warnings.push(`Unknown Pokemon: ${member.species}`);
+    }
+
+    for (const moveName of member.moves) {
+      if (!store.getMove(moveName)) {
+        warnings.push(`Unknown move for ${member.species}: ${moveName}`);
+      }
+    }
+  }
+
+  return warnings;
+}
+
 function estimateSpeed(member: TeamMember, store: DataStore): SpeedFinding | undefined {
   const reference = store.getPokemon(member.species);
   if (!reference) {
@@ -90,8 +108,10 @@ function estimateSpeed(member: TeamMember, store: DataStore): SpeedFinding | und
   return {
     species: reference.name,
     speed,
-    estimated: !hasSpeedEvs || !member.nature,
-    note: hasSpeedEvs ? 'Uses entered Speed EVs.' : 'No Speed EVs entered; base Speed estimate only.',
+    estimated: true,
+    note: hasSpeedEvs
+      ? 'Approximate speed marker based on base Speed plus entered Speed EVs; ignores level, IV, and nature modifiers.'
+      : 'Approximate speed marker based on base Speed plus entered Speed EVs; no Speed EVs entered and level, IV, and nature modifiers are ignored.',
   };
 }
 
@@ -103,15 +123,11 @@ export function auditTeam({
   store: DataStore;
   format: FormatId;
 }): TeamAudit {
-  const dataWarnings = team
-    .filter((member) => !store.getPokemon(member.species))
-    .map((member) => `Unknown Pokemon: ${member.species}`);
-
   return {
     defensive: buildDefensiveFindings(team, store),
     offensive: buildOffensiveFindings(team, store),
     roles: detectRoles(team),
     speed: team.flatMap((member) => estimateSpeed(member, store) ?? []),
-    dataWarnings,
+    dataWarnings: collectDataWarnings(team, store),
   };
 }
