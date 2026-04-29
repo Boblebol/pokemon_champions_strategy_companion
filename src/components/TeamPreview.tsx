@@ -15,6 +15,11 @@ export function TeamPreview({ team }: { team: ParsedTeam }) {
             <strong>{member.species}</strong>
             <span>{member.item ?? 'No item'}</span>
             <small>{member.moves.join(' / ')}</small>
+            {member.parseWarnings.map((warning) => (
+              <small className="warning" key={warning}>
+                {warning}
+              </small>
+            ))}
           </article>
         ))}
       </div>

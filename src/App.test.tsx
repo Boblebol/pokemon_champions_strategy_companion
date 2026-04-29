@@ -27,4 +27,17 @@ describe('App', () => {
     expect(await screen.findByText('Garchomp')).toBeInTheDocument();
     expect(screen.getByText(/Great Tusk|Kingambit|Corviknight/)).toBeInTheDocument();
   });
+
+  it('shows member parse warnings from pasted teams', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.clear(screen.getByLabelText(/showdown paste/i));
+    await user.type(
+      screen.getByLabelText(/showdown paste/i),
+      `Garchomp @ Rocky Helmet{enter}Ability: Rough Skin{enter}Level: banana{enter}- Earthquake`,
+    );
+
+    expect(await screen.findByText('Invalid Level in line: Level: banana')).toBeInTheDocument();
+  });
 });

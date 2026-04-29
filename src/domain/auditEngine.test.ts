@@ -56,6 +56,28 @@ describe('auditTeam', () => {
     expect(result.speed[0].estimated).toBe(true);
   });
 
+  it('exposes Champions VGC format context', () => {
+    const result = auditTeam({
+      team: [member('Kingambit', ['Sucker Punch'])],
+      store,
+      format: 'champions-vgc',
+    });
+
+    expect(result.format.label).toBe('Champions VGC');
+    expect(result.format.defaultLevel).toBe(50);
+  });
+
+  it('exposes Champions OU format context', () => {
+    const result = auditTeam({
+      team: [member('Garchomp', ['Earthquake'])],
+      store,
+      format: 'champions-ou',
+    });
+
+    expect(result.format.label).toBe('Champions OU');
+    expect(result.format.defaultLevel).toBe(100);
+  });
+
   it('reports unknown Pokemon and unknown moves as data warnings', () => {
     const result = auditTeam({
       team: [
@@ -79,5 +101,17 @@ describe('auditTeam', () => {
 
     expect(result.speed[0].estimated).toBe(true);
     expect(result.speed[0].note).toContain('Approximate');
+  });
+
+  it('includes selected format context in speed notes while keeping speed estimated', () => {
+    const result = auditTeam({
+      team: [member('Garchomp', ['Earthquake'], { spe: 252 }, { nature: 'Jolly' })],
+      store,
+      format: 'champions-ou',
+    });
+
+    expect(result.speed[0].estimated).toBe(true);
+    expect(result.speed[0].note).toContain('Champions OU');
+    expect(result.speed[0].note).toContain('level 100');
   });
 });

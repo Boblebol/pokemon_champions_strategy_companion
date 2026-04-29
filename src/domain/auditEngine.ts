@@ -1,7 +1,8 @@
 import type { DataStore } from './dataStore';
+import { getFormatDefinition } from './formatRules';
 import { detectRoles } from './roleDetection';
 import { getDefensiveMultiplier, getWeaknessSummary } from './typeEffectiveness';
-import type { FormatId, PokemonType, TeamMember } from './types';
+import type { FormatDefinition, FormatId, PokemonType, TeamMember } from './types';
 import { POKEMON_TYPES } from './types';
 
 export interface AuditFinding {
@@ -17,12 +18,25 @@ export interface SpeedFinding {
   note: string;
 }
 
+export type AuditFormatContext = Pick<FormatDefinition, 'id' | 'label' | 'battleStyle' | 'teamSize' | 'defaultLevel'>;
+
 export interface TeamAudit {
+  format: AuditFormatContext;
   defensive: AuditFinding[];
   offensive: AuditFinding[];
   roles: ReturnType<typeof detectRoles>;
   speed: SpeedFinding[];
   dataWarnings: string[];
+}
+
+function getAuditFormatContext(format: FormatId): AuditFormatContext {
+  const definition = getFormatDefinition(format);
+  if (!definition) {
+    throw new Error(`Unsupported format: ${format}`);
+  }
+
+  const { id, label, battleStyle, teamSize, defaultLevel } = definition;
+  return { id, label, battleStyle, teamSize, defaultLevel };
 }
 
 function resolveTeamTypes(team: TeamMember[], store: DataStore) {
@@ -96,7 +110,7 @@ function collectDataWarnings(team: TeamMember[], store: DataStore): string[] {
   return warnings;
 }
 
-function estimateSpeed(member: TeamMember, store: DataStore): SpeedFinding | undefined {
+function estimateSpeed(member: TeamMember, store: DataStore, format: AuditFormatContext): SpeedFinding | undefined {
   const reference = store.getPokemon(member.species);
   if (!reference) {
     return undefined;
@@ -104,30 +118,35 @@ function estimateSpeed(member: TeamMember, store: DataStore): SpeedFinding | und
 
   const hasSpeedEvs = typeof member.evs.spe === 'number';
   const speed = reference.baseStats.spe + Math.floor((member.evs.spe ?? 0) / 8);
+  const formatNote = `Shown for ${format.label} at default level ${format.defaultLevel}.`;
 
   return {
     species: reference.name,
     speed,
     estimated: true,
     note: hasSpeedEvs
-      ? 'Approximate speed marker based on base Speed plus entered Speed EVs; ignores level, IV, and nature modifiers.'
-      : 'Approximate speed marker based on base Speed plus entered Speed EVs; no Speed EVs entered and level, IV, and nature modifiers are ignored.',
+      ? `${formatNote} Approximate speed marker based on base Speed plus entered Speed EVs; ignores actual level, IV, and nature modifiers.`
+      : `${formatNote} Approximate speed marker based on base Speed plus entered Speed EVs; no Speed EVs entered and actual level, IV, and nature modifiers are ignored.`,
   };
 }
 
 export function auditTeam({
   team,
   store,
+  format,
 }: {
   team: TeamMember[];
   store: DataStore;
   format: FormatId;
 }): TeamAudit {
+  const formatContext = getAuditFormatContext(format);
+
   return {
+    format: formatContext,
     defensive: buildDefensiveFindings(team, store),
     offensive: buildOffensiveFindings(team, store),
     roles: detectRoles(team),
-    speed: team.flatMap((member) => estimateSpeed(member, store) ?? []),
+    speed: team.flatMap((member) => estimateSpeed(member, store, formatContext) ?? []),
     dataWarnings: collectDataWarnings(team, store),
   };
 }
