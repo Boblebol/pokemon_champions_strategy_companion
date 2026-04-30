@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AuditPanel } from './components/AuditPanel';
 import { HelpPanel } from './components/HelpPanel';
 import { SetupWizard } from './components/SetupWizard';
@@ -7,6 +7,7 @@ import { TeamBuilder } from './components/TeamBuilder';
 import { TeamPreview } from './components/TeamPreview';
 import { ThreatPanel } from './components/ThreatPanel';
 import { demoDataBundle } from './data/demoSnapshots';
+import { getPkmnReferenceSnapshot } from './data/pkmnReference';
 import { analyzeTeam } from './domain/analysis';
 import { createDataStore } from './domain/dataStore';
 import { getPickSize } from './domain/matchSelection';
@@ -36,8 +37,35 @@ export default function App() {
   const [builderState, setBuilderState] = useState(() => builderStateFromMembers(parseShowdownTeam(initialPaste).members));
   const [selectedSlots, setSelectedSlots] = useState<number[]>([1]);
   const [dataBundle, setDataBundle] = useState<DataBundle>(demoDataBundle);
+  const [referenceStatus, setReferenceStatus] = useState<'loading' | 'complete' | 'error'>('loading');
   const [refreshMessage, setRefreshMessage] = useState<string>();
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    getPkmnReferenceSnapshot()
+      .then((reference) => {
+        if (!mounted) {
+          return;
+        }
+
+        setDataBundle((currentBundle) => ({
+          ...currentBundle,
+          reference,
+        }));
+        setReferenceStatus('complete');
+      })
+      .catch(() => {
+        if (mounted) {
+          setReferenceStatus('error');
+        }
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const store = useMemo(() => createDataStore(dataBundle), [dataBundle]);
   const pickSize = getPickSize(format);
@@ -214,6 +242,10 @@ export default function App() {
           state={builderState}
           pokemonOptions={pokemonOptions}
           moveOptions={moveOptions}
+          itemOptions={dataBundle.reference.items}
+          natureOptions={dataBundle.reference.natures}
+          referenceStatus={referenceStatus}
+          referenceSource={dataBundle.reference.source}
           selectedSlots={selectedSlots}
           pickSize={pickSize}
           onSlotChange={handleBuilderSlotChange}

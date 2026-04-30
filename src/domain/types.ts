@@ -57,6 +57,8 @@ export interface ReferenceSnapshot {
   importedAt: string;
   pokemon: Record<string, PokemonReference>;
   moves: Record<string, MoveReference>;
+  items: string[];
+  natures: string[];
 }
 
 export interface UsageEntry {

@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@pkmn/data':
+        specifier: ^0.10.7
+        version: 0.10.7
+      '@pkmn/dex':
+        specifier: ^0.10.7
+        version: 0.10.7
       react:
         specifier: ^19.0.0
         version: 19.2.5
@@ -340,6 +346,18 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@pkmn/data@0.10.7':
+    resolution: {integrity: sha512-csUX8BU4RMHxl3nEF3gIOp1eq9+q3xh+ZaX+Nr1RZBqWF4L5PkBzUG36KKgU+lw92BmncDYm7S8t52lPhAmoXA==}
+
+  '@pkmn/dex-types@0.10.7':
+    resolution: {integrity: sha512-ewinxJHyeLwYSOcDsy+2pq9e1mMYNXwBB9B3CZG2fvonrkxAyycR5AtLKPqE61480jPPxaZocOh+SLtUm648SA==}
+
+  '@pkmn/dex@0.10.7':
+    resolution: {integrity: sha512-W2/92PNtEP8h/2nIPH1v7qCiiKb9r4JUybv46yo3nxXVZehs3gFR4h/TKK1sopJpLBFul1VSRCTpCdhQx5gLag==}
+
+  '@pkmn/types@4.0.0':
+    resolution: {integrity: sha512-gR2s/pxJYEegek1TtsYCQupNR3d5hMlcJFsiD+2LyfKr4tc+gETTql47tWLX5mFSbPcbXh7f4+7txlMIDoZx/g==}
 
   '@rolldown/pluginutils@1.0.0-rc.3':
     resolution: {integrity: sha512-eybk3TjzzzV97Dlj5c+XrBFW57eTNhzod66y9HrBlzJ6NsCrWCp/2kaPS3K9wJmurBC0Tdw4yPjXKZqlznim3Q==}
@@ -1346,6 +1364,20 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@pkmn/data@0.10.7':
+    dependencies:
+      '@pkmn/dex-types': 0.10.7
+
+  '@pkmn/dex-types@0.10.7':
+    dependencies:
+      '@pkmn/types': 4.0.0
+
+  '@pkmn/dex@0.10.7':
+    dependencies:
+      '@pkmn/dex-types': 0.10.7
+
+  '@pkmn/types@4.0.0': {}
 
   '@rolldown/pluginutils@1.0.0-rc.3': {}
 

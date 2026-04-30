@@ -16,6 +16,8 @@
     "lint": "tsc -b --pretty false"
   },
   "dependencies": {
+    "@pkmn/data": "^0.10.7",
+    "@pkmn/dex": "^0.10.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

@@ -54,6 +54,8 @@ describe('App', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { name: /constructeur d'équipe/i })).toBeInTheDocument();
+    expect(screen.getByText(/étapes constructeur/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /modifier slot 2/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/slot 1 pokémon/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/slot 1 attaque 1/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/slot 1 ev atk/i)).toBeInTheDocument();
@@ -62,10 +64,18 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /analyse sélection jouée/i })).toBeInTheDocument();
   });
 
+  it('loads the complete Showdown reference in the builder', async () => {
+    render(<App />);
+
+    expect(await screen.findByText(/source complète/i, undefined, { timeout: 5000 })).toBeInTheDocument();
+    expect(await screen.findByRole('option', { name: 'Bulbasaur' }, { timeout: 5000 })).toBeInTheDocument();
+  });
+
   it('updates the roster from builder controls and exports the generated paste', async () => {
     const user = userEvent.setup();
     render(<App />);
 
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
     await user.selectOptions(screen.getByLabelText(/slot 2 pokémon/i), 'Dragonite');
     await user.selectOptions(screen.getByLabelText(/slot 2 objet/i), 'Heavy-Duty Boots');
     await user.selectOptions(screen.getByLabelText(/slot 2 attaque 1/i), 'Extreme Speed');
@@ -84,6 +94,7 @@ describe('App', () => {
     const user = userEvent.setup();
     render(<App />);
 
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
     await user.selectOptions(screen.getByLabelText(/slot 2 pokémon/i), 'Garchomp');
 
     const abilitySelect = screen.getByLabelText(/slot 2 talent/i);

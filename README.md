@@ -9,11 +9,13 @@ Démo publique : <https://boblebol.github.io/pokemon_champions_strategy_companio
 
 ## Fonctionnalités
 
-- Assistant de configuration en 3 étapes : format, équipe, analyse.
+- Assistant de configuration en étapes : format, équipe, sélection, analyse.
 - Interface française avec cartes d'équipe, audit et menaces méta.
 - Import d'un paste Pokémon Showdown.
-- Constructeur d'équipe sur 6 slots avec Pokémon, attaques, objet, talent,
-  nature, EV et notes privées par slot.
+- Constructeur d'équipe guidé sur 6 slots avec funnel, édition slot par slot,
+  Pokémon, attaques, objet, talent, nature, EV et notes privées.
+- Référence complète Gen 9 via `@pkmn/dex` et `@pkmn/data` : Pokémon, talents,
+  learnsets, objets et natures.
 - Export Showdown généré automatiquement depuis le constructeur.
 - Formats cibles : Champions VGC, Champions BSS et Champions OU.
 - Sélection de match adaptée au format : 3 Pokémon en BSS, 4 en VGC, 6 en OU.
@@ -47,6 +49,9 @@ La V1.2 cible ces snapshots :
 - `gen9nationaldex-1760.json` pour Champions OU
 
 Des snapshots demo typés restent inclus pour que l'app fonctionne hors ligne.
+La référence de construction est générée localement depuis les packages `@pkmn`
+afin de proposer les Pokémon, attaques apprenables, objets et natures sans API
+payante ni scraping côté client.
 
 ## Développement
 
