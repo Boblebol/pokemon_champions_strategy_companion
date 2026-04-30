@@ -1,5 +1,6 @@
 import type { BuilderSlot, TeamBuilderState } from '../domain/teamBuilder';
-import type { MoveReference, PokemonReference, StatId, StatTable } from '../domain/types';
+import { POKEMON_TYPES } from '../domain/types';
+import type { MoveReference, PokemonReference, PokemonType, StatId, StatTable } from '../domain/types';
 
 const STAT_FIELDS: Array<{ id: StatId; label: string }> = [
   { id: 'hp', label: 'HP' },
@@ -8,6 +9,58 @@ const STAT_FIELDS: Array<{ id: StatId; label: string }> = [
   { id: 'spa', label: 'SpA' },
   { id: 'spd', label: 'SpD' },
   { id: 'spe', label: 'Spe' },
+];
+
+const ITEM_OPTIONS = [
+  'Booster Energy',
+  'Black Glasses',
+  'Clear Amulet',
+  'Choice Band',
+  'Choice Scarf',
+  'Choice Specs',
+  'Covert Cloak',
+  'Eject Button',
+  'Expert Belt',
+  'Focus Sash',
+  'Heavy-Duty Boots',
+  'Life Orb',
+  'Leftovers',
+  'Loaded Dice',
+  'Lum Berry',
+  'Mystic Water',
+  'Rocky Helmet',
+  'Safety Goggles',
+  'Sitrus Berry',
+  'Throat Spray',
+  'Weakness Policy',
+];
+
+const NATURE_OPTIONS = [
+  'Adamant',
+  'Bashful',
+  'Bold',
+  'Brave',
+  'Calm',
+  'Careful',
+  'Docile',
+  'Gentle',
+  'Hardy',
+  'Hasty',
+  'Impish',
+  'Jolly',
+  'Lax',
+  'Lonely',
+  'Mild',
+  'Modest',
+  'Naive',
+  'Naughty',
+  'Quiet',
+  'Quirky',
+  'Rash',
+  'Relaxed',
+  'Sassy',
+  'Serious',
+  'Timid',
 ];
 
 function numberInputValue(value: number | undefined): string {
@@ -27,6 +80,29 @@ function nextEvs(evs: StatTable, stat: StatId, rawValue: string): StatTable {
 
 function replaceMove(moves: string[], index: number, move: string): string[] {
   return moves.map((currentMove, currentIndex) => (currentIndex === index ? move : currentMove));
+}
+
+function withCurrentOption(options: string[], currentValue: string | undefined): string[] {
+  if (!currentValue || options.includes(currentValue)) {
+    return options;
+  }
+
+  return [currentValue, ...options];
+}
+
+function findPokemon(pokemonOptions: PokemonReference[], species: string | undefined): PokemonReference | undefined {
+  return pokemonOptions.find((pokemon) => pokemon.name === species);
+}
+
+function moveOptionsForSlot(
+  slot: BuilderSlot,
+  pokemon: PokemonReference | undefined,
+  moveOptions: MoveReference[],
+): MoveReference[] {
+  const allowedMoveIds = new Set(pokemon?.moveIds ?? []);
+  const currentMoves = new Set(slot.moves.filter(Boolean));
+
+  return moveOptions.filter((move) => allowedMoveIds.has(move.id) || currentMoves.has(move.name));
 }
 
 export function TeamBuilder({
@@ -58,6 +134,9 @@ export function TeamBuilder({
         {state.slots.map((slot) => {
           const isSelected = selectedSlots.includes(slot.id);
           const cannotSelectMore = !isSelected && selectedSlots.length >= pickSize;
+          const selectedPokemon = findPokemon(pokemonOptions, slot.species);
+          const abilityOptions = withCurrentOption(selectedPokemon?.abilities ?? [], slot.ability);
+          const filteredMoveOptions = moveOptionsForSlot(slot, selectedPokemon, moveOptions);
 
           return (
             <article className={`builder-slot ${isSelected ? 'selected' : ''}`} key={slot.id}>
@@ -78,7 +157,14 @@ export function TeamBuilder({
                 <span>Slot {slot.id} Pokémon</span>
                 <select
                   value={slot.species ?? ''}
-                  onChange={(event) => onSlotChange(slot.id, { species: event.target.value || undefined })}
+                  onChange={(event) =>
+                    onSlotChange(slot.id, {
+                      species: event.target.value || undefined,
+                      ability: undefined,
+                      teraType: undefined,
+                      moves: ['', '', '', ''],
+                    })
+                  }
                 >
                   <option value="">Choisir</option>
                   {pokemonOptions.map((pokemon) => (
@@ -92,24 +178,62 @@ export function TeamBuilder({
               <div className="slot-basics">
                 <label className="field">
                   <span>Slot {slot.id} Objet</span>
-                  <input
+                  <select
                     value={slot.item ?? ''}
-                    onChange={(event) => onSlotChange(slot.id, { item: event.target.value })}
-                  />
+                    onChange={(event) => onSlotChange(slot.id, { item: event.target.value || undefined })}
+                  >
+                    <option value="">Choisir</option>
+                    {withCurrentOption(ITEM_OPTIONS, slot.item).map((item) => (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    ))}
+                  </select>
                 </label>
                 <label className="field">
                   <span>Slot {slot.id} Talent</span>
-                  <input
+                  <select
                     value={slot.ability ?? ''}
-                    onChange={(event) => onSlotChange(slot.id, { ability: event.target.value })}
-                  />
+                    disabled={!selectedPokemon}
+                    onChange={(event) => onSlotChange(slot.id, { ability: event.target.value || undefined })}
+                  >
+                    <option value="">Choisir</option>
+                    {abilityOptions.map((ability) => (
+                      <option key={ability} value={ability}>
+                        {ability}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="field">
+                  <span>Slot {slot.id} Type Tera</span>
+                  <select
+                    value={slot.teraType ?? ''}
+                    onChange={(event) =>
+                      onSlotChange(slot.id, { teraType: (event.target.value || undefined) as PokemonType | undefined })
+                    }
+                  >
+                    <option value="">Choisir</option>
+                    {POKEMON_TYPES.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
                 </label>
                 <label className="field">
                   <span>Slot {slot.id} Nature</span>
-                  <input
+                  <select
                     value={slot.nature ?? ''}
-                    onChange={(event) => onSlotChange(slot.id, { nature: event.target.value })}
-                  />
+                    onChange={(event) => onSlotChange(slot.id, { nature: event.target.value || undefined })}
+                  >
+                    <option value="">Choisir</option>
+                    {withCurrentOption(NATURE_OPTIONS, slot.nature).map((nature) => (
+                      <option key={nature} value={nature}>
+                        {nature}
+                      </option>
+                    ))}
+                  </select>
                 </label>
               </div>
 
@@ -121,10 +245,11 @@ export function TeamBuilder({
                     </span>
                     <select
                       value={move}
+                      disabled={!selectedPokemon}
                       onChange={(event) => onSlotChange(slot.id, { moves: replaceMove(slot.moves, index, event.target.value) })}
                     >
                       <option value="">Choisir</option>
-                      {moveOptions.map((moveOption) => (
+                      {filteredMoveOptions.map((moveOption) => (
                         <option key={moveOption.id} value={moveOption.name}>
                           {moveOption.name}
                         </option>

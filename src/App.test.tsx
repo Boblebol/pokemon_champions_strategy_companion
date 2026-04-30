@@ -67,7 +67,7 @@ describe('App', () => {
     render(<App />);
 
     await user.selectOptions(screen.getByLabelText(/slot 2 pokémon/i), 'Dragonite');
-    await user.type(screen.getByLabelText(/slot 2 objet/i), 'Heavy-Duty Boots');
+    await user.selectOptions(screen.getByLabelText(/slot 2 objet/i), 'Heavy-Duty Boots');
     await user.selectOptions(screen.getByLabelText(/slot 2 attaque 1/i), 'Extreme Speed');
     await user.clear(screen.getByLabelText(/slot 2 ev atk/i));
     await user.type(screen.getByLabelText(/slot 2 ev atk/i), '252');
@@ -78,6 +78,33 @@ describe('App', () => {
     expect(paste.value).toContain('EVs: 252 Atk');
     expect(paste.value).not.toContain('Win condition');
     expect(await screen.findAllByText('Dragonite')).not.toHaveLength(0);
+  });
+
+  it('filters set dropdowns from the selected Pokémon reference', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(screen.getByLabelText(/slot 2 pokémon/i), 'Garchomp');
+
+    const abilitySelect = screen.getByLabelText(/slot 2 talent/i);
+    expect(within(abilitySelect).getByRole('option', { name: 'Rough Skin' })).toBeInTheDocument();
+    expect(within(abilitySelect).queryByRole('option', { name: 'Multiscale' })).not.toBeInTheDocument();
+    await user.selectOptions(abilitySelect, 'Rough Skin');
+
+    const firstMoveSelect = screen.getByLabelText(/slot 2 attaque 1/i);
+    expect(within(firstMoveSelect).getByRole('option', { name: 'Earthquake' })).toBeInTheDocument();
+    expect(within(firstMoveSelect).queryByRole('option', { name: 'Moonblast' })).not.toBeInTheDocument();
+    await user.selectOptions(firstMoveSelect, 'Earthquake');
+    await user.selectOptions(screen.getByLabelText(/slot 2 objet/i), 'Rocky Helmet');
+    await user.selectOptions(screen.getByLabelText(/slot 2 type tera/i), 'Ground');
+    await user.selectOptions(screen.getByLabelText(/slot 2 nature/i), 'Jolly');
+
+    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
+    expect(paste.value).toContain('Garchomp @ Rocky Helmet');
+    expect(paste.value).toContain('Ability: Rough Skin');
+    expect(paste.value).toContain('Tera Type: Ground');
+    expect(paste.value).toContain('Jolly Nature');
+    expect(paste.value).toContain('- Earthquake');
   });
 
   it('adapts match selection to Champions BSS pick 3', async () => {

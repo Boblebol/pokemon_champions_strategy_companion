@@ -39,6 +39,8 @@ export interface PokemonReference {
   name: string;
   types: PokemonType[];
   baseStats: Required<StatTable>;
+  abilities: string[];
+  moveIds: string[];
 }
 
 export interface MoveReference {

@@ -1,4 +1,4 @@
-import type { StatId, StatTable, TeamMember } from './types';
+import type { PokemonType, StatId, StatTable, TeamMember } from './types';
 
 const TEAM_SIZE = 6;
 const MOVE_SLOTS = 4;
@@ -17,6 +17,7 @@ export interface BuilderSlot {
   species?: string;
   item?: string;
   ability?: string;
+  teraType?: PokemonType;
   nature?: string;
   evs: StatTable;
   moves: string[];
@@ -93,6 +94,7 @@ export function builderStateFromMembers(members: TeamMember[], slotCount = TEAM_
       species: member.species,
       item: member.item,
       ability: member.ability,
+      teraType: member.teraType,
       nature: member.nature,
       evs: member.evs,
       moves: member.moves,
@@ -112,6 +114,7 @@ export function builderStateToMembers(state: TeamBuilderState): TeamMember[] {
         species: slot.species.trim(),
         item: slot.item?.trim() || undefined,
         ability: slot.ability?.trim() || undefined,
+        ...(slot.teraType ? { teraType: slot.teraType } : {}),
         nature: slot.nature?.trim() || undefined,
         evs: slot.evs,
         moves: compactMoves(slot.moves),
@@ -131,6 +134,10 @@ export function builderStateToShowdownPaste(state: TeamBuilderState): string {
       const lines = [`${slot.species.trim()}${slot.item?.trim() ? ` @ ${slot.item.trim()}` : ''}`];
       if (slot.ability?.trim()) {
         lines.push(`Ability: ${slot.ability.trim()}`);
+      }
+
+      if (slot.teraType) {
+        lines.push(`Tera Type: ${slot.teraType}`);
       }
 
       const evLine = formatEvs(slot.evs);
