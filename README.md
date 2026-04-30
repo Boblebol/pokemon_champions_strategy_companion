@@ -5,7 +5,7 @@ paste Pokémon Showdown ou d'un constructeur d'équipe intégré.
 
 Repository public : <https://github.com/Boblebol/pokemon_champions_strategy_companion>
 
-Démo GitHub Pages : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
+Démo publique : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 
 ## Fonctionnalités
 
@@ -75,7 +75,7 @@ make check
 
 - Portfolio : <https://alexandre-enouf.fr>
 - Repository public : <https://github.com/Boblebol/pokemon_champions_strategy_companion>
-- Démo GitHub Pages : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
+- Démo publique : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 
 ## Licence
 
