@@ -25,6 +25,7 @@ textarea {
 }
 
 button,
+input:not([type="checkbox"]),
 select,
 textarea {
   border: 1px solid #cfd8e5;
@@ -35,6 +36,7 @@ textarea {
 }
 
 button,
+input:not([type="checkbox"]),
 select {
   min-height: 40px;
   padding: 8px 12px;
@@ -251,6 +253,128 @@ small {
   padding: 16px;
 }
 
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: start;
+  margin-bottom: 14px;
+}
+
+.panel-heading p {
+  margin-bottom: 0;
+  color: #4b5c73;
+}
+
+.team-builder {
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+
+.builder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+.builder-slot {
+  display: grid;
+  gap: 12px;
+  border: 1px solid #d9e1ed;
+  border-radius: 8px;
+  background: #fbfcff;
+  padding: 14px;
+}
+
+.builder-slot.selected {
+  border-color: #3972d5;
+  box-shadow: inset 0 0 0 1px #3972d5;
+}
+
+.slot-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.slot-header strong {
+  font-size: 16px;
+}
+
+.pick-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 999px;
+  background: #eef5ff;
+  color: #234979;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pick-toggle input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #3972d5;
+}
+
+.slot-basics,
+.move-grid,
+.ev-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.slot-basics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.move-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ev-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.compact-field span {
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.compact-field input {
+  padding-inline: 8px;
+}
+
+.slot-comment {
+  min-height: 72px;
+  resize: vertical;
+  padding: 10px;
+}
+
+.selected-analysis {
+  display: grid;
+  gap: 10px;
+}
+
+.selected-analysis p {
+  margin-bottom: 0;
+}
+
+.selected-analysis .finding-list:empty::before {
+  content: "Aucune alerte forte sur la sélection actuelle.";
+  display: block;
+  border: 1px solid #d9e1ed;
+  border-radius: 8px;
+  background: #fbfcff;
+  color: #64748b;
+  padding: 12px;
+}
+
 .team-grid,
 .finding-list,
 .threat-list,
@@ -345,5 +469,17 @@ small {
   .snapshot-status strong,
   .snapshot-status span {
     max-width: 30ch;
+  }
+
+  .builder-grid,
+  .slot-basics,
+  .move-grid,
+  .ev-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .slot-header {
+    align-items: start;
+    flex-direction: column;
   }
 }

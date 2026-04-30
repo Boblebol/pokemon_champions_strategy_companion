@@ -17,10 +17,10 @@ function roleLabel(role: TeamRole): string {
   return ROLE_LABELS[role];
 }
 
-export function AuditPanel({ audit }: { audit: TeamAudit }) {
+export function AuditPanel({ audit, title = "Audit d'équipe" }: { audit: TeamAudit; title?: string }) {
   return (
     <section className="panel">
-      <h2>Audit d'équipe</h2>
+      <h2>{title}</h2>
       {audit.dataWarnings.map((warning) => (
         <p className="warning" key={warning}>
           {warning}
