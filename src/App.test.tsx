@@ -28,6 +28,9 @@ describe('App', () => {
     expect(screen.getByLabelText(/équipe showdown/i)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /audit d'équipe/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /menaces méta/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /menaces possibles hors méta/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/coverage possible/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/complète la sélection de 3 pokémon/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
     expect(screen.getByText(/roster complet/i)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /plan de match 3v3/i })).toBeInTheDocument();

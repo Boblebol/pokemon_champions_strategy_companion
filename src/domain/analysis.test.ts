@@ -97,6 +97,31 @@ Ability: Levitate
     expect(result.selectionWarnings).toEqual([]);
   });
 
+  it('ranks possible non-meta threats only when the match selection is complete', () => {
+    const result = analyzeTeam({
+      paste: `
+Garchomp @ Rocky Helmet
+Ability: Rough Skin
+- Earthquake
+
+Dragonite @ Heavy-Duty Boots
+Ability: Multiscale
+- Dragon Dance
+- Extreme Speed
+
+Great Tusk @ Booster Energy
+Ability: Protosynthesis
+- Close Combat
+`,
+      format: 'champions-bss',
+      store: createDataStore(demoDataBundle),
+      selectedSlots: [1, 2, 3],
+    });
+
+    expect(result.selectedPossibleThreats.map((threat) => threat.species)).toContain('Flutter Mane');
+    expect(result.possibleThreats).toEqual([]);
+  });
+
   it('reports incomplete selected match teams', () => {
     const result = analyzeTeam({
       paste: `

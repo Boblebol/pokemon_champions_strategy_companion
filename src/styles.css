@@ -882,6 +882,7 @@ small {
 .team-grid,
 .finding-list,
 .threat-list,
+.possible-threat-list,
 .help-panel {
   display: grid;
   gap: 10px;
@@ -897,6 +898,22 @@ small {
   border-radius: 8px;
   background: #fbfcff;
   padding: 12px;
+}
+
+.possible-threat-panel p {
+  margin-bottom: 10px;
+}
+
+.coverage-list,
+.set-archetype-list {
+  display: grid;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.set-archetype-list {
+  border-top: 1px solid rgba(19, 36, 58, 0.12);
+  padding-top: 6px;
 }
 
 .finding.high,

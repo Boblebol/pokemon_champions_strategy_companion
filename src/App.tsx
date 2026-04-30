@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { AuditPanel } from './components/AuditPanel';
 import { HelpPanel } from './components/HelpPanel';
+import { PossibleThreatPanel } from './components/PossibleThreatPanel';
 import { SetupWizard } from './components/SetupWizard';
 import { SnapshotStatus } from './components/SnapshotStatus';
 import { TeamBuilder } from './components/TeamBuilder';
@@ -297,6 +298,11 @@ export default function App() {
             </div>
           </section>
           <ThreatPanel threats={analysis.threats} />
+          <PossibleThreatPanel
+            threats={analysis.selectedPossibleThreats}
+            selectedCount={analysis.selectedTeam.members.length}
+            pickSize={analysis.pickSize}
+          />
           <HelpPanel />
         </div>
       </section>

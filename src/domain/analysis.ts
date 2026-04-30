@@ -4,6 +4,8 @@ import type { DataStore } from './dataStore';
 import { getPickSize, selectMembersForMatch, selectionWarnings } from './matchSelection';
 import { rankMetaThreats } from './metaThreats';
 import type { RankedThreat } from './metaThreats';
+import { rankPossibleThreats } from './possibleThreats';
+import type { PossibleThreat } from './possibleThreats';
 import { parseShowdownTeam } from './teamImport';
 import type { FormatId, ParsedTeam, TeamMember } from './types';
 
@@ -21,6 +23,8 @@ export interface AnalysisResult {
   selectedTeam: ParsedTeam;
   selectedAudit: TeamAudit;
   selectedThreats: RankedThreat[];
+  possibleThreats: PossibleThreat[];
+  selectedPossibleThreats: PossibleThreat[];
   pickSize: number;
   selectionWarnings: string[];
   snapshotStatus: SnapshotStatus;
@@ -44,6 +48,7 @@ export function analyzeTeam({
   const selectedMembers = selectMembersForMatch(team.members, selectedSlots, format);
   const selectedTeam = { members: selectedMembers, errors: [] };
   const metaSnapshot = store.getMetaSnapshot(format);
+  const hasCompleteSelection = selectedMembers.length === pickSize;
 
   return {
     team,
@@ -52,6 +57,10 @@ export function analyzeTeam({
     selectedTeam,
     selectedAudit: auditTeam({ team: selectedMembers, store, format }),
     selectedThreats: rankMetaThreats({ team: selectedMembers, store, format, limit: 10 }),
+    possibleThreats: [],
+    selectedPossibleThreats: hasCompleteSelection
+      ? rankPossibleThreats({ team: selectedMembers, store, format, limit: 8 })
+      : [],
     pickSize,
     selectionWarnings: selectedSlots ? selectionWarnings({ selectedCount: selectedMembers.length, pickSize }) : [],
     snapshotStatus: metaSnapshot

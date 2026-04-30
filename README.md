@@ -17,11 +17,14 @@ Démo publique : <https://boblebol.github.io/pokemon_champions_strategy_companio
 - Référence complète Gen 9 via `@pkmn/dex` et `@pkmn/data` : Pokémon, talents,
   learnsets, objets et natures.
 - Export Showdown généré automatiquement depuis le constructeur.
-- Formats cibles : Champions VGC, Champions BSS et Champions OU.
-- Sélection de match adaptée au format : 3 Pokémon en BSS, 4 en VGC, 6 en OU.
+- Formats cibles : Champions 3v3 niveau 100, Champions VGC et Champions OU.
+- Sélection de match adaptée au format : 3 Pokémon en Champions 3v3, 4 en VGC,
+  6 en OU.
 - Analyse séparée du roster complet et de la sélection jouée.
-- Audit défensif, couverture offensive, rôles et repères vitesse.
+- Audit défensif, couverture offensive, rôles et speed tiers exacts.
 - Classement des menaces méta selon les usages et la pression sur l'équipe.
+- Menaces possibles hors méta depuis les learnsets complets, avec coverage
+  possible, vitesse max et archétypes de sets compacts.
 - Tentative de mise à jour depuis les statistiques Smogon chaos disponibles.
 - Fallback local explicite si le réseau, Smogon ou CORS bloque la mise à jour.
 
@@ -45,7 +48,7 @@ est `2026-03`.
 La V1.2 cible ces snapshots :
 
 - `gen9vgc2026regf-1760.json` pour Champions VGC
-- `gen9bssregi-1760.json` pour Champions BSS
+- `gen9bssregi-1760.json` pour Champions 3v3
 - `gen9nationaldex-1760.json` pour Champions OU
 
 Des snapshots demo typés restent inclus pour que l'app fonctionne hors ligne.
