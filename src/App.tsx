@@ -68,11 +68,9 @@ export default function App() {
   }
 
   function handleBuilderSlotChange(slotId: number, patch: Partial<Omit<BuilderSlot, 'id'>>) {
-    setBuilderState((currentState) => {
-      const nextState = updateBuilderSlot(currentState, slotId, patch);
-      setPaste(builderStateToShowdownPaste(nextState));
-      return nextState;
-    });
+    const nextState = updateBuilderSlot(builderState, slotId, patch);
+    setBuilderState(nextState);
+    setPaste(builderStateToShowdownPaste(nextState));
   }
 
   function handleToggleSelection(slotId: number, selected: boolean) {
