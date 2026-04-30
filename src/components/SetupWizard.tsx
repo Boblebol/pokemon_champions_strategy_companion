@@ -32,7 +32,25 @@ export function SetupWizard({
       </article>
 
       <article className="wizard-step">
-        <span className="step-kicker">3 Analyse</span>
+        <span className="step-kicker">3 Sélection</span>
+        <h2>Verrouiller le plan de match</h2>
+        <dl className="wizard-metrics">
+          <div>
+            <dt>Joués</dt>
+            <dd>
+              {analysis.selectedTeam.members.length}/{analysis.pickSize}
+            </dd>
+          </div>
+          <div>
+            <dt>Roster</dt>
+            <dd>{analysis.team.members.length}/6</dd>
+          </div>
+        </dl>
+        <p>Le diagnostic de résistances se recalcule sur les Pokémon cochés dans le constructeur.</p>
+      </article>
+
+      <article className="wizard-step">
+        <span className="step-kicker">4 Analyse</span>
         <h2>Lire les priorités</h2>
         <dl className="wizard-metrics">
           <div>

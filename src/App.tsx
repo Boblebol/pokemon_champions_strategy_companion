@@ -50,6 +50,8 @@ export default function App() {
   const analysis = useMemo(() => {
     return analyzeTeam({ paste, format, store, selectedSlots });
   }, [paste, format, store, selectedSlots]);
+  const selectedNames = analysis.selectedTeam.members.map((member) => member.species);
+  const topThreat = analysis.threats[0];
 
   function handleFormatChange(nextFormat: FormatId) {
     const nextPickSize = getPickSize(nextFormat);
@@ -100,68 +102,153 @@ export default function App() {
   }
 
   return (
-    <main className="app-shell">
-      <header className="top-bar">
-        <div>
-          <span className="eyebrow">V1 locale · Smogon-ready</span>
-          <h1>Assistant stratégique Pokémon Champions</h1>
-          <p>Importe ton équipe, lis les faiblesses et cible les menaces du méta.</p>
+    <main className="product-shell">
+      <section className="marketing-hero" aria-label="Présentation marketing">
+        <div className="hero-nav">
+          <strong>Champions Companion</strong>
+          <a href="#app">Cockpit</a>
         </div>
-        <SnapshotStatus
-          label={analysis.snapshotStatus.label}
-          source={analysis.snapshotStatus.source}
-          onRefresh={handleRefresh}
-          refreshMessage={refreshMessage}
-          isRefreshing={isRefreshing}
-        />
-      </header>
 
-      <SetupWizard
-        format={format}
-        onFormatChange={handleFormatChange}
-        paste={paste}
-        onPasteChange={handlePasteChange}
-        analysis={analysis}
-      />
-
-      <TeamBuilder
-        state={builderState}
-        pokemonOptions={pokemonOptions}
-        moveOptions={moveOptions}
-        selectedSlots={selectedSlots}
-        pickSize={pickSize}
-        onSlotChange={handleBuilderSlotChange}
-        onToggleSelection={handleToggleSelection}
-      />
-
-      <div className="dashboard">
-        <TeamPreview team={analysis.team} />
-        <AuditPanel audit={analysis.audit} />
-        <section className="panel selected-analysis">
-          <h2>Analyse sélection jouée</h2>
-          <p>Sélection de match : {analysis.pickSize} Pokémon à choisir.</p>
-          {analysis.selectionWarnings.map((warning) => (
-            <p className="warning" key={warning}>
-              {warning}
+        <div className="hero-layout">
+          <div className="hero-copy">
+            <span className="eyebrow">V1 locale · Smogon-ready</span>
+            <h1>Prépare tes picks Pokémon Champions</h1>
+            <p>
+              Un companion de stratégie pour construire ton roster, choisir les 3 ou 4 Pokémon à jouer et
+              prioriser les adaptations depuis les données du méta.
             </p>
-          ))}
-          <p>
-            Joués : {analysis.selectedTeam.members.map((member) => member.species).join(', ') || 'aucun'}
-          </p>
-          <div className="finding-list">
-            {[...analysis.selectedAudit.defensive, ...analysis.selectedAudit.offensive].map((finding) => (
-              <article className={`finding ${finding.severity}`} key={finding.title}>
-                <strong>{finding.title}</strong>
-                {finding.evidence.map((line) => (
-                  <span key={line}>{line}</span>
-                ))}
-              </article>
-            ))}
+            <div className="hero-actions">
+              <a className="primary-cta" href="#app">
+                Ouvrir le cockpit
+              </a>
+              <a className="secondary-cta" href="#builder">
+                Construire l'équipe
+              </a>
+            </div>
+            <dl className="hero-proof">
+              <div>
+                <dt>Roster de 6</dt>
+                <dd>slots, sets, EV et commentaires</dd>
+              </div>
+              <div>
+                <dt>Pick 3 ou 4</dt>
+                <dd>faiblesses adaptées au match</dd>
+              </div>
+              <div>
+                <dt>Usages Smogon</dt>
+                <dd>snapshot local et refresh live</dd>
+              </div>
+            </dl>
           </div>
-        </section>
-        <ThreatPanel threats={analysis.threats} />
-        <HelpPanel />
-      </div>
+
+          <div className="hero-visual" aria-hidden="true">
+            <div className="match-strip">
+              <span>Format Champions</span>
+              <strong>{pickSize}v{pickSize}</strong>
+            </div>
+            <div className="match-board">
+              {Array.from({ length: 6 }, (_, index) => {
+                const member = analysis.team.members[index];
+                const slotId = index + 1;
+                const isPicked = selectedSlots.includes(slotId);
+
+                return (
+                  <div className={`board-slot ${isPicked ? 'picked' : ''}`} key={slotId}>
+                    <span>{slotId}</span>
+                    <strong>{member?.species ?? 'Slot libre'}</strong>
+                    <small>{isPicked ? 'Pick match' : 'Roster'}</small>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="threat-radar">
+              <span>Priorité méta</span>
+              <strong>{topThreat?.species ?? 'Aucune menace'}</strong>
+              <small>{topThreat ? `Score ${topThreat.score}` : 'Roster à compléter'}</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="app-shell" id="app" aria-label="Cockpit d'analyse">
+        <header className="top-bar">
+          <div className="cockpit-intro">
+            <span className="eyebrow">Cockpit local · 3v3 / 4v4</span>
+            <h1>Cockpit stratégique</h1>
+            <p>Importe, ajuste et valide ton équipe avec une lecture pensée pour le bring 6 pick 3/4.</p>
+            <dl className="cockpit-kpis">
+              <div>
+                <dt>Roster complet</dt>
+                <dd>{analysis.team.members.length}/6</dd>
+              </div>
+              <div>
+                <dt>Sélection jouée</dt>
+                <dd>
+                  {selectedSlots.length}/{pickSize}
+                </dd>
+              </div>
+              <div>
+                <dt>Menace haute</dt>
+                <dd>{topThreat?.species ?? 'À compléter'}</dd>
+              </div>
+            </dl>
+          </div>
+          <SnapshotStatus
+            label={analysis.snapshotStatus.label}
+            source={analysis.snapshotStatus.source}
+            onRefresh={handleRefresh}
+            refreshMessage={refreshMessage}
+            isRefreshing={isRefreshing}
+          />
+        </header>
+
+        <SetupWizard
+          format={format}
+          onFormatChange={handleFormatChange}
+          paste={paste}
+          onPasteChange={handlePasteChange}
+          analysis={analysis}
+        />
+
+        <TeamBuilder
+          state={builderState}
+          pokemonOptions={pokemonOptions}
+          moveOptions={moveOptions}
+          selectedSlots={selectedSlots}
+          pickSize={pickSize}
+          onSlotChange={handleBuilderSlotChange}
+          onToggleSelection={handleToggleSelection}
+        />
+
+        <div className="dashboard">
+          <TeamPreview team={analysis.team} />
+          <AuditPanel audit={analysis.audit} />
+          <section className="panel selected-analysis">
+            <h2>Analyse sélection jouée</h2>
+            <p>Sélection de match : {analysis.pickSize} Pokémon à choisir.</p>
+            {analysis.selectionWarnings.map((warning) => (
+              <p className="warning" key={warning}>
+                {warning}
+              </p>
+            ))}
+            <p>
+              Joués : {selectedNames.join(', ') || 'aucun'}
+            </p>
+            <div className="finding-list">
+              {[...analysis.selectedAudit.defensive, ...analysis.selectedAudit.offensive].map((finding) => (
+                <article className={`finding ${finding.severity}`} key={finding.title}>
+                  <strong>{finding.title}</strong>
+                  {finding.evidence.map((line) => (
+                    <span key={line}>{line}</span>
+                  ))}
+                </article>
+              ))}
+            </div>
+          </section>
+          <ThreatPanel threats={analysis.threats} />
+          <HelpPanel />
+        </div>
+      </section>
 
       <footer className="app-footer">
         <span>Assistant stratégique Pokémon Champions · outil local de préparation d'équipe</span>

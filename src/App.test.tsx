@@ -4,17 +4,32 @@ import { describe, expect, it } from 'vitest';
 import App from './App';
 
 describe('App', () => {
+  it('renders a marketing landing page with a direct app entry point', () => {
+    render(<App />);
+
+    const landing = screen.getByLabelText(/présentation marketing/i);
+    expect(landing).toBeInTheDocument();
+    expect(within(landing).getByRole('heading', { name: /prépare tes picks pokémon champions/i })).toBeInTheDocument();
+    expect(within(landing).getByRole('link', { name: /ouvrir le cockpit/i })).toHaveAttribute('href', '#app');
+    expect(within(landing).getByText(/roster de 6/i)).toBeInTheDocument();
+    expect(within(landing).getByText(/pick 3 ou 4/i)).toBeInTheDocument();
+    expect(within(landing).getByText(/usages smogon/i)).toBeInTheDocument();
+  });
+
   it('renders the French graphical wizard and dashboard regions', () => {
     render(<App />);
 
-    expect(screen.getByRole('heading', { name: /assistant stratégique pokémon champions/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /cockpit stratégique/i })).toBeInTheDocument();
     expect(screen.getByText(/1\s+format/i)).toBeInTheDocument();
     expect(screen.getByText(/2\s+équipe/i)).toBeInTheDocument();
-    expect(screen.getByText(/3\s+analyse/i)).toBeInTheDocument();
+    expect(screen.getByText(/3\s+sélection/i)).toBeInTheDocument();
+    expect(screen.getByText(/4\s+analyse/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/format champions/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/équipe showdown/i)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /audit d'équipe/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /menaces méta/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
+    expect(screen.getByText(/roster complet/i)).toBeInTheDocument();
   });
 
   it('renders contextual help for strategy and data freshness', () => {

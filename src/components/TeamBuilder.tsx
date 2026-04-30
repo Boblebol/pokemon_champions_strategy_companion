@@ -47,7 +47,7 @@ export function TeamBuilder({
   onToggleSelection: (slotId: number, selected: boolean) => void;
 }) {
   return (
-    <section className="panel team-builder">
+    <section className="panel team-builder" id="builder">
       <div className="panel-heading">
         <div>
           <h2>Constructeur d'équipe</h2>
