@@ -58,4 +58,58 @@ Ability: Multiscale
     expect(result.threats).toEqual([]);
     expect(result.snapshotStatus).toEqual(missingSnapshotStatus);
   });
+
+  it('analyzes selected match members separately from the six-slot roster', () => {
+    const result = analyzeTeam({
+      paste: `
+Garchomp @ Rocky Helmet
+Ability: Rough Skin
+- Earthquake
+
+Dragonite @ Heavy-Duty Boots
+Ability: Multiscale
+- Dragon Dance
+- Extreme Speed
+
+Kingambit @ Black Glasses
+Ability: Supreme Overlord
+- Sucker Punch
+- Iron Head
+
+Rotom-Wash @ Leftovers
+Ability: Levitate
+- Thunderbolt
+- Hydro Pump
+`,
+      format: 'champions-bss',
+      store: createDataStore(demoDataBundle),
+      selectedSlots: [2, 3, 4],
+    });
+
+    expect(result.team.members).toHaveLength(4);
+    expect(result.selectedTeam.members.map((member) => member.species)).toEqual([
+      'Dragonite',
+      'Kingambit',
+      'Rotom-Wash',
+    ]);
+    expect(result.selectedAudit.format.label).toBe('Champions BSS');
+    expect(result.selectedThreats.length).toBeGreaterThan(0);
+    expect(result.selectionWarnings).toEqual([]);
+  });
+
+  it('reports incomplete selected match teams', () => {
+    const result = analyzeTeam({
+      paste: `
+Garchomp @ Rocky Helmet
+Ability: Rough Skin
+- Earthquake
+`,
+      format: 'champions-bss',
+      store: createDataStore(demoDataBundle),
+      selectedSlots: [1],
+    });
+
+    expect(result.selectedTeam.members).toHaveLength(1);
+    expect(result.selectionWarnings).toContain('Sélection incomplète : choisis 3 Pokémon pour ce format.');
+  });
 });

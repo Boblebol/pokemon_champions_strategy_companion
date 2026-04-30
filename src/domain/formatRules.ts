@@ -6,6 +6,7 @@ export const SUPPORTED_FORMATS: FormatDefinition[] = [
     label: 'Champions VGC',
     battleStyle: 'doubles',
     teamSize: 6,
+    pickSize: 4,
     defaultLevel: 50,
   },
   {
@@ -13,6 +14,7 @@ export const SUPPORTED_FORMATS: FormatDefinition[] = [
     label: 'Champions BSS',
     battleStyle: 'singles',
     teamSize: 6,
+    pickSize: 3,
     defaultLevel: 50,
   },
   {
@@ -20,6 +22,7 @@ export const SUPPORTED_FORMATS: FormatDefinition[] = [
     label: 'Champions OU',
     battleStyle: 'six-vs-six',
     teamSize: 6,
+    pickSize: 6,
     defaultLevel: 100,
   },
 ];

@@ -30,6 +30,7 @@ export interface FormatDefinition {
   label: string;
   battleStyle: 'doubles' | 'singles' | 'six-vs-six';
   teamSize: number;
+  pickSize: number;
   defaultLevel: number;
 }
 
