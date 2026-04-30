@@ -42,20 +42,22 @@ Des snapshots demo typés restent inclus pour que l'app fonctionne hors ligne.
 ## Développement
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Vérification complète :
 
 ```bash
-npm run check
+pnpm run check
 ```
 
 Commandes utiles :
 
 ```bash
-npm run lint
-npm run test
-npm run build
+pnpm run lint
+pnpm run test
+pnpm run build
+make dev
+make check
 ```
