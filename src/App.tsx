@@ -168,7 +168,7 @@ function AppPage() {
   }
 
   return (
-    <main className="product-shell app-only-shell">
+    <main className="product-shell app-only-shell app-redesign">
       <PageNav tone="light" />
       <section className="app-shell" id="app" aria-label="Cockpit d'analyse">
         <header className="top-bar">
