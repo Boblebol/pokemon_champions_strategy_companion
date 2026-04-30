@@ -3,7 +3,7 @@ import type { FormatDefinition } from './types';
 export const SUPPORTED_FORMATS: FormatDefinition[] = [
   {
     id: 'champions-vgc',
-    label: 'Champions VGC',
+    label: 'Champions VGC 4v4 Duo',
     battleStyle: 'doubles',
     teamSize: 6,
     pickSize: 4,

@@ -90,6 +90,9 @@ export async function buildPkmnReferenceSnapshot(): Promise<ReferenceSnapshot> {
             type: asPokemonType(move.type),
             category: asMoveCategory(move.category),
             ...(move.basePower > 0 ? { power: move.basePower } : {}),
+            ...(typeof move.accuracy === 'number' ? { accuracy: move.accuracy } : {}),
+            ...(move.priority !== 0 ? { priority: move.priority } : {}),
+            target: move.target,
           },
         ];
       }),

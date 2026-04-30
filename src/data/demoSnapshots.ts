@@ -10,10 +10,11 @@ export const demoDataBundle: DataBundle = {
       greattusk: {
         id: 'greattusk',
         name: 'Great Tusk',
+        localizedNames: { en: 'Great Tusk', fr: 'Fort-Ivoire', ja: 'イダイナキバ' },
         types: ['Ground', 'Fighting'],
         baseStats: { hp: 115, atk: 131, def: 131, spa: 53, spd: 53, spe: 87 },
         abilities: ['Protosynthesis'],
-        moveIds: ['earthquake', 'closecombat', 'stealthrock', 'icebeam'],
+        moveIds: ['earthquake', 'closecombat', 'lowkick', 'stealthrock', 'icebeam'],
       },
       fluttermane: {
         id: 'fluttermane',
@@ -102,6 +103,12 @@ export const demoDataBundle: DataBundle = {
         type: 'Fighting',
         category: 'Physical',
         power: 120,
+      },
+      lowkick: {
+        id: 'lowkick',
+        name: 'Low Kick',
+        type: 'Fighting',
+        category: 'Physical',
       },
       moonblast: {
         id: 'moonblast',
@@ -290,8 +297,8 @@ export const demoDataBundle: DataBundle = {
     'champions-vgc': {
       id: 'demo-vgc-2026-04',
       format: 'champions-vgc',
-      label: 'Champions VGC démo locale',
-      source: "Snapshot d'usage VGC démo",
+      label: 'Champions VGC 4v4 Duo démo locale',
+      source: "Snapshot d'usage VGC 4v4 Duo démo",
       date: '2026-04',
       importedAt: '2026-04-29T00:00:00.000Z',
       battleCount: 1200,

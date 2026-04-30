@@ -70,7 +70,7 @@ describe('auditTeam', () => {
       format: 'champions-vgc',
     });
 
-    expect(result.format.label).toBe('Champions VGC');
+    expect(result.format.label).toBe('Champions VGC 4v4 Duo');
     expect(result.format.defaultLevel).toBe(50);
   });
 

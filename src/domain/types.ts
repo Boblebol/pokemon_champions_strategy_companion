@@ -63,6 +63,9 @@ export interface MoveReference {
   type: PokemonType;
   category: MoveCategory;
   power?: number;
+  accuracy?: number;
+  priority?: number;
+  target?: string;
 }
 
 export interface ReferenceLabels {

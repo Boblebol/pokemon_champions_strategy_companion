@@ -14,6 +14,9 @@ importers:
       '@pkmn/dex':
         specifier: ^0.10.7
         version: 0.10.7
+      '@smogon/calc':
+        specifier: ^0.11.0
+        version: 0.11.0
       react:
         specifier: ^19.0.0
         version: 19.2.5
@@ -487,6 +490,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@smogon/calc@0.11.0':
+    resolution: {integrity: sha512-ixP+IgQhI12R68FXxyt8+f4EZM/jdqBXZ2oCKu5zuUWXls4kYbIVdgE7t6+pkn/y6VxU+cXJhRgMkiU7wG8JHQ==}
+
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
@@ -542,6 +548,9 @@ packages:
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
+
+  '@types/node@18.19.130':
+    resolution: {integrity: sha512-GRaXQx6jGfL8sKfaIDD6OupbIHBr9jv7Jnaml9tB7l4v068PAOXqfcujMMo5PhbIs6ggR1XODELqahT2R8v0fg==}
 
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
@@ -986,6 +995,9 @@ packages:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
   update-browserslist-db@1.2.3:
     resolution: {integrity: sha512-Js0m9cx+qOgDxo0eMiFGEueWztz+d4+M3rGlmKPT+T4IS/jP4ylw3Nwpu6cpTTP8R1MAC1kF4VbdLt3ARf209w==}
@@ -1456,6 +1468,10 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.60.2':
     optional: true
 
+  '@smogon/calc@0.11.0':
+    dependencies:
+      '@types/node': 18.19.130
+
   '@standard-schema/spec@1.1.0': {}
 
   '@testing-library/dom@10.4.1':
@@ -1523,6 +1539,10 @@ snapshots:
   '@types/deep-eql@4.0.2': {}
 
   '@types/estree@1.0.8': {}
+
+  '@types/node@18.19.130':
+    dependencies:
+      undici-types: 5.26.5
 
   '@types/react-dom@19.2.3(@types/react@19.2.14)':
     dependencies:
@@ -1982,6 +2002,8 @@ snapshots:
       punycode: 2.3.1
 
   typescript@5.9.3: {}
+
+  undici-types@5.26.5: {}
 
   update-browserslist-db@1.2.3(browserslist@4.28.2):
     dependencies:

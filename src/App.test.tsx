@@ -6,6 +6,7 @@ import App from './App';
 describe('App', () => {
   afterEach(() => {
     window.history.pushState({}, '', '/');
+    window.localStorage.clear();
   });
 
   it('opens the app directly on the local root route', () => {
@@ -38,7 +39,8 @@ describe('App', () => {
     const docs = screen.getByLabelText(/documentation/i);
     expect(within(docs).getByRole('heading', { name: /documentation champions companion/i })).toBeInTheDocument();
     expect(within(docs).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
-    expect(within(docs).getByText(/1\. choisir le format/i)).toBeInTheDocument();
+    expect(within(docs).getByText(/1\. démarrer avec l'assistant/i)).toBeInTheDocument();
+    expect(within(docs).getByText(/5\. simuler le combat/i)).toBeInTheDocument();
     expect(within(docs).getByText(/coverage possible/i)).toBeInTheDocument();
     expect(within(docs).getByText(/le refresh smogon peut échouer/i)).toBeInTheDocument();
   });
@@ -59,7 +61,8 @@ describe('App', () => {
     expect(screen.getByText(/1\s+format/i)).toBeInTheDocument();
     expect(screen.getByText(/2\s+équipe/i)).toBeInTheDocument();
     expect(screen.getByText(/3\s+sélection/i)).toBeInTheDocument();
-    expect(screen.getByText(/4\s+analyse/i)).toBeInTheDocument();
+    expect(screen.getByText(/4\s+combat/i)).toBeInTheDocument();
+    expect(screen.getByText(/5\s+analyse/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/format champions/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/équipe showdown/i)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /audit d'équipe/i })).toBeInTheDocument();
@@ -77,8 +80,26 @@ describe('App', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { name: /aides rapides/i })).toBeInTheDocument();
+    expect(screen.getByText(/assistant de départ/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/combat/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/score de menace/i)).toBeInTheDocument();
     expect(screen.getByText(/données live/i)).toBeInTheDocument();
+  });
+
+  it('lets users collapse and reopen the setup wizard', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: /masquer l'assistant/i }));
+
+    expect(screen.queryByLabelText(/équipe showdown/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/résumé assistant/i)).toBeInTheDocument();
+    expect(window.localStorage.getItem('champions-companion.setup-wizard')).toBe('hidden');
+
+    await user.click(screen.getByRole('button', { name: /afficher l'assistant/i }));
+
+    expect(screen.getByLabelText(/équipe showdown/i)).toBeInTheDocument();
+    expect(window.localStorage.getItem('champions-companion.setup-wizard')).toBe('visible');
   });
 
   it('renders a portfolio footer link', () => {
@@ -103,6 +124,15 @@ describe('App', () => {
     expect(screen.getByLabelText(/commentaire slot 1/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/jouer slot 1/i)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /analyse sélection jouée/i })).toBeInTheDocument();
+  });
+
+  it('shows a combat calculator after the team tools', async () => {
+    render(<App />);
+
+    expect(await screen.findByRole('heading', { name: /combat/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/rechercher adversaire 1/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/dégâts sortants/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/dégâts entrants/i).length).toBeGreaterThan(0);
   });
 
   it('loads the complete Showdown reference in the builder', async () => {

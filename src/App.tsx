@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { AuditPanel } from './components/AuditPanel';
+import { CombatCalculator } from './components/CombatCalculator';
 import { HelpPanel } from './components/HelpPanel';
 import { PossibleThreatPanel } from './components/PossibleThreatPanel';
 import { SetupWizard } from './components/SetupWizard';
@@ -228,6 +229,8 @@ function AppPage() {
           onToggleSelection={handleToggleSelection}
         />
 
+        <CombatCalculator format={format} selectedTeam={analysis.selectedTeam.members} reference={dataBundle.reference} />
+
         <div className="dashboard">
           <TeamPreview reference={dataBundle.reference} team={analysis.team} />
           <AuditPanel audit={analysis.audit} />
@@ -340,11 +343,11 @@ function LandingPage() {
         <PageNav compact />
         <div className="hero-layout">
           <div className="hero-copy">
-            <span className="eyebrow">Pokémon Champions · bring 6 pick 3</span>
+            <span className="eyebrow">Pokémon Champions · bring 6 pick 3 / VGC 4v4</span>
             <h1>Gagne du temps au team preview</h1>
             <p>
-              Construis ton roster, verrouille tes 3 picks et repère immédiatement les pressions qui comptent :
-              couverture offensive, faiblesses défensives, speed tiers exacts et menaces hors méta.
+              Construis ton roster, verrouille tes picks joués et repère immédiatement les pressions qui comptent :
+              dégâts Combat, couverture offensive, faiblesses défensives, speed tiers exacts et menaces hors méta.
             </p>
             <div className="hero-actions">
               <a className="primary-cta" href={pageHref('app')}>
@@ -362,6 +365,10 @@ function LandingPage() {
               <div>
                 <dt>Analyse 3v3 niveau 100</dt>
                 <dd>sélection jouée, faiblesses réelles et speed tiers +1/+2</dd>
+              </div>
+              <div>
+                <dt>Combat rapide</dt>
+                <dd>dégâts sortants et entrants avec boosts, terrain, météo et Tera</dd>
               </div>
               <div>
                 <dt>Menaces hors méta</dt>
@@ -442,8 +449,8 @@ function DocsPage() {
           <span className="eyebrow">Guide utilisateur</span>
           <h1>Documentation Champions Companion</h1>
           <p>
-            Une référence courte pour comprendre le workflow, les données utilisées et les limites actuelles de
-            l'analyse.
+            Une référence courte pour comprendre le workflow, les formats, le calcul Combat, les données utilisées et
+            les limites actuelles.
           </p>
           <div className="hero-actions">
             <a className="primary-cta" href={pageHref('app')}>
@@ -457,14 +464,22 @@ function DocsPage() {
 
         <div className="docs-grid">
           <article>
-            <h2>1. Choisir le format</h2>
+            <h2>1. Démarrer avec l'assistant</h2>
             <p>
-              Champions 3v3 est le mode par défaut : équipe de 6, sélection de 3, calculs au niveau 100. VGC et OU
-              restent disponibles pour comparer d'autres lectures.
+              L'assistant de départ est optionnel et repliable. Il garde sous les yeux le format, le roster, les picks
+              joués, le Combat et les priorités d'analyse sans bloquer le cockpit.
             </p>
           </article>
           <article>
-            <h2>2. Construire l'équipe</h2>
+            <h2>2. Choisir le format</h2>
+            <p>
+              Champions 3v3 est le mode par défaut : équipe de 6, sélection de 3, calculs au niveau 100. Champions
+              VGC 4v4 Duo couvre le format en duo avec 4 picks sur 6, et OU reste disponible pour comparer d'autres
+              lectures.
+            </p>
+          </article>
+          <article>
+            <h2>3. Construire l'équipe</h2>
             <p>
               Utilise les menus du constructeur pour choisir un Pokémon, son talent, son objet, sa nature, ses EV et ses
               quatre attaques disponibles dans la source complète. Les libellés sont affichés en français quand PokéAPI
@@ -472,17 +487,32 @@ function DocsPage() {
             </p>
           </article>
           <article>
-            <h2>3. Verrouiller les 3 picks</h2>
+            <h2>4. Verrouiller les picks</h2>
             <p>
               Les panneaux défensifs, offensifs, menaces méta, speed tiers et menaces hors méta deviennent beaucoup plus
-              utiles quand la sélection jouée est complète.
+              utiles quand la sélection jouée est complète : 3 en Champions 3v3, 4 en Champions VGC 4v4 Duo, 6 en OU.
             </p>
           </article>
           <article>
-            <h2>4. Lire coverage possible</h2>
+            <h2>5. Simuler le combat</h2>
+            <p>
+              Le panneau Combat calcule les dégâts sortants et les dégâts entrants les plus dangereux avec
+              <code>@smogon/calc</code>. Il prend en compte niveau du format, boosts, météo, terrain, protections par
+              côté, brûlure, critique, Tera et attaques apprenables.
+            </p>
+          </article>
+          <article>
+            <h2>6. Lire coverage possible</h2>
             <p>
               Le panneau hors méta scanne les learnsets complets pour trouver les Pokémon capables de toucher ta
               sélection super efficacement, puis propose une vitesse max et des archétypes de sets.
+            </p>
+          </article>
+          <article>
+            <h2>Données locales</h2>
+            <p>
+              La référence de construction vient de <code>@pkmn/dex</code> et <code>@pkmn/data</code>. Les images et
+              noms localisés viennent d'un snapshot PokéAPI stocké en métadonnées, sans vendorer les fichiers image.
             </p>
           </article>
           <article>
@@ -494,10 +524,10 @@ function DocsPage() {
             </p>
           </article>
           <article>
-            <h2>Limites v1</h2>
+            <h2>Limites connues</h2>
             <p>
-              L'app classe les pressions par types, usages, vitesses et learnsets. Elle ne remplace pas encore un
-              calculateur de dégâts complet avec objets, boosts, météo et Tera offensif.
+              Le calcul Combat couvre les modificateurs essentiels, mais les IV ne sont pas encore éditables dans le
+              constructeur et certains cas ultra spécifiques peuvent demander une vérification Showdown.
             </p>
           </article>
         </div>

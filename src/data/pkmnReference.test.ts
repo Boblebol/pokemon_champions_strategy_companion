@@ -20,4 +20,18 @@ describe('pkmnReference', () => {
     expect(snapshot.labels.abilities.roughskin.fr).toBe('Peau Dure');
     expect(snapshot.labels.natures.jolly.fr).toBe('Jovial');
   });
+
+  it('exposes damage-relevant move metadata from @pkmn', async () => {
+    const snapshot = await buildPkmnReferenceSnapshot();
+
+    expect(snapshot.moves.closecombat).toMatchObject({
+      name: 'Close Combat',
+      type: 'Fighting',
+      category: 'Physical',
+      power: 120,
+      target: 'normal',
+    });
+    expect(snapshot.moves.suckerpunch?.priority).toBe(1);
+    expect(snapshot.moves.earthquake?.target).toBe('allAdjacent');
+  });
 });
