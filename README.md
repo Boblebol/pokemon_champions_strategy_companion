@@ -3,9 +3,9 @@
 Application web locale pour auditer une équipe Pokémon Champions à partir d'un
 paste Pokémon Showdown ou d'un constructeur d'équipe intégré.
 
-Le projet est en cours de préparation publique. Le checkout local n'a pas
-encore de remote GitHub configuré, donc aucun lien de repository public n'est
-annoncé tant qu'il n'existe pas.
+Repository public : <https://github.com/Boblebol/pokemon_champions_strategy_companion>
+
+Démo GitHub Pages : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 
 ## Fonctionnalités
 
@@ -74,7 +74,8 @@ make check
 ## Liens
 
 - Portfolio : <https://alexandre-enouf.fr>
-- Repository public : à créer ou rattacher avant publication
+- Repository public : <https://github.com/Boblebol/pokemon_champions_strategy_companion>
+- Démo GitHub Pages : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 
 ## Licence
 

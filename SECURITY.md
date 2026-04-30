@@ -3,8 +3,11 @@
 This project is a browser app that can fetch public Smogon usage data and falls
 back to local demo snapshots when network access fails.
 
-Please report security concerns through the future public repository once it is
-created. Until then, contact Alexandre Enouf through:
+Please report security concerns through the public repository:
+
+<https://github.com/Boblebol/pokemon_champions_strategy_companion/issues>
+
+If the concern should not be public yet, contact Alexandre Enouf through:
 
 <https://alexandre-enouf.fr>
 

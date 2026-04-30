@@ -1,20 +1,20 @@
 # Contributing
 
-The project is not attached to a public remote yet. Once it is public,
-contributions should stay focused on local strategy analysis and reliable data
-handling.
+Thanks for considering a contribution. This project should stay focused on
+local strategy analysis, reliable Pokemon data handling, and a usable offline
+fallback when live usage data cannot be fetched.
 
 ## Local Setup
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 ## Checks
 
 ```bash
-npm run check
+pnpm run check
 ```
 
 ## Pull Requests
@@ -22,3 +22,4 @@ npm run check
 - Keep changes small and covered by Vitest where behavior changes.
 - Preserve offline behavior; Smogon fetch failures must leave the app usable.
 - Do not add private API keys or paid service dependencies.
+- Keep generated or agent-private planning files out of the repository.
