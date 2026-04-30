@@ -141,7 +141,9 @@ p {
 }
 
 .field select,
+.field input:not([type="checkbox"]),
 .field textarea {
+  min-width: 0;
   width: 100%;
 }
 
@@ -216,6 +218,8 @@ small {
 }
 
 .wizard-metrics div {
+  min-width: 0;
+  overflow: hidden;
   border-radius: 8px;
   background: #f2f7fb;
   padding: 10px;
@@ -267,6 +271,8 @@ small {
 }
 
 .team-builder {
+  width: 100%;
+  min-width: 0;
   margin-bottom: 18px;
   overflow: hidden;
 }
@@ -275,11 +281,15 @@ small {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 14px;
+  width: 100%;
+  min-width: 0;
 }
 
 .builder-slot {
   display: grid;
   gap: 12px;
+  max-width: 100%;
+  min-width: 0;
   border: 1px solid #d9e1ed;
   border-radius: 8px;
   background: #fbfcff;
@@ -327,10 +337,11 @@ small {
 .ev-grid {
   display: grid;
   gap: 10px;
+  min-width: 0;
 }
 
 .slot-basics {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
 }
 
 .move-grid {
@@ -442,8 +453,10 @@ small {
 
   .top-bar,
   .setup-wizard,
+  .team-builder,
   .dashboard {
-    width: calc(100vw - 28px);
+    width: 100%;
+    max-width: 100%;
     grid-template-columns: 1fr;
   }
 
@@ -476,6 +489,14 @@ small {
   .move-grid,
   .ev-grid {
     grid-template-columns: 1fr;
+  }
+
+  .wizard-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .wizard-metrics dd {
+    font-size: 15px;
   }
 
   .slot-header {
