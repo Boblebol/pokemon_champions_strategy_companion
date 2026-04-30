@@ -12,6 +12,7 @@ import { getPkmnReferenceSnapshot } from './data/pkmnReference';
 import { analyzeTeam } from './domain/analysis';
 import { createDataStore } from './domain/dataStore';
 import { getPickSize } from './domain/matchSelection';
+import { pokemonDisplayName } from './domain/referenceDisplay';
 import { refreshSnapshots } from './domain/snapshotRefresh';
 import { parseShowdownTeam } from './domain/teamImport';
 import {
@@ -116,7 +117,9 @@ function AppPage() {
   const analysis = useMemo(() => {
     return analyzeTeam({ paste, format, store, selectedSlots });
   }, [paste, format, store, selectedSlots]);
-  const selectedNames = analysis.selectedTeam.members.map((member) => member.species);
+  const selectedNames = analysis.selectedTeam.members.map((member) =>
+    pokemonDisplayName(dataBundle.reference, member.species),
+  );
   const topThreat = analysis.threats[0];
 
   function handleFormatChange(nextFormat: FormatId) {
@@ -189,7 +192,7 @@ function AppPage() {
               </div>
               <div>
                 <dt>Menace haute</dt>
-                <dd>{topThreat?.species ?? 'À compléter'}</dd>
+                <dd>{topThreat ? pokemonDisplayName(dataBundle.reference, topThreat.species) : 'À compléter'}</dd>
               </div>
             </dl>
           </div>
@@ -216,6 +219,7 @@ function AppPage() {
           moveOptions={moveOptions}
           itemOptions={dataBundle.reference.items}
           natureOptions={dataBundle.reference.natures}
+          reference={dataBundle.reference}
           referenceStatus={referenceStatus}
           referenceSource={dataBundle.reference.source}
           selectedSlots={selectedSlots}
@@ -225,7 +229,7 @@ function AppPage() {
         />
 
         <div className="dashboard">
-          <TeamPreview team={analysis.team} />
+          <TeamPreview reference={dataBundle.reference} team={analysis.team} />
           <AuditPanel audit={analysis.audit} />
           <section className="panel selected-analysis">
             <h2>Plan de match 3v3</h2>
@@ -246,7 +250,8 @@ function AppPage() {
               {analysis.selectedAudit.speed.map((speed) => (
                 <article className="speed-tier" key={speed.species}>
                   <strong>
-                    {speed.species}: {speed.speed} {speed.estimated ? 'estimé' : 'exact'}
+                    {pokemonDisplayName(dataBundle.reference, speed.species)}: {speed.speed}{' '}
+                    {speed.estimated ? 'estimé' : 'exact'}
                   </strong>
                   <span>
                     {speed.benchmarks
@@ -268,8 +273,9 @@ function AppPage() {
               ))}
             </div>
           </section>
-          <ThreatPanel threats={analysis.threats} />
+          <ThreatPanel reference={dataBundle.reference} threats={analysis.threats} />
           <PossibleThreatPanel
+            reference={dataBundle.reference}
             threats={analysis.selectedPossibleThreats}
             selectedCount={analysis.selectedTeam.members.length}
             pickSize={analysis.pickSize}
@@ -351,7 +357,7 @@ function LandingPage() {
             <dl className="hero-proof">
               <div>
                 <dt>Roster de 6</dt>
-                <dd>sets, EV, natures, capacités et commentaires centralisés</dd>
+                <dd>sets, EV, images, noms FR et commentaires centralisés</dd>
               </div>
               <div>
                 <dt>Analyse 3v3 niveau 100</dt>
@@ -461,7 +467,8 @@ function DocsPage() {
             <h2>2. Construire l'équipe</h2>
             <p>
               Utilise les menus du constructeur pour choisir un Pokémon, son talent, son objet, sa nature, ses EV et ses
-              quatre attaques disponibles dans la source complète.
+              quatre attaques disponibles dans la source complète. Les libellés sont affichés en français quand PokéAPI
+              les fournit, mais l'export reste en anglais Showdown.
             </p>
           </article>
           <article>
@@ -481,8 +488,9 @@ function DocsPage() {
           <article>
             <h2>Données et refresh</h2>
             <p>
-              Le refresh Smogon peut échouer si le réseau, Smogon ou CORS bloque la requête. Dans ce cas, l'app garde le
-              snapshot local et reste utilisable offline.
+              Le refresh Smogon peut échouer si le réseau, Smogon ou CORS bloque la requête. Les noms localisés et URLs
+              d'images viennent d'un snapshot PokéAPI local, donc l'app garde le snapshot local et reste utilisable
+              offline côté données.
             </p>
           </article>
           <article>

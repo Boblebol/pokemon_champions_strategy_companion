@@ -1,6 +1,6 @@
 {
   "name": "pokemon-champions-strategy-companion",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Assistant local de stratégie Pokémon Champions avec audit d'équipe et usages Smogon.",
   "private": true,
   "author": "Alexandre Enouf",
@@ -11,6 +11,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build && node scripts/copy-static-routes.mjs",
     "check": "pnpm lint && pnpm test && pnpm build",
+    "fetch:assets": "node scripts/fetch-poke-assets.mjs",
     "test": "vitest --run",
     "test:watch": "vitest",
     "lint": "tsc -b --pretty false"

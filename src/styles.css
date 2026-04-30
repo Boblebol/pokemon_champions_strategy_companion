@@ -836,7 +836,7 @@ small {
 }
 
 .wizard-metrics {
-  grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
 }
 
 .wizard-metrics div {
@@ -855,10 +855,11 @@ small {
 .wizard-metrics dd {
   margin-bottom: 0;
   color: var(--navy);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 900;
   line-height: 1.1;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  white-space: nowrap;
 }
 
 .team-input textarea {
@@ -1045,9 +1046,56 @@ small {
 }
 
 .slot-header > div {
+  min-width: 0;
+}
+
+.slot-title,
+.team-card-main,
+.threat-main,
+.roster-summary-main {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.slot-title > div,
+.team-card-main > div,
+.roster-summary-main > div {
   display: grid;
   gap: 3px;
   min-width: 0;
+}
+
+.pokemon-avatar {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  border: 1px solid #d9e5ef;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(247, 195, 95, 0.2), transparent 45%),
+    linear-gradient(180deg, #ffffff, #edf4f8);
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.pokemon-avatar.artwork {
+  width: 68px;
+  height: 68px;
+}
+
+.pokemon-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
 }
 
 .slot-header strong,
@@ -1162,12 +1210,6 @@ small {
   border-color: var(--green);
   background: #f2faf5;
   box-shadow: inset 0 0 0 1px rgba(47, 133, 90, 0.65);
-}
-
-.roster-summary-card > div {
-  display: grid;
-  gap: 2px;
-  min-width: 0;
 }
 
 .roster-summary-card span {

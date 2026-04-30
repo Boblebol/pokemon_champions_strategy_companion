@@ -22,6 +22,11 @@ Pages :
 - Import d'un paste Pokémon Showdown.
 - Constructeur d'équipe guidé sur 6 slots avec funnel, édition slot par slot,
   Pokémon, attaques, objet, talent, nature, EV et notes privées.
+- Images Pokémon dans le constructeur, le roster et les panneaux de menaces via
+  les URLs publiques `PokeAPI/sprites`, sans stocker les images dans le repo.
+- Noms localisés FR/EN/JA pour Pokémon, attaques, objets, talents, natures et
+  types. L'UI privilégie le français, mais les valeurs internes et l'export
+  restent compatibles Pokémon Showdown en anglais.
 - Référence complète Gen 9 via `@pkmn/dex` et `@pkmn/data` : Pokémon, talents,
   learnsets, objets et natures.
 - Export Showdown généré automatiquement depuis le constructeur.
@@ -64,6 +69,19 @@ La référence de construction est générée localement depuis les packages `@p
 afin de proposer les Pokémon, attaques apprenables, objets et natures sans API
 payante ni scraping côté client.
 
+Les métadonnées visuelles et localisées sont générées depuis les CSV publics de
+PokéAPI et les URLs du repository `PokeAPI/sprites`. Le repo stocke uniquement
+les noms et URLs nécessaires ; les fichiers image ne sont pas vendorizés.
+
+Rafraîchir ces métadonnées :
+
+```bash
+pnpm run fetch:assets
+```
+
+Cette commande nécessite un accès réseau et régénère
+`src/data/generated/pokeAssets.ts`.
+
 ## Développement
 
 ```bash
@@ -86,6 +104,7 @@ Commandes utiles :
 pnpm run lint
 pnpm run test
 pnpm run build
+pnpm run fetch:assets
 make dev
 make check
 ```

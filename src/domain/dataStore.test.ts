@@ -12,6 +12,32 @@ describe('dataStore', () => {
     expect(store.getMove('Thunderbolt')?.type).toBe('Electric');
   });
 
+  it('finds reference Pokemon and moves by localized aliases', () => {
+    const store = createDataStore({
+      ...demoDataBundle,
+      reference: {
+        ...demoDataBundle.reference,
+        pokemon: {
+          ...demoDataBundle.reference.pokemon,
+          greattusk: {
+            ...demoDataBundle.reference.pokemon.greattusk,
+            localizedNames: { en: 'Great Tusk', fr: 'Fort-Ivoire', ja: 'イダイナキバ' },
+          },
+        },
+        moves: {
+          ...demoDataBundle.reference.moves,
+          earthquake: {
+            ...demoDataBundle.reference.moves.earthquake,
+            localizedNames: { en: 'Earthquake', fr: 'Séisme', ja: 'じしん' },
+          },
+        },
+      },
+    });
+
+    expect(store.getPokemon('Fort-Ivoire')?.name).toBe('Great Tusk');
+    expect(store.getMove('Séisme')?.name).toBe('Earthquake');
+  });
+
   it('returns the format-specific meta snapshot without mixing formats', () => {
     const store = createDataStore(demoDataBundle);
 

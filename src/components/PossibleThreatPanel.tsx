@@ -1,10 +1,15 @@
+import { PokemonAvatar } from './PokemonMedia';
+import { moveDisplayName, pokemonDisplayName } from '../domain/referenceDisplay';
 import type { PossibleThreat } from '../domain/possibleThreats';
+import type { ReferenceSnapshot } from '../domain/types';
 
 export function PossibleThreatPanel({
+  reference,
   threats,
   selectedCount,
   pickSize,
 }: {
+  reference: ReferenceSnapshot;
   threats: PossibleThreat[];
   selectedCount: number;
   pickSize: number;
@@ -22,7 +27,10 @@ export function PossibleThreatPanel({
       <div className="possible-threat-list">
         {threats.map((threat) => (
           <article className={`threat ${threat.severity}`} key={threat.species}>
-            <strong>{threat.species}</strong>
+            <div className="threat-main">
+              <PokemonAvatar reference={reference} species={threat.species} />
+              <strong>{pokemonDisplayName(reference, threat.species)}</strong>
+            </div>
             <span>
               Score {threat.score.toFixed(1)} · Vitesse max {threat.speed}
             </span>
@@ -32,14 +40,15 @@ export function PossibleThreatPanel({
             <div className="coverage-list">
               {threat.coverageMoves.map((coverage) => (
                 <small key={coverage.move}>
-                  {coverage.move} : {coverage.targets.join(', ')}
+                  {moveDisplayName(reference, coverage.move)} :{' '}
+                  {coverage.targets.map((target) => pokemonDisplayName(reference, target)).join(', ')}
                 </small>
               ))}
             </div>
             <div className="set-archetype-list">
               {threat.setArchetypes.map((set) => (
                 <small key={set.name}>
-                  {set.name} : {set.moves.join(' / ')}
+                  {set.name} : {set.moves.map((move) => moveDisplayName(reference, move)).join(' / ')}
                 </small>
               ))}
             </div>

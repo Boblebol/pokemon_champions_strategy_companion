@@ -12,5 +12,12 @@ describe('pkmnReference', () => {
     expect(snapshot.pokemon.garchomp.abilities).toContain('Rough Skin');
     expect(snapshot.pokemon.garchomp.moveIds).toContain('earthquake');
     expect(snapshot.pokemon.garchomp.moveIds).not.toContain('moonblast');
+    expect(snapshot.locale).toBe('fr');
+    expect(snapshot.pokemon.greattusk.localizedNames?.fr).toBe('Fort-Ivoire');
+    expect(snapshot.pokemon.greattusk.image?.artwork).toContain('/official-artwork/984.png');
+    expect(snapshot.moves.earthquake.localizedNames?.fr).toBe('Séisme');
+    expect(snapshot.labels.items.rockyhelmet.fr).toBe('Casque Brut');
+    expect(snapshot.labels.abilities.roughskin.fr).toBe('Peau Dure');
+    expect(snapshot.labels.natures.jolly.fr).toBe('Jovial');
   });
 });

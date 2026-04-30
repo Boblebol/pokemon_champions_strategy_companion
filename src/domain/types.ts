@@ -24,6 +24,17 @@ export type StatId = 'hp' | 'atk' | 'def' | 'spa' | 'spd' | 'spe';
 export type StatTable = Partial<Record<StatId, number>>;
 export type MoveCategory = 'Physical' | 'Special' | 'Status';
 export type FormatId = 'champions-vgc' | 'champions-bss' | 'champions-ou';
+export type LocaleId = 'en' | 'fr' | 'ja';
+
+export type LocalizedNames = Partial<Record<LocaleId, string>> & {
+  en: string;
+};
+
+export interface PokemonImageSet {
+  artwork?: string;
+  sprite?: string;
+  icon?: string;
+}
 
 export interface FormatDefinition {
   id: FormatId;
@@ -37,6 +48,8 @@ export interface FormatDefinition {
 export interface PokemonReference {
   id: string;
   name: string;
+  localizedNames?: LocalizedNames;
+  image?: PokemonImageSet;
   types: PokemonType[];
   baseStats: Required<StatTable>;
   abilities: string[];
@@ -46,19 +59,29 @@ export interface PokemonReference {
 export interface MoveReference {
   id: string;
   name: string;
+  localizedNames?: LocalizedNames;
   type: PokemonType;
   category: MoveCategory;
   power?: number;
+}
+
+export interface ReferenceLabels {
+  abilities: Record<string, LocalizedNames>;
+  items: Record<string, LocalizedNames>;
+  natures: Record<string, LocalizedNames>;
+  types: Record<PokemonType, LocalizedNames>;
 }
 
 export interface ReferenceSnapshot {
   id: string;
   source: string;
   importedAt: string;
+  locale: LocaleId;
   pokemon: Record<string, PokemonReference>;
   moves: Record<string, MoveReference>;
   items: string[];
   natures: string[];
+  labels: ReferenceLabels;
 }
 
 export interface UsageEntry {

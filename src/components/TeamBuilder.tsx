@@ -1,7 +1,16 @@
 import { useState } from 'react';
+import { PokemonAvatar } from './PokemonMedia';
 import type { BuilderSlot, TeamBuilderState } from '../domain/teamBuilder';
+import {
+  abilityDisplayName,
+  itemDisplayName,
+  moveDisplayName,
+  natureDisplayName,
+  pokemonDisplayName,
+  typeDisplayName,
+} from '../domain/referenceDisplay';
 import { POKEMON_TYPES } from '../domain/types';
-import type { MoveReference, PokemonReference, PokemonType, StatId, StatTable } from '../domain/types';
+import type { MoveReference, PokemonReference, PokemonType, ReferenceSnapshot, StatId, StatTable } from '../domain/types';
 
 const STAT_FIELDS: Array<{ id: StatId; label: string }> = [
   { id: 'hp', label: 'HP' },
@@ -60,6 +69,7 @@ export function TeamBuilder({
   moveOptions,
   itemOptions,
   natureOptions,
+  reference,
   referenceStatus,
   referenceSource,
   selectedSlots,
@@ -72,6 +82,7 @@ export function TeamBuilder({
   moveOptions: MoveReference[];
   itemOptions: string[];
   natureOptions: string[];
+  reference: ReferenceSnapshot;
   referenceStatus: 'loading' | 'complete' | 'error';
   referenceSource: string;
   selectedSlots: number[];
@@ -92,6 +103,7 @@ export function TeamBuilder({
   const selectedPokemon = findPokemon(pokemonOptions, activeSlot.species);
   const abilityOptions = withCurrentOption(selectedPokemon?.abilities ?? [], activeSlot.ability);
   const filteredMoveOptions = moveOptionsForSlot(activeSlot, selectedPokemon, moveOptions);
+  const activePokemonLabel = activeSlot.species ? pokemonDisplayName(reference, activeSlot.species) : 'Choisir un Pokémon';
   const sourceLabel =
     referenceStatus === 'complete'
       ? 'Source complète'
@@ -106,7 +118,8 @@ export function TeamBuilder({
           <h2>Constructeur d'équipe</h2>
           <p>Sélection de match : {pickSize} Pokémon à choisir depuis le roster de 6.</p>
           <p className="builder-source">
-            {sourceLabel} : {referenceSource} · {pokemonOptions.length} Pokémon · {moveOptions.length} attaques
+            {sourceLabel} : {referenceSource} · {pokemonOptions.length} Pokémon · {moveOptions.length} attaques ·
+            labels FR
           </p>
         </div>
       </div>
@@ -146,9 +159,12 @@ export function TeamBuilder({
 
         <article className={`builder-slot builder-slot-editor ${isSelected ? 'selected' : ''}`}>
           <div className="slot-header">
-            <div>
-              <strong>Slot {activeSlot.id}</strong>
-              <span>{activeSlot.species ?? 'Choisir un Pokémon'}</span>
+            <div className="slot-title">
+              <PokemonAvatar reference={reference} species={activeSlot.species} variant="artwork" />
+              <div>
+                <strong>{activePokemonLabel}</strong>
+                <span>{activeSlot.species ? `Valeur Showdown : ${activeSlot.species}` : `Slot ${activeSlot.id}`}</span>
+              </div>
             </div>
             <label className="pick-toggle">
               <input
@@ -177,7 +193,7 @@ export function TeamBuilder({
               <option value="">Choisir</option>
               {pokemonOptions.map((pokemon) => (
                 <option key={pokemon.id} value={pokemon.name}>
-                  {pokemon.name}
+                  {pokemonDisplayName(reference, pokemon.name)}
                 </option>
               ))}
             </select>
@@ -193,7 +209,7 @@ export function TeamBuilder({
                 <option value="">Choisir</option>
                 {withCurrentOption(itemOptions, activeSlot.item).map((item) => (
                   <option key={item} value={item}>
-                    {item}
+                    {itemDisplayName(reference, item)}
                   </option>
                 ))}
               </select>
@@ -208,7 +224,7 @@ export function TeamBuilder({
                 <option value="">Choisir</option>
                 {abilityOptions.map((ability) => (
                   <option key={ability} value={ability}>
-                    {ability}
+                    {abilityDisplayName(reference, ability)}
                   </option>
                 ))}
               </select>
@@ -226,7 +242,7 @@ export function TeamBuilder({
                 <option value="">Choisir</option>
                 {POKEMON_TYPES.map((type) => (
                   <option key={type} value={type}>
-                    {type}
+                    {typeDisplayName(reference, type)}
                   </option>
                 ))}
               </select>
@@ -240,7 +256,7 @@ export function TeamBuilder({
                 <option value="">Choisir</option>
                 {withCurrentOption(natureOptions, activeSlot.nature).map((nature) => (
                   <option key={nature} value={nature}>
-                    {nature}
+                    {natureDisplayName(reference, nature)}
                   </option>
                 ))}
               </select>
@@ -265,7 +281,7 @@ export function TeamBuilder({
                   <option value="">Choisir</option>
                   {filteredMoveOptions.map((moveOption) => (
                     <option key={moveOption.id} value={moveOption.name}>
-                      {moveOption.name}
+                      {moveDisplayName(reference, moveOption.name)}
                     </option>
                   ))}
                 </select>
@@ -319,10 +335,13 @@ export function TeamBuilder({
 
               return (
                 <article className={`roster-summary-card ${slotActive ? 'active' : ''}`} key={slot.id}>
-                  <div>
-                    <strong>Slot {slot.id}</strong>
-                    <span>{slot.species ?? 'Libre'}</span>
-                    <small>{slotSelected ? 'Pick match' : 'Roster'}</small>
+                  <div className="roster-summary-main">
+                    <PokemonAvatar reference={reference} species={slot.species} />
+                    <div>
+                      <strong>Slot {slot.id}</strong>
+                      <span>{slot.species ? pokemonDisplayName(reference, slot.species) : 'Libre'}</span>
+                      <small>{slotSelected ? 'Pick match' : 'Roster'}</small>
+                    </div>
                   </div>
                   <button
                     type="button"

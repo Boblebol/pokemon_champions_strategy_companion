@@ -109,8 +109,8 @@ describe('App', () => {
     render(<App />);
 
     expect(await screen.findByText(/source complète/i, undefined, { timeout: 5000 })).toBeInTheDocument();
-    expect(await screen.findByRole('option', { name: 'Bulbasaur' }, { timeout: 5000 })).toBeInTheDocument();
-  });
+    expect(await screen.findByRole('option', { name: /Bulbizarre \(Bulbasaur\)/i }, { timeout: 5000 })).toBeInTheDocument();
+  }, 10000);
 
   it('updates the roster from builder controls and exports the generated paste', async () => {
     const user = userEvent.setup();
@@ -128,7 +128,7 @@ describe('App', () => {
     expect(paste.value).toContain('Dragonite @ Heavy-Duty Boots');
     expect(paste.value).toContain('EVs: 252 Atk');
     expect(paste.value).not.toContain('Win condition');
-    expect(await screen.findAllByText('Dragonite')).not.toHaveLength(0);
+    expect(await screen.findAllByText(/Dracolosse \(Dragonite\)/i)).not.toHaveLength(0);
   });
 
   it('filters set dropdowns from the selected Pokémon reference', async () => {
@@ -139,13 +139,13 @@ describe('App', () => {
     await user.selectOptions(screen.getByLabelText(/slot 2 pokémon/i), 'Garchomp');
 
     const abilitySelect = screen.getByLabelText(/slot 2 talent/i);
-    expect(within(abilitySelect).getByRole('option', { name: 'Rough Skin' })).toBeInTheDocument();
-    expect(within(abilitySelect).queryByRole('option', { name: 'Multiscale' })).not.toBeInTheDocument();
+    expect(within(abilitySelect).getByRole('option', { name: /Peau Dure \(Rough Skin\)/i })).toBeInTheDocument();
+    expect(within(abilitySelect).queryByRole('option', { name: /Multiscale/i })).not.toBeInTheDocument();
     await user.selectOptions(abilitySelect, 'Rough Skin');
 
     const firstMoveSelect = screen.getByLabelText(/slot 2 attaque 1/i);
-    expect(within(firstMoveSelect).getByRole('option', { name: 'Earthquake' })).toBeInTheDocument();
-    expect(within(firstMoveSelect).queryByRole('option', { name: 'Moonblast' })).not.toBeInTheDocument();
+    expect(within(firstMoveSelect).getByRole('option', { name: /Séisme \(Earthquake\)/i })).toBeInTheDocument();
+    expect(within(firstMoveSelect).queryByRole('option', { name: /Moonblast/i })).not.toBeInTheDocument();
     await user.selectOptions(firstMoveSelect, 'Earthquake');
     await user.selectOptions(screen.getByLabelText(/slot 2 objet/i), 'Rocky Helmet');
     await user.selectOptions(screen.getByLabelText(/slot 2 type tera/i), 'Ground');
@@ -164,7 +164,7 @@ describe('App', () => {
 
     expect(screen.getAllByText(/sélection de match : 3 pokémon/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/sélection incomplète : choisis 3 pokémon/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/Great Tusk: 300 exact/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/(Fort-Ivoire \(Great Tusk\)|Great Tusk): 300 exact/i).length).toBeGreaterThan(0);
   });
 
   it('adapts match selection to Champions BSS pick 3', async () => {
@@ -187,11 +187,13 @@ describe('App', () => {
       `Garchomp @ Rocky Helmet{enter}Ability: Rough Skin{enter}- Earthquake{enter}- Stealth Rock`,
     );
 
-    expect((await screen.findAllByText('Garchomp')).length).toBeGreaterThan(0);
-    expect(screen.getByText(/joués : garchomp/i)).toBeInTheDocument();
+    expect((await screen.findAllByText(/Carchacrok \(Garchomp\)/i)).length).toBeGreaterThan(0);
+    expect(screen.getByText(/joués : carchacrok \(garchomp\)/i)).toBeInTheDocument();
     const threatPanel = screen.getByRole('heading', { name: /menaces méta/i }).closest('section');
     expect(threatPanel).not.toBeNull();
-    expect(within(threatPanel as HTMLElement).getByText(/Great Tusk|Kingambit|Corviknight/)).toBeInTheDocument();
+    expect(
+      within(threatPanel as HTMLElement).getByText(/Fort-Ivoire|Scalpereur|Corvaillus|Great Tusk|Kingambit|Corviknight/i),
+    ).toBeInTheDocument();
   });
 
   it('shows member parse warnings from pasted teams', async () => {
