@@ -25,6 +25,16 @@ describe('App', () => {
     expect(screen.getByText(/données live/i)).toBeInTheDocument();
   });
 
+  it('renders a portfolio footer link', () => {
+    render(<App />);
+
+    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /alexandre enouf/i })).toHaveAttribute(
+      'href',
+      'https://alexandre-enouf.fr',
+    );
+  });
+
   it('renders the integrated team builder controls', () => {
     render(<App />);
 

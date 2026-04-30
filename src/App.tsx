@@ -162,6 +162,13 @@ export default function App() {
         <ThreatPanel threats={analysis.threats} />
         <HelpPanel />
       </div>
+
+      <footer className="app-footer">
+        <span>Assistant stratégique Pokémon Champions · outil local de préparation d'équipe</span>
+        <a href="https://alexandre-enouf.fr" target="_blank" rel="noreferrer">
+          Alexandre Enouf
+        </a>
+      </footer>
     </main>
   );
 }
