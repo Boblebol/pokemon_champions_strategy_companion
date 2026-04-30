@@ -32,7 +32,7 @@ Jolly Nature
 - Ice Beam`;
 
 export default function App() {
-  const [format, setFormat] = useState<FormatId>('champions-vgc');
+  const [format, setFormat] = useState<FormatId>('champions-bss');
   const [paste, setPaste] = useState(initialPaste);
   const [builderState, setBuilderState] = useState(() => builderStateFromMembers(parseShowdownTeam(initialPaste).members));
   const [selectedSlots, setSelectedSlots] = useState<number[]>([1]);
@@ -203,7 +203,7 @@ export default function App() {
           <div className="cockpit-intro">
             <span className="eyebrow">Cockpit local · 3v3 / 4v4</span>
             <h1>Cockpit stratégique</h1>
-            <p>Importe, ajuste et valide ton équipe avec une lecture pensée pour le bring 6 pick 3/4.</p>
+            <p>Importe, ajuste et valide ton équipe avec une lecture pensée pour le bring 6 pick 3 niveau 100.</p>
             <dl className="cockpit-kpis">
               <div>
                 <dt>Roster complet</dt>
@@ -256,8 +256,12 @@ export default function App() {
           <TeamPreview team={analysis.team} />
           <AuditPanel audit={analysis.audit} />
           <section className="panel selected-analysis">
-            <h2>Analyse sélection jouée</h2>
-            <p>Sélection de match : {analysis.pickSize} Pokémon à choisir.</p>
+            <h2>Plan de match 3v3</h2>
+            <h3>Analyse sélection jouée</h3>
+            <p>
+              Sélection de match : {analysis.pickSize} Pokémon à choisir au niveau{' '}
+              {analysis.selectedAudit.format.defaultLevel}.
+            </p>
             {analysis.selectionWarnings.map((warning) => (
               <p className="warning" key={warning}>
                 {warning}
@@ -266,6 +270,21 @@ export default function App() {
             <p>
               Joués : {selectedNames.join(', ') || 'aucun'}
             </p>
+            <div className="speed-tier-list" aria-label="Speed tiers sélection">
+              {analysis.selectedAudit.speed.map((speed) => (
+                <article className="speed-tier" key={speed.species}>
+                  <strong>
+                    {speed.species}: {speed.speed} {speed.estimated ? 'estimé' : 'exact'}
+                  </strong>
+                  <span>
+                    {speed.benchmarks
+                      .filter((benchmark) => benchmark.label !== 'Base')
+                      .map((benchmark) => `${benchmark.label} ${benchmark.speed}`)
+                      .join(' · ')}
+                  </span>
+                </article>
+              ))}
+            </div>
             <div className="finding-list">
               {[...analysis.selectedAudit.defensive, ...analysis.selectedAudit.offensive].map((finding) => (
                 <article className={`finding ${finding.severity}`} key={finding.title}>

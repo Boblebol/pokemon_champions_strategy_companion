@@ -11,11 +11,11 @@ export const SUPPORTED_FORMATS: FormatDefinition[] = [
   },
   {
     id: 'champions-bss',
-    label: 'Champions BSS',
+    label: 'Champions 3v3',
     battleStyle: 'singles',
     teamSize: 6,
     pickSize: 3,
-    defaultLevel: 50,
+    defaultLevel: 100,
   },
   {
     id: 'champions-ou',

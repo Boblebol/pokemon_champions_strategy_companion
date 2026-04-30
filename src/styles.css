@@ -848,6 +848,27 @@ small {
   margin-bottom: 0;
 }
 
+.speed-tier-list {
+  display: grid;
+  gap: 8px;
+}
+
+.speed-tier {
+  display: grid;
+  gap: 3px;
+  border: 1px solid #d9e1ed;
+  border-radius: 8px;
+  background: #f6f8fb;
+  padding: 10px;
+}
+
+.speed-tier span {
+  color: #4b5c73;
+  font-size: 13px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
 .selected-analysis .finding-list:empty::before {
   display: block;
   border: 1px solid #d9e1ed;

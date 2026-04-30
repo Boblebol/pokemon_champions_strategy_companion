@@ -92,7 +92,7 @@ Ability: Levitate
       'Kingambit',
       'Rotom-Wash',
     ]);
-    expect(result.selectedAudit.format.label).toBe('Champions BSS');
+    expect(result.selectedAudit.format.label).toBe('Champions 3v3');
     expect(result.selectedThreats.length).toBeGreaterThan(0);
     expect(result.selectionWarnings).toEqual([]);
   });

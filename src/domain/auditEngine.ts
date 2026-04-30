@@ -1,6 +1,8 @@
 import type { DataStore } from './dataStore';
 import { getFormatDefinition } from './formatRules';
 import { detectRoles } from './roleDetection';
+import { calculateBattleStats, speedBenchmarks } from './statCalculator';
+import type { SpeedBenchmark } from './statCalculator';
 import { getDefensiveMultiplier, getWeaknessSummary } from './typeEffectiveness';
 import type { FormatDefinition, FormatId, PokemonType, TeamMember } from './types';
 import { POKEMON_TYPES } from './types';
@@ -15,6 +17,7 @@ export interface SpeedFinding {
   species: string;
   speed: number;
   estimated: boolean;
+  benchmarks: SpeedBenchmark[];
   note: string;
 }
 
@@ -145,17 +148,20 @@ function estimateSpeed(member: TeamMember, store: DataStore, format: AuditFormat
     return undefined;
   }
 
-  const hasSpeedEvs = typeof member.evs.spe === 'number';
-  const speed = reference.baseStats.spe + Math.floor((member.evs.spe ?? 0) / 8);
-  const formatNote = `Affiché pour ${format.label} au niveau par défaut ${format.defaultLevel}.`;
+  const stats = calculateBattleStats({
+    baseStats: reference.baseStats,
+    evs: member.evs,
+    nature: member.nature,
+    level: format.defaultLevel,
+  });
+  const note = `Calcul exact pour ${format.label} au niveau par défaut ${format.defaultLevel}, avec IV 31 par défaut et la nature saisie si disponible.`;
 
   return {
     species: reference.name,
-    speed,
-    estimated: true,
-    note: hasSpeedEvs
-      ? `${formatNote} Repère de Vitesse approximatif basé sur la Vitesse de base et les EV Vitesse saisis ; ignore le niveau réel, les IV et la nature.`
-      : `${formatNote} Repère de Vitesse approximatif basé sur la Vitesse de base ; aucun EV Vitesse saisi, le niveau réel, les IV et la nature sont ignorés.`,
+    speed: stats.spe,
+    estimated: false,
+    benchmarks: speedBenchmarks(stats.spe),
+    note,
   };
 }
 

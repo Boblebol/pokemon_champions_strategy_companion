@@ -25,7 +25,7 @@ describe('dataStore', () => {
   it('exposes all V1 formats with user-facing labels', () => {
     expect(SUPPORTED_FORMATS.map((format) => format.label)).toEqual([
       'Champions VGC',
-      'Champions BSS',
+      'Champions 3v3',
       'Champions OU',
     ]);
   });

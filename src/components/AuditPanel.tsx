@@ -45,7 +45,8 @@ export function AuditPanel({ audit, title = "Audit d'équipe" }: { audit: TeamAu
       <h3>Repères vitesse</h3>
       {audit.speed.map((speed) => (
         <p key={speed.species}>
-          {speed.species}: {speed.speed} {speed.estimated ? '(estimé)' : ''}
+          {speed.species}: {speed.speed} {speed.estimated ? 'estimé' : 'exact'}
+          {speed.benchmarks.length > 1 ? ` · +1 ${speed.benchmarks[1].speed} · +2 ${speed.benchmarks[2].speed}` : ''}
         </p>
       ))}
     </section>

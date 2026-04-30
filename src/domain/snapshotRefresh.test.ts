@@ -67,7 +67,7 @@ describe('refreshSnapshots', () => {
     if (!result.ok) {
       throw new Error(result.message);
     }
-    expect(result.message).toBe('Données Smogon 2026-03 importées pour Champions BSS.');
+    expect(result.message).toBe('Données Smogon 2026-03 importées pour Champions 3v3.');
     expect(result.importedAt).toEqual(expect.any(String));
     expect(result.snapshot.entries).toEqual([
       {

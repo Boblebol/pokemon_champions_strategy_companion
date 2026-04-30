@@ -30,6 +30,8 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /menaces méta/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
     expect(screen.getByText(/roster complet/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /plan de match 3v3/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/niveau 100/i).length).toBeGreaterThan(0);
   });
 
   it('renders contextual help for strategy and data freshness', () => {
@@ -116,6 +118,14 @@ describe('App', () => {
     expect(paste.value).toContain('Tera Type: Ground');
     expect(paste.value).toContain('Jolly Nature');
     expect(paste.value).toContain('- Earthquake');
+  });
+
+  it('uses Champions 3v3 as the default pick 3 level 100 mode', () => {
+    render(<App />);
+
+    expect(screen.getAllByText(/sélection de match : 3 pokémon/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/sélection incomplète : choisis 3 pokémon/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Great Tusk: 300 exact/i).length).toBeGreaterThan(0);
   });
 
   it('adapts match selection to Champions BSS pick 3', async () => {
