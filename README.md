@@ -7,9 +7,17 @@ Repository public : <https://github.com/Boblebol/pokemon_champions_strategy_comp
 
 Démo publique : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 
+Pages :
+
+- Landing : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
+- App : <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
+- Documentation : <https://boblebol.github.io/pokemon_champions_strategy_companion/docs>
+
 ## Fonctionnalités
 
 - Assistant de configuration en étapes : format, équipe, sélection, analyse.
+- Landing marketing séparée, cockpit applicatif séparé et documentation
+  utilisateur dédiée.
 - Interface française avec cartes d'équipe, audit et menaces méta.
 - Import d'un paste Pokémon Showdown.
 - Constructeur d'équipe guidé sur 6 slots avec funnel, édition slot par slot,
@@ -62,6 +70,9 @@ payante ni scraping côté client.
 pnpm install
 pnpm run dev
 ```
+
+En local, la racine ouvre directement le cockpit applicatif. La landing reste
+accessible via `/landing` pour vérification visuelle.
 
 Vérification complète :
 

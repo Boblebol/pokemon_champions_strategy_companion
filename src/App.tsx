@@ -22,6 +22,43 @@ import {
 import type { BuilderSlot } from './domain/teamBuilder';
 import type { DataBundle, FormatId } from './domain/types';
 
+type PageId = 'landing' | 'app' | 'docs';
+
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+function pageHref(page: PageId): string {
+  return `${basePath}/${page}` || `/${page}`;
+}
+
+function routePath(): string {
+  const redirectedPath = new URLSearchParams(window.location.search).get('path');
+  const currentPath = redirectedPath ?? window.location.pathname;
+
+  if (basePath && currentPath.startsWith(basePath)) {
+    return currentPath.slice(basePath.length) || '/';
+  }
+
+  return currentPath;
+}
+
+function resolvePage(): PageId {
+  const path = routePath().replace(/\/$/, '');
+
+  if (path.endsWith('/docs')) {
+    return 'docs';
+  }
+
+  if (path.endsWith('/landing')) {
+    return 'landing';
+  }
+
+  if (path.endsWith('/app')) {
+    return 'app';
+  }
+
+  return import.meta.env.DEV ? 'app' : 'landing';
+}
+
 const initialPaste = `Great Tusk @ Booster Energy
 Ability: Protosynthesis
 Tera Type: Ground
@@ -32,7 +69,7 @@ Jolly Nature
 - Stealth Rock
 - Ice Beam`;
 
-export default function App() {
+function AppPage() {
   const [format, setFormat] = useState<FormatId>('champions-bss');
   const [paste, setPaste] = useState(initialPaste);
   const [builderState, setBuilderState] = useState(() => builderStateFromMembers(parseShowdownTeam(initialPaste).members));
@@ -131,74 +168,8 @@ export default function App() {
   }
 
   return (
-    <main className="product-shell">
-      <section className="marketing-hero" aria-label="Présentation marketing">
-        <div className="hero-nav">
-          <strong>Champions Companion</strong>
-          <a href="#app">Cockpit</a>
-        </div>
-
-        <div className="hero-layout">
-          <div className="hero-copy">
-            <span className="eyebrow">V1 locale · Smogon-ready</span>
-            <h1>Prépare tes picks Pokémon Champions</h1>
-            <p>
-              Un companion de stratégie pour construire ton roster, choisir les 3 ou 4 Pokémon à jouer et
-              prioriser les adaptations depuis les données du méta.
-            </p>
-            <div className="hero-actions">
-              <a className="primary-cta" href="#app">
-                Ouvrir le cockpit
-              </a>
-              <a className="secondary-cta" href="#builder">
-                Construire l'équipe
-              </a>
-            </div>
-            <dl className="hero-proof">
-              <div>
-                <dt>Roster de 6</dt>
-                <dd>slots, sets, EV et commentaires</dd>
-              </div>
-              <div>
-                <dt>Pick 3 ou 4</dt>
-                <dd>faiblesses adaptées au match</dd>
-              </div>
-              <div>
-                <dt>Usages Smogon</dt>
-                <dd>snapshot local et refresh live</dd>
-              </div>
-            </dl>
-          </div>
-
-          <div className="hero-visual" aria-hidden="true">
-            <div className="match-strip">
-              <span>Format Champions</span>
-              <strong>{pickSize}v{pickSize}</strong>
-            </div>
-            <div className="match-board">
-              {Array.from({ length: 6 }, (_, index) => {
-                const member = analysis.team.members[index];
-                const slotId = index + 1;
-                const isPicked = selectedSlots.includes(slotId);
-
-                return (
-                  <div className={`board-slot ${isPicked ? 'picked' : ''}`} key={slotId}>
-                    <span>{slotId}</span>
-                    <strong>{member?.species ?? 'Slot libre'}</strong>
-                    <small>{isPicked ? 'Pick match' : 'Roster'}</small>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="threat-radar">
-              <span>Priorité méta</span>
-              <strong>{topThreat?.species ?? 'Aucune menace'}</strong>
-              <small>{topThreat ? `Score ${topThreat.score}` : 'Roster à compléter'}</small>
-            </div>
-          </div>
-        </div>
-      </section>
-
+    <main className="product-shell app-only-shell">
+      <PageNav tone="light" />
       <section className="app-shell" id="app" aria-label="Cockpit d'analyse">
         <header className="top-bar">
           <div className="cockpit-intro">
@@ -315,4 +286,240 @@ export default function App() {
       </footer>
     </main>
   );
+}
+
+function PageNav({ tone = 'dark', compact = false }: { tone?: 'dark' | 'light'; compact?: boolean }) {
+  return (
+    <nav className={`site-nav ${tone}`} aria-label="Navigation principale">
+      <a className="brand-link" href={pageHref('landing')}>
+        Champions Companion
+      </a>
+      <div>
+        <a href={pageHref('app')}>{compact ? 'App' : "Ouvrir l'app"}</a>
+        <a href={pageHref('docs')}>{compact ? 'Doc' : 'Ouvrir la doc'}</a>
+      </div>
+    </nav>
+  );
+}
+
+function LandingHeroVisual() {
+  return (
+    <div className="hero-visual landing-product-shot" aria-hidden="true">
+      <div className="match-strip">
+        <span>Team preview</span>
+        <strong>6 vers 3</strong>
+      </div>
+      <div className="match-board">
+        {['Great Tusk', 'Dragonite', 'Gholdengo', 'Slot libre', 'Slot libre', 'Slot libre'].map((slot, index) => (
+          <div className={`board-slot ${index < 3 ? 'picked' : ''}`} key={`${slot}-${index}`}>
+            <span>{index + 1}</span>
+            <strong>{slot}</strong>
+            <small>{index < 3 ? 'Pick recommandé' : 'Option roster'}</small>
+          </div>
+        ))}
+      </div>
+      <div className="threat-radar">
+        <span>Menace possible</span>
+        <strong>Flutter Mane</strong>
+        <small>Moonblast · Vitesse max 405</small>
+      </div>
+    </div>
+  );
+}
+
+function LandingPage() {
+  return (
+    <main className="product-shell marketing-page">
+      <section className="marketing-hero standalone-landing" aria-label="Présentation marketing">
+        <PageNav compact />
+        <div className="hero-layout">
+          <div className="hero-copy">
+            <span className="eyebrow">Pokémon Champions · bring 6 pick 3</span>
+            <h1>Gagne du temps au team preview</h1>
+            <p>
+              Construis ton roster, verrouille tes 3 picks et repère immédiatement les pressions qui comptent :
+              couverture offensive, faiblesses défensives, speed tiers exacts et menaces hors méta.
+            </p>
+            <div className="hero-actions">
+              <a className="primary-cta" href={pageHref('app')}>
+                Ouvrir l'app
+              </a>
+              <a className="secondary-cta" href={pageHref('docs')}>
+                Ouvrir la doc
+              </a>
+            </div>
+            <dl className="hero-proof">
+              <div>
+                <dt>Roster de 6</dt>
+                <dd>sets, EV, natures, capacités et commentaires centralisés</dd>
+              </div>
+              <div>
+                <dt>Analyse 3v3 niveau 100</dt>
+                <dd>sélection jouée, faiblesses réelles et speed tiers +1/+2</dd>
+              </div>
+              <div>
+                <dt>Menaces hors méta</dt>
+                <dd>coverage possible depuis les learnsets complets</dd>
+              </div>
+            </dl>
+          </div>
+          <LandingHeroVisual />
+        </div>
+      </section>
+
+      <section className="landing-band">
+        <div className="landing-section-heading">
+          <span className="eyebrow">Workflow</span>
+          <h2>De l'idée de team au plan de match</h2>
+          <p>La landing reste marketing. L'app reste un cockpit de travail, sans friction locale inutile.</p>
+        </div>
+        <div className="landing-feature-grid">
+          <article>
+            <strong>Construit pour Champions 3v3</strong>
+            <p>Le roster complet reste visible, mais les alertes critiques se recalculent sur les 3 Pokémon joués.</p>
+          </article>
+          <article>
+            <strong>Données exploitables</strong>
+            <p>Usages Smogon, snapshots locaux, refresh live et fallback offline restent lisibles dans le cockpit.</p>
+          </article>
+          <article>
+            <strong>Décision rapide</strong>
+            <p>Tu vois les types couverts, les trous défensifs, les vitesses exactes et les sets probables à préparer.</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="landing-band landing-band-contrast">
+        <div className="landing-section-heading">
+          <span className="eyebrow">Pourquoi l'utiliser</span>
+          <h2>Moins de tableurs, plus de décisions</h2>
+        </div>
+        <div className="landing-metrics">
+          <div>
+            <strong>3v3</strong>
+            <span>lecture adaptée au match réel</span>
+          </div>
+          <div>
+            <strong>Niveau 100</strong>
+            <span>calculs vitesse alignés Champions</span>
+          </div>
+          <div>
+            <strong>Learnsets</strong>
+            <span>menaces possibles non limitées au top usage</span>
+          </div>
+          <div>
+            <strong>Local-first</strong>
+            <span>fonctionne même sans refresh réseau</span>
+          </div>
+        </div>
+        <div className="landing-final-cta">
+          <a className="primary-cta" href={pageHref('app')}>
+            Ouvrir l'app
+          </a>
+          <a className="secondary-cta" href={pageHref('docs')}>
+            Ouvrir la doc
+          </a>
+        </div>
+      </section>
+
+      <MarketingFooter />
+    </main>
+  );
+}
+
+function DocsPage() {
+  return (
+    <main className="product-shell docs-page">
+      <PageNav tone="light" />
+      <section className="docs-shell" aria-label="Documentation">
+        <header className="docs-hero">
+          <span className="eyebrow">Guide utilisateur</span>
+          <h1>Documentation Champions Companion</h1>
+          <p>
+            Une référence courte pour comprendre le workflow, les données utilisées et les limites actuelles de
+            l'analyse.
+          </p>
+          <div className="hero-actions">
+            <a className="primary-cta" href={pageHref('app')}>
+              Ouvrir l'app
+            </a>
+            <a className="secondary-cta" href={pageHref('landing')}>
+              Voir la landing
+            </a>
+          </div>
+        </header>
+
+        <div className="docs-grid">
+          <article>
+            <h2>1. Choisir le format</h2>
+            <p>
+              Champions 3v3 est le mode par défaut : équipe de 6, sélection de 3, calculs au niveau 100. VGC et OU
+              restent disponibles pour comparer d'autres lectures.
+            </p>
+          </article>
+          <article>
+            <h2>2. Construire l'équipe</h2>
+            <p>
+              Utilise les menus du constructeur pour choisir un Pokémon, son talent, son objet, sa nature, ses EV et ses
+              quatre attaques disponibles dans la source complète.
+            </p>
+          </article>
+          <article>
+            <h2>3. Verrouiller les 3 picks</h2>
+            <p>
+              Les panneaux défensifs, offensifs, menaces méta, speed tiers et menaces hors méta deviennent beaucoup plus
+              utiles quand la sélection jouée est complète.
+            </p>
+          </article>
+          <article>
+            <h2>4. Lire coverage possible</h2>
+            <p>
+              Le panneau hors méta scanne les learnsets complets pour trouver les Pokémon capables de toucher ta
+              sélection super efficacement, puis propose une vitesse max et des archétypes de sets.
+            </p>
+          </article>
+          <article>
+            <h2>Données et refresh</h2>
+            <p>
+              Le refresh Smogon peut échouer si le réseau, Smogon ou CORS bloque la requête. Dans ce cas, l'app garde le
+              snapshot local et reste utilisable offline.
+            </p>
+          </article>
+          <article>
+            <h2>Limites v1</h2>
+            <p>
+              L'app classe les pressions par types, usages, vitesses et learnsets. Elle ne remplace pas encore un
+              calculateur de dégâts complet avec objets, boosts, météo et Tera offensif.
+            </p>
+          </article>
+        </div>
+      </section>
+      <MarketingFooter />
+    </main>
+  );
+}
+
+function MarketingFooter() {
+  return (
+    <footer className="app-footer">
+      <span>Assistant stratégique Pokémon Champions · outil local de préparation d'équipe</span>
+      <a href="https://alexandre-enouf.fr" target="_blank" rel="noreferrer">
+        Alexandre Enouf
+      </a>
+    </footer>
+  );
+}
+
+export default function App() {
+  const page = resolvePage();
+
+  if (page === 'docs') {
+    return <DocsPage />;
+  }
+
+  if (page === 'landing') {
+    return <LandingPage />;
+  }
+
+  return <AppPage />;
 }

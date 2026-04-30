@@ -1,19 +1,55 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import App from './App';
 
 describe('App', () => {
-  it('renders a marketing landing page with a direct app entry point', () => {
+  afterEach(() => {
+    window.history.pushState({}, '', '/');
+  });
+
+  it('opens the app directly on the local root route', () => {
+    render(<App />);
+
+    expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
+    expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
+  });
+
+  it('renders a marketing landing page with app and doc entry points', () => {
+    window.history.pushState({}, '', '/landing');
     render(<App />);
 
     const landing = screen.getByLabelText(/présentation marketing/i);
     expect(landing).toBeInTheDocument();
-    expect(within(landing).getByRole('heading', { name: /prépare tes picks pokémon champions/i })).toBeInTheDocument();
-    expect(within(landing).getByRole('link', { name: /ouvrir le cockpit/i })).toHaveAttribute('href', '#app');
+    expect(within(landing).getByRole('heading', { name: /gagne du temps au team preview/i })).toBeInTheDocument();
+    expect(within(landing).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
+    expect(within(landing).getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
+    expect(within(landing).getByText(/analyse 3v3 niveau 100/i)).toBeInTheDocument();
+    expect(within(landing).getAllByText(/menaces hors méta/i).length).toBeGreaterThan(0);
     expect(within(landing).getByText(/roster de 6/i)).toBeInTheDocument();
-    expect(within(landing).getByText(/pick 3 ou 4/i)).toBeInTheDocument();
-    expect(within(landing).getByText(/usages smogon/i)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/cockpit d'analyse/i)).not.toBeInTheDocument();
+  });
+
+  it('renders a standalone documentation page', () => {
+    window.history.pushState({}, '', '/docs');
+    render(<App />);
+
+    const docs = screen.getByLabelText(/documentation/i);
+    expect(within(docs).getByRole('heading', { name: /documentation champions companion/i })).toBeInTheDocument();
+    expect(within(docs).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
+    expect(within(docs).getByText(/1\. choisir le format/i)).toBeInTheDocument();
+    expect(within(docs).getByText(/coverage possible/i)).toBeInTheDocument();
+    expect(within(docs).getByText(/le refresh smogon peut échouer/i)).toBeInTheDocument();
+  });
+
+  it('renders the app route without the landing page', () => {
+    window.history.pushState({}, '', '/app');
+    render(<App />);
+
+    expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
+    expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
   });
 
   it('renders the French graphical wizard and dashboard regions', () => {
