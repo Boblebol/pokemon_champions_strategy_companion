@@ -8,33 +8,39 @@ recommandé pour préparer une sélection Pokémon Champions.
 1. Ouvrir l'app locale ou la page publique `/app`.
 2. Choisir le format : `Champions 3v3`, `Champions VGC 4v4 Duo` ou
    `Champions OU`.
-3. Importer un paste Showdown ou construire les 6 slots dans le constructeur.
+3. Importer un paste Showdown, charger un fichier `.txt` ou construire les 6
+   slots dans le constructeur.
 4. Cocher les Pokémon réellement joués dans la sélection de match.
 5. Utiliser le panneau Combat pour simuler les dégâts contre un ou deux
    adversaires.
-6. Lire les panneaux d'audit, de menaces méta, de menaces hors méta et de speed
-   tiers.
+6. Lire les panneaux d'audit, d'adversaires fréquents dangereux, d'adversaires
+   rares dangereux et de vitesses.
 
 L'assistant de départ est optionnel. Il peut être masqué, puis rouvert depuis le
 résumé compact.
 
 ## Formats
 
-| Format | Style | Roster | Sélection | Niveau |
+| Format | Style | Équipe | Sélection | Niveau |
 | --- | --- | ---: | ---: | ---: |
 | Champions 3v3 | Solo | 6 | 3 | 100 |
 | Champions VGC 4v4 Duo | Duo | 6 | 4 | 50 |
 | Champions OU | 6v6 | 6 | 6 | 100 |
 
-Le format pilote le niveau des calculs, le nombre de picks, le style de Combat
-et le snapshot Smogon utilisé.
+Le format pilote le niveau des calculs, le nombre de Pokémon joués, le style de
+Combat et les données d'usage Smogon utilisées.
 
 ## Constructeur
 
 Le constructeur propose les Pokémon, talents, objets, natures et attaques depuis
-la référence Gen 9 générée avec `@pkmn/dex` et `@pkmn/data`. L'interface affiche
-les noms français quand ils sont disponibles, mais les valeurs internes et
-l'export restent compatibles Pokémon Showdown en anglais.
+la référence Gen 9 NatDex générée avec `@pkmn/dex` et `@pkmn/data`. La recherche
+affiche les résultats en français, triés alphabétiquement, avec images Pokémon,
+images d'objets et descriptions d'objets quand la source les fournit. Les valeurs
+internes et l'export restent compatibles Pokémon Showdown en anglais.
+
+Dans l'assistant, `Importer un fichier` lit un `.txt` Showdown et remplace
+l'équipe courante. `Exporter l'équipe` télécharge le paste actuel dans
+`pokemon-champions-team.txt`, pratique pour le garder localement ou le partager.
 
 Les commentaires restent privés au constructeur. Ils servent aux notes de plan de
 jeu et ne sont pas ajoutés au paste Showdown exporté.
@@ -45,21 +51,21 @@ Le panneau Combat utilise `@smogon/calc`.
 
 Il calcule :
 
-- les dégâts sortants de tes Pokémon actifs vers les adversaires choisis ;
-- les dégâts entrants les plus dangereux depuis les attaques apprenables des
+- les dégâts que tes Pokémon actifs font aux adversaires choisis ;
+- les dégâts les plus dangereux que tes Pokémon peuvent recevoir depuis les attaques apprenables des
   adversaires ;
-- les effets des boosts, du Tera, de la brûlure, du critique, de la météo, du
-  terrain et des protections par côté.
+- les effets des boosts, de la Téracristallisation, de la brûlure, du coup
+  critique, de la météo, du terrain et des protections par côté.
 
 En Champions VGC 4v4 Duo, la scène peut contenir deux alliés actifs et deux
 adversaires. En Champions 3v3 et OU, elle démarre en 1v1.
 
 ## Données
 
-L'app fonctionne localement avec des snapshots démo typés. Le bouton
+L'app fonctionne localement avec des données démo typées. Le bouton
 `Mettre à jour` tente de récupérer les derniers usages Smogon disponibles pour le
-format courant. Si le réseau, Smogon ou CORS bloque la requête, l'app conserve le
-snapshot local et affiche un message explicite.
+format courant. Si le réseau, Smogon ou CORS bloque la requête, l'app conserve les
+données locales et affiche un message explicite.
 
 Les images ne sont pas stockées dans le repo. Le repo conserve uniquement les
 URLs publiques et les noms localisés nécessaires à l'affichage.

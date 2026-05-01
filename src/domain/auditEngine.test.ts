@@ -36,7 +36,7 @@ describe('auditTeam', () => {
       format: 'champions-bss',
     });
 
-    expect(result.offensive.some((finding) => finding.title.includes('Couverture offensive'))).toBe(true);
+    expect(result.offensive.some((finding) => finding.title.includes('Types que tes attaques menacent'))).toBe(true);
     expect(result.roles.detected.map((role) => role.role)).toContain('hazard removal');
     expect(result.roles.detected).toContainEqual({
       role: 'hazard removal',

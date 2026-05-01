@@ -60,7 +60,9 @@ describe('rankMetaThreats', () => {
     const dragonite = threats.find((threat) => threat.species === 'Dragonite');
 
     expect(dragonite?.score).toBeCloseTo(31.4);
-    expect(dragonite?.reasons).toContain('0 membre(s) touches super efficacement par les attaques connues');
+    expect(dragonite?.reasons).toContain(
+      '0 membre(s) de ton équipe touchés super efficacement par ses attaques connues',
+    );
   });
 
   it('skips unknown common moves when checking resisted known attacks', () => {
@@ -83,7 +85,7 @@ describe('rankMetaThreats', () => {
       species: 'Known Plus Unknown',
       score: 25,
     });
-    expect(threats[0].reasons).toContain('1 membre(s) resistent aux attaques connues');
+    expect(threats[0].reasons).toContain('1 membre(s) de ton équipe encaissent bien ses attaques connues');
   });
 
   it('orders equal scores by usage, rank, then species', () => {

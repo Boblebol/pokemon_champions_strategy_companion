@@ -3,6 +3,22 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it } from 'vitest';
 import App from './App';
 
+async function waitForCompleteReference() {
+  expect(await screen.findByText(/source complète/i, undefined, { timeout: 5000 })).toBeInTheDocument();
+}
+
+async function selectPickerOption(
+  user: ReturnType<typeof userEvent.setup>,
+  label: RegExp,
+  query: string,
+  optionName: RegExp,
+) {
+  const input = screen.getByLabelText(label);
+  await user.clear(input);
+  await user.type(input, query);
+  await user.click(await screen.findByRole('option', { name: optionName }, { timeout: 5000 }));
+}
+
 describe('App', () => {
   afterEach(() => {
     window.history.pushState({}, '', '/');
@@ -27,8 +43,8 @@ describe('App', () => {
     expect(within(landing).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
     expect(within(landing).getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
     expect(within(landing).getByText(/analyse 3v3 niveau 100/i)).toBeInTheDocument();
-    expect(within(landing).getAllByText(/menaces hors méta/i).length).toBeGreaterThan(0);
-    expect(within(landing).getByText(/roster de 6/i)).toBeInTheDocument();
+    expect(within(landing).getAllByText(/adversaires rares/i).length).toBeGreaterThan(0);
+    expect(within(landing).getAllByText(/équipe de 6/i).length).toBeGreaterThan(0);
     expect(screen.queryByLabelText(/cockpit d'analyse/i)).not.toBeInTheDocument();
   });
 
@@ -40,8 +56,9 @@ describe('App', () => {
     expect(within(docs).getByRole('heading', { name: /documentation champions companion/i })).toBeInTheDocument();
     expect(within(docs).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
     expect(within(docs).getByText(/1\. démarrer avec l'assistant/i)).toBeInTheDocument();
+    expect(within(docs).getByText(/importer un fichier \.txt/i)).toBeInTheDocument();
     expect(within(docs).getByText(/5\. simuler le combat/i)).toBeInTheDocument();
-    expect(within(docs).getByText(/coverage possible/i)).toBeInTheDocument();
+    expect(within(docs).getByText(/6\. lire les attaques dangereuses/i)).toBeInTheDocument();
     expect(within(docs).getByText(/le refresh smogon peut échouer/i)).toBeInTheDocument();
   });
 
@@ -66,12 +83,11 @@ describe('App', () => {
     expect(screen.getByLabelText(/format champions/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/équipe showdown/i)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /audit d'équipe/i })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /menaces méta/i })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /menaces possibles hors méta/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/coverage possible/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/complète la sélection de 3 pokémon/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /adversaires fréquents dangereux/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /adversaires rares dangereux/i })).toBeInTheDocument();
+    expect(screen.getByText(/choisis 3 pokémon pour voir les adversaires rares/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
-    expect(screen.getByText(/roster complet/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/équipe de 6/i).length).toBeGreaterThan(0);
     expect(screen.getByRole('heading', { name: /plan de match 3v3/i })).toBeInTheDocument();
     expect(screen.getAllByText(/niveau 100/i).length).toBeGreaterThan(0);
   });
@@ -82,8 +98,8 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /aides rapides/i })).toBeInTheDocument();
     expect(screen.getByText(/assistant de départ/i)).toBeInTheDocument();
     expect(screen.getAllByText(/combat/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/score de menace/i)).toBeInTheDocument();
-    expect(screen.getByText(/données live/i)).toBeInTheDocument();
+    expect(screen.getByText(/adversaire dangereux/i)).toBeInTheDocument();
+    expect(screen.getByText(/données à jour/i)).toBeInTheDocument();
   });
 
   it('lets users collapse and reopen the setup wizard', async () => {
@@ -126,29 +142,89 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /analyse sélection jouée/i })).toBeInTheDocument();
   });
 
+  it('imports and exports a Showdown team file from the setup assistant', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const importedPaste = `Dragonite @ Heavy-Duty Boots
+Ability: Multiscale
+Tera Type: Normal
+EVs: 252 Atk / 4 SpD / 252 Spe
+Jolly Nature
+- Extreme Speed`;
+    const file = new File([importedPaste], 'dragonite-team.txt', { type: 'text/plain' });
+
+    await user.upload(screen.getByLabelText(/importer un fichier équipe/i), file);
+    expect(await screen.findByText(/fichier importé : dragonite-team\.txt/i)).toBeInTheDocument();
+
+    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
+    expect(paste.value).toContain('Dragonite @ Heavy-Duty Boots');
+    expect(await screen.findAllByText(/Dragonite/i)).not.toHaveLength(0);
+
+    const exportLink = screen.getByRole('link', { name: /exporter l'équipe/i });
+    expect(exportLink).toHaveAttribute('download', 'pokemon-champions-team.txt');
+    expect(decodeURIComponent(exportLink.getAttribute('href') ?? '')).toContain('Dragonite @ Heavy-Duty Boots');
+  });
+
+  it('helps users fill a standard 252 / 252 / 6 EV spread', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: /attaquant physique rapide/i }));
+
+    expect(screen.getByLabelText(/slot 1 ev hp/i)).toHaveValue(6);
+    expect(screen.getByLabelText(/slot 1 ev atk/i)).toHaveValue(252);
+    expect(screen.getByLabelText(/slot 1 ev def/i)).toHaveValue(null);
+    expect(screen.getByLabelText(/slot 1 ev spa/i)).toHaveValue(null);
+    expect(screen.getByLabelText(/slot 1 ev spd/i)).toHaveValue(null);
+    expect(screen.getByLabelText(/slot 1 ev spe/i)).toHaveValue(252);
+    expect(screen.getByText(/ev utilisés : 510\/510/i)).toBeInTheDocument();
+
+    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
+    expect(paste.value).toContain('EVs: 6 HP / 252 Atk / 252 Spe');
+  });
+
+  it('explains selected abilities and natures in simple French', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    expect(screen.getByText(/active paléosynthèse avec le soleil/i)).toBeInTheDocument();
+    await user.selectOptions(screen.getByLabelText(/slot 1 nature/i), 'Jolly');
+
+    expect(screen.getByText(/augmente la vitesse/i)).toBeInTheDocument();
+    expect(screen.getByText(/baisse l'attaque spéciale/i)).toBeInTheDocument();
+  });
+
   it('shows a combat calculator after the team tools', async () => {
     render(<App />);
 
-    expect(await screen.findByRole('heading', { name: /combat/i })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { level: 2, name: /^combat$/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/rechercher adversaire 1/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/dégâts sortants/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/dégâts entrants/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/dégâts que tu fais/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/dégâts que tu reçois/i).length).toBeGreaterThan(0);
   });
 
-  it('loads the complete Showdown reference in the builder', async () => {
-    render(<App />);
+  it('loads the complete Showdown reference in the builder with French searchable media', async () => {
+    const user = userEvent.setup();
+    const { container } = render(<App />);
 
-    expect(await screen.findByText(/source complète/i, undefined, { timeout: 5000 })).toBeInTheDocument();
-    expect(await screen.findByRole('option', { name: /Bulbizarre \(Bulbasaur\)/i }, { timeout: 5000 })).toBeInTheDocument();
+    await waitForCompleteReference();
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangourex', /Kangourex \(Kangaskhan\)/i);
+    expect(container.querySelector('.picker-current img[src*="/pokemon/115.png"]')).not.toBeNull();
+
+    await selectPickerOption(user, /slot 1 objet/i, 'Heavy Duty Boots', /Grosses Bottes \(Heavy-Duty Boots\)/i);
+    expect(screen.getByText(/pièges posés de son côté/i)).toBeInTheDocument();
+    expect(container.querySelector('.picker-current img[src*="/items/gen8/heavy-duty-boots.png"]')).not.toBeNull();
   }, 10000);
 
   it('updates the roster from builder controls and exports the generated paste', async () => {
     const user = userEvent.setup();
     render(<App />);
 
+    await waitForCompleteReference();
     await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
-    await user.selectOptions(screen.getByLabelText(/slot 2 pokémon/i), 'Dragonite');
-    await user.selectOptions(screen.getByLabelText(/slot 2 objet/i), 'Heavy-Duty Boots');
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Dracolosse', /Dracolosse \(Dragonite\)/i);
+    await selectPickerOption(user, /slot 2 objet/i, 'Grosses Bottes', /Grosses Bottes \(Heavy-Duty Boots\)/i);
     await user.selectOptions(screen.getByLabelText(/slot 2 attaque 1/i), 'Extreme Speed');
     await user.clear(screen.getByLabelText(/slot 2 ev atk/i));
     await user.type(screen.getByLabelText(/slot 2 ev atk/i), '252');
@@ -165,8 +241,9 @@ describe('App', () => {
     const user = userEvent.setup();
     render(<App />);
 
+    await waitForCompleteReference();
     await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
-    await user.selectOptions(screen.getByLabelText(/slot 2 pokémon/i), 'Garchomp');
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok \(Garchomp\)/i);
 
     const abilitySelect = screen.getByLabelText(/slot 2 talent/i);
     expect(within(abilitySelect).getByRole('option', { name: /Peau Dure \(Rough Skin\)/i })).toBeInTheDocument();
@@ -177,8 +254,8 @@ describe('App', () => {
     expect(within(firstMoveSelect).getByRole('option', { name: /Séisme \(Earthquake\)/i })).toBeInTheDocument();
     expect(within(firstMoveSelect).queryByRole('option', { name: /Moonblast/i })).not.toBeInTheDocument();
     await user.selectOptions(firstMoveSelect, 'Earthquake');
-    await user.selectOptions(screen.getByLabelText(/slot 2 objet/i), 'Rocky Helmet');
-    await user.selectOptions(screen.getByLabelText(/slot 2 type tera/i), 'Ground');
+    await selectPickerOption(user, /slot 2 objet/i, 'Casque Brut', /Casque Brut \(Rocky Helmet\)/i);
+    await user.selectOptions(screen.getByLabelText(/slot 2 .*type tera/i), 'Ground');
     await user.selectOptions(screen.getByLabelText(/slot 2 nature/i), 'Jolly');
 
     const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
@@ -192,7 +269,7 @@ describe('App', () => {
   it('uses Champions 3v3 as the default pick 3 level 100 mode', () => {
     render(<App />);
 
-    expect(screen.getAllByText(/sélection de match : 3 pokémon/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/sélection de match : choisis 3 pokémon/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/sélection incomplète : choisis 3 pokémon/i)).toBeInTheDocument();
     expect(screen.getAllByText(/(Fort-Ivoire \(Great Tusk\)|Great Tusk): 300 exact/i).length).toBeGreaterThan(0);
   });
@@ -203,7 +280,7 @@ describe('App', () => {
 
     await user.selectOptions(screen.getByLabelText(/format champions/i), 'champions-bss');
 
-    expect(screen.getAllByText(/sélection de match : 3 pokémon/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/sélection de match : choisis 3 pokémon/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/sélection incomplète : choisis 3 pokémon/i)).toBeInTheDocument();
   });
 
@@ -219,7 +296,7 @@ describe('App', () => {
 
     expect((await screen.findAllByText(/Carchacrok \(Garchomp\)/i)).length).toBeGreaterThan(0);
     expect(screen.getByText(/joués : carchacrok \(garchomp\)/i)).toBeInTheDocument();
-    const threatPanel = screen.getByRole('heading', { name: /menaces méta/i }).closest('section');
+    const threatPanel = screen.getByRole('heading', { name: /adversaires fréquents dangereux/i }).closest('section');
     expect(threatPanel).not.toBeNull();
     expect(
       within(threatPanel as HTMLElement).getByText(/Fort-Ivoire|Scalpereur|Corvaillus|Great Tusk|Kingambit|Corviknight/i),

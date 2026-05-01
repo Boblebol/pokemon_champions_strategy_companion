@@ -68,6 +68,29 @@ export interface MoveReference {
   target?: string;
 }
 
+export interface ItemReference {
+  id: string;
+  name: string;
+  localizedNames?: LocalizedNames;
+  description?: string;
+  image?: string;
+  imageFallbacks?: string[];
+}
+
+export interface AbilityReference {
+  id: string;
+  name: string;
+  localizedNames?: LocalizedNames;
+  description?: string;
+}
+
+export interface NatureReference {
+  id: string;
+  name: string;
+  localizedNames?: LocalizedNames;
+  description?: string;
+}
+
 export interface ReferenceLabels {
   abilities: Record<string, LocalizedNames>;
   items: Record<string, LocalizedNames>;
@@ -83,7 +106,10 @@ export interface ReferenceSnapshot {
   pokemon: Record<string, PokemonReference>;
   moves: Record<string, MoveReference>;
   items: string[];
+  itemDetails: Record<string, ItemReference>;
   natures: string[];
+  abilityDetails: Record<string, AbilityReference>;
+  natureDetails: Record<string, NatureReference>;
   labels: ReferenceLabels;
 }
 

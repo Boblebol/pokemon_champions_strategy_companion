@@ -5,7 +5,6 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
-    execArgv: ['--no-webstorage'],
     exclude: [...configDefaults.exclude, '.worktrees/**', '.pnpm-store/**'],
     globals: true,
     passWithNoTests: true,

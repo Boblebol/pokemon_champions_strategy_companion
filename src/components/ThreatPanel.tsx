@@ -6,8 +6,8 @@ import type { ReferenceSnapshot } from '../domain/types';
 export function ThreatPanel({ reference, threats }: { reference: ReferenceSnapshot; threats: RankedThreat[] }) {
   return (
     <section className="panel">
-      <h2>Menaces méta</h2>
-      {threats.length === 0 ? <p>Aucun snapshot d'usage disponible pour ce format.</p> : null}
+      <h2>Adversaires fréquents dangereux</h2>
+      {threats.length === 0 ? <p>Aucune donnée d'usage disponible pour ce format.</p> : null}
       <div className="threat-list">
         {threats.map((threat) => (
           <article className={`threat ${threat.severity}`} key={threat.species}>

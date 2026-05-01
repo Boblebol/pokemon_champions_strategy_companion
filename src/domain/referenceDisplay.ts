@@ -1,6 +1,14 @@
 import { toId } from './ids';
 import { formatLocalizedName, localizedLabelMap } from './localization';
-import type { LocaleId, PokemonReference, PokemonType, ReferenceSnapshot } from './types';
+import type {
+  AbilityReference,
+  ItemReference,
+  LocaleId,
+  NatureReference,
+  PokemonReference,
+  PokemonType,
+  ReferenceSnapshot,
+} from './types';
 
 function localeOf(reference: ReferenceSnapshot): LocaleId {
   return reference.locale || 'fr';
@@ -27,16 +35,55 @@ export function moveDisplayName(reference: ReferenceSnapshot, move: string): str
   return formatLocalizedName(move, moveReference?.localizedNames, localeOf(reference));
 }
 
+export function getAbilityReference(reference: ReferenceSnapshot, ability: string | undefined): AbilityReference | undefined {
+  return ability ? reference.abilityDetails[toId(ability)] : undefined;
+}
+
 export function abilityDisplayName(reference: ReferenceSnapshot, ability: string): string {
-  return formatLocalizedName(ability, localizedLabelMap(reference.labels.abilities, ability), localeOf(reference));
+  const abilityReference = getAbilityReference(reference, ability);
+  return formatLocalizedName(
+    ability,
+    abilityReference?.localizedNames ?? localizedLabelMap(reference.labels.abilities, ability),
+    localeOf(reference),
+  );
+}
+
+export function abilityDescription(reference: ReferenceSnapshot, ability: string | undefined): string {
+  return ability ? getAbilityReference(reference, ability)?.description ?? 'Effet non documenté dans la source.' : '';
+}
+
+export function getItemReference(reference: ReferenceSnapshot, item: string | undefined): ItemReference | undefined {
+  return item ? reference.itemDetails[toId(item)] : undefined;
 }
 
 export function itemDisplayName(reference: ReferenceSnapshot, item: string): string {
-  return formatLocalizedName(item, localizedLabelMap(reference.labels.items, item), localeOf(reference));
+  const itemReference = getItemReference(reference, item);
+  return formatLocalizedName(
+    item,
+    itemReference?.localizedNames ?? localizedLabelMap(reference.labels.items, item),
+    localeOf(reference),
+  );
+}
+
+export function itemDescription(reference: ReferenceSnapshot, item: string): string {
+  return getItemReference(reference, item)?.description ?? 'Effet non documenté dans la source.';
+}
+
+export function getNatureReference(reference: ReferenceSnapshot, nature: string | undefined): NatureReference | undefined {
+  return nature ? reference.natureDetails[toId(nature)] : undefined;
 }
 
 export function natureDisplayName(reference: ReferenceSnapshot, nature: string): string {
-  return formatLocalizedName(nature, localizedLabelMap(reference.labels.natures, nature), localeOf(reference));
+  const natureReference = getNatureReference(reference, nature);
+  return formatLocalizedName(
+    nature,
+    natureReference?.localizedNames ?? localizedLabelMap(reference.labels.natures, nature),
+    localeOf(reference),
+  );
+}
+
+export function natureDescription(reference: ReferenceSnapshot, nature: string | undefined): string {
+  return nature ? getNatureReference(reference, nature)?.description ?? 'Effet non documenté dans la source.' : '';
 }
 
 export function typeDisplayName(reference: ReferenceSnapshot, type: PokemonType): string {

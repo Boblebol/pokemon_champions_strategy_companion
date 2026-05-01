@@ -131,6 +131,67 @@ function localizedEntityMap(rows, idColumn) {
   return result;
 }
 
+function collectItemDescriptions(rows) {
+  const result = new Map();
+
+  for (const row of rows) {
+    if (row.local_language_id !== LOCALES.fr) {
+      continue;
+    }
+
+    const description = row.short_effect?.trim().replace(/\s+/g, ' ');
+    if (!description || description.startsWith('XXX')) {
+      continue;
+    }
+
+    result.set(row.item_id, description);
+  }
+
+  return result;
+}
+
+function itemMap(itemNameRows, itemProseRows) {
+  const namesById = collectNames(itemNameRows, 'item_id', ['name']);
+  const descriptionsById = collectItemDescriptions(itemProseRows);
+  const result = {};
+
+  for (const [itemId, names] of namesById.entries()) {
+    const complete = completeNames(names);
+    if (!complete) {
+      continue;
+    }
+
+    const description = descriptionsById.get(itemId);
+    result[toSearchId(complete.en)] = {
+      names: complete,
+      ...(description ? { description } : {}),
+    };
+  }
+
+  return result;
+}
+
+function abilityMap(abilityNameRows, abilityProseRows) {
+  const namesById = collectNames(abilityNameRows, 'ability_id', ['name']);
+  const descriptionsById = collectItemDescriptions(abilityProseRows);
+  const result = {};
+
+  for (const [abilityId, names] of namesById.entries()) {
+    const complete = completeNames(names);
+    if (!complete) {
+      continue;
+    }
+
+    const description = descriptionsById.get(abilityId);
+    result[toSearchId(complete.en)] = {
+      names: complete,
+      ...(description ? { description } : {}),
+    };
+  }
+
+  return result;
+}
+
 function pokemonImageSet(pokemonId) {
   return {
     artwork: `${SPRITE_BASE}/pokemon/other/official-artwork/${pokemonId}.png`,
@@ -187,7 +248,9 @@ async function main() {
     pokemonSpeciesNameRows,
     moveNameRows,
     abilityNameRows,
+    abilityProseRows,
     itemNameRows,
+    itemProseRows,
     natureNameRows,
   ] = await Promise.all([
     fetchCsv('pokemon.csv'),
@@ -196,7 +259,9 @@ async function main() {
     fetchCsv('pokemon_species_names.csv'),
     fetchCsv('move_names.csv'),
     fetchCsv('ability_names.csv'),
+    fetchCsv('ability_prose.csv'),
     fetchCsv('item_names.csv'),
+    fetchCsv('item_prose.csv'),
     fetchCsv('nature_names.csv'),
   ]);
 
@@ -210,8 +275,8 @@ async function main() {
       pokemonSpeciesNameRows,
     }),
     moves: localizedEntityMap(moveNameRows, 'move_id'),
-    abilities: localizedEntityMap(abilityNameRows, 'ability_id'),
-    items: localizedEntityMap(itemNameRows, 'item_id'),
+    abilities: abilityMap(abilityNameRows, abilityProseRows),
+    items: itemMap(itemNameRows, itemProseRows),
     natures: localizedEntityMap(natureNameRows, 'nature_id'),
   });
 

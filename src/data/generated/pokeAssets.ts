@@ -2469,9 +2469,10 @@ export const generatedPokeAssets = {
       }
     }
   },
-  "importedAt": "2026-04-30T15:12:02.512Z",
+  "importedAt": "2026-05-01T13:56:58.970Z",
   "items": {
     "abilitycapsule": {
+      "description": "Permet à un Pokémon d'alterner entre ses deux Talents (non cachés) possibles.",
       "names": {
         "en": "Ability Capsule",
         "fr": "Pilule Talent",
@@ -2493,6 +2494,7 @@ export const generatedPokeAssets = {
       }
     },
     "abilityurge": {
+      "description": "Force l'activation du talent d'un Pokémon allié.",
       "names": {
         "en": "Ability Urge",
         "fr": "Appel Talent",
@@ -2500,6 +2502,7 @@ export const generatedPokeAssets = {
       }
     },
     "abomasite": {
+      "description": "Tenu: Permet à Blizzaroi de Méga-Évoluer en Méga-Blizzaroi.",
       "names": {
         "en": "Abomasite",
         "fr": "Blizzarite",
@@ -2514,6 +2517,7 @@ export const generatedPokeAssets = {
       }
     },
     "absolite": {
+      "description": "Tenu: Permet à Absol de Méga-Évoluer en Méga-Absol.",
       "names": {
         "en": "Absolite",
         "fr": "Absolite",
@@ -2521,6 +2525,7 @@ export const generatedPokeAssets = {
       }
     },
     "absorbbulb": {
+      "description": "Tenu: Augmente l'Attaque Spéciale du porteur d'un niveau lorsqu'il subit des dégâts d'une capacité de type Eau.",
       "names": {
         "en": "Absorb Bulb",
         "fr": "Bulbe",
@@ -2556,6 +2561,7 @@ export const generatedPokeAssets = {
       }
     },
     "acrobike": {
+      "description": "Plus manœuvrable que le Vélo de Course, et permet de sauter le long des rails.",
       "names": {
         "en": "Acro Bike",
         "fr": "Vélo Cross",
@@ -2577,6 +2583,7 @@ export const generatedPokeAssets = {
       }
     },
     "adamantorb": {
+      "description": "Booste les dégâts des attaques Dragon et Acier de Dialga de 20%.",
       "names": {
         "en": "Adamant Orb",
         "fr": "Orbe Adamant",
@@ -2584,6 +2591,7 @@ export const generatedPokeAssets = {
       }
     },
     "adrenalineorb": {
+      "description": "Rend les Pokémon sauvages plus susceptibles d'appeler à l'aide. Tenu: augmente la Vitesse du porteur d'un niveau quand affecté par Intimidation.",
       "names": {
         "en": "Adrenaline Orb",
         "fr": "Orbe Frousse",
@@ -2591,6 +2599,7 @@ export const generatedPokeAssets = {
       }
     },
     "adventureguide": {
+      "description": "Contient des informations basic sur le gameplay.",
       "names": {
         "en": "Adventure Guide",
         "fr": "ABC Aventure",
@@ -2605,6 +2614,7 @@ export const generatedPokeAssets = {
       }
     },
     "aerodactylite": {
+      "description": "Tenu: Permet à Ptéra de Méga-Évoluer en Méga-Ptéra.",
       "names": {
         "en": "Aerodactylite",
         "fr": "Ptéraïte",
@@ -2612,6 +2622,7 @@ export const generatedPokeAssets = {
       }
     },
     "aggronite": {
+      "description": "Tenu: Permet à Galeking de Méga-Évoluer en Méga-Galeking.",
       "names": {
         "en": "Aggronite",
         "fr": "Galekingite",
@@ -2619,6 +2630,7 @@ export const generatedPokeAssets = {
       }
     },
     "aguavberry": {
+      "description": "Tenu: Consommé à 1/2 des PV max pour regagner 1/8 des PV max. Peut rendre confus les Pokémon qui n'aime pas les saveurs amères.",
       "names": {
         "en": "Aguav Berry",
         "fr": "Baie Gowav",
@@ -2633,6 +2645,7 @@ export const generatedPokeAssets = {
       }
     },
     "airballoon": {
+      "description": "Tenu: Donne l'immunité aux capacités de type Sol, Picots et Pics Toxik. Consommé quand le porteur prend des dégâts d'une capacité.",
       "names": {
         "en": "Air Balloon",
         "fr": "Ballon",
@@ -2640,12 +2653,14 @@ export const generatedPokeAssets = {
       }
     },
     "airmail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Air Mail",
         "fr": "Lettre Avion"
       }
     },
     "alakazite": {
+      "description": "Tenu: Permet à Alakazam de Méga-Évoluer en Méga-Alakazam.",
       "names": {
         "en": "Alakazite",
         "fr": "Alakazamite",
@@ -2667,6 +2682,7 @@ export const generatedPokeAssets = {
       }
     },
     "altarianite": {
+      "description": "Tenu: Permet à Altaria de Méga-Évoluer en Méga-Altaria.",
       "names": {
         "en": "Altarianite",
         "fr": "Altarite",
@@ -2674,6 +2690,7 @@ export const generatedPokeAssets = {
       }
     },
     "amazemulch": {
+      "description": "Augmente le nombre total de Baies de 2, augmente les chances de mutation de Baies, et assèche le sol en 4 heures.",
       "names": {
         "en": "Amaze Mulch",
         "fr": "Fertiprodige",
@@ -2681,6 +2698,7 @@ export const generatedPokeAssets = {
       }
     },
     "ampharosite": {
+      "description": "Tenu: Permet à Pharamp de Méga-Évoluer en Méga-Pharamp.",
       "names": {
         "en": "Ampharosite",
         "fr": "Pharampite",
@@ -2688,6 +2706,7 @@ export const generatedPokeAssets = {
       }
     },
     "amuletcoin": {
+      "description": "Tenu: Double l'argent gagné en combat. Ne s'accumule pas avec l'Encens Veine.",
       "names": {
         "en": "Amulet Coin",
         "fr": "Pièce Rune",
@@ -2730,6 +2749,7 @@ export const generatedPokeAssets = {
       }
     },
     "antidote": {
+      "description": "Soigne le poison.",
       "names": {
         "en": "Antidote",
         "fr": "Antidote",
@@ -2737,6 +2757,7 @@ export const generatedPokeAssets = {
       }
     },
     "apicotberry": {
+      "description": "Tenu: Consommé à 1/4 des PV max pour booster la Défense Spéciale.",
       "names": {
         "en": "Apicot Berry",
         "fr": "Baie Abriko",
@@ -2758,6 +2779,7 @@ export const generatedPokeAssets = {
       }
     },
     "apricornbox": {
+      "description": "Stocke les Noigrumes.",
       "names": {
         "en": "Apricorn Box",
         "fr": "Boîte Noigrume",
@@ -2856,6 +2878,7 @@ export const generatedPokeAssets = {
       }
     },
     "aquasuit": {
+      "description": "Permet au joueur de chevaucher Kyogre dans la Grotte Origine.",
       "names": {
         "en": "Aqua Suit",
         "fr": "Scaphandre Aqua",
@@ -2898,6 +2921,7 @@ export const generatedPokeAssets = {
       }
     },
     "armorfossil": {
+      "description": "Peut être ressuscité en Dinoclier.",
       "names": {
         "en": "Armor Fossil",
         "fr": "Fossile Armure",
@@ -2933,6 +2957,7 @@ export const generatedPokeAssets = {
       }
     },
     "aspearberry": {
+      "description": "Tenu: Consommé quand gelé pour soigner le gel.",
       "names": {
         "en": "Aspear Berry",
         "fr": "Baie Willia",
@@ -2940,6 +2965,7 @@ export const generatedPokeAssets = {
       }
     },
     "assaultvest": {
+      "description": "Augmente la Défense Spéciale du porteur de 1.5x. Empêche le porteur de sélectionner des capacités de statut.",
       "names": {
         "en": "Assault Vest",
         "fr": "Veste de Combat",
@@ -2947,6 +2973,7 @@ export const generatedPokeAssets = {
       }
     },
     "audinite": {
+      "description": "Tenu: Permet à Nanméouïe de Méga-Évoluer en Méga-Nanméouïe.",
       "names": {
         "en": "Audinite",
         "fr": "Nanméouïte",
@@ -3003,6 +3030,7 @@ export const generatedPokeAssets = {
       }
     },
     "auroraticket": {
+      "description": "Permet d'accéder à l'Île Aurore et Deoxys.",
       "names": {
         "en": "AuroraTicket",
         "fr": "Ticketaurora"
@@ -3030,6 +3058,7 @@ export const generatedPokeAssets = {
       }
     },
     "awakening": {
+      "description": "Soigne le sommeil.",
       "names": {
         "en": "Awakening",
         "fr": "Réveil",
@@ -3044,6 +3073,7 @@ export const generatedPokeAssets = {
       }
     },
     "azureflute": {
+      "description": "Permet d'accéder à la Salle Originelle. Jamais diffusée.",
       "names": {
         "en": "Azure Flute",
         "fr": "Flûte Azur",
@@ -3058,6 +3088,7 @@ export const generatedPokeAssets = {
       }
     },
     "babiriberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Acier super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Babiri Berry",
         "fr": "Baie Babiri",
@@ -3093,6 +3124,7 @@ export const generatedPokeAssets = {
       }
     },
     "balmmushroom": {
+      "description": "À vendre à une femme pour 25000 Pokédollars.",
       "names": {
         "en": "Balm Mushroom",
         "fr": "Champi Suave",
@@ -3114,6 +3146,7 @@ export const generatedPokeAssets = {
       }
     },
     "banettite": {
+      "description": "Tenu: Permet à Branette de Méga-Évoluer en Méga-Branette.",
       "names": {
         "en": "Banettite",
         "fr": "Branettite",
@@ -3177,12 +3210,14 @@ export const generatedPokeAssets = {
       }
     },
     "beadmail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Bead Mail",
         "fr": "Lettre Bulle"
       }
     },
     "beastball": {
+      "description": "Tente de capturer un Pokémon sauvage. Le taux de succès est 5× pour les Ultra-Chimères et 0.1× pour tous les autres Pokémon.",
       "names": {
         "en": "Beast Ball",
         "fr": "Ultra Ball",
@@ -3190,6 +3225,7 @@ export const generatedPokeAssets = {
       }
     },
     "beedrillite": {
+      "description": "Tenu: Permet à Dardargnan de Méga-Évoluer en Méga-Dardargnan.",
       "names": {
         "en": "Beedrillite",
         "fr": "Dardargnite",
@@ -3211,6 +3247,7 @@ export const generatedPokeAssets = {
       }
     },
     "belueberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Belue Berry",
         "fr": "Baie Myrte",
@@ -3225,6 +3262,7 @@ export const generatedPokeAssets = {
       }
     },
     "berryjuice": {
+      "description": "Restaure 20 PV.",
       "names": {
         "en": "Berry Juice",
         "fr": "Jus de Baie",
@@ -3232,6 +3270,7 @@ export const generatedPokeAssets = {
       }
     },
     "berrypots": {
+      "description": "Permet la culture portable des baies.",
       "names": {
         "en": "Berry Pots",
         "fr": "Plante-Baies",
@@ -3239,6 +3278,7 @@ export const generatedPokeAssets = {
       }
     },
     "berrypouch": {
+      "description": "Stocke les baies.",
       "names": {
         "en": "Berry Pouch",
         "fr": "Sac à Baies"
@@ -3252,6 +3292,7 @@ export const generatedPokeAssets = {
       }
     },
     "bicycle": {
+      "description": "À utiliser pour se déplacer rapidement.",
       "names": {
         "en": "Bicycle",
         "fr": "Bicyclette"
@@ -3265,6 +3306,7 @@ export const generatedPokeAssets = {
       }
     },
     "bigmalasada": {
+      "description": "Soigne les altérations majeures de statut et la confusion.",
       "names": {
         "en": "Big Malasada",
         "fr": "Malasada Maxi",
@@ -3272,6 +3314,7 @@ export const generatedPokeAssets = {
       }
     },
     "bigmushroom": {
+      "description": "Rouge Feu et Vert Feuille : Échange pour réapprendre des capacités apprises par montée de niveau. À vendre pour 2500 Pokédollars, ou à une servante pour 5000 Pokédollars",
       "names": {
         "en": "Big Mushroom",
         "fr": "Gros Champi",
@@ -3279,6 +3322,7 @@ export const generatedPokeAssets = {
       }
     },
     "bignugget": {
+      "description": "À vendre au collectionneur d'objets pour 30000 Pokédollars.",
       "names": {
         "en": "Big Nugget",
         "fr": "Maxi Pépite",
@@ -3286,6 +3330,7 @@ export const generatedPokeAssets = {
       }
     },
     "bigpearl": {
+      "description": "À vendre pour 3750 Pokédollars, ou au collectionneur d'objets pour 7500 Pokédollars.",
       "names": {
         "en": "Big Pearl",
         "fr": "Grande Perle",
@@ -3293,6 +3338,7 @@ export const generatedPokeAssets = {
       }
     },
     "bigroot": {
+      "description": "Tenu: Augmente les PV regagnés des capacités drainantes, Racines et Anneau Hydro de 3/10 (30%).",
       "names": {
         "en": "Big Root",
         "fr": "Grosse Racine",
@@ -3307,12 +3353,14 @@ export const generatedPokeAssets = {
       }
     },
     "bikevoucher": {
+      "description": "À échanger aux Cycles à Gogo à Azuria pour un Vélo.",
       "names": {
         "en": "Bike Voucher",
         "fr": "Bon Commande"
       }
     },
     "bindingband": {
+      "description": "Tenu: Double les dégâts par tour des capacités piégeantes multitours.",
       "names": {
         "en": "Binding Band",
         "fr": "Bande Étreinte",
@@ -3327,6 +3375,7 @@ export const generatedPokeAssets = {
       }
     },
     "blackapricorn": {
+      "description": "Utilisé pour fabriquer une Masse Ball.",
       "names": {
         "en": "Black Apricorn",
         "fr": "Noigrume Noir",
@@ -3339,6 +3388,7 @@ export const generatedPokeAssets = {
       }
     },
     "blackbelt": {
+      "description": "Tenu: Les capacités de type Combat du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Black Belt",
         "fr": "Ceinture Noire",
@@ -3346,6 +3396,7 @@ export const generatedPokeAssets = {
       }
     },
     "blackflute": {
+      "description": "Divise par deux le taux de rencontres avec un Pokémon sauvage.",
       "names": {
         "en": "Black Flute",
         "fr": "Flûte Noire",
@@ -3353,6 +3404,7 @@ export const generatedPokeAssets = {
       }
     },
     "blackglasses": {
+      "description": "Tenu: Les capacités de type Ténèbres du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Black Glasses",
         "fr": "Lunettes Noires",
@@ -3367,6 +3419,7 @@ export const generatedPokeAssets = {
       }
     },
     "blacksludge": {
+      "description": "Tenu: Le porteur de type Poison regagne 1/16 (6.25%) de ses PV max à chaque tour. Les non-types Poison subissent 1/8 (12.5%) de PV max en dégâts.",
       "names": {
         "en": "Black Sludge",
         "fr": "Boue Noire",
@@ -3381,6 +3434,7 @@ export const generatedPokeAssets = {
       }
     },
     "blastoisinite": {
+      "description": "Tenu: Permet à Tortank de Méga-Évoluer en Méga-Tortank.",
       "names": {
         "en": "Blastoisinite",
         "fr": "Tortankite",
@@ -3388,6 +3442,7 @@ export const generatedPokeAssets = {
       }
     },
     "blazikenite": {
+      "description": "Tenu: Permet à Braségali de Méga-Évoluer en Méga-Braségali.",
       "names": {
         "en": "Blazikenite",
         "fr": "Braségalite",
@@ -3395,12 +3450,14 @@ export const generatedPokeAssets = {
       }
     },
     "bloommail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Bloom Mail",
         "fr": "Lett. Pétale"
       }
     },
     "blueapricorn": {
+      "description": "Utilisé pour fabriquer une Appât Ball.",
       "names": {
         "en": "Blue Apricorn",
         "fr": "Noigrume Bleu",
@@ -3415,6 +3472,7 @@ export const generatedPokeAssets = {
       }
     },
     "bluecard": {
+      "description": "Garde une trace des points du Mot de Passe de Buena.",
       "names": {
         "en": "Blue Card",
         "fr": "Carte Bleue",
@@ -3443,6 +3501,7 @@ export const generatedPokeAssets = {
       }
     },
     "blueflute": {
+      "description": "Soigne le sommeil.",
       "names": {
         "en": "Blue Flute",
         "fr": "Flûte Bleue",
@@ -3450,6 +3509,7 @@ export const generatedPokeAssets = {
       }
     },
     "blueorb": {
+      "description": "Invoque Kyogre à la Tour Enfouie.",
       "names": {
         "en": "Blue Orb",
         "fr": "Gemme Bleue",
@@ -3471,6 +3531,7 @@ export const generatedPokeAssets = {
       }
     },
     "bluescarf": {
+      "description": "Augmente la Beauté du porteur lors d'un concours.",
       "names": {
         "en": "Blue Scarf",
         "fr": "Foulard Bleu",
@@ -3478,6 +3539,7 @@ export const generatedPokeAssets = {
       }
     },
     "blueshard": {
+      "description": "Aucun effet. Peut être échangé pour des objets ou capacités.",
       "names": {
         "en": "Blue Shard",
         "fr": "Tesson Bleu",
@@ -3499,6 +3561,7 @@ export const generatedPokeAssets = {
       }
     },
     "blukberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Bluk Berry",
         "fr": "Baie Remu",
@@ -3604,6 +3667,7 @@ export const generatedPokeAssets = {
       }
     },
     "boostmulch": {
+      "description": "Assèche le sol en 4 heures.",
       "names": {
         "en": "Boost Mulch",
         "fr": "Fertibérance",
@@ -3611,6 +3675,7 @@ export const generatedPokeAssets = {
       }
     },
     "bottlecap": {
+      "description": "À échanger à Papi Ultime pour maximiser un IV d'un Pokémon.",
       "names": {
         "en": "Bottle Cap",
         "fr": "Capsule d’Argent",
@@ -3646,12 +3711,14 @@ export const generatedPokeAssets = {
       }
     },
     "brickmail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Brick Mail",
         "fr": "Lettre Brik"
       }
     },
     "bridgemaild": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Bridge Mail D",
         "fr": "Lettre Pont Y",
@@ -3659,6 +3726,7 @@ export const generatedPokeAssets = {
       }
     },
     "bridgemailm": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Bridge Mail M",
         "fr": "Lettre Pont I",
@@ -3666,6 +3734,7 @@ export const generatedPokeAssets = {
       }
     },
     "bridgemails": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Bridge Mail S",
         "fr": "Lettre Pont S",
@@ -3673,6 +3742,7 @@ export const generatedPokeAssets = {
       }
     },
     "bridgemailt": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Bridge Mail T",
         "fr": "Lettre Pont F",
@@ -3680,6 +3750,7 @@ export const generatedPokeAssets = {
       }
     },
     "bridgemailv": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Bridge Mail V",
         "fr": "Lettre Pont H",
@@ -3687,6 +3758,7 @@ export const generatedPokeAssets = {
       }
     },
     "brightpowder": {
+      "description": "Tenu: Augmente l'esquive du porteur de 1/9 (11 1/9%).",
       "names": {
         "en": "Bright Powder",
         "fr": "Poudre Claire",
@@ -3729,12 +3801,14 @@ export const generatedPokeAssets = {
       }
     },
     "bubblemail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Bubble Mail",
         "fr": "Lettre Mer"
       }
     },
     "buggem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Insecte, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Bug Gem",
         "fr": "Joyau Insecte",
@@ -3749,6 +3823,7 @@ export const generatedPokeAssets = {
       }
     },
     "bugmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Insecte. Change le type de Coup Varia-Type en Insecte.",
       "names": {
         "en": "Bug Memory",
         "fr": "ROM Insecte",
@@ -3777,6 +3852,7 @@ export const generatedPokeAssets = {
       }
     },
     "burndrive": {
+      "description": "Donne à Genesect un Techno-Buster rouge, de type Feu.",
       "names": {
         "en": "Burn Drive",
         "fr": "Module Pyro",
@@ -3784,6 +3860,7 @@ export const generatedPokeAssets = {
       }
     },
     "burnheal": {
+      "description": "Soigne la brûlure.",
       "names": {
         "en": "Burn Heal",
         "fr": "Anti-Brûle",
@@ -3812,6 +3889,7 @@ export const generatedPokeAssets = {
       }
     },
     "calcium": {
+      "description": "Augmente l'effort en Attaque Spéciale et le bonheur.",
       "names": {
         "en": "Calcium",
         "fr": "Calcium",
@@ -3826,6 +3904,7 @@ export const generatedPokeAssets = {
       }
     },
     "cameruptite": {
+      "description": "Tenu: Permet à Camérupt de Méga-Évoluer en Méga-Camérupt.",
       "names": {
         "en": "Cameruptite",
         "fr": "Caméruptite",
@@ -3924,6 +4003,7 @@ export const generatedPokeAssets = {
       }
     },
     "carbos": {
+      "description": "Augmente l'effort en Vitesse et le bonheur.",
       "names": {
         "en": "Carbos",
         "fr": "Carbone",
@@ -4001,6 +4081,7 @@ export const generatedPokeAssets = {
       }
     },
     "casteliacone": {
+      "description": "Soigne n'importe quelle altération de statut et la confusion.",
       "names": {
         "en": "Casteliacone",
         "fr": "Glace Volute",
@@ -4029,6 +4110,7 @@ export const generatedPokeAssets = {
       }
     },
     "cellbattery": {
+      "description": "Tenu: Augmente l'Attaque du porteur d'un niveau lorsqu'il subit des dégâts d'une capacité de type Électrik.",
       "names": {
         "en": "Cell Battery",
         "fr": "Pile",
@@ -4162,6 +4244,7 @@ export const generatedPokeAssets = {
       }
     },
     "charcoal": {
+      "description": "Tenu: Les capacités de type Feu du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Charcoal",
         "fr": "Charbon",
@@ -4169,6 +4252,7 @@ export const generatedPokeAssets = {
       }
     },
     "charizarditex": {
+      "description": "Tenu: Permet à Dracaufeu de Méga-Évoluer en Méga-Dracaufeu X.",
       "names": {
         "en": "Charizardite X",
         "fr": "Dracaufite X",
@@ -4176,6 +4260,7 @@ export const generatedPokeAssets = {
       }
     },
     "charizarditey": {
+      "description": "Tenu: Permet à Dracaufeu de Méga-Évoluer en Méga-Dracaufeu Y.",
       "names": {
         "en": "Charizardite Y",
         "fr": "Dracaufite Y",
@@ -4190,6 +4275,7 @@ export const generatedPokeAssets = {
       }
     },
     "chartiberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Roche super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Charti Berry",
         "fr": "Baie Charti",
@@ -4204,6 +4290,7 @@ export const generatedPokeAssets = {
       }
     },
     "cheriberry": {
+      "description": "Tenu: Consommé quand paralysé pour soigner la paralysie.",
       "names": {
         "en": "Cheri Berry",
         "fr": "Baie Ceriz",
@@ -4211,6 +4298,7 @@ export const generatedPokeAssets = {
       }
     },
     "cherishball": {
+      "description": "Tente de capturer un Pokémon sauvage.",
       "names": {
         "en": "Cherish Ball",
         "fr": "Mémoire Ball",
@@ -4225,6 +4313,7 @@ export const generatedPokeAssets = {
       }
     },
     "chestoberry": {
+      "description": "Tenu: Consommé quand endormi pour soigner le sommeil.",
       "names": {
         "en": "Chesto Berry",
         "fr": "Baie Maron",
@@ -4239,6 +4328,7 @@ export const generatedPokeAssets = {
       }
     },
     "chilanberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Normal pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Chilan Berry",
         "fr": "Baie Zalis",
@@ -4253,6 +4343,7 @@ export const generatedPokeAssets = {
       }
     },
     "chilldrive": {
+      "description": "Donne à Genesect un Techno-Buster blanc, de type Glace.",
       "names": {
         "en": "Chill Drive",
         "fr": "Module Cryo",
@@ -4274,6 +4365,7 @@ export const generatedPokeAssets = {
       }
     },
     "choiceband": {
+      "description": "Tenu: Augmente l'Attaque de 50%, mais restreint le porteur à seulement une capacité.",
       "names": {
         "en": "Choice Band",
         "fr": "Bandeau Choix",
@@ -4281,6 +4373,7 @@ export const generatedPokeAssets = {
       }
     },
     "choicescarf": {
+      "description": "Tenu: Augmente la Vitesse de 50%, mais restreint le porteur à une seule capacité.",
       "names": {
         "en": "Choice Scarf",
         "fr": "Mouchoir Choix",
@@ -4288,6 +4381,7 @@ export const generatedPokeAssets = {
       }
     },
     "choicespecs": {
+      "description": "Tenu: Augmente l'Attaque Spéciale de 50%, mais restreint le porteur a seulement une capacité.",
       "names": {
         "en": "Choice Specs",
         "fr": "Lunettes Choix",
@@ -4295,6 +4389,7 @@ export const generatedPokeAssets = {
       }
     },
     "chopleberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Combat super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Chople Berry",
         "fr": "Baie Pomroz",
@@ -4316,6 +4411,7 @@ export const generatedPokeAssets = {
       }
     },
     "clawfossil": {
+      "description": "Peut être ressuscité en Anorith.",
       "names": {
         "en": "Claw Fossil",
         "fr": "Fossile Griffe",
@@ -4323,6 +4419,7 @@ export const generatedPokeAssets = {
       }
     },
     "cleansetag": {
+      "description": "Empêche les rencontres sauvages de niveau inférieur à celui du premier Pokémon de votre équipe.",
       "names": {
         "en": "Cleanse Tag",
         "fr": "Rune Purifiante",
@@ -4337,6 +4434,7 @@ export const generatedPokeAssets = {
       }
     },
     "clearbell": {
+      "description": "HS: Permet aux Kimono d'invoquer Ho-oh. C: Invoque Suicune à la Tour Carillon.",
       "names": {
         "en": "Clear Bell",
         "fr": "Glas Transparent",
@@ -4358,6 +4456,7 @@ export const generatedPokeAssets = {
       }
     },
     "cleverfeather": {
+      "description": "Augmente les EV de Défense Spéciale de 1.",
       "names": {
         "en": "Clever Feather",
         "fr": "Plume Mental",
@@ -4512,6 +4611,7 @@ export const generatedPokeAssets = {
       }
     },
     "cobaberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Vol super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Coba Berry",
         "fr": "Baie Cobaba",
@@ -4526,6 +4626,7 @@ export const generatedPokeAssets = {
       }
     },
     "coincase": {
+      "description": "Stocke les jetons pour le Casino.",
       "names": {
         "en": "Coin Case",
         "fr": "Boîte Jetons",
@@ -4554,6 +4655,7 @@ export const generatedPokeAssets = {
       }
     },
     "colburberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Ténèbres super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Colbur Berry",
         "fr": "Baie Lampou",
@@ -4561,6 +4663,7 @@ export const generatedPokeAssets = {
       }
     },
     "colressmachine": {
+      "description": "Réveille le Crabaraque bloquant le chemin dans la Grotte Littorale.",
       "names": {
         "en": "Colress Machine",
         "fr": "Nikodule",
@@ -4582,6 +4685,7 @@ export const generatedPokeAssets = {
       }
     },
     "cometshard": {
+      "description": "À vendre au collectionneur d'objets pour 60000 Pokédollars.",
       "names": {
         "en": "Comet Shard",
         "fr": "Morceau Comète",
@@ -4589,6 +4693,7 @@ export const generatedPokeAssets = {
       }
     },
     "commonstone": {
+      "description": "Inconnu.",
       "names": {
         "en": "Common Stone",
         "fr": "Pierre Ordinaire",
@@ -4603,6 +4708,7 @@ export const generatedPokeAssets = {
       }
     },
     "contestpass": {
+      "description": "Permet de participer aux Concours Pokémon.",
       "names": {
         "en": "Contest Pass",
         "fr": "Passe Concours",
@@ -4617,6 +4723,7 @@ export const generatedPokeAssets = {
       }
     },
     "cornnberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Cornn Berry",
         "fr": "Baie Siam",
@@ -4631,6 +4738,7 @@ export const generatedPokeAssets = {
       }
     },
     "coupon1": {
+      "description": "Le premier des trois bons utilisés pour obtenir la Pokémontre.",
       "names": {
         "en": "Coupon 1",
         "fr": "Bon 1",
@@ -4638,6 +4746,7 @@ export const generatedPokeAssets = {
       }
     },
     "coupon2": {
+      "description": "Le second des trois bons utilisés pour obtenir la Pokémontre.",
       "names": {
         "en": "Coupon 2",
         "fr": "Bon 2",
@@ -4645,6 +4754,7 @@ export const generatedPokeAssets = {
       }
     },
     "coupon3": {
+      "description": "Le dernier des trois bons utilisés pour obtenir la Pokémontre.",
       "names": {
         "en": "Coupon 3",
         "fr": "Bon 3",
@@ -4673,6 +4783,7 @@ export const generatedPokeAssets = {
       }
     },
     "coverfossil": {
+      "description": "Peut être ressuscité en un Carapagos.",
       "names": {
         "en": "Cover Fossil",
         "fr": "Fossile Plaque",
@@ -4848,6 +4959,7 @@ export const generatedPokeAssets = {
       }
     },
     "custapberry": {
+      "description": "Tenu: Consommé à 1/4 des PV en utilisant une capacité pour être prioritaire.",
       "names": {
         "en": "Custap Berry",
         "fr": "Baie Chérim",
@@ -4939,6 +5051,7 @@ export const generatedPokeAssets = {
       }
     },
     "dampmulch": {
+      "description": "Le temps de croissance des baies est augmenté, mais le sol se dessèche plus lentement.",
       "names": {
         "en": "Damp Mulch",
         "fr": "Fertihumide",
@@ -4946,6 +5059,7 @@ export const generatedPokeAssets = {
       }
     },
     "damprock": {
+      "description": "Tenu: Danse Pluie du porteur dure 8 tours au lieu de 5.",
       "names": {
         "en": "Damp Rock",
         "fr": "Roche Humide",
@@ -4953,6 +5067,7 @@ export const generatedPokeAssets = {
       }
     },
     "darkgem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Ténèbres, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Dark Gem",
         "fr": "Joyau Ténèbres",
@@ -4967,6 +5082,7 @@ export const generatedPokeAssets = {
       }
     },
     "darkmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Ténèbres. Change le type de Coup Varia-Type en Ténèbres.",
       "names": {
         "en": "Dark Memory",
         "fr": "ROM Ténèbres",
@@ -4974,6 +5090,7 @@ export const generatedPokeAssets = {
       }
     },
     "darkstone": {
+      "description": "Invoque Zekrom pour le combat final contre N.",
       "names": {
         "en": "Dark Stone",
         "fr": "Galet Noir",
@@ -4988,6 +5105,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard01": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier du Pokéathlon.",
       "names": {
         "en": "Data Card 01",
         "fr": "Carte Mémo01",
@@ -4995,6 +5113,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard02": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé dernier du Pokéathlon.",
       "names": {
         "en": "Data Card 02",
         "fr": "Carte Mémo02",
@@ -5002,6 +5121,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard03": {
+      "description": "Enregistre le nombre de fois que le dresseur a utilisé le sprint au Pokéathlon.",
       "names": {
         "en": "Data Card 03",
         "fr": "Carte Mémo03",
@@ -5009,6 +5129,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard04": {
+      "description": "Enregistre le nombre de fois que le dresseur a sauté au Pokéathlon.",
       "names": {
         "en": "Data Card 04",
         "fr": "Carte Mémo04",
@@ -5016,6 +5137,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard05": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier de la Cours'Obstacles du Pokéathlon.",
       "names": {
         "en": "Data Card 05",
         "fr": "Carte Mémo05",
@@ -5023,6 +5145,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard06": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier de la Course de Relais du Pokéathlon.",
       "names": {
         "en": "Data Card 06",
         "fr": "Carte Mémo06",
@@ -5030,6 +5153,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard07": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier de la Capture Drapeau du Pokéathlon.",
       "names": {
         "en": "Data Card 07",
         "fr": "Carte Mémo07",
@@ -5037,6 +5161,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard08": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier du Casse Roc du Pokéathlon.",
       "names": {
         "en": "Data Card 08",
         "fr": "Carte Mémo08",
@@ -5044,6 +5169,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard09": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier de l'Attrap'Disques du Pokéathlon.",
       "names": {
         "en": "Data Card 09",
         "fr": "Carte Mémo09",
@@ -5051,6 +5177,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard10": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier de la Bataille Neige du Pokéathlon.",
       "names": {
         "en": "Data Card 10",
         "fr": "Carte Mémo10",
@@ -5058,6 +5185,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard11": {
+      "description": "Enregistre le nombre de points gagnés par le dresseur au Pokéathlon.",
       "names": {
         "en": "Data Card 11",
         "fr": "Carte Mémo11",
@@ -5065,6 +5193,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard12": {
+      "description": "Enregistre le nombre de fois que les Pokémon du dresseur se sont trompés au Pokéathlon.",
       "names": {
         "en": "Data Card 12",
         "fr": "Carte Mémo12",
@@ -5072,6 +5201,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard13": {
+      "description": "Enregistre le nombre de fois que les Pokémon du dresseur se sont vaincus tout seuls au Pokéathlon.",
       "names": {
         "en": "Data Card 13",
         "fr": "Carte Mémo13",
@@ -5079,6 +5209,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard14": {
+      "description": "Enregistre le nombre de fois que les Pokémon du dresseur ont chargé au Pokéathlon.",
       "names": {
         "en": "Data Card 14",
         "fr": "Carte Mémo14",
@@ -5086,6 +5217,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard15": {
+      "description": "Enregistre le nombre de fois que les Pokémon du dresseur sont tombés au Pokéathlon.",
       "names": {
         "en": "Data Card 15",
         "fr": "Carte Mémo15",
@@ -5093,6 +5225,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard16": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier du Combat Ring-Out du Pokéathlon.",
       "names": {
         "en": "Data Card 16",
         "fr": "Carte Mémo16",
@@ -5100,6 +5233,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard17": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier du Saute-Lumière du Pokéathlon.",
       "names": {
         "en": "Data Card 17",
         "fr": "Carte Mémo17",
@@ -5107,6 +5241,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard18": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier du Cercle Musical du Pokéathlon.",
       "names": {
         "en": "Data Card 18",
         "fr": "Carte Mémo18",
@@ -5114,6 +5249,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard19": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier du Pokéathlon en Link.",
       "names": {
         "en": "Data Card 19",
         "fr": "Carte Mémo19",
@@ -5121,6 +5257,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard20": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé dernier du Pokéathlon en Link.",
       "names": {
         "en": "Data Card 20",
         "fr": "Carte Mémo20",
@@ -5128,6 +5265,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard21": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier du Pokéathlon toutes épreuves confondues.",
       "names": {
         "en": "Data Card 21",
         "fr": "Carte Mémo21",
@@ -5135,6 +5273,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard22": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé dernier du Pokéathlon toutes épreuves confondues.",
       "names": {
         "en": "Data Card 22",
         "fr": "Carte Mémo22",
@@ -5142,6 +5281,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard23": {
+      "description": "Enregistre le nombre de fois que le dresseur a changé de Pokémon au Pokéathlon.",
       "names": {
         "en": "Data Card 23",
         "fr": "Carte Mémo23",
@@ -5149,6 +5289,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard24": {
+      "description": "Enregistre le nombre de fois que le dresseur a terminé premier de la Balle au But du Pokéathlon.",
       "names": {
         "en": "Data Card 24",
         "fr": "Carte Mémo24",
@@ -5156,6 +5297,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard25": {
+      "description": "Enregistre le nombre de fois que les Pokémon du dresseur ont reçu des prix au Pokéathlon.",
       "names": {
         "en": "Data Card 25",
         "fr": "Carte Mémo25",
@@ -5163,6 +5305,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard26": {
+      "description": "Enregistre le nombre de fois que le dresseur a touché ses Pokémon au Pokéathlon.",
       "names": {
         "en": "Data Card 26",
         "fr": "Carte Mémo26",
@@ -5170,6 +5313,7 @@ export const generatedPokeAssets = {
       }
     },
     "datacard27": {
+      "description": "Enregistre le temps total passé au Pokéathlon.",
       "names": {
         "en": "Data Card 27",
         "fr": "Carte Mémo27",
@@ -5177,6 +5321,7 @@ export const generatedPokeAssets = {
       }
     },
     "dawnstone": {
+      "description": "Fait évoluer un Kirlia mâle en Gallame ou un Stalgamin femelle en Momartik.",
       "names": {
         "en": "Dawn Stone",
         "fr": "Pierre Aube",
@@ -5198,6 +5343,7 @@ export const generatedPokeAssets = {
       }
     },
     "deepseascale": {
+      "description": "Double la Défense Spéciale de Coquiperl. Échange sur un Coquiperl: Le porteur évolue en Rosabyss.",
       "names": {
         "en": "Deep Sea Scale",
         "fr": "Écaille Océan",
@@ -5205,6 +5351,7 @@ export const generatedPokeAssets = {
       }
     },
     "deepseatooth": {
+      "description": "Double l'Attaque Spéciale de Coquiperl. Échange sur un Coquiperl: Le porteur évolue en Serpang.",
       "names": {
         "en": "Deep Sea Tooth",
         "fr": "Dent Océan",
@@ -5254,6 +5401,7 @@ export const generatedPokeAssets = {
       }
     },
     "destinyknot": {
+      "description": "Tenu: Rend le Pokémon adverse amoureux quand le porteur est attiré.",
       "names": {
         "en": "Destiny Knot",
         "fr": "Nœud Destin",
@@ -5261,12 +5409,14 @@ export const generatedPokeAssets = {
       }
     },
     "devongoods": {
+      "description": "Contient les pièces mécaniques à livrer au Capitaine Poupe.",
       "names": {
         "en": "Devon Goods",
         "fr": "Pack Devon"
       }
     },
     "devonparts": {
+      "description": "Permet au capitaine Poupe de débuter son expédition.",
       "names": {
         "en": "Devon Parts",
         "fr": "Pack Devon",
@@ -5274,6 +5424,7 @@ export const generatedPokeAssets = {
       }
     },
     "devonscope": {
+      "description": "Permet de détecter les Kecleon invisibles.",
       "names": {
         "en": "Devon Scope",
         "fr": "Devon Scope",
@@ -5281,6 +5432,7 @@ export const generatedPokeAssets = {
       }
     },
     "devonscubagear": {
+      "description": "Porté par le joueur lorsqu'il est sous l'eau.",
       "names": {
         "en": "Devon Scuba Gear",
         "fr": "Plongeur Devon",
@@ -5309,6 +5461,7 @@ export const generatedPokeAssets = {
       }
     },
     "diancite": {
+      "description": "Tenu: Permet à Diancie de Méga-Évoluer en Méga-Diancie.",
       "names": {
         "en": "Diancite",
         "fr": "Diancite",
@@ -5330,6 +5483,7 @@ export const generatedPokeAssets = {
       }
     },
     "direhit": {
+      "description": "Augmente les chances de coup critique en combat. Augmente le bonheur.",
       "names": {
         "en": "Dire Hit",
         "fr": "Muscle +",
@@ -5337,6 +5491,7 @@ export const generatedPokeAssets = {
       }
     },
     "direhit2": {
+      "description": "Augmente le taux de coups critiques de deux niveaux en combat. Shooter Miracle seulement.",
       "names": {
         "en": "Dire Hit 2",
         "fr": "Muscle 2",
@@ -5344,6 +5499,7 @@ export const generatedPokeAssets = {
       }
     },
     "direhit3": {
+      "description": "Augmente le taux de coups critiques de trois niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "Dire Hit 3",
         "fr": "Muscle 3",
@@ -5351,6 +5507,7 @@ export const generatedPokeAssets = {
       }
     },
     "discountcoupon": {
+      "description": "Peut être utilisé à la boutique pour une réduction de 50%. Consommé une fois utilisé.",
       "names": {
         "en": "Discount Coupon",
         "fr": "Bon Réduction",
@@ -5372,6 +5529,7 @@ export const generatedPokeAssets = {
       }
     },
     "diveball": {
+      "description": "Tente de capturer un Pokémon sauvage. Le taux de succès est 3.5× sous l'eau, en pêchant ou en surfant.",
       "names": {
         "en": "Dive Ball",
         "fr": "Scuba Ball",
@@ -5393,6 +5551,7 @@ export const generatedPokeAssets = {
       }
     },
     "domefossil": {
+      "description": "Peut être ressuscité en Kabuto.",
       "names": {
         "en": "Dome Fossil",
         "fr": "Fossile Dôme",
@@ -5407,6 +5566,7 @@ export const generatedPokeAssets = {
       }
     },
     "dousedrive": {
+      "description": "Donne à Genesect un Techno-Buster bleu, de type Eau.",
       "names": {
         "en": "Douse Drive",
         "fr": "Module Aqua",
@@ -5414,6 +5574,7 @@ export const generatedPokeAssets = {
       }
     },
     "dowsingmachine": {
+      "description": "À utiliser pour trouver des objets cachés sur le sol. Aussi connu sous le nom de Cherch'Objet.",
       "names": {
         "en": "Dowsing Machine",
         "fr": "Cherch’Objet",
@@ -5505,6 +5666,7 @@ export const generatedPokeAssets = {
       }
     },
     "dracoplate": {
+      "description": "Tenu: Les capacités de type Dragon du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Dragon.",
       "names": {
         "en": "Draco Plate",
         "fr": "Plaque Draco",
@@ -5512,6 +5674,7 @@ export const generatedPokeAssets = {
       }
     },
     "dragonfang": {
+      "description": "Tenu: Les capacités de type Dragon du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Dragon Fang",
         "fr": "Croc Dragon",
@@ -5519,6 +5682,7 @@ export const generatedPokeAssets = {
       }
     },
     "dragongem": {
+      "description": "Tenu: Quand le porteur utilise une capacité offensive de type Dragon, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Dragon Gem",
         "fr": "Joyau Dragon",
@@ -5533,6 +5697,7 @@ export const generatedPokeAssets = {
       }
     },
     "dragonmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Dragon. Change le type de Coup Varia-Type en Dragon.",
       "names": {
         "en": "Dragon Memory",
         "fr": "ROM Dragon",
@@ -5540,6 +5705,7 @@ export const generatedPokeAssets = {
       }
     },
     "dragonscale": {
+      "description": "Échangé sur Hypocéan: Le porteur évolue en Hyporoi.",
       "names": {
         "en": "Dragon Scale",
         "fr": "Écaille Draco",
@@ -5547,6 +5713,7 @@ export const generatedPokeAssets = {
       }
     },
     "dragonskull": {
+      "description": "Retourne au musée à Maillard.",
       "names": {
         "en": "Dragon Skull",
         "fr": "Crâne Dragon",
@@ -5575,6 +5742,7 @@ export const generatedPokeAssets = {
       }
     },
     "dreadplate": {
+      "description": "Tenu: Les capacités de type Ténèbres du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Ténèbres.",
       "names": {
         "en": "Dread Plate",
         "fr": "Plaque Ombre",
@@ -5582,6 +5750,7 @@ export const generatedPokeAssets = {
       }
     },
     "dreamball": {
+      "description": "Capture les Pokémon trouvés dans le Dream World.",
       "names": {
         "en": "Dream Ball",
         "fr": "Rêve Ball",
@@ -5589,6 +5758,7 @@ export const generatedPokeAssets = {
       }
     },
     "dreammail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Dream Mail",
         "fr": "Lettre Songe"
@@ -5630,6 +5800,7 @@ export const generatedPokeAssets = {
       }
     },
     "dubiousdisc": {
+      "description": "Échangé sur un Porygon2: Le porteur évolue en Proygon-Z.",
       "names": {
         "en": "Dubious Disc",
         "fr": "CD Douteux",
@@ -5651,6 +5822,7 @@ export const generatedPokeAssets = {
       }
     },
     "durinberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Durin Berry",
         "fr": "Baie Durin",
@@ -5658,6 +5830,7 @@ export const generatedPokeAssets = {
       }
     },
     "duskball": {
+      "description": "Tente de capturer un Pokémon sauvage. Le taux de succès est 3.5× la nuit et dans les grottes.",
       "names": {
         "en": "Dusk Ball",
         "fr": "Sombre Ball",
@@ -5665,6 +5838,7 @@ export const generatedPokeAssets = {
       }
     },
     "duskstone": {
+      "description": "Fait évoluer un Mélancolux en Lugulabre, un Feuforêve en Magirêve, ou un Cornèbre en Corboss.",
       "names": {
         "en": "Dusk Stone",
         "fr": "Pierre Nuit",
@@ -5700,6 +5874,7 @@ export const generatedPokeAssets = {
       }
     },
     "earthplate": {
+      "description": "Tenu: Les capacités de type Sol du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Sol.",
       "names": {
         "en": "Earth Plate",
         "fr": "Plaque Terre",
@@ -5749,6 +5924,7 @@ export const generatedPokeAssets = {
       }
     },
     "ejectbutton": {
+      "description": "Tenu: Lorsque le porteur subit des dégâts d'une capacité, il se retire pour un Pokémon de l'équipe au choix du Dresseur.",
       "names": {
         "en": "Eject Button",
         "fr": "Bouton Fuite",
@@ -5784,6 +5960,7 @@ export const generatedPokeAssets = {
       }
     },
     "electirizer": {
+      "description": "Échangé sur un Élektek: Le porteur évolue en Élekable.",
       "names": {
         "en": "Electirizer",
         "fr": "Électriseur",
@@ -5791,6 +5968,7 @@ export const generatedPokeAssets = {
       }
     },
     "electricgem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Électrik, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Electric Gem",
         "fr": "Joyau Électrik",
@@ -5798,6 +5976,7 @@ export const generatedPokeAssets = {
       }
     },
     "electricmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Électrik. Change le type de Coup Varia-Type en Électrik.",
       "names": {
         "en": "Electric Memory",
         "fr": "ROM Électrik",
@@ -5805,6 +5984,7 @@ export const generatedPokeAssets = {
       }
     },
     "electricseed": {
+      "description": "Tenu: Consommé sur un Champ Électrifié et augmente la Défense du porteur d'un niveau.",
       "names": {
         "en": "Electric Seed",
         "fr": "Graine Électrik",
@@ -5826,6 +6006,7 @@ export const generatedPokeAssets = {
       }
     },
     "elevatorkey": {
+      "description": "Débloque l'ascenseur des Labos Lysandre.",
       "names": {
         "en": "Elevator Key",
         "fr": "Clé Ascenseur",
@@ -5833,6 +6014,7 @@ export const generatedPokeAssets = {
       }
     },
     "elixir": {
+      "description": "Restaure 10 PP pour toutes les capacités.",
       "names": {
         "en": "Elixir",
         "fr": "Élixir",
@@ -5847,6 +6029,7 @@ export const generatedPokeAssets = {
       }
     },
     "energypowder": {
+      "description": "Restaure 50 PV, mais diminue le bonheur.",
       "names": {
         "en": "Energy Powder",
         "fr": "Poudrénergie",
@@ -5854,6 +6037,7 @@ export const generatedPokeAssets = {
       }
     },
     "energyroot": {
+      "description": "Restaure 200 PV, mais diminue le bonheur.",
       "names": {
         "en": "Energy Root",
         "fr": "Racinénergie",
@@ -5861,6 +6045,7 @@ export const generatedPokeAssets = {
       }
     },
     "enigmaberry": {
+      "description": "Tenu: Consommé quand touché par une attaque super efficace pour restaurer 1/4 des PV max.",
       "names": {
         "en": "Enigma Berry",
         "fr": "Baie Enigma",
@@ -5868,6 +6053,7 @@ export const generatedPokeAssets = {
       }
     },
     "enigmastone": {
+      "description": "S: Invoque Latias H: Invoque Latios.",
       "names": {
         "en": "Enigma Stone",
         "fr": "Mystécristal",
@@ -5875,6 +6061,7 @@ export const generatedPokeAssets = {
       }
     },
     "enigmaticcard": {
+      "description": "Débloque la chambre du motel de Beladonis sur la Route 8.",
       "names": {
         "en": "Enigmatic Card",
         "fr": "Message Mystère",
@@ -5882,6 +6069,7 @@ export const generatedPokeAssets = {
       }
     },
     "eonflute": {
+      "description": "Invoque Latias ou Latios pour s'envoler sur son dos.",
       "names": {
         "en": "Eon Flute",
         "fr": "Flûte Éon",
@@ -5889,6 +6077,7 @@ export const generatedPokeAssets = {
       }
     },
     "eonticket": {
+      "description": "Permet d'accéder à l'ïle du Sud et Latias ou Latios.",
       "names": {
         "en": "Eon Ticket",
         "fr": "Passe Éon",
@@ -5987,6 +6176,7 @@ export const generatedPokeAssets = {
       }
     },
     "escaperope": {
+      "description": "Transporte l'utilisateur à l'entrée extérieure d'une grotte.",
       "names": {
         "en": "Escape Rope",
         "fr": "Corde Sortie",
@@ -5994,6 +6184,7 @@ export const generatedPokeAssets = {
       }
     },
     "ether": {
+      "description": "Restaure 10 PP pour une capacité.",
       "names": {
         "en": "Ether",
         "fr": "Huile",
@@ -6001,6 +6192,7 @@ export const generatedPokeAssets = {
       }
     },
     "everstone": {
+      "description": "Tenu: Empêche les évolutions basées sur le niveau d'avoir lieu.",
       "names": {
         "en": "Everstone",
         "fr": "Pierre Stase",
@@ -6008,6 +6200,7 @@ export const generatedPokeAssets = {
       }
     },
     "eviolite": {
+      "description": "Tenu: La Défense et Défense Spéciale du porteur augmentent de 50%, tant qu'il n'est pas complètement évolué.",
       "names": {
         "en": "Eviolite",
         "fr": "Évoluroc",
@@ -6071,6 +6264,7 @@ export const generatedPokeAssets = {
       }
     },
     "expertbelt": {
+      "description": "Tenu: Les capacités super efficaces du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Expert Belt",
         "fr": "Ceinture Pro",
@@ -6078,6 +6272,7 @@ export const generatedPokeAssets = {
       }
     },
     "explorerkit": {
+      "description": "Permet de visiter le Souterrain de Sinnoh.",
       "names": {
         "en": "Explorer Kit",
         "fr": "Explorakit",
@@ -6085,6 +6280,7 @@ export const generatedPokeAssets = {
       }
     },
     "expshare": {
+      "description": "Tenu: La moitié de l'expérience gagnée par un combat est attribuée au Pokémon portant cet objet.",
       "names": {
         "en": "Exp. Share",
         "fr": "Multi Exp",
@@ -6092,6 +6288,7 @@ export const generatedPokeAssets = {
       }
     },
     "fabmail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Fab Mail",
         "fr": "Lettre Cool"
@@ -6112,6 +6309,7 @@ export const generatedPokeAssets = {
       }
     },
     "fairygem": {
+      "description": "Tenu: Quand le porteur utilise une capacité offensive Fée, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Fairy Gem",
         "fr": "Joyau Fée",
@@ -6119,6 +6317,7 @@ export const generatedPokeAssets = {
       }
     },
     "fairymemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Fée. Change le type de Coup Varia-Type en Fée.",
       "names": {
         "en": "Fairy Memory",
         "fr": "ROM Fée",
@@ -6140,6 +6339,7 @@ export const generatedPokeAssets = {
       }
     },
     "famechecker": {
+      "description": "Enregistre des informations sur les PNJs.",
       "names": {
         "en": "Fame Checker",
         "fr": "Memorydex"
@@ -6160,6 +6360,7 @@ export const generatedPokeAssets = {
       }
     },
     "fashioncase": {
+      "description": "Range les Accessoires Pokémon pour utilisation en Concours.",
       "names": {
         "en": "Fashion Case",
         "fr": "Coffret Mode",
@@ -6167,6 +6368,7 @@ export const generatedPokeAssets = {
       }
     },
     "fastball": {
+      "description": "4× plus efficace sur un Pokémon avec une vitesse de base de 100 ou plus. (Gén II: Pokémon Errant ou Fuyard). Fait à partir de Noigrume Blc.",
       "names": {
         "en": "Fast Ball",
         "fr": "Speed Ball",
@@ -6174,6 +6376,7 @@ export const generatedPokeAssets = {
       }
     },
     "favoredmail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Favored Mail",
         "fr": "Lettre Fan",
@@ -6194,6 +6397,7 @@ export const generatedPokeAssets = {
       }
     },
     "festivalticket": {
+      "description": "Héberge une mission à la Place Festival.",
       "names": {
         "en": "Festival Ticket",
         "fr": "Festicket",
@@ -6208,6 +6412,7 @@ export const generatedPokeAssets = {
       }
     },
     "fightinggem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Combat, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Fighting Gem",
         "fr": "Joyau Combat",
@@ -6215,6 +6420,7 @@ export const generatedPokeAssets = {
       }
     },
     "fightingmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Combat. Change le type de Coup Varia-Type en Combat.",
       "names": {
         "en": "Fighting Memory",
         "fr": "ROM Combat",
@@ -6236,6 +6442,7 @@ export const generatedPokeAssets = {
       }
     },
     "figyberry": {
+      "description": "Tenu: Consommé à 1/2 des PV max pour regagner 1/8 des PV max. Peut rendre confus les Pokémon qui n'aime pas les saveurs épicées.",
       "names": {
         "en": "Figy Berry",
         "fr": "Baie Figuy",
@@ -6257,6 +6464,7 @@ export const generatedPokeAssets = {
       }
     },
     "firegem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Feu, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Fire Gem",
         "fr": "Joyau Feu",
@@ -6264,6 +6472,7 @@ export const generatedPokeAssets = {
       }
     },
     "firememory": {
+      "description": "Tenu: Change Silvallié dans sa forme Feu. Change le type de Coup Varia-Type en Feu.",
       "names": {
         "en": "Fire Memory",
         "fr": "ROM Feu",
@@ -6278,6 +6487,7 @@ export const generatedPokeAssets = {
       }
     },
     "firestone": {
+      "description": "Fait évoluer un Évoli en Pyroli, un Caninos en Arcanin, un Flamajou en Flamoutan, ou un Goupix en Feunard.",
       "names": {
         "en": "Fire Stone",
         "fr": "Pierre Feu",
@@ -6306,6 +6516,7 @@ export const generatedPokeAssets = {
       }
     },
     "fistplate": {
+      "description": "Tenu: Les capacités de type Combat du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Combat.",
       "names": {
         "en": "Fist Plate",
         "fr": "Plaque Poing",
@@ -6320,12 +6531,14 @@ export const generatedPokeAssets = {
       }
     },
     "flamemail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Flame Mail",
         "fr": "Lettre Feu"
       }
     },
     "flameorb": {
+      "description": "Tenu: Inflige la Brûlure au porteur à la fin du tour. S'active après que les dégâts due la Brûlure devraient avoir lieu.",
       "names": {
         "en": "Flame Orb",
         "fr": "Orbe Flamme",
@@ -6333,6 +6546,7 @@ export const generatedPokeAssets = {
       }
     },
     "flameplate": {
+      "description": "Tenu: Les capacités de type Feu du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Feu.",
       "names": {
         "en": "Flame Plate",
         "fr": "Plaque Flamme",
@@ -6361,6 +6575,7 @@ export const generatedPokeAssets = {
       }
     },
     "floatstone": {
+      "description": "Tenu: Le poids du porteur est 0.5×.",
       "names": {
         "en": "Float Stone",
         "fr": "Pierrallégée",
@@ -6382,6 +6597,7 @@ export const generatedPokeAssets = {
       }
     },
     "fluffytail": {
+      "description": "Met fin à un combat sauvage.",
       "names": {
         "en": "Fluffy Tail",
         "fr": "Queue Skitty",
@@ -6389,6 +6605,7 @@ export const generatedPokeAssets = {
       }
     },
     "flyinggem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Vol, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Flying Gem",
         "fr": "Joyau Vol",
@@ -6396,6 +6613,7 @@ export const generatedPokeAssets = {
       }
     },
     "flyingmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Vol. Change le type de Coup Varia-Type en Vol.",
       "names": {
         "en": "Flying Memory",
         "fr": "ROM Vol",
@@ -6417,6 +6635,7 @@ export const generatedPokeAssets = {
       }
     },
     "focusband": {
+      "description": "Tenu: Le porteur a 10% de chance de survivre aux attaques ou aux contrecoups de 1 PV.",
       "names": {
         "en": "Focus Band",
         "fr": "Bandeau",
@@ -6424,6 +6643,7 @@ export const generatedPokeAssets = {
       }
     },
     "focussash": {
+      "description": "Tenu: Le porteur survit à n'importe quelle attaque à un coup à 1 PV s'il est aux PV max, ensuite l'objet est consommé.",
       "names": {
         "en": "Focus Sash",
         "fr": "Ceinture Force",
@@ -6445,6 +6665,7 @@ export const generatedPokeAssets = {
       }
     },
     "foragebag": {
+      "description": "Porte les ingrédients pendant l'épreuve de Barbara.",
       "names": {
         "en": "Forage Bag",
         "fr": "Sac Ingrédients",
@@ -6494,6 +6715,7 @@ export const generatedPokeAssets = {
       }
     },
     "freshwater": {
+      "description": "Restaure 50 PV.",
       "names": {
         "en": "Fresh Water",
         "fr": "Eau Fraîche",
@@ -6515,6 +6737,7 @@ export const generatedPokeAssets = {
       }
     },
     "friendball": {
+      "description": "Les Pokémon capturés commencent avec 200 de bonheur. Fait à partir de Noigrume Ver.",
       "names": {
         "en": "Friend Ball",
         "fr": "Copain Ball",
@@ -6536,6 +6759,7 @@ export const generatedPokeAssets = {
       }
     },
     "fullheal": {
+      "description": "Soigne toutes les altérations de statut et la confusion.",
       "names": {
         "en": "Full Heal",
         "fr": "Total Soin",
@@ -6543,6 +6767,7 @@ export const generatedPokeAssets = {
       }
     },
     "fullincense": {
+      "description": "Tenu: Les capacités du porteur agissent en dernier pour une même priorité. Reproduction: Ronflex engendre un Œuf de Goinfrex.",
       "names": {
         "en": "Full Incense",
         "fr": "Encens Plein",
@@ -6550,6 +6775,7 @@ export const generatedPokeAssets = {
       }
     },
     "fullrestore": {
+      "description": "Restaure les PV au maximum et soigne toutes les altérations de statut et la confusion.",
       "names": {
         "en": "Full Restore",
         "fr": "Guérison",
@@ -6557,6 +6783,7 @@ export const generatedPokeAssets = {
       }
     },
     "galactickey": {
+      "description": "Permet d'accéder au Centre Galaxie de Voilaroc.",
       "names": {
         "en": "Galactic Key",
         "fr": "Clé Galaxie",
@@ -6585,6 +6812,7 @@ export const generatedPokeAssets = {
       }
     },
     "galladite": {
+      "description": "Tenu: Permet à Gallame de Méga-Évoluer en Méga-Gallame.",
       "names": {
         "en": "Galladite",
         "fr": "Gallamite",
@@ -6592,6 +6820,7 @@ export const generatedPokeAssets = {
       }
     },
     "ganlonberry": {
+      "description": "Tenu: Consommé à 1/4 des PV max pour booster la Défense.",
       "names": {
         "en": "Ganlon Berry",
         "fr": "Baie Lingan",
@@ -6599,6 +6828,7 @@ export const generatedPokeAssets = {
       }
     },
     "garchompite": {
+      "description": "Tenu: Permet à Carchacrok de Méga-Évoluer en Méga-Carchacrok.",
       "names": {
         "en": "Garchompite",
         "fr": "Carchacrokite",
@@ -6606,6 +6836,7 @@ export const generatedPokeAssets = {
       }
     },
     "gardevoirite": {
+      "description": "Tenu: Permet à Gardevoir de Méga-Évoluer en Méga-Gardevoir.",
       "names": {
         "en": "Gardevoirite",
         "fr": "Gardevoirite",
@@ -6627,6 +6858,7 @@ export const generatedPokeAssets = {
       }
     },
     "gbsounds": {
+      "description": "À utiliser pour écouter les musiques GameBoy.",
       "names": {
         "en": "GB Sounds",
         "fr": "Lecteur GB",
@@ -6704,6 +6936,7 @@ export const generatedPokeAssets = {
       }
     },
     "gengarite": {
+      "description": "Tenu: Permet à Ectoplasma de Méga-Évoluer en Méga-Ectoplasma.",
       "names": {
         "en": "Gengarite",
         "fr": "Ectoplasmite",
@@ -6711,6 +6944,7 @@ export const generatedPokeAssets = {
       }
     },
     "geniusfeather": {
+      "description": "Augmente les EV d'Attaque Spéciale de 1.",
       "names": {
         "en": "Genius Feather",
         "fr": "Plume Esprit",
@@ -6746,6 +6980,7 @@ export const generatedPokeAssets = {
       }
     },
     "ghostgem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Spectre, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Ghost Gem",
         "fr": "Joyau Spectre",
@@ -6760,6 +6995,7 @@ export const generatedPokeAssets = {
       }
     },
     "ghostmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Spectre. Change le type de Coup Varia-Type en Spectre.",
       "names": {
         "en": "Ghost Memory",
         "fr": "ROM Spectre",
@@ -6808,6 +7044,7 @@ export const generatedPokeAssets = {
       }
     },
     "glalitite": {
+      "description": "Tenu: Permet à Oniglali de Méga-Évoluer en Méga-Oniglali.",
       "names": {
         "en": "Glalitite",
         "fr": "Oniglalite",
@@ -6836,17 +7073,20 @@ export const generatedPokeAssets = {
       }
     },
     "glittermail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Glitter Mail",
         "fr": "Lettre Brill"
       }
     },
     "godstone": {
+      "description": "Inconnu. Actuellement non utilisé.",
       "names": {
         "en": "god stone"
       }
     },
     "gogoggles": {
+      "description": "Permet de traverser les déserts venteux.",
       "names": {
         "en": "Go-Goggles",
         "fr": "Lunettes Sable",
@@ -6861,6 +7101,7 @@ export const generatedPokeAssets = {
       }
     },
     "goldbottlecap": {
+      "description": "À échanger à Papi Ultime pour maximiser tous les IV d'un Pokémon.",
       "names": {
         "en": "Gold Bottle Cap",
         "fr": "Capsule d’Or",
@@ -6917,6 +7158,7 @@ export const generatedPokeAssets = {
       }
     },
     "goldteeth": {
+      "description": "Le dentier du Gardien du Parc Safari. À échanger contre la CS04 (Force).",
       "names": {
         "en": "Gold Teeth",
         "fr": "Dentier en Or",
@@ -6924,6 +7166,7 @@ export const generatedPokeAssets = {
       }
     },
     "goodrod": {
+      "description": "Utilisé pour capturer des Pokémon dans les points d'eau.",
       "names": {
         "en": "Good Rod",
         "fr": "Super Canne",
@@ -6931,6 +7174,7 @@ export const generatedPokeAssets = {
       }
     },
     "gooeymulch": {
+      "description": "Les baies repoussent à partir de plantes mortes un plus grand nombre de fois.",
       "names": {
         "en": "Gooey Mulch",
         "fr": "Fertiglu",
@@ -6952,6 +7196,7 @@ export const generatedPokeAssets = {
       }
     },
     "gracidea": {
+      "description": "Change un Shaymin non gelé en Forme Céleste le jour.",
       "names": {
         "en": "Gracidea",
         "fr": "Gracidée",
@@ -6959,6 +7204,7 @@ export const generatedPokeAssets = {
       }
     },
     "gram1": {
+      "description": "Partie de la quête secondaire pour obtenir CT89.",
       "names": {
         "en": "Gram 1",
         "fr": "Courrier 1",
@@ -6966,6 +7212,7 @@ export const generatedPokeAssets = {
       }
     },
     "gram2": {
+      "description": "Partie de la quête secondaire pour obtenir CT89.",
       "names": {
         "en": "Gram 2",
         "fr": "Courrier 2",
@@ -6973,6 +7220,7 @@ export const generatedPokeAssets = {
       }
     },
     "gram3": {
+      "description": "Partie de la quête secondaire pour obtenir CT89.",
       "names": {
         "en": "Gram 3",
         "fr": "Courrier 3",
@@ -6980,6 +7228,7 @@ export const generatedPokeAssets = {
       }
     },
     "grassgem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Plante, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Grass Gem",
         "fr": "Joyau Plante",
@@ -6994,12 +7243,14 @@ export const generatedPokeAssets = {
       }
     },
     "grassmail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Grass Mail",
         "fr": "Lettre Herbe"
       }
     },
     "grassmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Plante. Change le type de Coup Varia-Type en Plante.",
       "names": {
         "en": "Grass Memory",
         "fr": "ROM Plante",
@@ -7014,6 +7265,7 @@ export const generatedPokeAssets = {
       }
     },
     "grassyseed": {
+      "description": "Tenu: Consommé sur un Champ Herbu et augmente la Défense du porteur d'un niveau.",
       "names": {
         "en": "Grassy Seed",
         "fr": "Graine Herbe",
@@ -7034,6 +7286,7 @@ export const generatedPokeAssets = {
       }
     },
     "greenapricorn": {
+      "description": "Utilisé pour fabriquer une Copain Ball.",
       "names": {
         "en": "Green Apricorn",
         "fr": "Noigrume Vert",
@@ -7069,6 +7322,7 @@ export const generatedPokeAssets = {
       }
     },
     "greenscarf": {
+      "description": "Augmente l'Intelligence du porteur lors d'un concours.",
       "names": {
         "en": "Green Scarf",
         "fr": "Foulard Vert",
@@ -7076,6 +7330,7 @@ export const generatedPokeAssets = {
       }
     },
     "greenshard": {
+      "description": "Aucun effet. Peut être échangé pour des objets ou capacités.",
       "names": {
         "en": "Green Shard",
         "fr": "Tesson Vert",
@@ -7083,6 +7338,7 @@ export const generatedPokeAssets = {
       }
     },
     "greetmail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Greet Mail",
         "fr": "Lettre Salut",
@@ -7090,6 +7346,7 @@ export const generatedPokeAssets = {
       }
     },
     "grepaberry": {
+      "description": "Diminue les EV de Défense Spéciale de 10 et augmente le bonheur.",
       "names": {
         "en": "Grepa Berry",
         "fr": "Baie Résin",
@@ -7111,6 +7368,7 @@ export const generatedPokeAssets = {
       }
     },
     "gripclaw": {
+      "description": "Tenu: Les capacités piégeantes du porteur durent 5 tours.",
       "names": {
         "en": "Grip Claw",
         "fr": "Accro Griffe",
@@ -7125,6 +7383,7 @@ export const generatedPokeAssets = {
       }
     },
     "griseousorb": {
+      "description": "Booste les dégâts des capacités Dragon et Spectre de Giratina de 20%, et le transforme en Forme Originelle.",
       "names": {
         "en": "Griseous Orb",
         "fr": "Orbe Platiné",
@@ -7132,6 +7391,7 @@ export const generatedPokeAssets = {
       }
     },
     "groundgem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Sol, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Ground Gem",
         "fr": "Joyau Sol",
@@ -7146,6 +7406,7 @@ export const generatedPokeAssets = {
       }
     },
     "groundmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Sol. Change le type de Coup Varia-Type en Sol.",
       "names": {
         "en": "Ground Memory",
         "fr": "ROM Sol",
@@ -7174,6 +7435,7 @@ export const generatedPokeAssets = {
       }
     },
     "growthmulch": {
+      "description": "Le temps de croissance des baies est diminué, mais le sol se dessèche plus vite.",
       "names": {
         "en": "Growth Mulch",
         "fr": "Fertipousse",
@@ -7209,6 +7471,7 @@ export const generatedPokeAssets = {
       }
     },
     "grubbyhanky": {
+      "description": "Apparaît dans le Café de la Grange le Dimanche; retourne au client avec un Ratentif le Jeudi.",
       "names": {
         "en": "Grubby Hanky",
         "fr": "Mouchoir Sale",
@@ -7216,6 +7479,7 @@ export const generatedPokeAssets = {
       }
     },
     "guardspec": {
+      "description": "Empêche les changements de stat en combat pendant cinq tours. Augmente le bonheur.",
       "names": {
         "en": "Guard Spec.",
         "fr": "Garde-Stats",
@@ -7230,6 +7494,7 @@ export const generatedPokeAssets = {
       }
     },
     "gyaradosite": {
+      "description": "Tenu: Permet à Léviator de Méga-Évoluer en Méga-Léviator.",
       "names": {
         "en": "Gyaradosite",
         "fr": "Léviatorite",
@@ -7237,6 +7502,7 @@ export const generatedPokeAssets = {
       }
     },
     "habanberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Dragon super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Haban Berry",
         "fr": "Baie Fraigo",
@@ -7265,12 +7531,14 @@ export const generatedPokeAssets = {
       }
     },
     "harbormail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Harbor Mail",
         "fr": "Lettre Port"
       }
     },
     "hardstone": {
+      "description": "Tenu: Les capacités de type Roche du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Hard Stone",
         "fr": "Pierre Dure",
@@ -7299,6 +7567,7 @@ export const generatedPokeAssets = {
       }
     },
     "healball": {
+      "description": "Tente de capturer un Pokémon sauvage. Le Pokémon capturé est immédiatement soigné.",
       "names": {
         "en": "Heal Ball",
         "fr": "Soin Ball",
@@ -7306,6 +7575,7 @@ export const generatedPokeAssets = {
       }
     },
     "healpowder": {
+      "description": "Soigne n'importe quelle altération de statut, mais diminue le bonheur.",
       "names": {
         "en": "Heal Powder",
         "fr": "Poudre Soin",
@@ -7334,6 +7604,7 @@ export const generatedPokeAssets = {
       }
     },
     "healthfeather": {
+      "description": "Augmente les EV de PV de 1.",
       "names": {
         "en": "Health Feather",
         "fr": "Plume Santé",
@@ -7355,12 +7626,14 @@ export const generatedPokeAssets = {
       }
     },
     "heartmail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Heart Mail",
         "fr": "Lettre Coeur"
       }
     },
     "heartscale": {
+      "description": "Aucun effet. Peut être échangé pour réapprendre des capacités apprises par montée de niveau.",
       "names": {
         "en": "Heart Scale",
         "fr": "Écaille Cœur",
@@ -7368,6 +7641,7 @@ export const generatedPokeAssets = {
       }
     },
     "heatrock": {
+      "description": "Tenu: Zénith du porteur dure 8 tours au lieu de 5.",
       "names": {
         "en": "Heat Rock",
         "fr": "Roche Chaude",
@@ -7388,6 +7662,7 @@ export const generatedPokeAssets = {
       }
     },
     "helixfossil": {
+      "description": "Peut être ressuscité en Amonita.",
       "names": {
         "en": "Helix Fossil",
         "fr": "Nautile",
@@ -7437,6 +7712,7 @@ export const generatedPokeAssets = {
       }
     },
     "heracronite": {
+      "description": "Tenu: Permet à Scarhino de Méga-Évoluer en Méga-Scarhino.",
       "names": {
         "en": "Heracronite",
         "fr": "Scarhinoïte",
@@ -7493,6 +7769,7 @@ export const generatedPokeAssets = {
       }
     },
     "hm01": {
+      "description": "Apprend Coupe à un Pokémon compatible.",
       "names": {
         "en": "HM01",
         "fr": "CS01",
@@ -7500,6 +7777,7 @@ export const generatedPokeAssets = {
       }
     },
     "hm02": {
+      "description": "Apprend Vol à un Pokémon compatible.",
       "names": {
         "en": "HM02",
         "fr": "CS02",
@@ -7507,6 +7785,7 @@ export const generatedPokeAssets = {
       }
     },
     "hm03": {
+      "description": "Apprend Surf à un Pokémon compatible.",
       "names": {
         "en": "HM03",
         "fr": "CS03",
@@ -7514,6 +7793,7 @@ export const generatedPokeAssets = {
       }
     },
     "hm04": {
+      "description": "Apprend Force à un Pokémon compatible.",
       "names": {
         "en": "HM04",
         "fr": "CS04",
@@ -7521,6 +7801,7 @@ export const generatedPokeAssets = {
       }
     },
     "hm05": {
+      "description": "Apprend Cascade à un Pokémon compatible. (HS: Siphon DPP: Anti-Brume Gén III & II & I: Flash)",
       "names": {
         "en": "HM05",
         "fr": "CS05",
@@ -7528,6 +7809,7 @@ export const generatedPokeAssets = {
       }
     },
     "hm06": {
+      "description": "Apprend Plongée à un Pokémon compatible. (Gén IV & III: Éclate-Roc Gen II: Siphon)",
       "names": {
         "en": "HM06",
         "fr": "CS06",
@@ -7535,6 +7817,7 @@ export const generatedPokeAssets = {
       }
     },
     "hm07": {
+      "description": "Apprend une capacité à un Pokémon compatible. (Gén IV & III & II: Cascade)",
       "names": {
         "en": "HM07",
         "fr": "CS07",
@@ -7542,6 +7825,7 @@ export const generatedPokeAssets = {
       }
     },
     "hm08": {
+      "description": "Apprend une capacité à un Pokémon compatible. (Gén IV: Escalade Gén III: Plongée)",
       "names": {
         "en": "HM08",
         "fr": "CS08"
@@ -7555,6 +7839,7 @@ export const generatedPokeAssets = {
       }
     },
     "hondewberry": {
+      "description": "Diminue les EV d'Attaque Spéciale de 10 et augmente le bonheur.",
       "names": {
         "en": "Hondew Berry",
         "fr": "Baie Lonme",
@@ -7569,6 +7854,7 @@ export const generatedPokeAssets = {
       }
     },
     "honorofkalos": {
+      "description": "Ne fait rien, mais signifie devenir Champion.",
       "names": {
         "en": "Honor of Kalos",
         "fr": "Insigne de Kalos",
@@ -7604,6 +7890,7 @@ export const generatedPokeAssets = {
       }
     },
     "houndoominite": {
+      "description": "Tenu: Permet à Démolosse de Méga-Évoluer en Méga-Démolosse.",
       "names": {
         "en": "Houndoominite",
         "fr": "Démolossite",
@@ -7618,6 +7905,7 @@ export const generatedPokeAssets = {
       }
     },
     "hpup": {
+      "description": "Augmente l'effort en PV et le bonheur.",
       "names": {
         "en": "HP Up",
         "fr": "PV Plus",
@@ -7660,6 +7948,7 @@ export const generatedPokeAssets = {
       }
     },
     "hyperpotion": {
+      "description": "Restaure 200 PV.",
       "names": {
         "en": "Hyper Potion",
         "fr": "Hyper Potion",
@@ -7667,6 +7956,7 @@ export const generatedPokeAssets = {
       }
     },
     "iapapaberry": {
+      "description": "Tenu: Consommé à 1/2 des PV max pour regagner 1/8 des PV max. Peut rendre confus les Pokémon qui n'aime pas les saveurs acides.",
       "names": {
         "en": "Iapapa Berry",
         "fr": "Baie Papaya",
@@ -7674,6 +7964,7 @@ export const generatedPokeAssets = {
       }
     },
     "icegem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Glace, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Ice Gem",
         "fr": "Joyau Glace",
@@ -7681,6 +7972,7 @@ export const generatedPokeAssets = {
       }
     },
     "iceheal": {
+      "description": "Soigne le gel.",
       "names": {
         "en": "Ice Heal",
         "fr": "Antigel",
@@ -7688,6 +7980,7 @@ export const generatedPokeAssets = {
       }
     },
     "icememory": {
+      "description": "Tenu: Change Silvallié dans sa forme Glace. Change le type de Coup Varia-Type en Glace.",
       "names": {
         "en": "Ice Memory",
         "fr": "ROM Glace",
@@ -7702,6 +7995,7 @@ export const generatedPokeAssets = {
       }
     },
     "icestone": {
+      "description": "Fait évoluer un Sabelette d'Alola en Sablaireau d'Alola ou un Goupix d'Alola en Feunard d'Alola.",
       "names": {
         "en": "Ice Stone",
         "fr": "Pierre Glace",
@@ -7716,6 +8010,7 @@ export const generatedPokeAssets = {
       }
     },
     "icicleplate": {
+      "description": "Tenu: Les capacités de type Glace du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Glace.",
       "names": {
         "en": "Icicle Plate",
         "fr": "Plaque Glace",
@@ -7730,6 +8025,7 @@ export const generatedPokeAssets = {
       }
     },
     "icyrock": {
+      "description": "Tenu: La grêle du porteur dure 8 tours au lieu de 5.",
       "names": {
         "en": "Icy Rock",
         "fr": "Roche Glace",
@@ -7786,6 +8082,7 @@ export const generatedPokeAssets = {
       }
     },
     "inquirymail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Inquiry Mail",
         "fr": "Lettre Demande",
@@ -7793,6 +8090,7 @@ export const generatedPokeAssets = {
       }
     },
     "insectplate": {
+      "description": "Tenu: Les capacités de type Insecte du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Insecte.",
       "names": {
         "en": "Insect Plate",
         "fr": "Plaque Insecte",
@@ -7807,6 +8105,7 @@ export const generatedPokeAssets = {
       }
     },
     "intriguingstone": {
+      "description": "À échanger pour une Pierre Soleil dans X et Y, ou une Roucarnagite dans Omega Ruby et Saphir Alpha.",
       "names": {
         "en": "Intriguing Stone",
         "fr": "Pierre Insolite",
@@ -7814,6 +8113,7 @@ export const generatedPokeAssets = {
       }
     },
     "iron": {
+      "description": "Augmente l'effort en Défense et le bonheur.",
       "names": {
         "en": "Iron",
         "fr": "Fer",
@@ -7821,6 +8121,7 @@ export const generatedPokeAssets = {
       }
     },
     "ironball": {
+      "description": "Tenu: La Vitesse du porteur est divisée par deux. Annule toutes les immunités au type Sol, et les capacités Sol infligent des dégâts neutres aux types Vol. Piège Sable, Picots et Pics Toxik affectent le porteur.",
       "names": {
         "en": "Iron Ball",
         "fr": "Balle Fer",
@@ -7828,6 +8129,7 @@ export const generatedPokeAssets = {
       }
     },
     "ironplate": {
+      "description": "Tenu: Les capacités de type Acier du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Acier.",
       "names": {
         "en": "Iron Plate",
         "fr": "Plaque Fer",
@@ -7835,6 +8137,7 @@ export const generatedPokeAssets = {
       }
     },
     "itemdrop": {
+      "description": "Force un Pokémon allié à lâcher son objet tenu.",
       "names": {
         "en": "Item Drop",
         "fr": "Jette Objet",
@@ -7842,6 +8145,7 @@ export const generatedPokeAssets = {
       }
     },
     "itemurge": {
+      "description": "Force l'activation de l'objet tenu d'un Pokémon allié.",
       "names": {
         "en": "Item Urge",
         "fr": "Appel Objet",
@@ -7849,6 +8153,7 @@ export const generatedPokeAssets = {
       }
     },
     "jabocaberry": {
+      "description": "Tenu: Consommé pour infliger 1/8 des PV max à l'adversaire quand le porteur est touché par une capacité physique.",
       "names": {
         "en": "Jaboca Berry",
         "fr": "Baie Jaboca",
@@ -7856,6 +8161,7 @@ export const generatedPokeAssets = {
       }
     },
     "jadeorb": {
+      "description": "Invoque Rayquaza à la Tour Enfouie.",
       "names": {
         "en": "Jade Orb",
         "fr": "Orbe Vert",
@@ -7884,6 +8190,7 @@ export const generatedPokeAssets = {
       }
     },
     "jawfossil": {
+      "description": "Peut être ressuscité en Ptyranidur.",
       "names": {
         "en": "Jaw Fossil",
         "fr": "Fossile Mâchoire",
@@ -7911,6 +8218,7 @@ export const generatedPokeAssets = {
       }
     },
     "journal": {
+      "description": "Enregistre les activités principales effectuées par le joueur.",
       "names": {
         "en": "Journal",
         "fr": "Journal",
@@ -7939,6 +8247,7 @@ export const generatedPokeAssets = {
       }
     },
     "kangaskhanite": {
+      "description": "Tenu: Permet à Kangourex de Méga-Évoluer en Méga-Kangourex.",
       "names": {
         "en": "Kangaskhanite",
         "fr": "Kangourexite",
@@ -7946,6 +8255,7 @@ export const generatedPokeAssets = {
       }
     },
     "kasibberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Spectre super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Kasib Berry",
         "fr": "Baie Sédra",
@@ -7953,6 +8263,7 @@ export const generatedPokeAssets = {
       }
     },
     "kebiaberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Poison super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Kebia Berry",
         "fr": "Baie Kébia",
@@ -7960,6 +8271,7 @@ export const generatedPokeAssets = {
       }
     },
     "keeberry": {
+      "description": "Tenu: Quand le porteur est touché par une capacité physique, augmente sa Défense d'un niveau.",
       "names": {
         "en": "Kee Berry",
         "fr": "Baie Éka",
@@ -7967,6 +8279,7 @@ export const generatedPokeAssets = {
       }
     },
     "kelpsyberry": {
+      "description": "Diminue les EV d'Attaque de 10 et augmente le bonheur.",
       "names": {
         "en": "Kelpsy Berry",
         "fr": "Baie Alga",
@@ -7981,6 +8294,7 @@ export const generatedPokeAssets = {
       }
     },
     "keystone": {
+      "description": "Permet aux Pokémon du joueur de Méga-Évoluer.",
       "names": {
         "en": "Key Stone",
         "fr": "Gemme Sésame",
@@ -7988,6 +8302,7 @@ export const generatedPokeAssets = {
       }
     },
     "keytoroom1": {
+      "description": "Débloque la porte de la Salle 1 du Lavandia Sea.",
       "names": {
         "en": "Key to Room 1",
         "fr": "Clé Salle 1",
@@ -7995,6 +8310,7 @@ export const generatedPokeAssets = {
       }
     },
     "keytoroom2": {
+      "description": "Débloque la porte de la Salle 2 du Lavandia Sea.",
       "names": {
         "en": "Key to Room 2",
         "fr": "Clé Salle 2",
@@ -8002,6 +8318,7 @@ export const generatedPokeAssets = {
       }
     },
     "keytoroom4": {
+      "description": "Débloque la porte de la Salle 4 du Lavandia Sea.",
       "names": {
         "en": "Key to Room 4",
         "fr": "Clé Salle 4",
@@ -8009,6 +8326,7 @@ export const generatedPokeAssets = {
       }
     },
     "keytoroom6": {
+      "description": "Débloque la porte de la Salle 6 du Lavandia Sea.",
       "names": {
         "en": "Key to Room 6",
         "fr": "Clé Salle 6",
@@ -8016,6 +8334,7 @@ export const generatedPokeAssets = {
       }
     },
     "kingsrock": {
+      "description": "Tenu: Les capacités offensives gagnent 10% de chance d'apeurer la cible. Échange sur un Têtarte: Le porteur évolue en Tarpaud. Échange sur un Ramoloss: Le porteur évolue en Roigada.",
       "names": {
         "en": "King’s Rock",
         "fr": "Roche Royale",
@@ -8107,6 +8426,7 @@ export const generatedPokeAssets = {
       }
     },
     "laggingtail": {
+      "description": "Tenu: Les capacités du porteur agissent en dernier pour une même priorité.",
       "names": {
         "en": "Lagging Tail",
         "fr": "Ralentiqueue",
@@ -8114,6 +8434,7 @@ export const generatedPokeAssets = {
       }
     },
     "lansatberry": {
+      "description": "Tenu: Consommé à 1/4 des PV max pour booster le taux de coups critiques de deux niveaux.",
       "names": {
         "en": "Lansat Berry",
         "fr": "Baie Lansat",
@@ -8149,6 +8470,7 @@ export const generatedPokeAssets = {
       }
     },
     "latiasite": {
+      "description": "Tenu: Permet à Latias de Méga-Évoluer en Méga-Latias.",
       "names": {
         "en": "Latiasite",
         "fr": "Latiasite",
@@ -8156,6 +8478,7 @@ export const generatedPokeAssets = {
       }
     },
     "latiosite": {
+      "description": "Tenu: Permet à Latios de Méga-Évoluer en Méga-Latios.",
       "names": {
         "en": "Latiosite",
         "fr": "Latiosite",
@@ -8163,6 +8486,7 @@ export const generatedPokeAssets = {
       }
     },
     "lavacookie": {
+      "description": "Soigne n'importe quelle altération de statut et la confusion.",
       "names": {
         "en": "Lava Cookie",
         "fr": "Lava Cookie",
@@ -8170,6 +8494,7 @@ export const generatedPokeAssets = {
       }
     },
     "laxincense": {
+      "description": "Tenu: L'esquive du porteur est augmentée de 5%. Reproduction: Qulbutoké engendre un Œuf d'Okéoké.",
       "names": {
         "en": "Lax Incense",
         "fr": "Encens Doux",
@@ -8204,6 +8529,7 @@ export const generatedPokeAssets = {
       }
     },
     "leafstone": {
+      "description": "Fait évoluer un Noeunoeuf en Noadkoko, un Ortide en Rafflesia, un Pifeuil en Tengalice, un Feuillajou en Feuiloutan, ou un Boustiflor en Empiflor.",
       "names": {
         "en": "Leaf Stone",
         "fr": "Pierre Plante",
@@ -8225,6 +8551,7 @@ export const generatedPokeAssets = {
       }
     },
     "leek": {
+      "description": "Augmente le taux de coups critiques de Canarticho de deux niveaux.",
       "names": {
         "en": "Leek",
         "fr": "Poireau",
@@ -8232,6 +8559,7 @@ export const generatedPokeAssets = {
       }
     },
     "leftovers": {
+      "description": "Tenu: Restaure 1/16 (6.25%) des PV max du porteur à la fin de chaque tour.",
       "names": {
         "en": "Leftovers",
         "fr": "Restes",
@@ -8281,6 +8609,7 @@ export const generatedPokeAssets = {
       }
     },
     "lemonade": {
+      "description": "Restaure 80 PV.",
       "names": {
         "en": "Lemonade",
         "fr": "Limonade",
@@ -8288,6 +8617,7 @@ export const generatedPokeAssets = {
       }
     },
     "lenscase": {
+      "description": "Permet au joueur de changer la couleur de ses yeux.",
       "names": {
         "en": "Lens Case",
         "fr": "Boîte Lentilles",
@@ -8372,6 +8702,7 @@ export const generatedPokeAssets = {
       }
     },
     "leppaberry": {
+      "description": "Tenu: Consommé quand une capacité est à court de PP pour restaurer ses PP de 10.",
       "names": {
         "en": "Leppa Berry",
         "fr": "Baie Mepo",
@@ -8379,6 +8710,7 @@ export const generatedPokeAssets = {
       }
     },
     "letter": {
+      "description": "Une lettre pour Rochard de la part du président de la Devon SARL.",
       "names": {
         "en": "Letter",
         "fr": "Lettre à Pierre",
@@ -8393,6 +8725,7 @@ export const generatedPokeAssets = {
       }
     },
     "levelball": {
+      "description": "Le taux de succès dépend des niveaux du Pokémon de l'utilisateur et de la cible. Fait à partir de Noigrume Rge.",
       "names": {
         "en": "Level Ball",
         "fr": "Niveau Ball",
@@ -8428,6 +8761,7 @@ export const generatedPokeAssets = {
       }
     },
     "libertypass": {
+      "description": "Permet d'accéder à l'Île Liberté et Victini.",
       "names": {
         "en": "Liberty Pass",
         "fr": "Passe Liberté",
@@ -8442,6 +8776,7 @@ export const generatedPokeAssets = {
       }
     },
     "liechiberry": {
+      "description": "Tenu: Consommé à 1/4 des PV max pour booster l'Attaque.",
       "names": {
         "en": "Liechi Berry",
         "fr": "Baie Lichii",
@@ -8449,6 +8784,7 @@ export const generatedPokeAssets = {
       }
     },
     "lifeorb": {
+      "description": "Tenu: Les capacités du porteur infligent 30% de dégâts supplémentaires, mais coûtent 10% des PV max.",
       "names": {
         "en": "Life Orb",
         "fr": "Orbe Vie",
@@ -8456,6 +8792,7 @@ export const generatedPokeAssets = {
       }
     },
     "liftkey": {
+      "description": "Met en marche l'ascenseur du Repaire Rocket de Céladopole.",
       "names": {
         "en": "Lift Key",
         "fr": "Clé Ascenseur",
@@ -8463,6 +8800,7 @@ export const generatedPokeAssets = {
       }
     },
     "lightball": {
+      "description": "Double l'Attaque et l'Attaque Spéciale de Pikachu. Porté sur Pikachu ou Raichu lors de la reproduction: le Pichu Œuf aura Électacle.",
       "names": {
         "en": "Light Ball",
         "fr": "Balle Lumière",
@@ -8470,6 +8808,7 @@ export const generatedPokeAssets = {
       }
     },
     "lightclay": {
+      "description": "Tenu: Mur Lumière et Protection utilisés par le porteur durent 8 tours au lieu de 5.",
       "names": {
         "en": "Light Clay",
         "fr": "Lumargile",
@@ -8477,6 +8816,7 @@ export const generatedPokeAssets = {
       }
     },
     "lightstone": {
+      "description": "Invoque Reshiram pour le combat final contre N.",
       "names": {
         "en": "Light Stone",
         "fr": "Galet Blanc",
@@ -8484,6 +8824,7 @@ export const generatedPokeAssets = {
       }
     },
     "likemail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Like Mail",
         "fr": "Lettre Avis",
@@ -8498,6 +8839,7 @@ export const generatedPokeAssets = {
       }
     },
     "linkingcord": {
+      "description": "Permet à un Pokémon dont l'évolution est normalement déclenchée par échange d'évoluer.",
       "names": {
         "en": "Linking Cord",
         "fr": "Fil de Liaison",
@@ -8526,6 +8868,7 @@ export const generatedPokeAssets = {
       }
     },
     "lockcapsule": {
+      "description": "Contient la CT95 (Aboiement).",
       "names": {
         "en": "Lock Capsule",
         "fr": "Poké Écrin",
@@ -8547,6 +8890,7 @@ export const generatedPokeAssets = {
       }
     },
     "lookerticket": {
+      "description": "Avance l'intrigue de Beladonis dans le postgame.",
       "names": {
         "en": "Looker Ticket",
         "fr": "Ticket Beladonis",
@@ -8554,6 +8898,7 @@ export const generatedPokeAssets = {
       }
     },
     "lootsack": {
+      "description": "Stocke les objets obtenus dans le Souterrain de Sinnoh.",
       "names": {
         "en": "Loot Sack",
         "fr": "Sac Butin",
@@ -8561,6 +8906,7 @@ export const generatedPokeAssets = {
       }
     },
     "lopunnite": {
+      "description": "Tenu: Permet à Lockpin de Méga-Évoluer en Méga-Lockpin.",
       "names": {
         "en": "Lopunnite",
         "fr": "Lockpinite",
@@ -8568,6 +8914,7 @@ export const generatedPokeAssets = {
       }
     },
     "lostitem": {
+      "description": "Une Poké Poupée perdue par la Copieuse qui vit à Safrania. À échanger pour un Pass.",
       "names": {
         "en": "Lost Item",
         "fr": "Objet perdu",
@@ -8582,6 +8929,7 @@ export const generatedPokeAssets = {
       }
     },
     "loveball": {
+      "description": "8× plus efficace sur le sexe opposé, de la même espèce du Pokémon Actif. Fait à partir de Noigrume Ros.",
       "names": {
         "en": "Love Ball",
         "fr": "Love Ball",
@@ -8596,6 +8944,7 @@ export const generatedPokeAssets = {
       }
     },
     "lucarionite": {
+      "description": "Tenu: Permet à Lucario de Méga-Évoluer en Méga-Lucario.",
       "names": {
         "en": "Lucarionite",
         "fr": "Lucarite",
@@ -8603,6 +8952,7 @@ export const generatedPokeAssets = {
       }
     },
     "luckincense": {
+      "description": "Tenu: Double l'argent gagné en combat. Ne s'accumule pas avec une Pièce Rune. Reproduction: Leveinard et Leuphorie engendrent un Œuf de Ptiravi.",
       "names": {
         "en": "Luck Incense",
         "fr": "Encens Veine",
@@ -8610,6 +8960,7 @@ export const generatedPokeAssets = {
       }
     },
     "luckyegg": {
+      "description": "Tenu: Augmente l'EXP gagnée au combat de 50%.",
       "names": {
         "en": "Lucky Egg",
         "fr": "Œuf Chance",
@@ -8617,6 +8968,7 @@ export const generatedPokeAssets = {
       }
     },
     "luckypunch": {
+      "description": "Augmente le taux de coups critiques de Leveinard de deux niveaux.",
       "names": {
         "en": "Lucky Punch",
         "fr": "Poing Chance",
@@ -8624,6 +8976,7 @@ export const generatedPokeAssets = {
       }
     },
     "lumberry": {
+      "description": "Tenu: Consomme pour soigner n'importe quelle condition de statut ou la confusion.",
       "names": {
         "en": "Lum Berry",
         "fr": "Baie Prine",
@@ -8631,6 +8984,7 @@ export const generatedPokeAssets = {
       }
     },
     "luminousmoss": {
+      "description": "Tenu: Si le porteur est touché par une capacité offensive Eau, augmente sa Défense Spéciale d'un niveau.",
       "names": {
         "en": "Luminous Moss",
         "fr": "Lichen Lumineux",
@@ -8638,6 +8992,7 @@ export const generatedPokeAssets = {
       }
     },
     "lumiosegalette": {
+      "description": "Soigne toutes les altérations majeures de statut et la confusion.",
       "names": {
         "en": "Lumiose Galette",
         "fr": "Galette Illumis",
@@ -8652,6 +9007,7 @@ export const generatedPokeAssets = {
       }
     },
     "lunarwing": {
+      "description": "Soigne les cauchemars du fils du marin à Joliberges.",
       "names": {
         "en": "Lunar Wing",
         "fr": "Lun’Aile",
@@ -8666,6 +9022,7 @@ export const generatedPokeAssets = {
       }
     },
     "lureball": {
+      "description": "3× plus efficace en pêchant. Fait à partir de Noigrume Blu.",
       "names": {
         "en": "Lure Ball",
         "fr": "Appât Ball",
@@ -8680,6 +9037,7 @@ export const generatedPokeAssets = {
       }
     },
     "lustrousorb": {
+      "description": "Booste les dégâts des attaques Dragon et Eau de Palkia de 20%.",
       "names": {
         "en": "Lustrous Orb",
         "fr": "Orbe Perlé",
@@ -8694,6 +9052,7 @@ export const generatedPokeAssets = {
       }
     },
     "luxuryball": {
+      "description": "Tente de capturer un Pokémon sauvage. Le Pokémon capturé commence avec un bonheur de 200.",
       "names": {
         "en": "Luxury Ball",
         "fr": "Luxe Ball",
@@ -8736,6 +9095,7 @@ export const generatedPokeAssets = {
       }
     },
     "machbike": {
+      "description": "Plus rapide que le Vélo Cross, et peut gravir des pentes sablonneuses et rouler sur des sols fissurés.",
       "names": {
         "en": "Mach Bike",
         "fr": "Vélo de Course",
@@ -8743,6 +9103,7 @@ export const generatedPokeAssets = {
       }
     },
     "machinepart": {
+      "description": "Doit être replacé dans la Centrale Abandonée pour alimenter le Train Magnétique.",
       "names": {
         "en": "Machine Part",
         "fr": "Partie Machine",
@@ -8750,6 +9111,7 @@ export const generatedPokeAssets = {
       }
     },
     "machobrace": {
+      "description": "Tenu: Le porteur gagne deux fois plus d'EV des combats, mais a sa Vitesse divisée par deux en combat.",
       "names": {
         "en": "Macho Brace",
         "fr": "Bracelet Macho",
@@ -8792,6 +9154,7 @@ export const generatedPokeAssets = {
       }
     },
     "magmaemblem": {
+      "description": "Permet d'accéder à la Planque Magma au Sentier Sinuroc.",
       "names": {
         "en": "Magma Emblem",
         "fr": "Sceau Magma"
@@ -8805,6 +9168,7 @@ export const generatedPokeAssets = {
       }
     },
     "magmarizer": {
+      "description": "Échangé sur un Magmar: Le porteur évolue en Maganon.",
       "names": {
         "en": "Magmarizer",
         "fr": "Magmariseur",
@@ -8812,6 +9176,7 @@ export const generatedPokeAssets = {
       }
     },
     "magmastone": {
+      "description": "Du magma est scellé à l'intérieur.",
       "names": {
         "en": "Magma Stone",
         "fr": "Pierre Magma",
@@ -8819,6 +9184,7 @@ export const generatedPokeAssets = {
       }
     },
     "magmasuit": {
+      "description": "Permet au joueur de chevaucher Groudon dans la Grotte Origine.",
       "names": {
         "en": "Magma Suit",
         "fr": "Scaph. Magma",
@@ -8840,6 +9206,7 @@ export const generatedPokeAssets = {
       }
     },
     "magnet": {
+      "description": "Tenu: Les capacités de type Électrik du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Magnet",
         "fr": "Aimant",
@@ -8847,6 +9214,7 @@ export const generatedPokeAssets = {
       }
     },
     "magoberry": {
+      "description": "Tenu: Consommé à 1/2 des PV max pour regagner 1/8 des PV max. Peut rendre confus les Pokémon qui n'aime pas les saveurs sucrées.",
       "names": {
         "en": "Mago Berry",
         "fr": "Baie Mago",
@@ -8854,6 +9222,7 @@ export const generatedPokeAssets = {
       }
     },
     "magostberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Magost Berry",
         "fr": "Baie Mangou",
@@ -8861,6 +9230,7 @@ export const generatedPokeAssets = {
       }
     },
     "makeupbag": {
+      "description": "Permet au joueur de changer la couleur de son rouge à lèvres",
       "names": {
         "en": "Makeup Bag",
         "fr": "Trousse Beauté",
@@ -8882,6 +9252,7 @@ export const generatedPokeAssets = {
       }
     },
     "manectite": {
+      "description": "Tenu: Permet à Élecsprint de Méga-Évoluer en Méga-Élecsprint.",
       "names": {
         "en": "Manectite",
         "fr": "Élecsprintite",
@@ -8903,6 +9274,7 @@ export const generatedPokeAssets = {
       }
     },
     "marangaberry": {
+      "description": "Tenu: Quand le porteur est touché par une capacité spéciale, augmente sa Défense Spéciale d'un niveau.",
       "names": {
         "en": "Maranga Berry",
         "fr": "Baie Rangma",
@@ -8966,6 +9338,7 @@ export const generatedPokeAssets = {
       }
     },
     "masterball": {
+      "description": "Capture un Pokémon sauvage à chaque fois.",
       "names": {
         "en": "Master Ball",
         "fr": "Master Ball",
@@ -8980,6 +9353,7 @@ export const generatedPokeAssets = {
       }
     },
     "mawilite": {
+      "description": "Tenu: Permet à Mysdibule de Méga-Évoluer en Méga-Mysdibule.",
       "names": {
         "en": "Mawilite",
         "fr": "Mysdibulite",
@@ -8987,6 +9361,7 @@ export const generatedPokeAssets = {
       }
     },
     "maxelixir": {
+      "description": "Restaure tous les PP de toutes les capacités.",
       "names": {
         "en": "Max Elixir",
         "fr": "Élixir Max",
@@ -8994,6 +9369,7 @@ export const generatedPokeAssets = {
       }
     },
     "maxether": {
+      "description": "Restaure les PP au maximum pour une capacité.",
       "names": {
         "en": "Max Ether",
         "fr": "Huile Max",
@@ -9022,6 +9398,7 @@ export const generatedPokeAssets = {
       }
     },
     "maxpotion": {
+      "description": "Restaure les PV au maximum.",
       "names": {
         "en": "Max Potion",
         "fr": "Potion Max",
@@ -9029,6 +9406,7 @@ export const generatedPokeAssets = {
       }
     },
     "maxrepel": {
+      "description": "Pendant 250 pas, empêche les rencontres sauvages de niveau inférieur au Pokémon en tête de votre équipe.",
       "names": {
         "en": "Max Repel",
         "fr": "Repousse Max",
@@ -9036,6 +9414,7 @@ export const generatedPokeAssets = {
       }
     },
     "maxrevive": {
+      "description": "Renaît avec tous les PV.",
       "names": {
         "en": "Max Revive",
         "fr": "Rappel Max",
@@ -9050,6 +9429,7 @@ export const generatedPokeAssets = {
       }
     },
     "meadowplate": {
+      "description": "Tenu: Les capacités de type Plante du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Plante.",
       "names": {
         "en": "Meadow Plate",
         "fr": "Plaque Herbe",
@@ -9057,12 +9437,14 @@ export const generatedPokeAssets = {
       }
     },
     "mechmail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Mech Mail",
         "fr": "Lettre Méca"
       }
     },
     "medalbox": {
+      "description": "Contient les médailles reçues dans la Chasse aux Médailles.",
       "names": {
         "en": "Medal Box",
         "fr": "Boîte Médailles",
@@ -9070,6 +9452,7 @@ export const generatedPokeAssets = {
       }
     },
     "medichamite": {
+      "description": "Tenu: Permet à Charmina de Méga-Évoluer en Méga-Charmina.",
       "names": {
         "en": "Medichamite",
         "fr": "Charminite",
@@ -9091,6 +9474,7 @@ export const generatedPokeAssets = {
       }
     },
     "megaanchor": {
+      "description": "Gemme Sésame d'un PNJ non utilisée.",
       "names": {
         "en": "Mega Anchor",
         "fr": "Méga-Ancre",
@@ -9098,6 +9482,7 @@ export const generatedPokeAssets = {
       }
     },
     "megaanklet": {
+      "description": "Gemme Sésame d'un PNJ non utilisée.",
       "names": {
         "en": "Mega Anklet",
         "fr": "Méga-Grève",
@@ -9105,6 +9490,7 @@ export const generatedPokeAssets = {
       }
     },
     "megabracelet": {
+      "description": "Permet aux Pokémon du joueur de Méga-Évoluer.",
       "names": {
         "en": "Mega Bracelet",
         "fr": "Méga-Bracelet",
@@ -9112,6 +9498,7 @@ export const generatedPokeAssets = {
       }
     },
     "megacharm": {
+      "description": "Gemme Sésame non utilisée.",
       "names": {
         "en": "Mega Charm",
         "fr": "Méga-Charme",
@@ -9119,6 +9506,7 @@ export const generatedPokeAssets = {
       }
     },
     "megacuff": {
+      "description": "Gemme Sésame non utilisée.",
       "names": {
         "en": "Mega Cuff",
         "fr": "Méga-Manchette",
@@ -9126,6 +9514,7 @@ export const generatedPokeAssets = {
       }
     },
     "megaglasses": {
+      "description": "Gemme Sésame d'un PNJ non utilisée.",
       "names": {
         "en": "Mega Glasses",
         "fr": "Méga-Lunettes",
@@ -9133,6 +9522,7 @@ export const generatedPokeAssets = {
       }
     },
     "megaglove": {
+      "description": "Gemme Sésame d'un PNJ non utilisée.",
       "names": {
         "en": "Mega Glove",
         "fr": "Méga-Gant",
@@ -9140,6 +9530,7 @@ export const generatedPokeAssets = {
       }
     },
     "megapendant": {
+      "description": "Gemme Sésame d'un PNJ non utilisée.",
       "names": {
         "en": "Mega Pendant",
         "fr": "Méga-Pendentif",
@@ -9147,6 +9538,7 @@ export const generatedPokeAssets = {
       }
     },
     "megaring": {
+      "description": "Permet aux Pokémon du joueur de Méga-Évoluer.",
       "names": {
         "en": "Mega Ring",
         "fr": "Méga-Anneau",
@@ -9154,6 +9546,7 @@ export const generatedPokeAssets = {
       }
     },
     "megastickpin": {
+      "description": "Gemme Sésame d'un PNJ non utilisée.",
       "names": {
         "en": "Mega Stickpin",
         "fr": "Méga-Pin’s",
@@ -9161,6 +9554,7 @@ export const generatedPokeAssets = {
       }
     },
     "megatiara": {
+      "description": "Gemme Sésame d'un PNJ non utilisée.",
       "names": {
         "en": "Mega Tiara",
         "fr": "Méga-Tiare",
@@ -9175,6 +9569,7 @@ export const generatedPokeAssets = {
       }
     },
     "membercard": {
+      "description": "Permet d'accéder à l'Île Nouvellune et Darkrai.",
       "names": {
         "en": "Member Card",
         "fr": "Carte Membre",
@@ -9182,6 +9577,7 @@ export const generatedPokeAssets = {
       }
     },
     "mentalherb": {
+      "description": "Tenu: Utilisé pour soigner l'amour. Gén V : Supprime aussi Provoc, Encore, Tourmente, Entrave, et Corps Maudit.",
       "names": {
         "en": "Mental Herb",
         "fr": "Herbe Mental",
@@ -9203,6 +9599,7 @@ export const generatedPokeAssets = {
       }
     },
     "metagrossite": {
+      "description": "Tenu: Permet à Métalosse de Méga-Évoluer en Méga-Métalosse.",
       "names": {
         "en": "Metagrossite",
         "fr": "Métalossite",
@@ -9210,6 +9607,7 @@ export const generatedPokeAssets = {
       }
     },
     "metalcoat": {
+      "description": "Tenu: Les capacités de type Acier du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Metal Coat",
         "fr": "Peau Métal",
@@ -9217,6 +9615,7 @@ export const generatedPokeAssets = {
       }
     },
     "metalpowder": {
+      "description": "Augmente la Défense et la Défense Spéciale de Métamorph de 50%. Le boost est perdu après transformation.",
       "names": {
         "en": "Metal Powder",
         "fr": "Poudre Métal",
@@ -9231,6 +9630,7 @@ export const generatedPokeAssets = {
       }
     },
     "meteoriteshard": {
+      "description": "Transforme la Météorite en sa forme finale, permettant à Rayquaza de Méga-Évoluer.",
       "names": {
         "en": "Meteorite Shard",
         "fr": "Éclat Météorite",
@@ -9238,6 +9638,7 @@ export const generatedPokeAssets = {
       }
     },
     "metronome": {
+      "description": "Tenu: Les usages consécutifs de la même attaque ont un boost cumulé de dégâts de 10%. Boost maximum 100%.",
       "names": {
         "en": "Metronome",
         "fr": "Métronome",
@@ -9266,6 +9667,7 @@ export const generatedPokeAssets = {
       }
     },
     "mewtwonitex": {
+      "description": "Tenu: Permet à Mewtwo de Méga-Évoluer en Méga-Mewtwo X.",
       "names": {
         "en": "Mewtwonite X",
         "fr": "Mewtwoïte X",
@@ -9273,6 +9675,7 @@ export const generatedPokeAssets = {
       }
     },
     "mewtwonitey": {
+      "description": "Tenu: Permet à Mewtwo de Méga-Évoluer en Méga-Mewtwo Y.",
       "names": {
         "en": "Mewtwonite Y",
         "fr": "Mewtwoïte Y",
@@ -9280,6 +9683,7 @@ export const generatedPokeAssets = {
       }
     },
     "micleberry": {
+      "description": "Tenu: Consommé à 1/4 des PV max pour booster la précision de la prochaine capacité de 20%. (Gén IV : Précision parfaite).",
       "names": {
         "en": "Micle Berry",
         "fr": "Baie Micle",
@@ -9336,6 +9740,7 @@ export const generatedPokeAssets = {
       }
     },
     "mindplate": {
+      "description": "Tenu: Les capacités de type Psy du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Psy.",
       "names": {
         "en": "Mind Plate",
         "fr": "Plaque Esprit",
@@ -9350,6 +9755,7 @@ export const generatedPokeAssets = {
       }
     },
     "miracleseed": {
+      "description": "Tenu: Les capacités de type Plante du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Miracle Seed",
         "fr": "Graine Miracle",
@@ -9378,6 +9784,7 @@ export const generatedPokeAssets = {
       }
     },
     "mistyseed": {
+      "description": "Tenu: Consommé sur un Champ Brumeux et augmente la Défense Spéciale du porteur d'un niveau.",
       "names": {
         "en": "Misty Seed",
         "fr": "Graine Brume",
@@ -9420,6 +9827,7 @@ export const generatedPokeAssets = {
       }
     },
     "moomoomilk": {
+      "description": "Restaure 100 PV.",
       "names": {
         "en": "Moomoo Milk",
         "fr": "Lait Meumeu",
@@ -9427,6 +9835,7 @@ export const generatedPokeAssets = {
       }
     },
     "moonball": {
+      "description": "4× plus efficace sur les familles de Pokémon qui contiennent une évolution avec une Pierre Lune. Fait à partir de Noigrume Jne.",
       "names": {
         "en": "Moon Ball",
         "fr": "Lune Ball",
@@ -9434,6 +9843,7 @@ export const generatedPokeAssets = {
       }
     },
     "moonflute": {
+      "description": "Fait évoluer Doudou en Lunala quand utilisé à l'Autel de la Lune.",
       "names": {
         "en": "Moon Flute",
         "fr": "Flûte de la Lune",
@@ -9441,6 +9851,7 @@ export const generatedPokeAssets = {
       }
     },
     "moonstone": {
+      "description": "Fait évoluer un Mélofée en Mélodelfe, un Rondoudou en Grodoudou, un Munna en Mushana, un Nidorina en Nidoqueen, un Nidorino en Nidoking, ou un Skitty en Delcatty.",
       "names": {
         "en": "Moon Stone",
         "fr": "Pierre Lune",
@@ -9455,6 +9866,7 @@ export const generatedPokeAssets = {
       }
     },
     "mosaicmail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Mosaic Mail",
         "fr": "Lettremosaïk"
@@ -9489,6 +9901,7 @@ export const generatedPokeAssets = {
       }
     },
     "muscleband": {
+      "description": "Tenu: Booste les dégâts des capacités physiques utilisées par le porteur de 10%.",
       "names": {
         "en": "Muscle Band",
         "fr": "Bandeau Muscle",
@@ -9496,6 +9909,7 @@ export const generatedPokeAssets = {
       }
     },
     "musclefeather": {
+      "description": "Augmente les EV d'Attaque de 1.",
       "names": {
         "en": "Muscle Feather",
         "fr": "Plume Force",
@@ -9517,6 +9931,7 @@ export const generatedPokeAssets = {
       }
     },
     "mysteryegg": {
+      "description": "À livrer au Professeur Orme.",
       "names": {
         "en": "Mystery Egg",
         "fr": "Œuf Mystère",
@@ -9524,12 +9939,14 @@ export const generatedPokeAssets = {
       }
     },
     "mysticticket": {
+      "description": "Permet d'accéder au Roc Nombri et Lugia ou Ho-oh.",
       "names": {
         "en": "MysticTicket",
         "fr": "Ticketmystik"
       }
     },
     "mysticwater": {
+      "description": "Tenu: Les capacités de type Eau du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Mystic Water",
         "fr": "Eau Mystique",
@@ -9551,6 +9968,7 @@ export const generatedPokeAssets = {
       }
     },
     "nanabberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Nanab Berry",
         "fr": "Baie Nanab",
@@ -9565,6 +9983,7 @@ export const generatedPokeAssets = {
       }
     },
     "nestball": {
+      "description": "Tente de capturer un Pokémon sauvage. Le taux de succès est 3.9× pour un Pokémon niveau 1, et baisse régulièrement jusqu'à 1× au niveau 30.",
       "names": {
         "en": "Nest Ball",
         "fr": "Faiblo Ball",
@@ -9572,6 +9991,7 @@ export const generatedPokeAssets = {
       }
     },
     "netball": {
+      "description": "Tente de capturer un Pokémon sauvage. Le taux de succès est 3× pour les Pokémon eau et insecte.",
       "names": {
         "en": "Net Ball",
         "fr": "Filet Ball",
@@ -9579,6 +9999,7 @@ export const generatedPokeAssets = {
       }
     },
     "nevermeltice": {
+      "description": "Tenu: Les capacités de type Glace du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Never-Melt Ice",
         "fr": "Glace Éternelle",
@@ -9607,6 +10028,7 @@ export const generatedPokeAssets = {
       }
     },
     "nomelberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Nomel Berry",
         "fr": "Baie Tronci",
@@ -9621,6 +10043,7 @@ export const generatedPokeAssets = {
       }
     },
     "normalgem": {
+      "description": "Tenu: Quand le porteur utilise une capacité offensive de type Normal, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Normal Gem",
         "fr": "Joyau Normal",
@@ -9656,6 +10079,7 @@ export const generatedPokeAssets = {
       }
     },
     "nugget": {
+      "description": "À vendre pour 5000 Pokédollars, ou au collectionneur d'objets pour 10000 Pokédollars.",
       "names": {
         "en": "Nugget",
         "fr": "Pépite",
@@ -9677,6 +10101,7 @@ export const generatedPokeAssets = {
       }
     },
     "oaksletter": {
+      "description": "Permet d'accéder au Passage Marin, Paradis Fleuri, et Shaymin.",
       "names": {
         "en": "Oak’s Letter",
         "fr": "Lettre Chen",
@@ -9684,12 +10109,14 @@ export const generatedPokeAssets = {
       }
     },
     "oaksparcel": {
+      "description": "À échanger au Professeur Chen pour un Pokédex.",
       "names": {
         "en": "Oak’s Parcel",
         "fr": "Colis Chen"
       }
     },
     "occaberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Feu super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Occa Berry",
         "fr": "Baie Chocco",
@@ -9704,6 +10131,7 @@ export const generatedPokeAssets = {
       }
     },
     "oddincense": {
+      "description": "Tenu: Les capacités de type Psy du porteur infligent 20% de dégâts supplémentaires. Reproduction: M. Mime engendre un Œuf de Mime Jr.",
       "names": {
         "en": "Odd Incense",
         "fr": "Encens Bizarre",
@@ -9718,6 +10146,7 @@ export const generatedPokeAssets = {
       }
     },
     "oddkeystone": {
+      "description": "À utiliser sur la tour de la Route 209 pour rencontrer Spiritomb si vous avez au moins 32 salutations dans le Souterrain.",
       "names": {
         "en": "Odd Keystone",
         "fr": "Clé de Voûte",
@@ -9725,6 +10154,7 @@ export const generatedPokeAssets = {
       }
     },
     "oldamber": {
+      "description": "Peut être ressuscité en Ptéra.",
       "names": {
         "en": "Old Amber",
         "fr": "Vieil Ambre",
@@ -9732,6 +10162,7 @@ export const generatedPokeAssets = {
       }
     },
     "oldcharm": {
+      "description": "À échanger à la grand-mère de Cynthia à Célestia pour la CS04 (Surf).",
       "names": {
         "en": "Old Charm",
         "fr": "Vieux Grigri",
@@ -9739,6 +10170,7 @@ export const generatedPokeAssets = {
       }
     },
     "oldgateau": {
+      "description": "Soigne toutes les altérations de statut et la confusion.",
       "names": {
         "en": "Old Gateau",
         "fr": "Vieux Gâteau",
@@ -9753,6 +10185,7 @@ export const generatedPokeAssets = {
       }
     },
     "oldrod": {
+      "description": "Utilisé pour capturer des Pokémon dans les points d'eau.",
       "names": {
         "en": "Old Rod",
         "fr": "Canne",
@@ -9760,6 +10193,7 @@ export const generatedPokeAssets = {
       }
     },
     "oldseamap": {
+      "description": "Permet d'accéder à l'ïle Lointaine et Mew. Jamais diffusé hors Japon.",
       "names": {
         "en": "Old Sea Map",
         "fr": "Vieillecarte"
@@ -9836,6 +10270,7 @@ export const generatedPokeAssets = {
       }
     },
     "oranberry": {
+      "description": "Tenu: Consommé à 1/2 des PV max pour regagner 10 PV.",
       "names": {
         "en": "Oran Berry",
         "fr": "Baie Oran",
@@ -9850,6 +10285,7 @@ export const generatedPokeAssets = {
       }
     },
     "orangemail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Orange Mail",
         "fr": "Lettre Oranj"
@@ -9960,6 +10396,7 @@ export const generatedPokeAssets = {
       }
     },
     "ovalcharm": {
+      "description": "Double les chances que deux Pokémon produisent un œuf à la pension tous les 255 pas.",
       "names": {
         "en": "Oval Charm",
         "fr": "Charme Ovale",
@@ -9967,6 +10404,7 @@ export const generatedPokeAssets = {
       }
     },
     "ovalstone": {
+      "description": "Montée de niveau pendant le Jour sur un Ptiravi : Le porteur évolue en Leveinard.",
       "names": {
         "en": "Oval Stone",
         "fr": "Pierre Ovale",
@@ -9995,6 +10433,7 @@ export const generatedPokeAssets = {
       }
     },
     "pairoftickets": {
+      "description": "Permet au joueur et à sa mère d'assister au Spectacle d'Astronomie au Centre Spatial d'Algatia.",
       "names": {
         "en": "Pair of Tickets",
         "fr": "Ticket Duo",
@@ -10002,6 +10441,7 @@ export const generatedPokeAssets = {
       }
     },
     "palpad": {
+      "description": "Utilisé pour enregistrer les Code Amis et vérifier le sien.",
       "names": {
         "en": "Pal Pad",
         "fr": "Registre Ami",
@@ -10009,6 +10449,7 @@ export const generatedPokeAssets = {
       }
     },
     "pamtreberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Pamtre Berry",
         "fr": "Baie Palma",
@@ -10016,6 +10457,7 @@ export const generatedPokeAssets = {
       }
     },
     "paralyzeheal": {
+      "description": "Soigne la paralysie.",
       "names": {
         "en": "Paralyze Heal",
         "fr": "Anti-Para",
@@ -10044,6 +10486,7 @@ export const generatedPokeAssets = {
       }
     },
     "parkball": {
+      "description": "Capture un Pokémon du Parc des Amis à coup sûr.",
       "names": {
         "en": "Park Ball",
         "fr": "Parc Ball",
@@ -10058,6 +10501,7 @@ export const generatedPokeAssets = {
       }
     },
     "pass": {
+      "description": "Permet d'accéder et utiliser le Train Magnétique entre Doublonville et Safrania.",
       "names": {
         "en": "Pass",
         "fr": "Passe Train",
@@ -10065,6 +10509,7 @@ export const generatedPokeAssets = {
       }
     },
     "passhoberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Eau super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Passho Berry",
         "fr": "Baie Pocpoc",
@@ -10079,6 +10524,7 @@ export const generatedPokeAssets = {
       }
     },
     "passorb": {
+      "description": "Active les Offri-Auras.",
       "names": {
         "en": "Pass Orb",
         "fr": "Offrisphère",
@@ -10114,6 +10560,7 @@ export const generatedPokeAssets = {
       }
     },
     "payapaberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Psy super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Payapa Berry",
         "fr": "Baie Yapap",
@@ -10135,6 +10582,7 @@ export const generatedPokeAssets = {
       }
     },
     "pearl": {
+      "description": "À vendre pour 700 Pokédollars, ou au collectionneur d'objets pour 1400 Pokédollars.",
       "names": {
         "en": "Pearl",
         "fr": "Perle",
@@ -10142,6 +10590,7 @@ export const generatedPokeAssets = {
       }
     },
     "pearlstring": {
+      "description": "À vendre au collectionneur d'objets pour 25000 Pokédollars.",
       "names": {
         "en": "Pearl String",
         "fr": "Perle Triple",
@@ -10154,6 +10603,7 @@ export const generatedPokeAssets = {
       }
     },
     "pechaberry": {
+      "description": "Tenu: Consommé quand empoisonné pour soigner le poison.",
       "names": {
         "en": "Pecha Berry",
         "fr": "Baie Pêcha",
@@ -10280,6 +10730,7 @@ export const generatedPokeAssets = {
       }
     },
     "permit": {
+      "description": "Permet d'accéder à la Réserve Naturelle.",
       "names": {
         "en": "Permit",
         "fr": "Permis",
@@ -10287,6 +10738,7 @@ export const generatedPokeAssets = {
       }
     },
     "persimberry": {
+      "description": "Tenu: Consommé quand confus pour soigner la confusion.",
       "names": {
         "en": "Persim Berry",
         "fr": "Baie Kika",
@@ -10294,6 +10746,7 @@ export const generatedPokeAssets = {
       }
     },
     "petayaberry": {
+      "description": "Tenu: Consommé à 1/4 des PV max pour booster l'Attaque Spéciale.",
       "names": {
         "en": "Petaya Berry",
         "fr": "Baie Pitaye",
@@ -10343,6 +10796,7 @@ export const generatedPokeAssets = {
       }
     },
     "photoalbum": {
+      "description": "Sauvegarde les photos de votre aventure.",
       "names": {
         "en": "Photo Album",
         "fr": "Album Photo",
@@ -10371,6 +10825,7 @@ export const generatedPokeAssets = {
       }
     },
     "pidgeotite": {
+      "description": "Tenu: Permet à Roucarnage de Méga-Évoluer en Méga-Roucarnage.",
       "names": {
         "en": "Pidgeotite",
         "fr": "Roucarnagite",
@@ -10420,6 +10875,7 @@ export const generatedPokeAssets = {
       }
     },
     "pinapberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Pinap Berry",
         "fr": "Baie Nanana",
@@ -10448,6 +10904,7 @@ export const generatedPokeAssets = {
       }
     },
     "pinkapricorn": {
+      "description": "Utilisé pour fabriquer une Love Ball.",
       "names": {
         "en": "Pink Apricorn",
         "fr": "Noigrume Rose",
@@ -10469,6 +10926,7 @@ export const generatedPokeAssets = {
       }
     },
     "pinknectar": {
+      "description": "Change Plumeline en Style Hula.",
       "names": {
         "en": "Pink Nectar",
         "fr": "Nectar Rose",
@@ -10483,6 +10941,7 @@ export const generatedPokeAssets = {
       }
     },
     "pinkscarf": {
+      "description": "Augmente la Grâce du porteur lors d'un concours.",
       "names": {
         "en": "Pink Scarf",
         "fr": "Foulard Rose",
@@ -10504,6 +10963,7 @@ export const generatedPokeAssets = {
       }
     },
     "pinsirite": {
+      "description": "Tenu: Permet à Scarabrute de Méga-Évoluer en Méga-Scarabrute.",
       "names": {
         "en": "Pinsirite",
         "fr": "Scarabruite",
@@ -10511,6 +10971,7 @@ export const generatedPokeAssets = {
       }
     },
     "pixieplate": {
+      "description": "Tenu: Les capacités de type Fée du porteur infligent 20% de dégâts supplémentaires. Change le type d'Arceus et Jugement en Fée.",
       "names": {
         "en": "Pixie Plate",
         "fr": "Plaque Pixie",
@@ -10539,6 +11000,7 @@ export const generatedPokeAssets = {
       }
     },
     "plasmacard": {
+      "description": "Requis pour progresser dans la Frégate Plasma.",
       "names": {
         "en": "Plasma Card",
         "fr": "Carte Plasma",
@@ -10546,6 +11008,7 @@ export const generatedPokeAssets = {
       }
     },
     "plumefossil": {
+      "description": "Peut être ressuscité en un Arkéapti.",
       "names": {
         "en": "Plume Fossil",
         "fr": "Fossile Plume",
@@ -10553,6 +11016,7 @@ export const generatedPokeAssets = {
       }
     },
     "poffincase": {
+      "description": "Stocke les Poffins.",
       "names": {
         "en": "Poffin Case",
         "fr": "Boîte Poffin",
@@ -10560,6 +11024,7 @@ export const generatedPokeAssets = {
       }
     },
     "pointcard": {
+      "description": "Compte le nombre de PCo gagnés.",
       "names": {
         "en": "Point Card",
         "fr": "Carte Points",
@@ -10567,6 +11032,7 @@ export const generatedPokeAssets = {
       }
     },
     "poisonbarb": {
+      "description": "Tenu: Les capacités de type Poison du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Poison Barb",
         "fr": "Pic Venin",
@@ -10574,6 +11040,7 @@ export const generatedPokeAssets = {
       }
     },
     "poisongem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Poison, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Poison Gem",
         "fr": "Joyau Poison",
@@ -10588,6 +11055,7 @@ export const generatedPokeAssets = {
       }
     },
     "poisonmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Poison. Change le type de Coup Varia-Type en Poison.",
       "names": {
         "en": "Poison Memory",
         "fr": "ROM Poison",
@@ -10608,12 +11076,14 @@ export const generatedPokeAssets = {
       }
     },
     "pokeblockcase": {
+      "description": "Porte les Pokéblocs.",
       "names": {
         "en": "Pokéblock Case",
         "fr": "Boîte Pokéblocs"
       }
     },
     "pokeblockkit": {
+      "description": "Crée et stocke les Pokéblocs.",
       "names": {
         "en": "Pokéblock Kit",
         "fr": "Kit Pokébloc",
@@ -10621,6 +11091,7 @@ export const generatedPokeAssets = {
       }
     },
     "pokedoll": {
+      "description": "Met fin à un combat sauvage.",
       "names": {
         "en": "Poké Doll",
         "fr": "Poké Poupée",
@@ -10628,6 +11099,7 @@ export const generatedPokeAssets = {
       }
     },
     "pokeflute": {
+      "description": "À utiliser pour réveiller un Pokémon endormi, incluant Ronflex sur les routes.",
       "names": {
         "en": "Poké Flute",
         "fr": "Poké Flûte",
@@ -10642,6 +11114,7 @@ export const generatedPokeAssets = {
       }
     },
     "pokeradar": {
+      "description": "Utilisé pour localiser un Pokémon rare ou chromatique. 50 pas pour recharger.",
       "names": {
         "en": "Poké Radar",
         "fr": "Poké Radar",
@@ -10649,6 +11122,7 @@ export const generatedPokeAssets = {
       }
     },
     "poketoy": {
+      "description": "Met fin à un combat sauvage.",
       "names": {
         "en": "Poké Toy",
         "fr": "Poké Plumet",
@@ -10705,6 +11179,7 @@ export const generatedPokeAssets = {
       }
     },
     "pomegberry": {
+      "description": "Diminue les EV de PV de 10 et augmente le bonheur.",
       "names": {
         "en": "Pomeg Berry",
         "fr": "Baie Grena",
@@ -10747,6 +11222,7 @@ export const generatedPokeAssets = {
       }
     },
     "potion": {
+      "description": "Soigne 20 PV.",
       "names": {
         "en": "Potion",
         "fr": "Potion",
@@ -10754,12 +11230,14 @@ export const generatedPokeAssets = {
       }
     },
     "powderjar": {
+      "description": "Stocke la Poudre de Baie faite grâce au Broyeur de Baies.",
       "names": {
         "en": "Powder Jar",
         "fr": "Pot Poudre"
       }
     },
     "poweranklet": {
+      "description": "Tenu: Le porteur gagne 4 EV de Vitesse, mais a sa Vitesse divisée par deux en combat.",
       "names": {
         "en": "Power Anklet",
         "fr": "Chaîne Pouvoir",
@@ -10767,6 +11245,7 @@ export const generatedPokeAssets = {
       }
     },
     "powerband": {
+      "description": "Tenu: Le porteur gagne 4 EV de Défense Spéciale, mais a sa Vitesse divisée par deux en combat.",
       "names": {
         "en": "Power Band",
         "fr": "Bandeau Pouvoir",
@@ -10774,6 +11253,7 @@ export const generatedPokeAssets = {
       }
     },
     "powerbelt": {
+      "description": "Tenu: Le porteur gagne 4 EV de Défense, mais a sa Vitesse divisée par deux en combat.",
       "names": {
         "en": "Power Belt",
         "fr": "Ceinture Pouvoir",
@@ -10781,6 +11261,7 @@ export const generatedPokeAssets = {
       }
     },
     "powerbracer": {
+      "description": "Tenu: Le porteur gagne 4 EV d'Attaque, mais a sa Vitesse divisée par deux en combat.",
       "names": {
         "en": "Power Bracer",
         "fr": "Poignet Pouvoir",
@@ -10788,6 +11269,7 @@ export const generatedPokeAssets = {
       }
     },
     "powerherb": {
+      "description": "Tenu: Les deux tours d'un coup en deux tours ont lieu en un. Consommé quand utilisé.",
       "names": {
         "en": "Power Herb",
         "fr": "Herbe Pouvoir",
@@ -10795,6 +11277,7 @@ export const generatedPokeAssets = {
       }
     },
     "powerlens": {
+      "description": "Tenu: Le porteur gagne 4 EV d'Attaque Spéciale, mais a sa Vitesse divisée par deux en combat.",
       "names": {
         "en": "Power Lens",
         "fr": "Lentille Pouvoir",
@@ -10802,6 +11285,7 @@ export const generatedPokeAssets = {
       }
     },
     "powerplantpass": {
+      "description": "Permet l'entrée dans la Centrale.",
       "names": {
         "en": "Power Plant Pass",
         "fr": "Passe Centrale",
@@ -10816,6 +11300,7 @@ export const generatedPokeAssets = {
       }
     },
     "powerweight": {
+      "description": "Tenu: Le porteur gagne 4 EV de PV, mais a sa Vitesse divisée par deux en combat.",
       "names": {
         "en": "Power Weight",
         "fr": "Poids Pouvoir",
@@ -10823,6 +11308,7 @@ export const generatedPokeAssets = {
       }
     },
     "ppmax": {
+      "description": "Augmente les PP max d'une capacité de 60%.",
       "names": {
         "en": "PP Max",
         "fr": "PP Max",
@@ -10830,6 +11316,7 @@ export const generatedPokeAssets = {
       }
     },
     "ppup": {
+      "description": "Augmente les PP max d'une capacité de 20%.",
       "names": {
         "en": "PP Up",
         "fr": "PP Plus",
@@ -10844,6 +11331,7 @@ export const generatedPokeAssets = {
       }
     },
     "premierball": {
+      "description": "Tente de capturer un Pokémon sauvage.",
       "names": {
         "en": "Premier Ball",
         "fr": "Honor Ball",
@@ -10851,6 +11339,7 @@ export const generatedPokeAssets = {
       }
     },
     "prettyfeather": {
+      "description": "À vendre pour 100 Pokédollars.",
       "names": {
         "en": "Pretty Feather",
         "fr": "Jolie Plume",
@@ -10865,6 +11354,7 @@ export const generatedPokeAssets = {
       }
     },
     "prismscale": {
+      "description": "Échangé sur un Barpau: Le porteur évolue en Milobellus.",
       "names": {
         "en": "Prism Scale",
         "fr": "Bel’Écaille",
@@ -10872,6 +11362,7 @@ export const generatedPokeAssets = {
       }
     },
     "prisonbottle": {
+      "description": "Transforme Hoopa en sa forme Déchaîné pour trois jours.",
       "names": {
         "en": "Prison Bottle",
         "fr": "Vase Scellé",
@@ -10879,6 +11370,7 @@ export const generatedPokeAssets = {
       }
     },
     "professorsmask": {
+      "description": "Perdu par le Professeur Euphorbe.",
       "names": {
         "en": "Professor’s Mask",
         "fr": "Masque du Prof",
@@ -10886,6 +11378,7 @@ export const generatedPokeAssets = {
       }
     },
     "profsletter": {
+      "description": "Échangé à la mère du joueur contre la Carte et une Potion.",
       "names": {
         "en": "Prof’s Letter",
         "fr": "Lettre du Prof",
@@ -10893,6 +11386,7 @@ export const generatedPokeAssets = {
       }
     },
     "propcase": {
+      "description": "Range les parures pour le Music-Hall.",
       "names": {
         "en": "Prop Case",
         "fr": "Boîte Parure",
@@ -10907,6 +11401,7 @@ export const generatedPokeAssets = {
       }
     },
     "protectivepads": {
+      "description": "Tenu: Empêche les effets secondaires des capacités à contact utilisées sur le porteur.",
       "names": {
         "en": "Protective Pads",
         "fr": "Pare-Effet",
@@ -10914,6 +11409,7 @@ export const generatedPokeAssets = {
       }
     },
     "protector": {
+      "description": "Échangé sur un Rhinoféros: Le porteur évolue en Rhinastoc.",
       "names": {
         "en": "Protector",
         "fr": "Protecteur",
@@ -10921,6 +11417,7 @@ export const generatedPokeAssets = {
       }
     },
     "protein": {
+      "description": "Augmente l'effort en Attaque et le bonheur.",
       "names": {
         "en": "Protein",
         "fr": "Protéine",
@@ -10970,6 +11467,7 @@ export const generatedPokeAssets = {
       }
     },
     "psychicgem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Psy, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Psychic Gem",
         "fr": "Joyau Psy",
@@ -10977,6 +11475,7 @@ export const generatedPokeAssets = {
       }
     },
     "psychicmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Psy. Change le type de Coup Varia-Type en Psy.",
       "names": {
         "en": "Psychic Memory",
         "fr": "ROM Psy",
@@ -10984,6 +11483,7 @@ export const generatedPokeAssets = {
       }
     },
     "psychicseed": {
+      "description": "Tenu: Consommé sur un Champ Psychique et augmente la Défense Spéciale du porteur d'un niveau.",
       "names": {
         "en": "Psychic Seed",
         "fr": "Graine Psychique",
@@ -11054,6 +11554,7 @@ export const generatedPokeAssets = {
       }
     },
     "pureincense": {
+      "description": "Empêche les rencontres sauvages de niveau inférieur à celui du Pokémon en tête de votre équipe. Reproduction: Éoko engendre un Œuf de Korillon.",
       "names": {
         "en": "Pure Incense",
         "fr": "Encens Pur",
@@ -11061,6 +11562,7 @@ export const generatedPokeAssets = {
       }
     },
     "purplenectar": {
+      "description": "Change Plumeline en Style Buyō.",
       "names": {
         "en": "Purple Nectar",
         "fr": "Nectar Mauve",
@@ -11075,6 +11577,7 @@ export const generatedPokeAssets = {
       }
     },
     "qualotberry": {
+      "description": "Diminue les EV de Défense de 10 et augmente le bonheur.",
       "names": {
         "en": "Qualot Berry",
         "fr": "Baie Qualot",
@@ -11082,6 +11585,7 @@ export const generatedPokeAssets = {
       }
     },
     "quickball": {
+      "description": "Tente de capturer un Pokémon sauvage. Le taux de succès est 4× (Gén V : 5x), mais seulement le premier tour.",
       "names": {
         "en": "Quick Ball",
         "fr": "Rapide Ball",
@@ -11110,6 +11614,7 @@ export const generatedPokeAssets = {
       }
     },
     "quickclaw": {
+      "description": "Tenu: Le porteur a 3/16 (18.75%) de chance d'attaquer en premier.",
       "names": {
         "en": "Quick Claw",
         "fr": "Vive Griffe",
@@ -11117,6 +11622,7 @@ export const generatedPokeAssets = {
       }
     },
     "quickpowder": {
+      "description": "Double la Vitesse de Métamorph quand porté. Le boost est perdu après la transformation.",
       "names": {
         "en": "Quick Powder",
         "fr": "Poudre Vite",
@@ -11138,6 +11644,7 @@ export const generatedPokeAssets = {
       }
     },
     "rabutaberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Rabuta Berry",
         "fr": "Baie Rabuta",
@@ -11152,6 +11659,7 @@ export const generatedPokeAssets = {
       }
     },
     "ragecandybar": {
+      "description": "HS: échangé pour la CT64. Gén II & Gén V: Agit comme une Potion.",
       "names": {
         "en": "Rage Candy Bar",
         "fr": "Bonbon Rage",
@@ -11166,12 +11674,14 @@ export const generatedPokeAssets = {
       }
     },
     "rainbowpass": {
+      "description": "Permet d'accéder à toutes les Îles Sevii.",
       "names": {
         "en": "Rainbow Pass",
         "fr": "Passe Prisme"
       }
     },
     "rainbowwing": {
+      "description": "Invoque Ho-Oh au sommet de la Tour Carillon.",
       "names": {
         "en": "Rainbow Wing",
         "fr": "Arc-en-Ci’Aile",
@@ -11186,6 +11696,7 @@ export const generatedPokeAssets = {
       }
     },
     "rarebone": {
+      "description": "À vendre pour 5000 Pokédollars, ou à un collectionneur pour 10000 Pokédollars.",
       "names": {
         "en": "Rare Bone",
         "fr": "Os Rare",
@@ -11193,6 +11704,7 @@ export const generatedPokeAssets = {
       }
     },
     "rarecandy": {
+      "description": "Provoque une montée de niveau et augmente le bonheur.",
       "names": {
         "en": "Rare Candy",
         "fr": "Super Bonbon",
@@ -11214,6 +11726,7 @@ export const generatedPokeAssets = {
       }
     },
     "rawstberry": {
+      "description": "Tenu: Consommé quand brûlé pour soigner la brûlure.",
       "names": {
         "en": "Rawst Berry",
         "fr": "Baie Fraive",
@@ -11221,6 +11734,7 @@ export const generatedPokeAssets = {
       }
     },
     "razorclaw": {
+      "description": "Tenu: Augmente le taux de coups critiques du porteur d'un niveau. Porté par un Farfuret en montant de niveau la nuit: Le porteur évolue en Dimoret.",
       "names": {
         "en": "Razor Claw",
         "fr": "Griffe Rasoir",
@@ -11228,6 +11742,7 @@ export const generatedPokeAssets = {
       }
     },
     "razorfang": {
+      "description": "Tenu: Les capacités offensives ont 10% de chance d'apeurer leur cible. Porté par un Scorplane en montant de niveau: Le porteur évolue en Scorvol.",
       "names": {
         "en": "Razor Fang",
         "fr": "Croc Rasoir",
@@ -11235,6 +11750,7 @@ export const generatedPokeAssets = {
       }
     },
     "razzberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Razz Berry",
         "fr": "Baie Framby",
@@ -11242,6 +11758,7 @@ export const generatedPokeAssets = {
       }
     },
     "reapercloth": {
+      "description": "Échangé sur un Téraclope: Le porteur évolue en Noctunoir.",
       "names": {
         "en": "Reaper Cloth",
         "fr": "Tissu Fauche",
@@ -11249,6 +11766,7 @@ export const generatedPokeAssets = {
       }
     },
     "redapricorn": {
+      "description": "Utilisé pour fabriquer une Niveau Ball.",
       "names": {
         "en": "Red Apricorn",
         "fr": "Noigrume Rouge",
@@ -11263,6 +11781,7 @@ export const generatedPokeAssets = {
       }
     },
     "redcard": {
+      "description": "Tenu: Quand le porteur subit des dégâts d'une capacité, l'adversaire se retire pour un autre Pokémon aléatoire de l'équipe. Consommé après utilisation.",
       "names": {
         "en": "Red Card",
         "fr": "Carton Rouge",
@@ -11270,6 +11789,7 @@ export const generatedPokeAssets = {
       }
     },
     "redchain": {
+      "description": "Utilisé pour contrôler Palkia et Dialga.",
       "names": {
         "en": "Red Chain",
         "fr": "Chaîne Rouge",
@@ -11291,6 +11811,7 @@ export const generatedPokeAssets = {
       }
     },
     "redflute": {
+      "description": "Soigne l'amour.",
       "names": {
         "en": "Red Flute",
         "fr": "Flûte Rouge",
@@ -11298,6 +11819,7 @@ export const generatedPokeAssets = {
       }
     },
     "rednectar": {
+      "description": "Change Plumeline en Style Flamenco.",
       "names": {
         "en": "Red Nectar",
         "fr": "Nectar Rouge",
@@ -11312,6 +11834,7 @@ export const generatedPokeAssets = {
       }
     },
     "redorb": {
+      "description": "Invoque Groudon à la Tour Enfouie.",
       "names": {
         "en": "Red Orb",
         "fr": "Gemme Rouge",
@@ -11333,6 +11856,7 @@ export const generatedPokeAssets = {
       }
     },
     "redscale": {
+      "description": "À échanger à M. Pokémon pour un Multi Exp.",
       "names": {
         "en": "Red Scale",
         "fr": "Écaille Rouge",
@@ -11340,6 +11864,7 @@ export const generatedPokeAssets = {
       }
     },
     "redscarf": {
+      "description": "Augmente le Sang-froid du porteur lors d'un concours.",
       "names": {
         "en": "Red Scarf",
         "fr": "Foulard Rouge",
@@ -11347,6 +11872,7 @@ export const generatedPokeAssets = {
       }
     },
     "redshard": {
+      "description": "Aucun effet. Peut être échangé pour des objets ou capacités.",
       "names": {
         "en": "Red Shard",
         "fr": "Tesson Rouge",
@@ -11368,6 +11894,7 @@ export const generatedPokeAssets = {
       }
     },
     "relicband": {
+      "description": "À vendre au père de la famille Colay-Monthé pour 100000 Pokédollars.",
       "names": {
         "en": "Relic Band",
         "fr": "Vieux Bijou",
@@ -11375,6 +11902,7 @@ export const generatedPokeAssets = {
       }
     },
     "reliccopper": {
+      "description": "À vendre au père de la famille Colay-Monthé pour 1000 Pokédollars.",
       "names": {
         "en": "Relic Copper",
         "fr": "Vieux Sou",
@@ -11382,6 +11910,7 @@ export const generatedPokeAssets = {
       }
     },
     "reliccrown": {
+      "description": "À vendre au père de la famille Colay-Monthé pour 300000 Pokédollars.",
       "names": {
         "en": "Relic Crown",
         "fr": "Vieux Tortil",
@@ -11389,6 +11918,7 @@ export const generatedPokeAssets = {
       }
     },
     "relicgold": {
+      "description": "À vendre au père de la famille Colay-Monthé pour 10000 Pokédollars.",
       "names": {
         "en": "Relic Gold",
         "fr": "Vieux Ducat",
@@ -11396,6 +11926,7 @@ export const generatedPokeAssets = {
       }
     },
     "relicsilver": {
+      "description": "À vendre au père de la famille Colay-Monthé pour 5000 Pokédollars.",
       "names": {
         "en": "Relic Silver",
         "fr": "Vieil Écu",
@@ -11403,6 +11934,7 @@ export const generatedPokeAssets = {
       }
     },
     "relicstatue": {
+      "description": "À vendre au père de la famille Colay-Monthé pour 200000 Pokédollars.",
       "names": {
         "en": "Relic Statue",
         "fr": "Vieux Santon",
@@ -11410,6 +11942,7 @@ export const generatedPokeAssets = {
       }
     },
     "relicvase": {
+      "description": "À vendre au père de la famille Colay-Monthé pour 50000 Pokédollars.",
       "names": {
         "en": "Relic Vase",
         "fr": "Vieux Vase",
@@ -11424,6 +11957,7 @@ export const generatedPokeAssets = {
       }
     },
     "repeatball": {
+      "description": "Tente de capturer un Pokémon sauvage. Le taux de succès est 3× pour les Pokémon déjà capturés.",
       "names": {
         "en": "Repeat Ball",
         "fr": "Bis Ball",
@@ -11431,6 +11965,7 @@ export const generatedPokeAssets = {
       }
     },
     "repel": {
+      "description": "Pendant 100 pas, empêche les rencontres sauvages de niveau inférieur au Pokémon en tête de votre équipe.",
       "names": {
         "en": "Repel",
         "fr": "Repousse",
@@ -11438,6 +11973,7 @@ export const generatedPokeAssets = {
       }
     },
     "replymail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Reply Mail",
         "fr": "Lettre Réponse",
@@ -11445,6 +11981,7 @@ export const generatedPokeAssets = {
       }
     },
     "reseturge": {
+      "description": "Réinitialise les changements de stat d'un Pokémon allié.",
       "names": {
         "en": "Reset Urge",
         "fr": "Réamorçage",
@@ -11452,6 +11989,7 @@ export const generatedPokeAssets = {
       }
     },
     "resistfeather": {
+      "description": "Augmente les EV de Défense de 1.",
       "names": {
         "en": "Resist Feather",
         "fr": "Plume Armure",
@@ -11466,12 +12004,14 @@ export const generatedPokeAssets = {
       }
     },
     "retromail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Retro Mail",
         "fr": "Lettre Retro"
       }
     },
     "revealglass": {
+      "description": "Permet à Boréas, Fulguris et Déméteros d'alterner entre leur Forme Avatar et Totémique.",
       "names": {
         "en": "Reveal Glass",
         "fr": "Miroir Sacré",
@@ -11479,6 +12019,7 @@ export const generatedPokeAssets = {
       }
     },
     "revivalherb": {
+      "description": "Renaît avec tous les PV, mais diminue le bonheur.",
       "names": {
         "en": "Revival Herb",
         "fr": "Herbe Rappel",
@@ -11486,6 +12027,7 @@ export const generatedPokeAssets = {
       }
     },
     "revive": {
+      "description": "Renaît avec la moitié des PV.",
       "names": {
         "en": "Revive",
         "fr": "Rappel",
@@ -11514,6 +12056,7 @@ export const generatedPokeAssets = {
       }
     },
     "richmulch": {
+      "description": "Augmente le nombre total de Baies de 2.",
       "names": {
         "en": "Rich Mulch",
         "fr": "Fertibondance",
@@ -11521,6 +12064,7 @@ export const generatedPokeAssets = {
       }
     },
     "ridepager": {
+      "description": "Permet au joueur d'invoquer une Poké Monture.",
       "names": {
         "en": "Ride Pager",
         "fr": "Appel-Monture",
@@ -11528,6 +12072,7 @@ export const generatedPokeAssets = {
       }
     },
     "rindoberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Plante super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Rindo Berry",
         "fr": "Baie Ratam",
@@ -11535,6 +12080,7 @@ export const generatedPokeAssets = {
       }
     },
     "ringtarget": {
+      "description": "Tenu: Annule les immunités de type du porteur. Les immunités aux talents ne sont pas supprimées.",
       "names": {
         "en": "Ring Target",
         "fr": "Point de Mire",
@@ -11549,30 +12095,35 @@ export const generatedPokeAssets = {
       }
     },
     "rm1key": {
+      "description": "Dévérouille la salle 1 du Lavandia Sea.",
       "names": {
         "en": "Rm. 1 Key",
         "fr": "Clé Salle 1"
       }
     },
     "rm2key": {
+      "description": "Dévérouille la salle 2 du Lavandia Sea.",
       "names": {
         "en": "Rm. 2 Key",
         "fr": "Clé Salle 2"
       }
     },
     "rm4key": {
+      "description": "Dévérouille la salle 4 du Lavandia Sea.",
       "names": {
         "en": "Rm. 4 Key",
         "fr": "Clé Salle 4"
       }
     },
     "rm6key": {
+      "description": "Dévérouille la salle 6 du Lavandia Sea.",
       "names": {
         "en": "Rm. 6 Key",
         "fr": "Clé Salle 6"
       }
     },
     "rockgem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Roche, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Rock Gem",
         "fr": "Joyau Roche",
@@ -11580,6 +12131,7 @@ export const generatedPokeAssets = {
       }
     },
     "rockincense": {
+      "description": "Tenu: Les capacités de type Roche du porteur infligent 20% de dégâts supplémentaires. Reproduction: Simularbre engendre un Œuf de Manzaï.",
       "names": {
         "en": "Rock Incense",
         "fr": "Encens Roc",
@@ -11594,6 +12146,7 @@ export const generatedPokeAssets = {
       }
     },
     "rockmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Roche. Change le type de Coup Varia-Type en Roche.",
       "names": {
         "en": "Rock Memory",
         "fr": "ROM Roche",
@@ -11615,6 +12168,7 @@ export const generatedPokeAssets = {
       }
     },
     "rockyhelmet": {
+      "description": "Tenu: Quand le porteur est touché par une capacité à contact, le Pokémon attaquant subit 1/6 de ses PV max en dégâts.",
       "names": {
         "en": "Rocky Helmet",
         "fr": "Casque Brut",
@@ -11622,6 +12176,7 @@ export const generatedPokeAssets = {
       }
     },
     "rollerskates": {
+      "description": "Permet au joueur de se déplacer rapidement et hors des sentiers battus.",
       "names": {
         "en": "Roller Skates",
         "fr": "Rollers",
@@ -11650,6 +12205,7 @@ export const generatedPokeAssets = {
       }
     },
     "rootfossil": {
+      "description": "Peut être ressuscité en Lilia.",
       "names": {
         "en": "Root Fossil",
         "fr": "Fossile Racine",
@@ -11657,6 +12213,7 @@ export const generatedPokeAssets = {
       }
     },
     "roseincense": {
+      "description": "Tenu: Les capacités de type Plante du porteur infligent 20% de dégâts supplémentaires. Reproduction: Rosélia ou Roserade engendrent un Œuf de Rozbouton.",
       "names": {
         "en": "Rose Incense",
         "fr": "Encens Fleur",
@@ -11664,6 +12221,7 @@ export const generatedPokeAssets = {
       }
     },
     "roseliberry": {
+      "description": "Tenu: Consommé quand touché par une attaque de type Fée super efficace pour diviser par deux les dégâts.",
       "names": {
         "en": "Roseli Berry",
         "fr": "Baie Selro",
@@ -11783,6 +12341,7 @@ export const generatedPokeAssets = {
       }
     },
     "rowapberry": {
+      "description": "Tenu: Consommé pour infliger 1/8 des PV max à l'adversaire quand le porteur est touché par une capacité spéciale.",
       "names": {
         "en": "Rowap Berry",
         "fr": "Baie Pommo",
@@ -11790,6 +12349,7 @@ export const generatedPokeAssets = {
       }
     },
     "rsvpmail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "RSVP Mail",
         "fr": "Lettre Invit",
@@ -11797,6 +12357,7 @@ export const generatedPokeAssets = {
       }
     },
     "ruby": {
+      "description": "À donner à Cliéo dans Saphir pour activer le Centre Réseau Pokémon et avoir le Passe Prisme.",
       "names": {
         "en": "Ruby",
         "fr": "Rubis"
@@ -11810,6 +12371,7 @@ export const generatedPokeAssets = {
       }
     },
     "rulebook": {
+      "description": "Liste des types de combats et leurs règles.",
       "names": {
         "en": "Rule Book",
         "fr": "Livre Règles",
@@ -11831,6 +12393,7 @@ export const generatedPokeAssets = {
       }
     },
     "sablenite": {
+      "description": "Tenu: Permet à Ténéfix de Méga-Évoluer en Méga-Ténéfix.",
       "names": {
         "en": "Sablenite",
         "fr": "Ténéfixite",
@@ -11845,6 +12408,7 @@ export const generatedPokeAssets = {
       }
     },
     "sachet": {
+      "description": "Échangé sur un Fluvetin: Le porteur évolue en Cocotine.",
       "names": {
         "en": "Sachet",
         "fr": "Sachet Senteur",
@@ -11852,6 +12416,7 @@ export const generatedPokeAssets = {
       }
     },
     "sacredash": {
+      "description": "Renaît tous les Pokémon KO avec tous leurs PV.",
       "names": {
         "en": "Sacred Ash",
         "fr": "Cendre Sacrée",
@@ -11859,6 +12424,7 @@ export const generatedPokeAssets = {
       }
     },
     "safariball": {
+      "description": "Tente de capturer un Pokémon sauvage dans le Grand Marais ou le Parc Safari. Le taux de succès est 1.5x.",
       "names": {
         "en": "Safari Ball",
         "fr": "Safari Ball",
@@ -11866,6 +12432,7 @@ export const generatedPokeAssets = {
       }
     },
     "safetygoggles": {
+      "description": "Tenu: Empêche les dégâts des capacités à base de poudre et les dégâts de Grêle et Tempête de Sable.",
       "names": {
         "en": "Safety Goggles",
         "fr": "Lunettes Filtre",
@@ -11873,6 +12440,7 @@ export const generatedPokeAssets = {
       }
     },
     "sailfossil": {
+      "description": "Peut être ressuscité en Amagara.",
       "names": {
         "en": "Sail Fossil",
         "fr": "Fossile Nageoire",
@@ -11880,6 +12448,7 @@ export const generatedPokeAssets = {
       }
     },
     "salacberry": {
+      "description": "Tenu: Consommé à 1/4 des PV max pour booster la Vitesse.",
       "names": {
         "en": "Salac Berry",
         "fr": "Baie Sailak",
@@ -11894,6 +12463,7 @@ export const generatedPokeAssets = {
       }
     },
     "salamencite": {
+      "description": "Tenu: Permet à Drattak de Méga-Évoluer en Méga-Drattak.",
       "names": {
         "en": "Salamencite",
         "fr": "Drattakite",
@@ -11957,6 +12527,7 @@ export const generatedPokeAssets = {
       }
     },
     "sapphire": {
+      "description": "À donner à Cliéo dans Rubis pour activer le Centre Réseau Pokémon et avoir le Passe Prisme.",
       "names": {
         "en": "Sapphire",
         "fr": "Saphir"
@@ -11977,6 +12548,7 @@ export const generatedPokeAssets = {
       }
     },
     "scanner": {
+      "description": "À échanger au Capitaine Poupe pour une Dent Océan ou une Écaille Océan.",
       "names": {
         "en": "Scanner",
         "fr": "Scanner",
@@ -11998,6 +12570,7 @@ export const generatedPokeAssets = {
       }
     },
     "sceptilite": {
+      "description": "Tenu: Permet à Jungko de Méga-Évoluer en Méga-Jungko.",
       "names": {
         "en": "Sceptilite",
         "fr": "Jungkite",
@@ -12005,6 +12578,7 @@ export const generatedPokeAssets = {
       }
     },
     "scizorite": {
+      "description": "Tenu: Permet à Cizayox de Méga-Évoluer en Méga-Cizayox.",
       "names": {
         "en": "Scizorite",
         "fr": "Cizayoxite",
@@ -12117,6 +12691,7 @@ export const generatedPokeAssets = {
       }
     },
     "scopelens": {
+      "description": "Tenu: Augmente le taux de coups critiques du porteur d'un niveau.",
       "names": {
         "en": "Scope Lens",
         "fr": "Lentilscope",
@@ -12152,6 +12727,7 @@ export const generatedPokeAssets = {
       }
     },
     "seaincense": {
+      "description": "Tenu: Les capacités de type Eau du porteur infligent 20% de dégâts supplémentaires. Reproduction: Marill ou Azumarill engendrent un Œuf d'Azurill.",
       "names": {
         "en": "Sea Incense",
         "fr": "Encens Mer",
@@ -12159,6 +12735,7 @@ export const generatedPokeAssets = {
       }
     },
     "sealbag": {
+      "description": "Peut contenir jusqu'à 10 Screaux pour les Poké Balls.",
       "names": {
         "en": "Seal Bag",
         "fr": "Sac Sceaux",
@@ -12166,6 +12743,7 @@ export const generatedPokeAssets = {
       }
     },
     "sealcase": {
+      "description": "Stocke les Sceaux qui peuvent être appliqués aux Capsule Balls.",
       "names": {
         "en": "Seal Case",
         "fr": "Boîte Sceaux",
@@ -12180,6 +12758,7 @@ export const generatedPokeAssets = {
       }
     },
     "secretpotion": {
+      "description": "Utilisé pour soigner le Pharamp au sommet du Phare d'Oliville.",
       "names": {
         "en": "Secret Potion",
         "fr": "Potion Secrète",
@@ -12355,12 +12934,14 @@ export const generatedPokeAssets = {
       }
     },
     "shadowmail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Shadow Mail",
         "fr": "Lettre Ombre"
       }
     },
     "shaloursable": {
+      "description": "Soigne n'importe quelle altération de statut et la confusion.",
       "names": {
         "en": "Shalour Sable",
         "fr": "Sablé Yantreizh",
@@ -12368,6 +12949,7 @@ export const generatedPokeAssets = {
       }
     },
     "sharpbeak": {
+      "description": "Tenu: Les capacités de type Vol du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Sharp Beak",
         "fr": "Bec Pointu",
@@ -12375,6 +12957,7 @@ export const generatedPokeAssets = {
       }
     },
     "sharpedonite": {
+      "description": "Tenu: Permet à Sharpedo de Méga-Évoluer en Méga-Sharpedo.",
       "names": {
         "en": "Sharpedonite",
         "fr": "Sharpedite",
@@ -12382,6 +12965,7 @@ export const generatedPokeAssets = {
       }
     },
     "shedshell": {
+      "description": "Tenu: Le porteur peut ignorer les effets des pièges et se retirer. Il n'est pas possible de se retirer des capacités multitours.",
       "names": {
         "en": "Shed Shell",
         "fr": "Carapace Mue",
@@ -12389,6 +12973,7 @@ export const generatedPokeAssets = {
       }
     },
     "shellbell": {
+      "description": "Tenu: Le porteur reçoit 1/8 des dommages qu'il inflige en attaquant.",
       "names": {
         "en": "Shell Bell",
         "fr": "Grelot Coque",
@@ -12424,6 +13009,7 @@ export const generatedPokeAssets = {
       }
     },
     "shinycharm": {
+      "description": "Augmente les chances de trouver un Pokémon chromatique.",
       "names": {
         "en": "Shiny Charm",
         "fr": "Charme Chroma",
@@ -12431,6 +13017,7 @@ export const generatedPokeAssets = {
       }
     },
     "shinystone": {
+      "description": "Fait évoluer un Chinchidou en Pashmilla, un Rosélia en Roserade, ou un Togetic en Togekiss.",
       "names": {
         "en": "Shiny Stone",
         "fr": "Pierre Éclat",
@@ -12438,6 +13025,7 @@ export const generatedPokeAssets = {
       }
     },
     "shoalsalt": {
+      "description": "Aucun effet. Gén III : Échange quatre et quatre CoquilleTréfonds pour un Grelot Coque.",
       "names": {
         "en": "Shoal Salt",
         "fr": "Sel Tréfonds",
@@ -12445,6 +13033,7 @@ export const generatedPokeAssets = {
       }
     },
     "shoalshell": {
+      "description": "Aucun effet. Gén III : Échange quatre et quatre Sel Tréfonds pour un Grelot Coque.",
       "names": {
         "en": "Shoal Shell",
         "fr": "CoquilleTréfonds",
@@ -12452,6 +13041,7 @@ export const generatedPokeAssets = {
       }
     },
     "shockdrive": {
+      "description": "Donne à Genesect un Techno-Buster jaune, de type Électrik.",
       "names": {
         "en": "Shock Drive",
         "fr": "Module Choc",
@@ -12473,6 +13063,7 @@ export const generatedPokeAssets = {
       }
     },
     "shucaberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Sol super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Shuca Berry",
         "fr": "Baie Jouca",
@@ -12494,6 +13085,7 @@ export const generatedPokeAssets = {
       }
     },
     "silkscarf": {
+      "description": "Tenu: Les capacités de type Normal du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Silk Scarf",
         "fr": "Mouchoir Soie",
@@ -12501,6 +13093,7 @@ export const generatedPokeAssets = {
       }
     },
     "silphscope": {
+      "description": "Utilisé pour identifier les vraies formes des fantômes de la Tour Pokémon.",
       "names": {
         "en": "Silph Scope",
         "fr": "Scope Sylphe",
@@ -12550,6 +13143,7 @@ export const generatedPokeAssets = {
       }
     },
     "silverpowder": {
+      "description": "Tenu: Les capacités de type Insecte du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Silver Powder",
         "fr": "Poudre Argentée",
@@ -12564,6 +13158,7 @@ export const generatedPokeAssets = {
       }
     },
     "silverwing": {
+      "description": "Invoque Lugia aux Tourb'Îles.",
       "names": {
         "en": "Silver Wing",
         "fr": "Argent’Aile",
@@ -12578,6 +13173,7 @@ export const generatedPokeAssets = {
       }
     },
     "sitrusberry": {
+      "description": "Tenu: Consommé à 1/2 des PV max pour regagner 1/4 des PV max.",
       "names": {
         "en": "Sitrus Berry",
         "fr": "Baie Sitrus",
@@ -12599,6 +13195,7 @@ export const generatedPokeAssets = {
       }
     },
     "skullfossil": {
+      "description": "Peut être ressuscité en Kranidos.",
       "names": {
         "en": "Skull Fossil",
         "fr": "Fossile Crâne",
@@ -12613,6 +13210,7 @@ export const generatedPokeAssets = {
       }
     },
     "skyplate": {
+      "description": "Tenu: Les capacités de type Vol du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Vol.",
       "names": {
         "en": "Sky Plate",
         "fr": "Plaque Ciel",
@@ -12627,6 +13225,7 @@ export const generatedPokeAssets = {
       }
     },
     "slowbronite": {
+      "description": "Tenu: Permet à Flagadoss de Méga-Évoluer en Méga-Flagadoss.",
       "names": {
         "en": "Slowbronite",
         "fr": "Flagadossite",
@@ -12655,6 +13254,7 @@ export const generatedPokeAssets = {
       }
     },
     "slowpoketail": {
+      "description": "Une queue savoureuse vendue très cher.",
       "names": {
         "en": "Slowpoke Tail",
         "fr": "Queue Ramoloss",
@@ -12704,6 +13304,7 @@ export const generatedPokeAssets = {
       }
     },
     "smokeball": {
+      "description": "Tenu: Permet au Porteur de fuir de n'importe quel combat sauvage.",
       "names": {
         "en": "Smoke Ball",
         "fr": "Boule Fumée",
@@ -12732,6 +13333,7 @@ export const generatedPokeAssets = {
       }
     },
     "smoothrock": {
+      "description": "Tenu: La tempête de sable du porteur dure 8 tours au lieu de 5.",
       "names": {
         "en": "Smooth Rock",
         "fr": "Roche Lisse",
@@ -12781,6 +13383,7 @@ export const generatedPokeAssets = {
       }
     },
     "snowball": {
+      "description": "Tenu: Si le porteur est touché par une capacité offensive Glace, augmente son Attaque d'un niveau.",
       "names": {
         "en": "Snowball",
         "fr": "Boule de Neige",
@@ -12788,12 +13391,14 @@ export const generatedPokeAssets = {
       }
     },
     "snowmail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Snow Mail",
         "fr": "Lettre Neige"
       }
     },
     "sodapop": {
+      "description": "Restaure 60 PV.",
       "names": {
         "en": "Soda Pop",
         "fr": "Soda Cool",
@@ -12801,6 +13406,7 @@ export const generatedPokeAssets = {
       }
     },
     "softsand": {
+      "description": "Tenu: Les capacités de type Sol du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Soft Sand",
         "fr": "Sable Doux",
@@ -12822,6 +13428,7 @@ export const generatedPokeAssets = {
       }
     },
     "soothebell": {
+      "description": "Tenu: Double le bonheur gagné par le porteur.",
       "names": {
         "en": "Soothe Bell",
         "fr": "Grelot Zen",
@@ -12829,6 +13436,7 @@ export const generatedPokeAssets = {
       }
     },
     "sootsack": {
+      "description": "Stocke les cendres volcaniques de la Route 113.",
       "names": {
         "en": "Soot Sack",
         "fr": "Sac à Suie",
@@ -12836,6 +13444,7 @@ export const generatedPokeAssets = {
       }
     },
     "souldew": {
+      "description": "Augmente l'Attaque Spéciale et la Défense Spéciale de Latias et Latios de 50%.",
       "names": {
         "en": "Soul Dew",
         "fr": "Rosée Âme",
@@ -12850,12 +13459,14 @@ export const generatedPokeAssets = {
       }
     },
     "spacemail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Space Mail",
         "fr": "Lettre Cosmo"
       }
     },
     "sparklingstone": {
+      "description": "Requis pour obtenir un Bracelet Z.",
       "names": {
         "en": "Sparkling Stone",
         "fr": "Gemme Lumière",
@@ -12870,6 +13481,7 @@ export const generatedPokeAssets = {
       }
     },
     "spelltag": {
+      "description": "Tenu: Les capacités de type Spectre du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Spell Tag",
         "fr": "Rune Sort",
@@ -12877,6 +13489,7 @@ export const generatedPokeAssets = {
       }
     },
     "spelonberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Spelon Berry",
         "fr": "Baie Kiwan",
@@ -12912,6 +13525,7 @@ export const generatedPokeAssets = {
       }
     },
     "splashplate": {
+      "description": "Tenu: Les capacités de type Eau du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Eau.",
       "names": {
         "en": "Splash Plate",
         "fr": "Plaque Hydro",
@@ -12926,6 +13540,7 @@ export const generatedPokeAssets = {
       }
     },
     "spookyplate": {
+      "description": "Tenu: Les capacités de type Spectre du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Spectre.",
       "names": {
         "en": "Spooky Plate",
         "fr": "Plaque Fantôme",
@@ -12940,6 +13555,7 @@ export const generatedPokeAssets = {
       }
     },
     "sportball": {
+      "description": "Tente de capturer un Pokémon du Concours de Capture d'insecte du Parc Naturel. (Gén II: Parc Ball)",
       "names": {
         "en": "Sport Ball",
         "fr": "Compét’Ball",
@@ -12947,6 +13563,7 @@ export const generatedPokeAssets = {
       }
     },
     "sprayduck": {
+      "description": "Utilisé pour arroser les baies.",
       "names": {
         "en": "Sprayduck",
         "fr": "Kwakarrosoir",
@@ -12954,6 +13571,7 @@ export const generatedPokeAssets = {
       }
     },
     "sprinklotad": {
+      "description": "Arrose les plants de Baie.",
       "names": {
         "en": "Sprinklotad",
         "fr": "Nénurrosoir",
@@ -12968,6 +13586,7 @@ export const generatedPokeAssets = {
       }
     },
     "squirtbottle": {
+      "description": "À utiliser sur le Simularbre bloquant le chemin sur la Route 36. Arrose aussi les baies.",
       "names": {
         "en": "Squirt Bottle",
         "fr": "Carapuce à O",
@@ -12989,6 +13608,7 @@ export const generatedPokeAssets = {
       }
     },
     "stablemulch": {
+      "description": "Les baies restent sur la plante plus longtemps que d'habitude.",
       "names": {
         "en": "Stable Mulch",
         "fr": "Fertistable",
@@ -13003,6 +13623,7 @@ export const generatedPokeAssets = {
       }
     },
     "stardust": {
+      "description": "À vendre pour 1000 Pokédollars, ou au collectionneur d'objets pour 2000 Pokédollars.",
       "names": {
         "en": "Stardust",
         "fr": "Poussière Étoile",
@@ -13010,6 +13631,7 @@ export const generatedPokeAssets = {
       }
     },
     "starfberry": {
+      "description": "Tenu: Consommé à 1/4 des PV max pour booster une stat aléatoire de deux niveaux.",
       "names": {
         "en": "Starf Berry",
         "fr": "Baie Frista",
@@ -13024,6 +13646,7 @@ export const generatedPokeAssets = {
       }
     },
     "starpiece": {
+      "description": "Platine : Échange un pour un Tesson de chaque couleur. Blanc et Noir : Échange contre des PP Plus. À vendre pour 4900 Pokédollars, ou au collectionneur d'objet pour 9800 Pokédollars.",
       "names": {
         "en": "Star Piece",
         "fr": "Morceau d’Étoile",
@@ -13066,6 +13689,7 @@ export const generatedPokeAssets = {
       }
     },
     "steelgem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Acier, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Steel Gem",
         "fr": "Joyau Acier",
@@ -13080,6 +13704,7 @@ export const generatedPokeAssets = {
       }
     },
     "steelixite": {
+      "description": "Tenu: Permet à Steelix de Méga-Évoluer en Méga-Steelix.",
       "names": {
         "en": "Steelixite",
         "fr": "Steelixite",
@@ -13087,12 +13712,14 @@ export const generatedPokeAssets = {
       }
     },
     "steelmail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Steel Mail",
         "fr": "Lettre Acier"
       }
     },
     "steelmemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Acier. Change le type de Coup Varia-Type en Acier.",
       "names": {
         "en": "Steel Memory",
         "fr": "ROM Acier",
@@ -13107,6 +13734,7 @@ export const generatedPokeAssets = {
       }
     },
     "stickybarb": {
+      "description": "Tenu: Le porteur subit 1/8 (12.5%) de ses PV max en dégâts à la fin de chaque tour. Quand le porteur est touché par une capacité à contact, le Pokémon attaquant subit 1/8 de ses PV max en dégâts eet reçoit l'objet s'il n'en tient pas.",
       "names": {
         "en": "Sticky Barb",
         "fr": "Piquants",
@@ -13114,6 +13742,7 @@ export const generatedPokeAssets = {
       }
     },
     "stoneplate": {
+      "description": "Tenu: Les capacités de type Roche du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Roche.",
       "names": {
         "en": "Stone Plate",
         "fr": "Plaque Roc",
@@ -13141,6 +13770,7 @@ export const generatedPokeAssets = {
       }
     },
     "strangesouvenir": {
+      "description": "Déchêt.",
       "names": {
         "en": "Strange Souvenir",
         "fr": "Bibelot Bizarre",
@@ -13204,6 +13834,7 @@ export const generatedPokeAssets = {
       }
     },
     "suitekey": {
+      "description": "Ouvre une chambre verrouillée dans l'Hôtel Grand Lac.",
       "names": {
         "en": "Suite Key",
         "fr": "Clé Chambre",
@@ -13211,6 +13842,7 @@ export const generatedPokeAssets = {
       }
     },
     "sunflute": {
+      "description": "Fait évoluer Doudou en Solgaleo quand utilisé à l'Autel du Soleil.",
       "names": {
         "en": "Sun Flute",
         "fr": "Flûte du Soleil",
@@ -13239,6 +13871,7 @@ export const generatedPokeAssets = {
       }
     },
     "sunstone": {
+      "description": "Fait évoluer un Doudouvet en Farfaduvet, un Ortide en Joliflor, un Chlorobule en Farfaduvet ou un Tournegrin en Héliatronc.",
       "names": {
         "en": "Sun Stone",
         "fr": "Pierre Soleil",
@@ -13253,6 +13886,7 @@ export const generatedPokeAssets = {
       }
     },
     "superpotion": {
+      "description": "Restaure 50 PV.",
       "names": {
         "en": "Super Potion",
         "fr": "Super Potion",
@@ -13260,6 +13894,7 @@ export const generatedPokeAssets = {
       }
     },
     "superrepel": {
+      "description": "Pendant 200 pas, empêche les rencontres sauvages de niveau inférieur au Pokémon en tête de votre équipe.",
       "names": {
         "en": "Super Repel",
         "fr": "Super Repousse",
@@ -13267,6 +13902,7 @@ export const generatedPokeAssets = {
       }
     },
     "superrod": {
+      "description": "Utilisé pour capturer des Pokémon dans les points d'eau.",
       "names": {
         "en": "Super Rod",
         "fr": "Méga Canne",
@@ -13281,6 +13917,7 @@ export const generatedPokeAssets = {
       }
     },
     "surprisemulch": {
+      "description": "Augmente les chances de mutation de Baies.",
       "names": {
         "en": "Surprise Mulch",
         "fr": "Fertistantané",
@@ -13302,6 +13939,7 @@ export const generatedPokeAssets = {
       }
     },
     "swampertite": {
+      "description": "Tenu: Permet à Laggron de Méga-Évoluer en Méga-Laggron.",
       "names": {
         "en": "Swampertite",
         "fr": "Laggronite",
@@ -13316,6 +13954,7 @@ export const generatedPokeAssets = {
       }
     },
     "sweetheart": {
+      "description": "Restaure 20 PV.",
       "names": {
         "en": "Sweet Heart",
         "fr": "Chococœur",
@@ -13330,6 +13969,7 @@ export const generatedPokeAssets = {
       }
     },
     "swiftfeather": {
+      "description": "Augmente les EV de Vitesse de 1.",
       "names": {
         "en": "Swift Feather",
         "fr": "Plume Sprint",
@@ -13365,6 +14005,7 @@ export const generatedPokeAssets = {
       }
     },
     "tamatoberry": {
+      "description": "Diminue les EV de Vitesse de 10 et augmente le bonheur.",
       "names": {
         "en": "Tamato Berry",
         "fr": "Baie Tamato",
@@ -13379,6 +14020,7 @@ export const generatedPokeAssets = {
       }
     },
     "tangaberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Insecte super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Tanga Berry",
         "fr": "Baie Panga",
@@ -13491,6 +14133,7 @@ export const generatedPokeAssets = {
       }
     },
     "tea": {
+      "description": "Permet d'accéder à Safrania.",
       "names": {
         "en": "Tea",
         "fr": "Thé",
@@ -13498,6 +14141,7 @@ export const generatedPokeAssets = {
       }
     },
     "teachytv": {
+      "description": "Conseils de base des professeurs pour les dresseurs.",
       "names": {
         "en": "Teachy TV",
         "fr": "TV ABC"
@@ -13539,6 +14183,7 @@ export const generatedPokeAssets = {
       }
     },
     "terrainextender": {
+      "description": "Tenu: Étend la durée des Champs du porteur à 8 tours.",
       "names": {
         "en": "Terrain Extender",
         "fr": "Champ’Duit",
@@ -13546,6 +14191,7 @@ export const generatedPokeAssets = {
       }
     },
     "thanksmail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Thanks Mail",
         "fr": "Lettre Merci",
@@ -13553,6 +14199,7 @@ export const generatedPokeAssets = {
       }
     },
     "thickclub": {
+      "description": "Double l'Attaque d'Osselait et Ossatueur.",
       "names": {
         "en": "Thick Club",
         "fr": "Masse Os",
@@ -13567,6 +14214,7 @@ export const generatedPokeAssets = {
       }
     },
     "thunderstone": {
+      "description": "Fait évoluer un Lampéroie en Ohmassacre, un Évoli en Voltali, ou un Pikachu en Raichu.",
       "names": {
         "en": "Thunder Stone",
         "fr": "Pierre Foudre",
@@ -13574,6 +14222,7 @@ export const generatedPokeAssets = {
       }
     },
     "tidalbell": {
+      "description": "Permet aux Kimono d'invoquer Lugia.",
       "names": {
         "en": "Tidal Bell",
         "fr": "Glas Tempête",
@@ -13588,6 +14237,7 @@ export const generatedPokeAssets = {
       }
     },
     "timerball": {
+      "description": "Tente de capturer un Pokémon sauvage. Le taux de succès augmente de 0.1× (Gén V : 0.3x) à chaque tour, jusqu'à 4× max.",
       "names": {
         "en": "Timer Ball",
         "fr": "Chrono Ball",
@@ -13623,6 +14273,7 @@ export const generatedPokeAssets = {
       }
     },
     "tinymushroom": {
+      "description": "Rouge Feu et Vert Feuille : Échange deux pour réapprendre des capacités apprises par montée de niveau. À vendre pour 250 Pokédollars, ou à une servante pour 500 Pokédollars",
       "names": {
         "en": "Tiny Mushroom",
         "fr": "Petit Champi",
@@ -13637,6 +14288,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm01": {
+      "description": "Apprend Aiguisage à un Pokémon compatible. (Gén IV & III: Mitra-Poing Gén II: Dynamo-Poing Gén I: Ultimapoing)",
       "names": {
         "en": "TM01",
         "fr": "CT01",
@@ -13644,6 +14296,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm02": {
+      "description": "Apprend Draco-Griffe à un Pokémon compatible. (Gén II: Coup d'Boule Gén I: Coupe-Vent)",
       "names": {
         "en": "TM02",
         "fr": "CT02",
@@ -13651,6 +14304,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm03": {
+      "description": "Apprend Choc Psy à un Pokémon compatible. (Gén IV & III: Vibraqua Gén II: Malédiction Gén I: Danse Lames)",
       "names": {
         "en": "TM03",
         "fr": "CT03",
@@ -13658,6 +14312,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm04": {
+      "description": "Apprend Plénitude à un Pokémon compatible. (Gén II: Roulade Gén I: Cyclone)",
       "names": {
         "en": "TM04",
         "fr": "CT04",
@@ -13665,6 +14320,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm05": {
+      "description": "Apprend Hurlement à un Pokémon compatible. (Gén I: Ultimawashi)",
       "names": {
         "en": "TM05",
         "fr": "CT05",
@@ -13672,6 +14328,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm06": {
+      "description": "Apprend Toxik à un Pokémon compatible.",
       "names": {
         "en": "TM06",
         "fr": "CT06",
@@ -13679,6 +14336,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm07": {
+      "description": "Apprend Grêle à un Pokémon compatible. (Gén II: Élecanon Gén I: Empal'Korne)",
       "names": {
         "en": "TM07",
         "fr": "CT07",
@@ -13686,6 +14344,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm08": {
+      "description": "Apprend Gonflette à un Pokémon compatible. (Gén II: Éclate-Roc Gén I: Plaquage)",
       "names": {
         "en": "TM08",
         "fr": "CT08",
@@ -13693,6 +14352,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm09": {
+      "description": "Apprend Choc Venin à un Pokémon compatible. (Gén IV & III: Balle Graine Gén II: Boost Gén I: Bélier)",
       "names": {
         "en": "TM09",
         "fr": "CT09",
@@ -13700,6 +14360,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm10": {
+      "description": "Apprend Puissance Cachée à un Pokémon compatible. (Gén I: Damoclès)",
       "names": {
         "en": "TM10",
         "fr": "CT10",
@@ -13707,6 +14368,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm100": {
+      "description": "Apprend la CT100 à un Pokémon.",
       "names": {
         "en": "TM100",
         "fr": "CT100",
@@ -13777,6 +14439,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm11": {
+      "description": "Apprend Zénith à un Pokémon compatible. (Gén I: Bulles d'O)",
       "names": {
         "en": "TM11",
         "fr": "CT11",
@@ -13854,6 +14517,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm12": {
+      "description": "Apprend Provoc à un Pokémon compatible. (Gén II: Doux Parfum Gén I: Pistolet à O)",
       "names": {
         "en": "TM12",
         "fr": "CT12",
@@ -13931,6 +14595,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm13": {
+      "description": "Apprend Laser Glace à un Pokémon compatible. (Gén II: Ronflement)",
       "names": {
         "en": "TM13",
         "fr": "CT13",
@@ -14008,6 +14673,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm14": {
+      "description": "Apprend Blizzard à un Pokémon compatible.",
       "names": {
         "en": "TM14",
         "fr": "CT14",
@@ -14085,6 +14751,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm15": {
+      "description": "Apprend Ultralaser à un Pokémon compatible.",
       "names": {
         "en": "TM15",
         "fr": "CT15",
@@ -14162,6 +14829,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm16": {
+      "description": "Apprend Mur Lumière à un Pokémon compatible. (Gén II: Vent Glace Gén I: Jackpot)",
       "names": {
         "en": "TM16",
         "fr": "CT16",
@@ -14239,6 +14907,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm17": {
+      "description": "Apprend Abri à un Pokémon compatible. (Gén I: Sacrifice)",
       "names": {
         "en": "TM17",
         "fr": "CT17",
@@ -14316,6 +14985,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm18": {
+      "description": "Apprend Danse Pluie à un Pokémon compatible. (Gén I: Riposte)",
       "names": {
         "en": "TM18",
         "fr": "CT18",
@@ -14393,6 +15063,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm19": {
+      "description": "Apprend Lévikinésie à un Pokémon compatible. (Gén IV & III & II: Giga-Sangsue Gén I: Frappe Atlas)",
       "names": {
         "en": "TM19",
         "fr": "CT19",
@@ -14470,6 +15141,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm20": {
+      "description": "Apprend Rune Protect à un Pokémon compatible. (Gén IV & III & II: Ténacité Gén I: Frénésie)",
       "names": {
         "en": "TM20",
         "fr": "CT20",
@@ -14547,6 +15219,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm21": {
+      "description": "Apprend Frustration à un Pokémon compatible. (Gén I: Méga-Sangsue)",
       "names": {
         "en": "TM21",
         "fr": "CT21",
@@ -14624,6 +15297,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm22": {
+      "description": "Apprend Lance-Soleil à un Pokémon compatible.",
       "names": {
         "en": "TM22",
         "fr": "CT22",
@@ -14701,6 +15375,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm23": {
+      "description": "Apprend Anti-Air à un Pokémon compatible. (Gén IV & III & II: Queue de Fer Gén I: Draco-Rage)",
       "names": {
         "en": "TM23",
         "fr": "CT23",
@@ -14708,6 +15383,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm24": {
+      "description": "Apprend Tonnerre à un Pokémon compatible. (Gén II: Draco-Souffle)",
       "names": {
         "en": "TM24",
         "fr": "CT24",
@@ -14715,6 +15391,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm25": {
+      "description": "Apprend Fatal-Foudre à un Pokémon compatible.",
       "names": {
         "en": "TM25",
         "fr": "CT25",
@@ -14722,6 +15399,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm26": {
+      "description": "Apprend Séisme à un Pokémon compatible.",
       "names": {
         "en": "TM26",
         "fr": "CT26",
@@ -14729,6 +15407,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm27": {
+      "description": "Apprend Retour à un Pokémon compatible. (Gén I: Abîme)",
       "names": {
         "en": "TM27",
         "fr": "CT27",
@@ -14736,6 +15415,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm28": {
+      "description": "Apprend Tunnel à un Pokémon compatible.",
       "names": {
         "en": "TM28",
         "fr": "CT28",
@@ -14743,6 +15423,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm29": {
+      "description": "Apprend Psyko à un Pokémon compatible.",
       "names": {
         "en": "TM29",
         "fr": "CT29",
@@ -14750,6 +15431,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm30": {
+      "description": "Apprend Ball'Ombre à un Pokémon compatible. (Gén I: Téléport)",
       "names": {
         "en": "TM30",
         "fr": "CT30",
@@ -14757,6 +15439,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm31": {
+      "description": "Apprend Casse-Brique à un Pokémon compatible. (Gén II: Coud'Boue Gén I: Copie)",
       "names": {
         "en": "TM31",
         "fr": "CT31",
@@ -14764,6 +15447,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm32": {
+      "description": "Apprend Reflet à un Pokémon compatible.",
       "names": {
         "en": "TM32",
         "fr": "CT32",
@@ -14771,6 +15455,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm33": {
+      "description": "Apprend Protection à un Pokémon compatible. (Gén II: Poing Glace)",
       "names": {
         "en": "TM33",
         "fr": "CT33",
@@ -14778,6 +15463,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm34": {
+      "description": "Apprend Cradovague à un Pokémon compatible. (Gén IV & III: Onde de Choc Gén II: Vantardise Gén I: Patience)",
       "names": {
         "en": "TM34",
         "fr": "CT34",
@@ -14785,6 +15471,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm35": {
+      "description": "Apprend Lance-Flammes à un Pokémon compatible. (Gén II: Blabla Dodo Gén I: Métronome)",
       "names": {
         "en": "TM35",
         "fr": "CT35",
@@ -14792,6 +15479,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm36": {
+      "description": "Apprend Bomb Beurk à un Pokémon compatible. (Gén I: Destruction)",
       "names": {
         "en": "TM36",
         "fr": "CT36",
@@ -14799,6 +15487,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm37": {
+      "description": "Apprend Tempête de Sable à un Pokémon compatible. (Gén I: Bombe Œuf)",
       "names": {
         "en": "TM37",
         "fr": "CT37",
@@ -14806,6 +15495,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm38": {
+      "description": "Apprend Déflagration à un Pokémon compatible.",
       "names": {
         "en": "TM38",
         "fr": "CT38",
@@ -14813,6 +15503,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm39": {
+      "description": "Apprend Tomberoche à un Pokémon compatible. (Gén II & I: Météores)",
       "names": {
         "en": "TM39",
         "fr": "CT39",
@@ -14820,6 +15511,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm40": {
+      "description": "Apprend Aéropique à un Pokémon compatible. (Gén II: Boul'Armure Gén I: Coud'Krâne)",
       "names": {
         "en": "TM40",
         "fr": "CT40",
@@ -14827,6 +15519,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm41": {
+      "description": "Apprend Tourmente à un Pokémon compatible. (Gén II: Poing Éclair Gén I: E-Coque)",
       "names": {
         "en": "TM41",
         "fr": "CT41",
@@ -14834,6 +15527,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm42": {
+      "description": "Apprend Façade à un Pokémon compatible. (Gén II & I: Dévorêve)",
       "names": {
         "en": "TM42",
         "fr": "CT42",
@@ -14841,6 +15535,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm43": {
+      "description": "Apprend Nitrocharge à un Pokémon compatible. (Gén IV & III: Force Cachée Gén II: Détection Gén I: Piqué)",
       "names": {
         "en": "TM43",
         "fr": "CT43",
@@ -14848,6 +15543,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm44": {
+      "description": "Apprend Repos à un Pokémon compatible.",
       "names": {
         "en": "TM44",
         "fr": "CT44",
@@ -14855,6 +15551,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm45": {
+      "description": "Apprend Attraction à un Pokémon compatible. (Gén I: Cage Éclair)",
       "names": {
         "en": "TM45",
         "fr": "CT45",
@@ -14862,6 +15559,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm46": {
+      "description": "Apprend Larcin à un Pokémon compatible. (Gén I: Vague Psy)",
       "names": {
         "en": "TM46",
         "fr": "CT46",
@@ -14869,6 +15567,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm47": {
+      "description": "Apprend Balayette à un Pokémon compatible. (Gén IV & III & II: Ailes d'Acier Gén I: Explosion)",
       "names": {
         "en": "TM47",
         "fr": "CT47",
@@ -14876,6 +15575,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm48": {
+      "description": "Apprend Chant Canon à un Pokémon compatible. (Gén IV & III: Échange Gén II: Poing Feu Gén I: Éboulement)",
       "names": {
         "en": "TM48",
         "fr": "CT48",
@@ -14883,6 +15583,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm49": {
+      "description": "Apprend Écho à un Pokémon compatible. (Gén IV & III: Saisie Gén II: Taillade Gén I: Triplattaque)",
       "names": {
         "en": "TM49",
         "fr": "CT49",
@@ -14890,6 +15591,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm50": {
+      "description": "Apprend Surchauffe à un Pokémon compatible. (Gén II: Cauchemar Gén I: Clonage)",
       "names": {
         "en": "TM50",
         "fr": "CT50",
@@ -14897,6 +15599,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm51": {
+      "description": "Apprend Interversion à un Pokémon compatible. (Gén IV: Atterrissage)",
       "names": {
         "en": "TM51",
         "fr": "CT51",
@@ -14904,6 +15607,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm52": {
+      "description": "Apprend Exploforce à un Pokémon compatible.",
       "names": {
         "en": "TM52",
         "fr": "CT52",
@@ -14911,6 +15615,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm53": {
+      "description": "Apprend Éco-Sphère à un Pokémon compatible.",
       "names": {
         "en": "TM53",
         "fr": "CT53",
@@ -14918,6 +15623,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm54": {
+      "description": "Apprend Faux-Chage à un Pokémon compatible.",
       "names": {
         "en": "TM54",
         "fr": "CT54",
@@ -14925,6 +15631,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm55": {
+      "description": "Apprend Ébullition à un Pokémon compatible. (Gén IV: Saumure)",
       "names": {
         "en": "TM55",
         "fr": "CT55",
@@ -14932,6 +15639,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm56": {
+      "description": "Apprend Dégommage à un Pokémon compatible.",
       "names": {
         "en": "TM56",
         "fr": "CT56",
@@ -14939,6 +15647,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm57": {
+      "description": "Apprend Rayon Chargé à un Pokémon compatible.",
       "names": {
         "en": "TM57",
         "fr": "CT57",
@@ -14946,6 +15655,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm58": {
+      "description": "Apprend Chute Libre à un Pokémon compatible. (Gén IV: Ténacité)",
       "names": {
         "en": "TM58",
         "fr": "CT58",
@@ -14953,6 +15663,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm59": {
+      "description": "Apprend Calcination à un Pokémon compatible. (Gén IV: Draco-Choc)",
       "names": {
         "en": "TM59",
         "fr": "CT59",
@@ -14960,6 +15671,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm60": {
+      "description": "Apprend À la Queue à un Pokémon compatible. (Gén IV: Vampi-Poing)",
       "names": {
         "en": "TM60",
         "fr": "CT60",
@@ -14967,6 +15679,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm61": {
+      "description": "Apprend Feu Follet à un Pokémon compatible.",
       "names": {
         "en": "TM61",
         "fr": "CT61",
@@ -14974,6 +15687,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm62": {
+      "description": "Apprend Acrobatie à un Pokémon compatible. (Gén IV: Vent Argenté)",
       "names": {
         "en": "TM62",
         "fr": "CT62",
@@ -14981,6 +15695,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm63": {
+      "description": "Apprend Embargo à un Pokémon compatible.",
       "names": {
         "en": "TM63",
         "fr": "CT63",
@@ -14988,6 +15703,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm64": {
+      "description": "Apprend Explosion à un Pokémon compatible.",
       "names": {
         "en": "TM64",
         "fr": "CT64",
@@ -14995,6 +15711,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm65": {
+      "description": "Apprend Griffe Ombre à un Pokémon compatible.",
       "names": {
         "en": "TM65",
         "fr": "CT65",
@@ -15002,6 +15719,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm66": {
+      "description": "Apprend Représailles à un Pokémon compatible.",
       "names": {
         "en": "TM66",
         "fr": "CT66",
@@ -15009,6 +15727,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm67": {
+      "description": "Apprend Vengeance à un Pokémon compatible. (Gén IV: Recyclage)",
       "names": {
         "en": "TM67",
         "fr": "CT67",
@@ -15016,6 +15735,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm68": {
+      "description": "Apprend Giga Impact à un Pokémon compatible.",
       "names": {
         "en": "TM68",
         "fr": "CT68",
@@ -15023,6 +15743,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm69": {
+      "description": "Apprend Poliroche à un Pokémon compatible.",
       "names": {
         "en": "TM69",
         "fr": "CT69",
@@ -15030,6 +15751,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm70": {
+      "description": "Apprend Flash à un Pokémon compatible.",
       "names": {
         "en": "TM70",
         "fr": "CT70",
@@ -15037,6 +15759,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm71": {
+      "description": "Apprend Lame de Roc à un Pokémon compatible.",
       "names": {
         "en": "TM71",
         "fr": "CT71",
@@ -15044,6 +15767,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm72": {
+      "description": "Apprend Change Éclair à un Pokémon compatible. (Gén IV: Avalanche)",
       "names": {
         "en": "TM72",
         "fr": "CT72",
@@ -15051,6 +15775,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm73": {
+      "description": "Apprend Cage Éclair à un Pokémon compatible.",
       "names": {
         "en": "TM73",
         "fr": "CT73",
@@ -15058,6 +15783,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm74": {
+      "description": "Apprend Gyroballe à un Pokémon compatible.",
       "names": {
         "en": "TM74",
         "fr": "CT74",
@@ -15065,6 +15791,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm75": {
+      "description": "Apprend Danse Lames à un Pokémon compatible.",
       "names": {
         "en": "TM75",
         "fr": "CT75",
@@ -15072,6 +15799,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm76": {
+      "description": "Apprend Survinsecte à un Pokémon compatible. (Gén IV: Piège de Roc)",
       "names": {
         "en": "TM76",
         "fr": "CT76",
@@ -15079,6 +15807,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm77": {
+      "description": "Apprend Boost à un Pokémon compatible.",
       "names": {
         "en": "TM77",
         "fr": "CT77",
@@ -15086,6 +15815,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm78": {
+      "description": "Apprend Piétisol à un Pokémon compatible. (Gén IV: Séduction)",
       "names": {
         "en": "TM78",
         "fr": "CT78",
@@ -15093,6 +15823,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm79": {
+      "description": "Apprend Souffle Glacé à un Pokémon compatible. (Gén IV: Vibrobscur)",
       "names": {
         "en": "TM79",
         "fr": "CT79",
@@ -15100,6 +15831,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm80": {
+      "description": "Apprend Éboulement à un Pokémon compatible.",
       "names": {
         "en": "TM80",
         "fr": "CT80",
@@ -15107,6 +15839,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm81": {
+      "description": "Apprend Plaie Croix à un Pokémon compatible.",
       "names": {
         "en": "TM81",
         "fr": "CT81",
@@ -15114,6 +15847,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm82": {
+      "description": "Apprend Draco-Queue à un Pokémon compatible. (Gén IV: Blabla Dodo)",
       "names": {
         "en": "TM82",
         "fr": "CT82",
@@ -15121,6 +15855,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm83": {
+      "description": "Apprend Rengorgement à un Pokémon compatible. (Gén IV: Don Naturel)",
       "names": {
         "en": "TM83",
         "fr": "CT83",
@@ -15128,6 +15863,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm84": {
+      "description": "Apprend Direct Toxik à un Pokémon compatible.",
       "names": {
         "en": "TM84",
         "fr": "CT84",
@@ -15135,6 +15871,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm85": {
+      "description": "Apprend Dévorêve à un Pokémon compatible.",
       "names": {
         "en": "TM85",
         "fr": "CT85",
@@ -15142,6 +15879,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm86": {
+      "description": "Apprend Nœud Herbe à un Pokémon compatible.",
       "names": {
         "en": "TM86",
         "fr": "CT86",
@@ -15149,6 +15887,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm87": {
+      "description": "Apprend Vantardise à un Pokémon compatible.",
       "names": {
         "en": "TM87",
         "fr": "CT87",
@@ -15156,6 +15895,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm88": {
+      "description": "Apprend Picore à un Pokémon compatible.",
       "names": {
         "en": "TM88",
         "fr": "CT88",
@@ -15163,6 +15903,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm89": {
+      "description": "Apprend Demi-Tour à un Pokémon compatible.",
       "names": {
         "en": "TM89",
         "fr": "CT89",
@@ -15170,6 +15911,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm90": {
+      "description": "Apprend Clonage à un Pokémon compatible.",
       "names": {
         "en": "TM90",
         "fr": "CT90",
@@ -15177,6 +15919,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm91": {
+      "description": "Apprend Luminocanon à un Pokémon compatible.",
       "names": {
         "en": "TM91",
         "fr": "CT91",
@@ -15184,6 +15927,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm92": {
+      "description": "Apprend Distorsion à un Pokémon compatible.",
       "names": {
         "en": "TM92",
         "fr": "CT92",
@@ -15191,6 +15935,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm93": {
+      "description": "Apprend Éclair Fou à un Pokémon compatible.",
       "names": {
         "en": "TM93",
         "fr": "CT93",
@@ -15198,6 +15943,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm94": {
+      "description": "Apprend Éclate-Roc à un Pokémon compatible.",
       "names": {
         "en": "TM94",
         "fr": "CT94",
@@ -15205,6 +15951,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm95": {
+      "description": "Apprend Aboiement à un Pokémon compatible.",
       "names": {
         "en": "TM95",
         "fr": "CT95",
@@ -15212,6 +15959,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm96": {
+      "description": "Apprend la CT96 à un Pokémon.",
       "names": {
         "en": "TM96",
         "fr": "CT96",
@@ -15219,6 +15967,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm97": {
+      "description": "Apprend la CT97 à un Pokémon.",
       "names": {
         "en": "TM97",
         "fr": "CT97",
@@ -15226,6 +15975,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm98": {
+      "description": "Apprend la CT98 à un Pokémon.",
       "names": {
         "en": "TM98",
         "fr": "CT98",
@@ -15233,6 +15983,7 @@ export const generatedPokeAssets = {
       }
     },
     "tm99": {
+      "description": "Apprend la CT99 à un Pokémon.",
       "names": {
         "en": "TM99",
         "fr": "CT99",
@@ -15240,6 +15991,7 @@ export const generatedPokeAssets = {
       }
     },
     "tmcase": {
+      "description": "Stocke les CTs.",
       "names": {
         "en": "TM Case",
         "fr": "Boîte CT",
@@ -15247,6 +15999,7 @@ export const generatedPokeAssets = {
       }
     },
     "tmvpass": {
+      "description": "Permet d'accéder à Batisques.",
       "names": {
         "en": "TMV Pass",
         "fr": "Passe TMV",
@@ -15303,6 +16056,7 @@ export const generatedPokeAssets = {
       }
     },
     "townmap": {
+      "description": "À utiliser pour voir la carte du jeu.",
       "names": {
         "en": "Town Map",
         "fr": "Carte",
@@ -15317,6 +16071,7 @@ export const generatedPokeAssets = {
       }
     },
     "toxicorb": {
+      "description": "Tenu: Inflige Toxik au porteur à la fin du tour. S'active après que les dégâts du Poison devraient avoir lieu.",
       "names": {
         "en": "Toxic Orb",
         "fr": "Orbe Toxique",
@@ -15324,6 +16079,7 @@ export const generatedPokeAssets = {
       }
     },
     "toxicplate": {
+      "description": "Tenu: Les capacités de type Poison du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Poison.",
       "names": {
         "en": "Toxic Plate",
         "fr": "Plaque Toxicité",
@@ -16038,6 +16794,7 @@ export const generatedPokeAssets = {
       }
     },
     "traveltrunk": {
+      "description": "Non obtenable, mais permet au joueur de changer de vêtements n'importe où.",
       "names": {
         "en": "Travel Trunk",
         "fr": "Malle Penderie",
@@ -16052,6 +16809,7 @@ export const generatedPokeAssets = {
       }
     },
     "tripass": {
+      "description": "Permet d'accéder aux trois premières Îles Sevii.",
       "names": {
         "en": "Tri-Pass",
         "fr": "Tri-Passe"
@@ -16065,6 +16823,7 @@ export const generatedPokeAssets = {
       }
     },
     "tropicmail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Tropic Mail",
         "fr": "Lettre Tropi"
@@ -16078,12 +16837,14 @@ export const generatedPokeAssets = {
       }
     },
     "tunnelmail": {
+      "description": "Permet à un Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Tunnel Mail",
         "fr": "Lettre Mine"
       }
     },
     "twistedspoon": {
+      "description": "Tenu: Les capacités de type Psy du porteur infligent 20% de dégâts supplémentaires.",
       "names": {
         "en": "Twisted Spoon",
         "fr": "Cuillère Tordue",
@@ -16098,6 +16859,7 @@ export const generatedPokeAssets = {
       }
     },
     "tyranitarite": {
+      "description": "Tenu: Permet à Tyranocif de Méga-Évoluer en Méga-Tyranocif.",
       "names": {
         "en": "Tyranitarite",
         "fr": "Tyranocivite",
@@ -16251,6 +17013,7 @@ export const generatedPokeAssets = {
       }
     },
     "unownreport": {
+      "description": "Garde une trace des types de Zarbi capturés.",
       "names": {
         "en": "Unown Report",
         "fr": "Carnet Zarbi",
@@ -16265,6 +17028,7 @@ export const generatedPokeAssets = {
       }
     },
     "upgrade": {
+      "description": "Échangé sur Porygon: Le porteur évolue en Porygon2.",
       "names": {
         "en": "Upgrade",
         "fr": "Améliorator",
@@ -16335,6 +17099,7 @@ export const generatedPokeAssets = {
       }
     },
     "venusaurite": {
+      "description": "Tenu: Permet à Florizarre de Méga-Évoluer en Méga-Florizarre.",
       "names": {
         "en": "Venusaurite",
         "fr": "Florizarrite",
@@ -16454,6 +17219,7 @@ export const generatedPokeAssets = {
       }
     },
     "vsrecorder": {
+      "description": "Enregistre les combats sans-fil, WiFi ou de la Zone de Combat, et stocke les points.",
       "names": {
         "en": "Vs. Recorder",
         "fr": "Magnéto VS",
@@ -16461,6 +17227,7 @@ export const generatedPokeAssets = {
       }
     },
     "vsseeker": {
+      "description": "Permet de combattre les dresseurs à l'écran à nouveau. 100 pas pour recharger.",
       "names": {
         "en": "Vs. Seeker",
         "fr": "Cherch’Combat",
@@ -16496,6 +17263,7 @@ export const generatedPokeAssets = {
       }
     },
     "wacanberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Électrik super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Wacan Berry",
         "fr": "Baie Parma",
@@ -16503,6 +17271,7 @@ export const generatedPokeAssets = {
       }
     },
     "wailmerpail": {
+      "description": "Utilisé pour arroser les baies.",
       "names": {
         "en": "Wailmer Pail",
         "fr": "Wailmerrosoir",
@@ -16524,6 +17293,7 @@ export const generatedPokeAssets = {
       }
     },
     "watergem": {
+      "description": "Tenu: Lorsque le porteur utilise une capacité offensive de type Eau, la puissance de la capacité augmente de 50% et cet objet est consommé.",
       "names": {
         "en": "Water Gem",
         "fr": "Joyau Eau",
@@ -16538,6 +17308,7 @@ export const generatedPokeAssets = {
       }
     },
     "watermemory": {
+      "description": "Tenu: Change Silvallié dans sa forme Eau. Change le type de Coup Varia-Type en Eau.",
       "names": {
         "en": "Water Memory",
         "fr": "ROM Eau",
@@ -16545,6 +17316,7 @@ export const generatedPokeAssets = {
       }
     },
     "waterstone": {
+      "description": "Fait évoluer un Évoli en Aquali, un Lombre en Ludicolo, un Flotajou en Flotoutan, un Têtarte en Tartard, un Kokiyas en Crustabri, ou un Stari en Staross.",
       "names": {
         "en": "Water Stone",
         "fr": "Pierre Eau",
@@ -16559,6 +17331,7 @@ export const generatedPokeAssets = {
       }
     },
     "watmelberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Watmel Berry",
         "fr": "Baie Stekpa",
@@ -16573,6 +17346,7 @@ export const generatedPokeAssets = {
       }
     },
     "waveincense": {
+      "description": "Tenu: Les capacités de type Eau du porteur infligent 20% de dégâts supplémentaires. Reproduction: Démanta engendre un Œuf de Babimanta.",
       "names": {
         "en": "Wave Incense",
         "fr": "Encens Vague",
@@ -16580,12 +17354,14 @@ export const generatedPokeAssets = {
       }
     },
     "wavemail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Wave Mail",
         "fr": "Lettre Vague"
       }
     },
     "weaknesspolicy": {
+      "description": "Tenu: Quand le porteur est touché par une capacité super efficace, son Attaque et Attaque Spéciale augmentent de deux niveaux.",
       "names": {
         "en": "Weakness Policy",
         "fr": "Vulné-Assurance",
@@ -16607,6 +17383,7 @@ export const generatedPokeAssets = {
       }
     },
     "wepearberry": {
+      "description": "Utilisé pour créer des Pokéblocs et Poffins.",
       "names": {
         "en": "Wepear Berry",
         "fr": "Baie Repoi",
@@ -16628,6 +17405,7 @@ export const generatedPokeAssets = {
       }
     },
     "whippeddream": {
+      "description": "Échangé sur un Sucroquin: Le porteur évolue en Cupcanaille.",
       "names": {
         "en": "Whipped Dream",
         "fr": "Chantibonbon",
@@ -16635,6 +17413,7 @@ export const generatedPokeAssets = {
       }
     },
     "whiteapricorn": {
+      "description": "Utilisé pour fabriquer une Speed Ball.",
       "names": {
         "en": "White Apricorn",
         "fr": "Noigrume Blanc",
@@ -16649,6 +17428,7 @@ export const generatedPokeAssets = {
       }
     },
     "whiteflute": {
+      "description": "Double le taux de rencontres avec un Pokémon sauvage.",
       "names": {
         "en": "White Flute",
         "fr": "Flûte Blanche",
@@ -16656,6 +17436,7 @@ export const generatedPokeAssets = {
       }
     },
     "whiteherb": {
+      "description": "Tenu: Réinitialise toutes les stats diminuées à la normale à la fin du tour. Consommé après utilisation.",
       "names": {
         "en": "White Herb",
         "fr": "Herbe Blanche",
@@ -16670,6 +17451,7 @@ export const generatedPokeAssets = {
       }
     },
     "widelens": {
+      "description": "Tenu: Fournit un boost de 1/10 (10%) de précision au porteur.",
       "names": {
         "en": "Wide Lens",
         "fr": "Loupe",
@@ -16684,6 +17466,7 @@ export const generatedPokeAssets = {
       }
     },
     "wikiberry": {
+      "description": "Tenu: Consommé à 1/2 des PV max pour regagner 1/8 des PV max. Peut rendre confus les Pokémon qui n'aime pas les saveurs sèches.",
       "names": {
         "en": "Wiki Berry",
         "fr": "Baie Wiki",
@@ -16711,6 +17494,7 @@ export const generatedPokeAssets = {
       }
     },
     "wiseglasses": {
+      "description": "Tenu: Booste les dégâts des capacités spéciales utilisées par le porteur de 10%.",
       "names": {
         "en": "Wise Glasses",
         "fr": "Lunettes Sages",
@@ -16746,6 +17530,7 @@ export const generatedPokeAssets = {
       }
     },
     "woodmail": {
+      "description": "Permet au Dresseur d'écrire un message et de l'envoyer via un échange Pokémon.",
       "names": {
         "en": "Wood Mail",
         "fr": "Lettre Bois"
@@ -16759,6 +17544,7 @@ export const generatedPokeAssets = {
       }
     },
     "workskey": {
+      "description": "Permet d'accéder au Parc Éolien.",
       "names": {
         "en": "Works Key",
         "fr": "Clé Centrale",
@@ -16766,6 +17552,7 @@ export const generatedPokeAssets = {
       }
     },
     "xaccuracy": {
+      "description": "Augmente la précision d'un niveau en combat. Augmente le bonheur.",
       "names": {
         "en": "X Accuracy",
         "fr": "Précision +",
@@ -16773,6 +17560,7 @@ export const generatedPokeAssets = {
       }
     },
     "xaccuracy2": {
+      "description": "Augmente la précision de deux niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Accuracy 2",
         "fr": "Précision 2",
@@ -16780,6 +17568,7 @@ export const generatedPokeAssets = {
       }
     },
     "xaccuracy3": {
+      "description": "Augmente la précision de trois niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Accuracy 3",
         "fr": "Précision 3",
@@ -16787,6 +17576,7 @@ export const generatedPokeAssets = {
       }
     },
     "xaccuracy6": {
+      "description": "Augmente la précision de six niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Accuracy 6",
         "fr": "Précision 6",
@@ -16794,6 +17584,7 @@ export const generatedPokeAssets = {
       }
     },
     "xattack": {
+      "description": "Augmente l'Attaque d'un niveau en combat. Augmente le bonheur.",
       "names": {
         "en": "X Attack",
         "fr": "Attaque +",
@@ -16801,6 +17592,7 @@ export const generatedPokeAssets = {
       }
     },
     "xattack2": {
+      "description": "Augmente l'Attaque de deux niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Attack 2",
         "fr": "Attaque 2",
@@ -16808,6 +17600,7 @@ export const generatedPokeAssets = {
       }
     },
     "xattack3": {
+      "description": "Augmente l'Attaque de trois niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Attack 3",
         "fr": "Attaque 3",
@@ -16815,6 +17608,7 @@ export const generatedPokeAssets = {
       }
     },
     "xattack6": {
+      "description": "Augmente l'Attaque de six niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Attack 6",
         "fr": "Attaque 6",
@@ -16822,6 +17616,7 @@ export const generatedPokeAssets = {
       }
     },
     "xdefense": {
+      "description": "Augmente la Défense d'un niveau en combat. Augmente le bonheur.",
       "names": {
         "en": "X Defense",
         "fr": "Défense +",
@@ -16829,6 +17624,7 @@ export const generatedPokeAssets = {
       }
     },
     "xdefense2": {
+      "description": "Augmente la Défense de deux niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Defense 2",
         "fr": "Défense 2",
@@ -16836,6 +17632,7 @@ export const generatedPokeAssets = {
       }
     },
     "xdefense3": {
+      "description": "Augmente la Défense de trois niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Defense 3",
         "fr": "Défense 3",
@@ -16843,6 +17640,7 @@ export const generatedPokeAssets = {
       }
     },
     "xdefense6": {
+      "description": "Augmente la Défense de six niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Defense 6",
         "fr": "Défense 6",
@@ -16850,6 +17648,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspatk": {
+      "description": "Augmente l'Attaque Spéciale d'un niveau en combat. Augmente le bonheur.",
       "names": {
         "en": "X Sp. Atk",
         "fr": "Atq. Spé. +",
@@ -16857,6 +17656,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspatk2": {
+      "description": "Augmente l'Attaque Spéciale de deux niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Sp. Atk 2",
         "fr": "Atq. Spé. 2",
@@ -16864,6 +17664,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspatk3": {
+      "description": "Augmente l'Attaque Spéciale de trois niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Sp. Atk 3",
         "fr": "Atq. Spé. 3",
@@ -16871,6 +17672,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspatk6": {
+      "description": "Augmente l'Attaque Spéciale de six niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Sp. Atk 6",
         "fr": "Atq. Spé. 6",
@@ -16878,6 +17680,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspdef": {
+      "description": "Augmente la Défense Spéciale d'un niveau en combat. Augmente le bonheur.",
       "names": {
         "en": "X Sp. Def",
         "fr": "Déf. Spé. +",
@@ -16885,6 +17688,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspdef2": {
+      "description": "Augmente la Défense Spéciale de deux niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Sp. Def 2",
         "fr": "Déf. Spé. 2",
@@ -16892,6 +17696,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspdef3": {
+      "description": "Augmente la Défense Spéciale de trois niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Sp. Def 3",
         "fr": "Déf. Spé. 3",
@@ -16899,6 +17704,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspdef6": {
+      "description": "Augmente la Défense Spéciale de six niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Sp. Def 6",
         "fr": "Déf. Spé. 6",
@@ -16906,6 +17712,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspeed": {
+      "description": "Augmente la Vitesse d'un niveau en combat. Augmente le bonheur.",
       "names": {
         "en": "X Speed",
         "fr": "Vitesse +",
@@ -16913,6 +17720,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspeed2": {
+      "description": "Augmente la Vitesse de deux niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Speed 2",
         "fr": "Vitesse 2",
@@ -16920,6 +17728,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspeed3": {
+      "description": "Augmente la Vitesse de trois niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Speed 3",
         "fr": "Vitesse 3",
@@ -16927,6 +17736,7 @@ export const generatedPokeAssets = {
       }
     },
     "xspeed6": {
+      "description": "Augmente la Vitesse de six niveaux au combat. Shooter Miracle seulement.",
       "names": {
         "en": "X Speed 6",
         "fr": "Vitesse 6",
@@ -16941,6 +17751,7 @@ export const generatedPokeAssets = {
       }
     },
     "yacheberry": {
+      "description": "Tenu: Consommé quand touché par une attaque Glace super efficace pour diviser par deux les dégâts subis.",
       "names": {
         "en": "Yache Berry",
         "fr": "Baie Nanone",
@@ -16962,6 +17773,7 @@ export const generatedPokeAssets = {
       }
     },
     "yellowapricorn": {
+      "description": "Utilisé pour fabriquer une Lune Ball.",
       "names": {
         "en": "Yellow Apricorn",
         "fr": "Noigrume Jaune",
@@ -16997,6 +17809,7 @@ export const generatedPokeAssets = {
       }
     },
     "yellowflute": {
+      "description": "Soigne la confusion.",
       "names": {
         "en": "Yellow Flute",
         "fr": "Flûte Jaune",
@@ -17004,6 +17817,7 @@ export const generatedPokeAssets = {
       }
     },
     "yellownectar": {
+      "description": "Change Plumeline en Style Pom-Pom.",
       "names": {
         "en": "Yellow Nectar",
         "fr": "Nectar Jaune",
@@ -17018,6 +17832,7 @@ export const generatedPokeAssets = {
       }
     },
     "yellowscarf": {
+      "description": "Augmente la Robustesse du porteur lors d'un concours.",
       "names": {
         "en": "Yellow Scarf",
         "fr": "Foulard Jaune",
@@ -17025,6 +17840,7 @@ export const generatedPokeAssets = {
       }
     },
     "yellowshard": {
+      "description": "Aucun effet. Peut être échangé pour des objets ou capacités.",
       "names": {
         "en": "Yellow Shard",
         "fr": "Tesson Jaune",
@@ -17067,6 +17883,7 @@ export const generatedPokeAssets = {
       }
     },
     "zapplate": {
+      "description": "Tenu: Les capacités de type Électrik du porteur infligent 20% de dégâts supplémentaires. Change Arceus et le type de Jugement en Électrik.",
       "names": {
         "en": "Zap Plate",
         "fr": "Plaque Volt",
@@ -17074,6 +17891,7 @@ export const generatedPokeAssets = {
       }
     },
     "zinc": {
+      "description": "Augmente l'effort en Défense Spéciale et le bonheur.",
       "names": {
         "en": "Zinc",
         "fr": "Zinc",
@@ -17081,6 +17899,7 @@ export const generatedPokeAssets = {
       }
     },
     "zoomlens": {
+      "description": "Tenu: Fournit un boost de 1/5 (20%) en précision si le porteur agit après la cible.",
       "names": {
         "en": "Zoom Lens",
         "fr": "Lentille Zoom",
@@ -17102,6 +17921,7 @@ export const generatedPokeAssets = {
       }
     },
     "zring": {
+      "description": "Permet au joueur d'utiliser les Capacités Z.",
       "names": {
         "en": "Z-Ring",
         "fr": "Bracelet Z",
@@ -17116,6 +17936,7 @@ export const generatedPokeAssets = {
       }
     },
     "zygardecube": {
+      "description": "Contient les cellules/cœurs Zygarde collectés. Permet d'apprendre des capacités à Zygarde.",
       "names": {
         "en": "Zygarde Cube",
         "fr": "Boîte Zygarde",

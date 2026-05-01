@@ -2,13 +2,13 @@ import type { TeamAudit } from '../domain/auditEngine';
 import type { TeamRole } from '../domain/roleDetection';
 
 const ROLE_LABELS: Record<TeamRole, string> = {
-  'speed control': 'contrôle vitesse',
-  'hazard setter': 'poseur de hazards',
-  'hazard removal': 'retrait hazards',
+  'speed control': 'contrôle de la vitesse',
+  'hazard setter': 'poseur de pièges',
+  'hazard removal': 'retrait des pièges',
   pivot: 'pivot',
   priority: 'priorité',
-  'setup sweeper': 'setup sweeper',
-  'bulky support': 'support bulky',
+  'setup sweeper': 'attaquant qui se booste',
+  'bulky support': 'support résistant',
   recovery: 'soin',
   'status spreading': 'statuts',
 };

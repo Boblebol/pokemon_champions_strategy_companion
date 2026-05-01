@@ -118,8 +118,8 @@ function buildOffensiveFindings(team: TeamMember[], store: DataStore): AuditFind
   return [
     {
       severity: missing.length > 8 ? 'high' : missing.length > 4 ? 'medium' : 'low',
-      title: `Couverture offensive : ${coveredTypes.size} types défensifs couverts par les attaques`,
-      evidence: [`Couverture super efficace manquante sur : ${typeList(missing) || 'aucune'}`],
+      title: `Types que tes attaques menacent : ${coveredTypes.size} type(s) touchés super efficacement`,
+      evidence: [`Types encore difficiles à toucher fort : ${typeList(missing) || 'aucun'}`],
     },
   ];
 }

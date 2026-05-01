@@ -7,6 +7,11 @@ export interface PokemonAssetEntry {
 
 export interface LocalizedEntityAsset {
   names: LocalizedNames;
+  description?: string;
+}
+
+export interface ItemAssetEntry extends LocalizedEntityAsset {
+  description?: string;
 }
 
 export interface PokeAssetData {
@@ -15,7 +20,7 @@ export interface PokeAssetData {
   pokemon: Record<string, PokemonAssetEntry>;
   moves: Record<string, LocalizedEntityAsset>;
   abilities: Record<string, LocalizedEntityAsset>;
-  items: Record<string, LocalizedEntityAsset>;
+  items: Record<string, ItemAssetEntry>;
   natures: Record<string, LocalizedEntityAsset>;
 }
 

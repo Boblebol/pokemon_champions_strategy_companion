@@ -18,12 +18,12 @@ export function PossibleThreatPanel({
 
   return (
     <section className="panel possible-threat-panel">
-      <h2>Menaces possibles hors méta</h2>
-      <p>Coverage possible depuis les learnsets complets, hors Pokémon déjà hauts en usage dans le snapshot.</p>
+      <h2>Adversaires rares dangereux</h2>
+      <p>Pokémon moins joués qui peuvent quand même toucher ta sélection avec des attaques super efficaces.</p>
       {!isSelectionComplete ? (
-        <p>Complète la sélection de {pickSize} Pokémon pour scanner les menaces hors méta.</p>
+        <p>Choisis {pickSize} Pokémon pour voir les adversaires rares à surveiller.</p>
       ) : null}
-      {isSelectionComplete && threats.length === 0 ? <p>Aucune menace hors méta forte sur la sélection actuelle.</p> : null}
+      {isSelectionComplete && threats.length === 0 ? <p>Aucun adversaire rare très dangereux sur la sélection actuelle.</p> : null}
       <div className="possible-threat-list">
         {threats.map((threat) => (
           <article className={`threat ${threat.severity}`} key={threat.species}>

@@ -45,7 +45,7 @@ describe('rankPossibleThreats', () => {
     const flutterMane = threats.find((threat) => threat.species === 'Flutter Mane');
 
     expect(flutterMane?.setArchetypes[0]).toEqual({
-      name: 'Breaker spécial',
+      name: 'Attaquant spécial',
       moves: ['Moonblast', 'Shadow Ball', 'Thunderbolt'],
     });
   });

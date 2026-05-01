@@ -172,7 +172,7 @@ export function CombatCalculator({
       <div className="panel-heading">
         <div>
           <h2>Combat</h2>
-          <p>Compare les dégâts sortants et entrants avec les actifs, le terrain et les boosts du match.</p>
+          <p>Compare les dégâts que tu fais et ceux que tu peux recevoir avec les Pokémon actifs et le terrain.</p>
         </div>
         <label className="toggle-line combat-main-toggle">
           <input
@@ -180,7 +180,7 @@ export function CombatCalculator({
             checked={includeAllFriendlyMoves}
             onChange={(event) => setIncludeAllFriendlyMoves(event.target.checked)}
           />
-          Toutes les attaques apprenables côté équipe
+          Tester aussi les attaques apprenables
         </label>
       </div>
 
@@ -290,7 +290,9 @@ export function CombatCalculator({
         <div className="combat-opponents">
           {state.opponents.map((opponent, index) => {
             const query = queries[opponent.id] ?? '';
-            const options = searchCombatPokemon(reference, query);
+            const options = searchCombatPokemon(reference, query).sort((left, right) =>
+              pokemonDisplayName(reference, left.name).localeCompare(pokemonDisplayName(reference, right.name), 'fr'),
+            );
             return (
               <article className="combat-opponent-card" key={opponent.id}>
                 <div className="slot-header">
@@ -350,11 +352,11 @@ export function CombatCalculator({
             <h3>Matchup à compléter</h3>
             <div className="damage-columns">
               <div>
-                <h4>Dégâts sortants</h4>
+                <h4>Dégâts que tu fais</h4>
                 <p>Sélectionne un adversaire pour calculer les dégâts.</p>
               </div>
               <div>
-                <h4>Dégâts entrants</h4>
+                <h4>Dégâts que tu reçois</h4>
                 <p>Les attaques adverses les plus dangereuses apparaîtront ici.</p>
               </div>
             </div>
@@ -368,7 +370,7 @@ export function CombatCalculator({
             </h3>
             <div className="damage-columns">
               <div>
-                <h4>Dégâts sortants</h4>
+                <h4>Dégâts que tu fais</h4>
                 {matchup.friendlyDamage.length === 0 ? <p>Aucune attaque offensive côté allié.</p> : null}
                 {matchup.friendlyDamage.map((row) => (
                   <p className="damage-row" key={row.move}>
@@ -380,7 +382,7 @@ export function CombatCalculator({
                 ))}
               </div>
               <div>
-                <h4>Dégâts entrants</h4>
+                <h4>Dégâts que tu reçois</h4>
                 {matchup.opponentDamage.length === 0 ? <p>Aucune attaque offensive adverse trouvée.</p> : null}
                 {matchup.opponentDamage.map((row) => (
                   <p className="damage-row danger" key={row.move}>

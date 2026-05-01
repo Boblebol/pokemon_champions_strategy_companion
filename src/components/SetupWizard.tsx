@@ -39,7 +39,7 @@ export function SetupWizard({
         <div>
           <span className="eyebrow">Assistant optionnel</span>
           <h2>Préparer une partie</h2>
-          <p>Un parcours court pour passer du format au calcul Combat sans perdre le contexte de la sélection.</p>
+          <p>Un parcours court : choisis le format, crée ton équipe, puis vérifie les dégâts et les dangers.</p>
         </div>
         <button type="button" onClick={handleToggle} aria-expanded={isOpen}>
           {isOpen ? "Masquer l'assistant" : "Afficher l'assistant"}
@@ -50,9 +50,9 @@ export function SetupWizard({
         <div className="setup-wizard" aria-label="Étapes de départ">
           <article className="wizard-step">
             <span className="step-kicker">1 Format</span>
-            <h3>Choisir le ladder cible</h3>
+            <h3>Choisir le mode de jeu</h3>
             <FormatSelector value={format} onChange={onFormatChange} />
-            <p>Le format ajuste niveau, style de combat, nombre de picks et snapshot méta.</p>
+            <p>Le mode règle le niveau, le combat simple ou duo, le nombre de Pokémon joués et les données d'usage.</p>
           </article>
 
           <article className="wizard-step wide">
@@ -63,7 +63,7 @@ export function SetupWizard({
 
           <article className="wizard-step">
             <span className="step-kicker">3 Sélection</span>
-            <h3>Verrouiller le plan</h3>
+            <h3>Choisir qui joue</h3>
             <dl className="wizard-metrics">
               <div>
                 <dt>Joués</dt>
@@ -72,16 +72,16 @@ export function SetupWizard({
                 </dd>
               </div>
               <div>
-                <dt>Roster</dt>
+                <dt>Équipe</dt>
                 <dd>{analysis.team.members.length}/6</dd>
               </div>
             </dl>
-            <p>Le diagnostic se recalcule sur les Pokémon cochés dans le constructeur.</p>
+            <p>L'analyse se recalcule sur les Pokémon cochés dans le constructeur.</p>
           </article>
 
           <article className="wizard-step">
             <span className="step-kicker">4 Combat</span>
-            <h3>Tester le matchup</h3>
+            <h3>Tester le combat</h3>
             <dl className="wizard-metrics">
               <div>
                 <dt>Actifs</dt>
@@ -92,7 +92,7 @@ export function SetupWizard({
                 <dd>{analysis.selectedAudit.format.defaultLevel}</dd>
               </div>
             </dl>
-            <p>Le panneau Combat compare dégâts sortants et entrants sur les adversaires choisis.</p>
+            <p>Le panneau Combat compare les dégâts donnés et les dégâts reçus face aux adversaires choisis.</p>
           </article>
 
           <article className="wizard-step">
@@ -100,7 +100,7 @@ export function SetupWizard({
             <h3>Lire les priorités</h3>
             <dl className="wizard-metrics">
               <div>
-                <dt>Menaces</dt>
+                <dt>Dangers</dt>
                 <dd>{analysis.threats.length}</dd>
               </div>
               <div>
@@ -108,7 +108,7 @@ export function SetupWizard({
                 <dd>{analysis.snapshotStatus.isDemo ? 'Démo' : 'Live'}</dd>
               </div>
             </dl>
-            <p>Traite les alertes fortes avant d'optimiser les détails de set.</p>
+            <p>Commence par les alertes fortes, puis ajuste les attaques, objets et répartitions de stats.</p>
           </article>
         </div>
       ) : (
@@ -120,7 +120,7 @@ export function SetupWizard({
             </dd>
           </div>
           <div>
-            <dt>Roster</dt>
+            <dt>Équipe</dt>
             <dd>{analysis.team.members.length}/6</dd>
           </div>
           <div>

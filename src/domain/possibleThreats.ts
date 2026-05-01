@@ -110,21 +110,30 @@ function generateSetArchetypes(pokemon: PokemonReference, store: DataStore): Set
   const recoveryMove = statusMoves.find((move) => RECOVERY_MOVES.has(move.id));
 
   if (specialMoves.length >= physicalMoves.length && specialMoves.length > 0) {
-    archetypes.push({ name: 'Breaker spécial', moves: specialMoves.slice(0, 4) });
+    archetypes.push({ name: 'Attaquant spécial', moves: specialMoves.slice(0, 4) });
   } else if (physicalMoves.length > 0) {
-    archetypes.push({ name: 'Breaker physique', moves: physicalMoves.slice(0, 4) });
+    archetypes.push({ name: 'Attaquant physique', moves: physicalMoves.slice(0, 4) });
   }
 
   if (setupMove) {
-    archetypes.push({ name: 'Setup sweeper', moves: [setupMove.name, ...topMoves(damagingMoves, pokemon).slice(0, 3)] });
+    archetypes.push({
+      name: "Se booste avant d'attaquer",
+      moves: [setupMove.name, ...topMoves(damagingMoves, pokemon).slice(0, 3)],
+    });
   }
 
   if (priorityMove) {
-    archetypes.push({ name: 'Cleaner priorité', moves: [priorityMove.name, ...topMoves(damagingMoves, pokemon).slice(0, 3)] });
+    archetypes.push({
+      name: 'Finit avec priorité',
+      moves: [priorityMove.name, ...topMoves(damagingMoves, pokemon).slice(0, 3)],
+    });
   }
 
   if (recoveryMove) {
-    archetypes.push({ name: 'Bulky utility', moves: [recoveryMove.name, ...topMoves(damagingMoves, pokemon).slice(0, 3)] });
+    archetypes.push({
+      name: 'Résistant avec soin',
+      moves: [recoveryMove.name, ...topMoves(damagingMoves, pokemon).slice(0, 3)],
+    });
   }
 
   return archetypes.slice(0, 3);
@@ -170,8 +179,10 @@ export function rankPossibleThreats({
         speed,
         coverageMoves,
         reasons: [
-          `${uniqueTargets.size} membre(s) ciblés super efficacement par coverage possible`,
-          `${outspedTargets} membre(s) dépassés avec une spread Vitesse max niveau ${getFormatDefinition(format)?.defaultLevel ?? 100}`,
+          `${uniqueTargets.size} membre(s) de ton équipe peuvent être touchés super efficacement`,
+          `${outspedTargets} membre(s) dépassés avec 252 points d'entraînement en Vitesse au niveau ${
+            getFormatDefinition(format)?.defaultLevel ?? 100
+          }`,
         ],
       } satisfies PossibleThreatCandidate;
     })

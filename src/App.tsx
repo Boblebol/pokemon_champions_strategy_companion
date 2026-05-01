@@ -110,7 +110,12 @@ function AppPage() {
   const store = useMemo(() => createDataStore(dataBundle), [dataBundle]);
   const pickSize = getPickSize(format);
   const pokemonOptions = useMemo(() => {
-    return Object.values(dataBundle.reference.pokemon).sort((left, right) => left.name.localeCompare(right.name));
+    return Object.values(dataBundle.reference.pokemon).sort((left, right) =>
+      pokemonDisplayName(dataBundle.reference, left.name).localeCompare(
+        pokemonDisplayName(dataBundle.reference, right.name),
+        'fr',
+      ),
+    );
   }, [dataBundle]);
   const moveOptions = useMemo(() => {
     return Object.values(dataBundle.reference.moves).sort((left, right) => left.name.localeCompare(right.name));
@@ -179,10 +184,10 @@ function AppPage() {
           <div className="cockpit-intro">
             <span className="eyebrow">Cockpit local · 3v3 / 4v4</span>
             <h1>Cockpit stratégique</h1>
-            <p>Importe, ajuste et valide ton équipe avec une lecture pensée pour le bring 6 pick 3 niveau 100.</p>
+            <p>Importe, ajuste et valide ton équipe : tu prépares 6 Pokémon, puis tu choisis ceux qui jouent le match.</p>
             <dl className="cockpit-kpis">
               <div>
-                <dt>Roster complet</dt>
+                <dt>Équipe de 6</dt>
                 <dd>{analysis.team.members.length}/6</dd>
               </div>
               <div>
@@ -192,7 +197,7 @@ function AppPage() {
                 </dd>
               </div>
               <div>
-                <dt>Menace haute</dt>
+                <dt>Adversaire à surveiller</dt>
                 <dd>{topThreat ? pokemonDisplayName(dataBundle.reference, topThreat.species) : 'À compléter'}</dd>
               </div>
             </dl>
@@ -238,7 +243,7 @@ function AppPage() {
             <h2>Plan de match 3v3</h2>
             <h3>Analyse sélection jouée</h3>
             <p>
-              Sélection de match : {analysis.pickSize} Pokémon à choisir au niveau{' '}
+              Sélection de match : choisis {analysis.pickSize} Pokémon au niveau{' '}
               {analysis.selectedAudit.format.defaultLevel}.
             </p>
             {analysis.selectionWarnings.map((warning) => (
@@ -315,7 +320,7 @@ function LandingHeroVisual() {
   return (
     <div className="hero-visual landing-product-shot" aria-hidden="true">
       <div className="match-strip">
-        <span>Team preview</span>
+        <span>Avant-match</span>
         <strong>6 vers 3</strong>
       </div>
       <div className="match-board">
@@ -323,12 +328,12 @@ function LandingHeroVisual() {
           <div className={`board-slot ${index < 3 ? 'picked' : ''}`} key={`${slot}-${index}`}>
             <span>{index + 1}</span>
             <strong>{slot}</strong>
-            <small>{index < 3 ? 'Pick recommandé' : 'Option roster'}</small>
+            <small>{index < 3 ? 'Choix conseillé' : "Reste dans l'équipe"}</small>
           </div>
         ))}
       </div>
       <div className="threat-radar">
-        <span>Menace possible</span>
+        <span>Adversaire dangereux</span>
         <strong>Flutter Mane</strong>
         <small>Moonblast · Vitesse max 405</small>
       </div>
@@ -343,11 +348,11 @@ function LandingPage() {
         <PageNav compact />
         <div className="hero-layout">
           <div className="hero-copy">
-            <span className="eyebrow">Pokémon Champions · bring 6 pick 3 / VGC 4v4</span>
+            <span className="eyebrow">Pokémon Champions · équipe de 6, choix de 3 / VGC 4v4</span>
             <h1>Gagne du temps au team preview</h1>
             <p>
-              Construis ton roster, verrouille tes picks joués et repère immédiatement les pressions qui comptent :
-              dégâts Combat, couverture offensive, faiblesses défensives, speed tiers exacts et menaces hors méta.
+              Construis ton équipe, choisis les Pokémon qui jouent et repère tout de suite ce qui compte :
+              dégâts, points faibles, vitesses importantes et adversaires dangereux même peu joués.
             </p>
             <div className="hero-actions">
               <a className="primary-cta" href={pageHref('app')}>
@@ -359,20 +364,20 @@ function LandingPage() {
             </div>
             <dl className="hero-proof">
               <div>
-                <dt>Roster de 6</dt>
-                <dd>sets, EV, images, noms FR et commentaires centralisés</dd>
+                <dt>Équipe de 6</dt>
+                <dd>Pokémon, objets, attaques, images, noms FR et notes au même endroit</dd>
               </div>
               <div>
                 <dt>Analyse 3v3 niveau 100</dt>
-                <dd>sélection jouée, faiblesses réelles et speed tiers +1/+2</dd>
+                <dd>sélection jouée, points faibles réels et vitesses après bonus</dd>
               </div>
               <div>
                 <dt>Combat rapide</dt>
-                <dd>dégâts sortants et entrants avec boosts, terrain, météo et Tera</dd>
+                <dd>dégâts donnés et reçus avec bonus, terrain, météo et Téracristallisation</dd>
               </div>
               <div>
-                <dt>Menaces hors méta</dt>
-                <dd>coverage possible depuis les learnsets complets</dd>
+                <dt>Adversaires rares</dt>
+                <dd>attaques dangereuses possibles depuis les listes complètes</dd>
               </div>
             </dl>
           </div>
@@ -389,15 +394,15 @@ function LandingPage() {
         <div className="landing-feature-grid">
           <article>
             <strong>Construit pour Champions 3v3</strong>
-            <p>Le roster complet reste visible, mais les alertes critiques se recalculent sur les 3 Pokémon joués.</p>
+            <p>L'équipe complète reste visible, mais les alertes se recalculent sur les 3 Pokémon réellement joués.</p>
           </article>
           <article>
             <strong>Données exploitables</strong>
-            <p>Usages Smogon, snapshots locaux, refresh live et fallback offline restent lisibles dans le cockpit.</p>
+            <p>Les usages Smogon, les données locales et la mise à jour restent visibles et faciles à comprendre.</p>
           </article>
           <article>
             <strong>Décision rapide</strong>
-            <p>Tu vois les types couverts, les trous défensifs, les vitesses exactes et les sets probables à préparer.</p>
+            <p>Tu vois les types couverts, les faiblesses, les vitesses et les profils adverses à préparer.</p>
           </article>
         </div>
       </section>
@@ -418,7 +423,7 @@ function LandingPage() {
           </div>
           <div>
             <strong>Learnsets</strong>
-            <span>menaces possibles non limitées au top usage</span>
+            <span>adversaires possibles même peu joués</span>
           </div>
           <div>
             <strong>Local-first</strong>
@@ -466,60 +471,61 @@ function DocsPage() {
           <article>
             <h2>1. Démarrer avec l'assistant</h2>
             <p>
-              L'assistant de départ est optionnel et repliable. Il garde sous les yeux le format, le roster, les picks
-              joués, le Combat et les priorités d'analyse sans bloquer le cockpit.
+              L'assistant de départ est optionnel et repliable. Il garde sous les yeux le format, l'équipe complète,
+              les Pokémon joués, le Combat et les priorités d'analyse sans bloquer le cockpit.
             </p>
           </article>
           <article>
             <h2>2. Choisir le format</h2>
             <p>
               Champions 3v3 est le mode par défaut : équipe de 6, sélection de 3, calculs au niveau 100. Champions
-              VGC 4v4 Duo couvre le format en duo avec 4 picks sur 6, et OU reste disponible pour comparer d'autres
+              VGC 4v4 Duo couvre le format en duo avec 4 choix sur 6, et OU reste disponible pour comparer d'autres
               lectures.
             </p>
           </article>
           <article>
             <h2>3. Construire l'équipe</h2>
             <p>
-              Utilise les menus du constructeur pour choisir un Pokémon, son talent, son objet, sa nature, ses EV et ses
-              quatre attaques disponibles dans la source complète. Les libellés sont affichés en français quand PokéAPI
-              les fournit, mais l'export reste en anglais Showdown.
+              Utilise les menus du constructeur pour choisir un Pokémon, son talent, son objet, sa nature, ses points
+              d'entraînement (EV) et ses quatre attaques disponibles dans la source complète. Les libellés sont affichés
+              en français quand PokéAPI les fournit. Tu peux aussi importer un fichier .txt Showdown ou exporter
+              l'équipe actuelle en .txt ; le contenu reste en anglais compatible Showdown.
             </p>
           </article>
           <article>
-            <h2>4. Verrouiller les picks</h2>
+            <h2>4. Verrouiller les Pokémon joués</h2>
             <p>
-              Les panneaux défensifs, offensifs, menaces méta, speed tiers et menaces hors méta deviennent beaucoup plus
+              Les panneaux défensifs, offensifs, adversaires fréquents, vitesses et adversaires rares deviennent beaucoup plus
               utiles quand la sélection jouée est complète : 3 en Champions 3v3, 4 en Champions VGC 4v4 Duo, 6 en OU.
             </p>
           </article>
           <article>
             <h2>5. Simuler le combat</h2>
             <p>
-              Le panneau Combat calcule les dégâts sortants et les dégâts entrants les plus dangereux avec
+              Le panneau Combat calcule les dégâts que tu fais et les dégâts que tu peux recevoir avec
               <code>@smogon/calc</code>. Il prend en compte niveau du format, boosts, météo, terrain, protections par
-              côté, brûlure, critique, Tera et attaques apprenables.
+              côté, brûlure, coup critique, Téracristallisation et attaques apprenables.
             </p>
           </article>
           <article>
-            <h2>6. Lire coverage possible</h2>
+            <h2>6. Lire les attaques dangereuses</h2>
             <p>
-              Le panneau hors méta scanne les learnsets complets pour trouver les Pokémon capables de toucher ta
-              sélection super efficacement, puis propose une vitesse max et des archétypes de sets.
+              Le panneau des adversaires rares scanne toutes les attaques apprenables pour trouver les Pokémon capables
+              de toucher ta sélection super efficacement, puis propose une vitesse max et des profils de sets.
             </p>
           </article>
           <article>
             <h2>Données locales</h2>
             <p>
               La référence de construction vient de <code>@pkmn/dex</code> et <code>@pkmn/data</code>. Les images et
-              noms localisés viennent d'un snapshot PokéAPI stocké en métadonnées, sans vendorer les fichiers image.
+              noms localisés viennent d'une copie locale des métadonnées PokéAPI, sans vendorer les fichiers image.
             </p>
           </article>
           <article>
             <h2>Données et refresh</h2>
             <p>
               Le refresh Smogon peut échouer si le réseau, Smogon ou CORS bloque la requête. Les noms localisés et URLs
-              d'images viennent d'un snapshot PokéAPI local, donc l'app garde le snapshot local et reste utilisable
+              d'images viennent d'une copie locale des métadonnées PokéAPI, donc l'app garde les données locales et reste utilisable
               offline côté données.
             </p>
           </article>
