@@ -142,6 +142,31 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /analyse sélection jouée/i })).toBeInTheDocument();
   });
 
+  it('keeps picker results closed until the user searches or focuses the picker', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    expect(screen.queryByRole('listbox', { name: /résultats de recherche/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('option', { name: /carchacrok/i })).not.toBeInTheDocument();
+
+    const pokemonInput = screen.getByLabelText(/slot 1 pokémon/i);
+    expect(pokemonInput).toHaveAttribute('aria-expanded', 'false');
+    await user.click(pokemonInput);
+
+    expect(pokemonInput).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('listbox', { name: /résultats de recherche/i })).toBeInTheDocument();
+
+    await user.clear(pokemonInput);
+    await user.type(pokemonInput, 'Carcha');
+
+    expect(await screen.findByRole('option', { name: /carchacrok/i })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('option', { name: /carchacrok/i }));
+
+    expect(pokemonInput).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.queryByRole('option', { name: /dragonite/i })).not.toBeInTheDocument();
+  });
+
   it('imports and exports a Showdown team file from the setup assistant', async () => {
     const user = userEvent.setup();
     render(<App />);

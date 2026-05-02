@@ -1252,6 +1252,7 @@ small {
 }
 
 .searchable-picker {
+  position: relative;
   align-content: start;
   min-width: 0;
 }
@@ -1315,7 +1316,8 @@ small {
 .picker-results {
   display: grid;
   gap: 7px;
-  max-height: 300px;
+  z-index: 4;
+  max-height: min(320px, 48svh);
   overflow: auto;
   border: 1px solid #dfe7f1;
   border-radius: 8px;
@@ -1356,6 +1358,12 @@ small {
   display: grid;
   gap: 2px;
   min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .picker-results {
+    max-height: 260px;
+  }
 }
 
 .slot-header strong,

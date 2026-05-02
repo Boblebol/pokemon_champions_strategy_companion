@@ -1,4 +1,4 @@
-import { useId, useMemo, useState } from 'react';
+import { useId, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
 export interface PickerOption {
@@ -41,7 +41,9 @@ export function SearchablePicker({
   const inputId = useId();
   const resultsId = useId();
   const helpId = useId();
+  const pickerRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false);
   const selected = options.find((option) => option.value === value);
   const normalizedQuery = normalizeSearch(query.trim());
   const compactQuery = compactSearch(query.trim());
@@ -60,7 +62,15 @@ export function SearchablePicker({
   }, [compactQuery, normalizedQuery, options]);
 
   return (
-    <div className="field searchable-picker">
+    <div
+      className="field searchable-picker"
+      ref={pickerRef}
+      onBlur={(event) => {
+        if (!pickerRef.current?.contains(event.relatedTarget)) {
+          setIsExpanded(false);
+        }
+      }}
+    >
       <label className="searchable-picker-label" htmlFor={inputId}>
         {label}
       </label>
@@ -76,11 +86,20 @@ export function SearchablePicker({
         aria-autocomplete="list"
         aria-controls={resultsId}
         aria-describedby={helpId}
-        aria-expanded="true"
+        aria-expanded={isExpanded}
         role="combobox"
         type="search"
         value={query}
-        onChange={(event) => setQuery(event.target.value)}
+        onChange={(event) => {
+          setQuery(event.target.value);
+          setIsExpanded(true);
+        }}
+        onFocus={() => setIsExpanded(true)}
+        onKeyDown={(event) => {
+          if (event.key === 'Escape') {
+            setIsExpanded(false);
+          }
+        }}
         placeholder={placeholder}
       />
       {value ? (
@@ -90,6 +109,7 @@ export function SearchablePicker({
           onClick={() => {
             onChange(undefined);
             setQuery('');
+            setIsExpanded(false);
           }}
         >
           Effacer
@@ -98,28 +118,32 @@ export function SearchablePicker({
       <small className="picker-help" id={helpId} aria-live="polite">
         {normalizedQuery ? `${visibleOptions.length} résultat(s)` : 'Tape quelques lettres pour filtrer la liste.'}
       </small>
-      <div className="picker-results" id={resultsId} role="listbox" aria-label="Résultats de recherche">
-        {visibleOptions.length === 0 ? <p>{emptyLabel}</p> : null}
-        {visibleOptions.map((option) => (
-          <button
-            type="button"
-            key={option.value}
-            aria-selected={option.value === value}
-            className={option.value === value ? 'active' : ''}
-            role="option"
-            onClick={() => {
-              onChange(option.value);
-              setQuery('');
-            }}
-          >
-            {option.media}
-            <span>
-              <strong>{option.label}</strong>
-              {option.description ? <small>{option.description}</small> : null}
-            </span>
-          </button>
-        ))}
-      </div>
+      {isExpanded ? (
+        <div className="picker-results" id={resultsId} role="listbox" aria-label="Résultats de recherche">
+          {visibleOptions.length === 0 ? <p>{emptyLabel}</p> : null}
+          {visibleOptions.map((option) => (
+            <button
+              type="button"
+              key={option.value}
+              aria-selected={option.value === value}
+              className={option.value === value ? 'active' : ''}
+              role="option"
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => {
+                onChange(option.value);
+                setQuery('');
+                setIsExpanded(false);
+              }}
+            >
+              {option.media}
+              <span>
+                <strong>{option.label}</strong>
+                {option.description ? <small>{option.description}</small> : null}
+              </span>
+            </button>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
