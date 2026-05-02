@@ -1616,6 +1616,19 @@ small {
   max-width: 330px;
 }
 
+.combat-advanced-toggle {
+  width: auto;
+  border-color: #cdd8e6;
+  background: #ffffff;
+  color: var(--navy);
+  box-shadow: none;
+}
+
+.combat-advanced-controls {
+  display: grid;
+  gap: 12px;
+}
+
 .combat-layout {
   display: grid;
   grid-template-columns: minmax(300px, 0.86fr) minmax(0, 1.34fr);
@@ -2169,8 +2182,16 @@ small {
     text-align: left;
   }
 
+  .panel-heading {
+    display: grid;
+  }
+
   .combat-main-toggle {
     max-width: none;
+  }
+
+  .combat-advanced-toggle {
+    width: 100%;
   }
 
   .combat-mod-grid {

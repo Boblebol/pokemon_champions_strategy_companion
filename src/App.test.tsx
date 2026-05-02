@@ -262,6 +262,20 @@ Jolly Nature
     expect(screen.getAllByText(/dégâts que tu reçois/i).length).toBeGreaterThan(0);
   });
 
+  it('hides advanced combat controls behind a disclosure', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    expect(screen.getByRole('heading', { level: 2, name: /^combat$/i })).toBeInTheDocument();
+    expect(screen.queryByLabelText(/météo/i)).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /options combat avancées/i }));
+
+    expect(screen.getByLabelText(/météo/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/terrain/i)).toBeInTheDocument();
+    expect(screen.getByText(/protections alliées/i)).toBeInTheDocument();
+  });
+
   it('loads the complete Showdown reference in the builder with French searchable media', async () => {
     const user = userEvent.setup();
     const { container } = render(<App />);
