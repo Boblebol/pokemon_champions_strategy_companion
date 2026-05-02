@@ -2011,8 +2011,11 @@ small {
 @media (max-width: 1250px) {
   .hero-layout,
   .top-bar,
-  .setup-wizard,
   .dashboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .setup-wizard {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2021,7 +2024,11 @@ small {
   }
 
   .builder-workspace {
-    grid-template-columns: minmax(190px, 0.68fr) minmax(0, 1.32fr);
+    grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1.45fr);
+  }
+
+  .combat-layout {
+    grid-template-columns: minmax(270px, 0.9fr) minmax(0, 1.1fr);
   }
 
   .builder-summary {
@@ -2107,7 +2114,6 @@ small {
   }
 
   .hero-proof,
-  .cockpit-kpis,
   .setup-guide-summary,
   .landing-feature-grid,
   .landing-metrics,
@@ -2162,7 +2168,27 @@ small {
   }
 
   .app-shell {
-    padding: 14px;
+    padding: 12px;
+  }
+
+  .panel,
+  .setup-guide,
+  .wizard-step {
+    padding: 12px;
+  }
+
+  .cockpit-kpis {
+    grid-template-columns: repeat(3, minmax(96px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .cockpit-kpis div {
+    min-width: 112px;
+  }
+
+  .builder-funnel {
+    display: none;
   }
 
   .cockpit-intro {

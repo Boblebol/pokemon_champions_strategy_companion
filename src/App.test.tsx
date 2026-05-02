@@ -75,6 +75,16 @@ describe('App', () => {
     expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
   });
 
+  it('keeps responsive layout hooks available for cockpit sections', () => {
+    const { container } = render(<App />);
+
+    expect(container.querySelector('.top-bar')).not.toBeNull();
+    expect(container.querySelector('.setup-guide')).not.toBeNull();
+    expect(container.querySelector('.builder-workspace')).not.toBeNull();
+    expect(container.querySelector('.combat-layout')).not.toBeNull();
+    expect(container.querySelector('.dashboard')).not.toBeNull();
+  });
+
   it('renders the French graphical wizard and dashboard regions', async () => {
     const user = userEvent.setup();
     render(<App />);
