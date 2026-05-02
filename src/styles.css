@@ -855,12 +855,18 @@ small {
 }
 
 .setup-guide-header button {
-  min-width: 160px;
-  background: var(--navy);
+  width: auto;
+  min-width: 0;
+  max-width: 220px;
+  justify-self: end;
+  border-color: #cdd8e6;
+  background: #ffffff;
+  color: var(--navy);
+  box-shadow: none;
 }
 
 .setup-guide-header button:hover {
-  background: #25415f;
+  background: #eef4fb;
 }
 
 .setup-guide-summary {
@@ -2072,6 +2078,7 @@ small {
 
   .setup-guide-header button {
     width: 100%;
+    max-width: none;
   }
 
   .hero-layout,

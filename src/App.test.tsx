@@ -19,6 +19,10 @@ async function selectPickerOption(
   await user.click(await screen.findByRole('option', { name: optionName }, { timeout: 5000 }));
 }
 
+async function openSetupWizard(user: ReturnType<typeof userEvent.setup>) {
+  await user.click(screen.getByRole('button', { name: /afficher l'assistant/i }));
+}
+
 describe('App', () => {
   afterEach(() => {
     window.history.pushState({}, '', '/');
@@ -71,8 +75,11 @@ describe('App', () => {
     expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
   });
 
-  it('renders the French graphical wizard and dashboard regions', () => {
+  it('renders the French graphical wizard and dashboard regions', async () => {
+    const user = userEvent.setup();
     render(<App />);
+
+    await openSetupWizard(user);
 
     expect(screen.getByRole('heading', { name: /cockpit stratégique/i })).toBeInTheDocument();
     expect(screen.getByText(/1\s+format/i)).toBeInTheDocument();
@@ -102,20 +109,23 @@ describe('App', () => {
     expect(screen.getByText(/données à jour/i)).toBeInTheDocument();
   });
 
-  it('lets users collapse and reopen the setup wizard', async () => {
+  it('renders the setup wizard compact by default and can expand it', async () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole('button', { name: /masquer l'assistant/i }));
-
     expect(screen.queryByLabelText(/équipe showdown/i)).not.toBeInTheDocument();
     expect(screen.getByLabelText(/résumé assistant/i)).toBeInTheDocument();
-    expect(window.localStorage.getItem('champions-companion.setup-wizard')).toBe('hidden');
+    expect(screen.getByRole('button', { name: /afficher l'assistant/i })).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /afficher l'assistant/i }));
 
     expect(screen.getByLabelText(/équipe showdown/i)).toBeInTheDocument();
     expect(window.localStorage.getItem('champions-companion.setup-wizard')).toBe('visible');
+
+    await user.click(screen.getByRole('button', { name: /masquer l'assistant/i }));
+
+    expect(screen.queryByLabelText(/équipe showdown/i)).not.toBeInTheDocument();
+    expect(window.localStorage.getItem('champions-companion.setup-wizard')).toBe('hidden');
   });
 
   it('renders a portfolio footer link', () => {
@@ -170,6 +180,7 @@ describe('App', () => {
   it('imports and exports a Showdown team file from the setup assistant', async () => {
     const user = userEvent.setup();
     render(<App />);
+    await openSetupWizard(user);
 
     const importedPaste = `Dragonite @ Heavy-Duty Boots
 Ability: Multiscale
@@ -194,6 +205,7 @@ Jolly Nature
   it('helps users fill a standard 252 / 252 / 6 EV spread', async () => {
     const user = userEvent.setup();
     render(<App />);
+    await openSetupWizard(user);
 
     await user.click(screen.getByRole('button', { name: /attaquant physique rapide/i }));
 
@@ -245,6 +257,7 @@ Jolly Nature
   it('updates the roster from builder controls and exports the generated paste', async () => {
     const user = userEvent.setup();
     render(<App />);
+    await openSetupWizard(user);
 
     await waitForCompleteReference();
     await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
@@ -265,6 +278,7 @@ Jolly Nature
   it('filters set dropdowns from the selected Pokémon reference', async () => {
     const user = userEvent.setup();
     render(<App />);
+    await openSetupWizard(user);
 
     await waitForCompleteReference();
     await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
@@ -302,6 +316,7 @@ Jolly Nature
   it('adapts match selection to Champions BSS pick 3', async () => {
     const user = userEvent.setup();
     render(<App />);
+    await openSetupWizard(user);
 
     await user.selectOptions(screen.getByLabelText(/format champions/i), 'champions-bss');
 
@@ -312,6 +327,7 @@ Jolly Nature
   it('parses a pasted team and displays threats', async () => {
     const user = userEvent.setup();
     render(<App />);
+    await openSetupWizard(user);
 
     await user.clear(screen.getByLabelText(/équipe showdown/i));
     await user.type(
@@ -331,6 +347,7 @@ Jolly Nature
   it('shows member parse warnings from pasted teams', async () => {
     const user = userEvent.setup();
     render(<App />);
+    await openSetupWizard(user);
 
     await user.clear(screen.getByLabelText(/équipe showdown/i));
     await user.type(

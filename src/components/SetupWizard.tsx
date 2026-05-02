@@ -7,7 +7,7 @@ import type { FormatId } from '../domain/types';
 const SETUP_WIZARD_STORAGE_KEY = 'champions-companion.setup-wizard';
 
 function shouldShowWizardByDefault(): boolean {
-  return window.localStorage.getItem(SETUP_WIZARD_STORAGE_KEY) !== 'hidden';
+  return window.localStorage.getItem(SETUP_WIZARD_STORAGE_KEY) === 'visible';
 }
 
 export function SetupWizard({
