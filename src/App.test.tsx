@@ -162,6 +162,17 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /analyse sélection jouée/i })).toBeInTheDocument();
   });
 
+  it('lets users switch slots from a compact team rail', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+
+    expect(screen.getByLabelText(/slot 2 pokémon/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /modifier slot 1/i })).toHaveAttribute('aria-pressed', 'false');
+    expect(screen.getByRole('button', { name: /modifier slot 2/i })).toHaveAttribute('aria-pressed', 'true');
+  });
+
   it('keeps picker results closed until the user searches or focuses the picker', async () => {
     const user = userEvent.setup();
     render(<App />);

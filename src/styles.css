@@ -1553,12 +1553,18 @@ small {
 
 .roster-summary-card {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
   min-width: 0;
   border: 1px solid #d9e1ed;
   border-radius: 8px;
   background: #ffffff;
   padding: 11px;
+}
+
+.roster-summary-card[data-selected="true"] {
+  border-color: #9fd2b1;
+  background: #f0faf4;
 }
 
 .roster-summary-card.active {
@@ -2036,7 +2042,8 @@ small {
   }
 
   .roster-summary-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(120px, 1fr));
+    overflow-x: auto;
   }
 
   .landing-feature-grid,
@@ -2132,7 +2139,6 @@ small {
 
   .match-board,
   .builder-grid,
-  .roster-summary-list,
   .slot-basics,
   .builder-slot-editor .slot-basics,
   .move-grid,
@@ -2144,6 +2150,14 @@ small {
   .combat-results,
   .damage-columns {
     grid-template-columns: 1fr;
+  }
+
+  .roster-summary-list {
+    grid-template-columns: repeat(6, minmax(132px, 1fr));
+  }
+
+  .slot-edit-button {
+    min-height: 40px;
   }
 
   .ev-helper-heading {

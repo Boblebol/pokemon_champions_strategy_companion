@@ -437,7 +437,12 @@ export function TeamBuilder({
               const slotActive = slot.id === activeSlot.id;
 
               return (
-                <article className={`roster-summary-card ${slotActive ? 'active' : ''}`} key={slot.id}>
+                <article
+                  className={`roster-summary-card ${slotActive ? 'active' : ''}`}
+                  data-selected={slotSelected}
+                  data-filled={Boolean(slot.species)}
+                  key={slot.id}
+                >
                   <div className="roster-summary-main">
                     <PokemonAvatar reference={reference} species={slot.species} />
                     <div>
