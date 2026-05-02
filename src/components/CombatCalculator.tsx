@@ -65,6 +65,10 @@ function countActiveModifiers(modifiers: CombatPokemonModifiers | undefined): nu
   return activeBoosts + activeFlags;
 }
 
+function opponentAdvancedControlsId(opponentId: string): string {
+  return `combat-opponent-advanced-controls-${opponentId}`;
+}
+
 function ScreenControls({
   title,
   side,
@@ -201,6 +205,10 @@ export function CombatCalculator({
     activeAdvancedOptions > 0
       ? `Options Combat avancées · ${activeAdvancedOptions} ${activeAdvancedOptions > 1 ? 'actives' : 'active'}`
       : 'Options Combat avancées';
+  const advancedControlsIds = [
+    ADVANCED_CONTROLS_ID,
+    ...state.opponents.map((opponent) => opponentAdvancedControlsId(opponent.id)),
+  ].join(' ');
 
   return (
     <section className="panel combat-calculator" id="combat" aria-label="Calculateur de combat">
@@ -220,7 +228,7 @@ export function CombatCalculator({
         <button
           type="button"
           className="combat-advanced-toggle"
-          aria-controls={ADVANCED_CONTROLS_ID}
+          aria-controls={advancedControlsIds}
           aria-expanded={showAdvancedControls}
           onClick={() => setShowAdvancedControls((current) => !current)}
         >
@@ -373,16 +381,18 @@ export function CombatCalculator({
                   ))}
                 </div>
                 {showAdvancedControls ? (
-                  <ModifierControls
-                    title="Modifs adversaire"
-                    modifiers={state.opponent[opponent.id]}
-                    onChange={(patch) =>
-                      setState((current) => ({
-                        ...current,
-                        opponent: updateModifiers(current.opponent, opponent.id, patch),
-                      }))
-                    }
-                  />
+                  <div id={opponentAdvancedControlsId(opponent.id)}>
+                    <ModifierControls
+                      title="Modifs adversaire"
+                      modifiers={state.opponent[opponent.id]}
+                      onChange={(patch) =>
+                        setState((current) => ({
+                          ...current,
+                          opponent: updateModifiers(current.opponent, opponent.id, patch),
+                        }))
+                      }
+                    />
+                  </div>
                 ) : null}
               </article>
             );

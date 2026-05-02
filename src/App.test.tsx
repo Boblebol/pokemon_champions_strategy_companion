@@ -268,9 +268,11 @@ Jolly Nature
 
     expect(screen.getByRole('heading', { level: 2, name: /^combat$/i })).toBeInTheDocument();
     const advancedToggle = screen.getByRole('button', { name: /options combat avancées/i });
+    const controlledRegionIds = advancedToggle.getAttribute('aria-controls')?.split(/\s+/) ?? [];
 
     expect(advancedToggle).toHaveAttribute('aria-expanded', 'false');
-    expect(advancedToggle).toHaveAttribute('aria-controls', 'combat-advanced-controls');
+    expect(controlledRegionIds).toContain('combat-advanced-controls');
+    expect(controlledRegionIds.some((id) => id.startsWith('combat-opponent-advanced-controls-'))).toBe(true);
     expect(screen.getByLabelText(/rechercher adversaire 1/i)).toBeInTheDocument();
     expect(screen.queryByLabelText(/météo/i)).not.toBeInTheDocument();
     expect(screen.queryByLabelText(/terrain/i)).not.toBeInTheDocument();
@@ -282,6 +284,9 @@ Jolly Nature
 
     expect(advancedToggle).toHaveAttribute('aria-expanded', 'true');
     expect(document.getElementById('combat-advanced-controls')).toBeInTheDocument();
+    expect(controlledRegionIds.some((id) => document.getElementById(id)?.textContent?.match(/modifs adversaire/i))).toBe(
+      true,
+    );
     expect(screen.getByLabelText(/météo/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/terrain/i)).toBeInTheDocument();
     expect(screen.getByText(/protections alliées/i)).toBeInTheDocument();
