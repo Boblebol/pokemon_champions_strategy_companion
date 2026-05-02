@@ -10,6 +10,7 @@ import type { FormatId, ReferenceSnapshot, StatId, TeamMember } from '../domain/
 import { PokemonAvatar } from './PokemonMedia';
 
 const BOOST_STATS: Array<Exclude<StatId, 'hp'>> = ['atk', 'def', 'spa', 'spd', 'spe'];
+const ADVANCED_CONTROLS_ID = 'combat-advanced-controls';
 
 const WEATHER_OPTIONS: Array<{ value: CombatState['weather']; label: string }> = [
   { value: 'none', label: 'Aucune' },
@@ -47,6 +48,21 @@ function updateModifiers<T extends string | number>(
 
 function stateKey(format: FormatId, selectedTeam: TeamMember[]): string {
   return `${format}:${selectedTeam.map((member) => `${member.slot}:${member.species}`).join('|')}`;
+}
+
+function countActiveSideConditions(side: CombatState['friendlySide']): number {
+  return Object.values(side).filter(Boolean).length;
+}
+
+function countActiveModifiers(modifiers: CombatPokemonModifiers | undefined): number {
+  if (!modifiers) {
+    return 0;
+  }
+
+  const activeBoosts = Object.values(modifiers.boosts ?? {}).filter((boost) => boost !== 0).length;
+  const activeFlags = [modifiers.teraActive, modifiers.burned, modifiers.criticalHit].filter(Boolean).length;
+
+  return activeBoosts + activeFlags;
 }
 
 function ScreenControls({
@@ -167,6 +183,24 @@ export function CombatCalculator({
     [format, includeAllFriendlyMoves, reference, selectedTeam, state],
   );
   const activeLimit = result.isDoubles ? 2 : 1;
+  const activeAdvancedOptions = useMemo(() => {
+    const fieldOptions = Number(state.weather !== 'none') + Number(state.terrain !== 'none');
+    const sideConditions = countActiveSideConditions(state.friendlySide) + countActiveSideConditions(state.opponentSide);
+    const friendlyModifiers = Object.values(state.friendly).reduce(
+      (total, modifiers) => total + countActiveModifiers(modifiers),
+      0,
+    );
+    const opponentModifiers = Object.values(state.opponent).reduce(
+      (total, modifiers) => total + countActiveModifiers(modifiers),
+      0,
+    );
+
+    return fieldOptions + sideConditions + friendlyModifiers + opponentModifiers;
+  }, [state]);
+  const advancedToggleLabel =
+    activeAdvancedOptions > 0
+      ? `Options Combat avancées · ${activeAdvancedOptions} ${activeAdvancedOptions > 1 ? 'actives' : 'active'}`
+      : 'Options Combat avancées';
 
   return (
     <section className="panel combat-calculator" id="combat" aria-label="Calculateur de combat">
@@ -186,10 +220,11 @@ export function CombatCalculator({
         <button
           type="button"
           className="combat-advanced-toggle"
+          aria-controls={ADVANCED_CONTROLS_ID}
           aria-expanded={showAdvancedControls}
           onClick={() => setShowAdvancedControls((current) => !current)}
         >
-          Options Combat avancées
+          {advancedToggleLabel}
         </button>
       </div>
 
@@ -224,7 +259,7 @@ export function CombatCalculator({
           </div>
 
           {showAdvancedControls ? (
-            <div className="combat-advanced-controls">
+            <div className="combat-advanced-controls" id={ADVANCED_CONTROLS_ID}>
               <div className="combat-field-grid">
                 <label className="field">
                   <span>Météo</span>

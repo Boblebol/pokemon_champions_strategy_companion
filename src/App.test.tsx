@@ -267,13 +267,33 @@ Jolly Nature
     render(<App />);
 
     expect(screen.getByRole('heading', { level: 2, name: /^combat$/i })).toBeInTheDocument();
+    const advancedToggle = screen.getByRole('button', { name: /options combat avancées/i });
+
+    expect(advancedToggle).toHaveAttribute('aria-expanded', 'false');
+    expect(advancedToggle).toHaveAttribute('aria-controls', 'combat-advanced-controls');
+    expect(screen.getByLabelText(/rechercher adversaire 1/i)).toBeInTheDocument();
     expect(screen.queryByLabelText(/météo/i)).not.toBeInTheDocument();
+    expect(screen.queryByLabelText(/terrain/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/protections alliées/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/modifs allié/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/modifs adversaire/i)).not.toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /options combat avancées/i }));
+    await user.click(advancedToggle);
 
+    expect(advancedToggle).toHaveAttribute('aria-expanded', 'true');
+    expect(document.getElementById('combat-advanced-controls')).toBeInTheDocument();
     expect(screen.getByLabelText(/météo/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/terrain/i)).toBeInTheDocument();
     expect(screen.getByText(/protections alliées/i)).toBeInTheDocument();
+    expect(screen.getByText(/modifs allié/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/modifs adversaire/i).length).toBeGreaterThan(0);
+
+    await user.selectOptions(screen.getByLabelText(/météo/i), 'Sun');
+    await user.click(advancedToggle);
+
+    expect(advancedToggle).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.queryByLabelText(/météo/i)).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /options combat avancées · 1 active/i })).toBeInTheDocument();
   });
 
   it('loads the complete Showdown reference in the builder with French searchable media', async () => {
