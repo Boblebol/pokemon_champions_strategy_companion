@@ -237,58 +237,62 @@ function AppPage() {
         <CombatCalculator format={format} selectedTeam={analysis.selectedTeam.members} reference={dataBundle.reference} />
 
         <div className="dashboard">
-          <TeamPreview reference={dataBundle.reference} team={analysis.team} />
-          <AuditPanel audit={analysis.audit} />
-          <section className="panel selected-analysis">
-            <h2>Plan de match 3v3</h2>
-            <h3>Analyse sélection jouée</h3>
-            <p>
-              Sélection de match : choisis {analysis.pickSize} Pokémon au niveau{' '}
-              {analysis.selectedAudit.format.defaultLevel}.
-            </p>
-            {analysis.selectionWarnings.map((warning) => (
-              <p className="warning" key={warning}>
-                {warning}
+          <div className="dashboard-primary">
+            <TeamPreview reference={dataBundle.reference} team={analysis.team} />
+            <section className="panel selected-analysis">
+              <h2>Plan de match 3v3</h2>
+              <h3>Analyse sélection jouée</h3>
+              <p>
+                Sélection de match : choisis {analysis.pickSize} Pokémon au niveau{' '}
+                {analysis.selectedAudit.format.defaultLevel}.
               </p>
-            ))}
-            <p>
-              Joués : {selectedNames.join(', ') || 'aucun'}
-            </p>
-            <div className="speed-tier-list" aria-label="Speed tiers sélection">
-              {analysis.selectedAudit.speed.map((speed) => (
-                <article className="speed-tier" key={speed.species}>
-                  <strong>
-                    {pokemonDisplayName(dataBundle.reference, speed.species)}: {speed.speed}{' '}
-                    {speed.estimated ? 'estimé' : 'exact'}
-                  </strong>
-                  <span>
-                    {speed.benchmarks
-                      .filter((benchmark) => benchmark.label !== 'Base')
-                      .map((benchmark) => `${benchmark.label} ${benchmark.speed}`)
-                      .join(' · ')}
-                  </span>
-                </article>
+              {analysis.selectionWarnings.map((warning) => (
+                <p className="warning" key={warning}>
+                  {warning}
+                </p>
               ))}
-            </div>
-            <div className="finding-list">
-              {[...analysis.selectedAudit.defensive, ...analysis.selectedAudit.offensive].map((finding) => (
-                <article className={`finding ${finding.severity}`} key={finding.title}>
-                  <strong>{finding.title}</strong>
-                  {finding.evidence.map((line) => (
-                    <span key={line}>{line}</span>
-                  ))}
-                </article>
-              ))}
-            </div>
-          </section>
-          <ThreatPanel reference={dataBundle.reference} threats={analysis.threats} />
-          <PossibleThreatPanel
-            reference={dataBundle.reference}
-            threats={analysis.selectedPossibleThreats}
-            selectedCount={analysis.selectedTeam.members.length}
-            pickSize={analysis.pickSize}
-          />
-          <HelpPanel />
+              <p>
+                Joués : {selectedNames.join(', ') || 'aucun'}
+              </p>
+              <div className="speed-tier-list" aria-label="Speed tiers sélection">
+                {analysis.selectedAudit.speed.map((speed) => (
+                  <article className="speed-tier" key={speed.species}>
+                    <strong>
+                      {pokemonDisplayName(dataBundle.reference, speed.species)}: {speed.speed}{' '}
+                      {speed.estimated ? 'estimé' : 'exact'}
+                    </strong>
+                    <span>
+                      {speed.benchmarks
+                        .filter((benchmark) => benchmark.label !== 'Base')
+                        .map((benchmark) => `${benchmark.label} ${benchmark.speed}`)
+                        .join(' · ')}
+                    </span>
+                  </article>
+                ))}
+              </div>
+              <div className="finding-list">
+                {[...analysis.selectedAudit.defensive, ...analysis.selectedAudit.offensive].map((finding) => (
+                  <article className={`finding ${finding.severity}`} key={finding.title}>
+                    <strong>{finding.title}</strong>
+                    {finding.evidence.map((line) => (
+                      <span key={line}>{line}</span>
+                    ))}
+                  </article>
+                ))}
+              </div>
+            </section>
+          </div>
+          <div className="dashboard-secondary">
+            <AuditPanel audit={analysis.audit} />
+            <ThreatPanel reference={dataBundle.reference} threats={analysis.threats} />
+            <PossibleThreatPanel
+              reference={dataBundle.reference}
+              threats={analysis.selectedPossibleThreats}
+              selectedCount={analysis.selectedTeam.members.length}
+              pickSize={analysis.pickSize}
+            />
+            <HelpPanel />
+          </div>
         </div>
       </section>
 

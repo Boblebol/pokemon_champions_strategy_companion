@@ -85,6 +85,13 @@ describe('App', () => {
     expect(container.querySelector('.dashboard')).not.toBeNull();
   });
 
+  it('groups dashboard analysis panels for desktop scanning', () => {
+    const { container } = render(<App />);
+
+    expect(container.querySelector('.dashboard-primary')).not.toBeNull();
+    expect(container.querySelector('.dashboard-secondary')).not.toBeNull();
+  });
+
   it('renders the French graphical wizard and dashboard regions', async () => {
     const user = userEvent.setup();
     render(<App />);
