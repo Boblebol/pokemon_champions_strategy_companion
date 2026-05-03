@@ -4,6 +4,11 @@
 
 - À venir.
 
+## 0.2.0-beta.2 - 2026-05-03
+
+- Release: déclaration directe de `esbuild` pour rendre la génération de
+  référence reproductible en CI fraîche.
+
 ## 0.2.0-beta.1 - 2026-05-03
 
 - CI et QA: ajout d'un workflow de vérification, durcissement Vitest et audit
