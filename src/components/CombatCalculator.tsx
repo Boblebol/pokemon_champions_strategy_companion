@@ -190,8 +190,8 @@ export function CombatCalculator({
   const activeAdvancedOptions = useMemo(() => {
     const fieldOptions = Number(state.weather !== 'none') + Number(state.terrain !== 'none');
     const sideConditions = countActiveSideConditions(state.friendlySide) + countActiveSideConditions(state.opponentSide);
-    const friendlyModifiers = Object.values(state.friendly).reduce(
-      (total, modifiers) => total + countActiveModifiers(modifiers),
+    const friendlyModifiers = state.friendlyActiveSlots.reduce(
+      (total, slot) => total + countActiveModifiers(state.friendly[slot]),
       0,
     );
     const opponentModifiers = Object.values(state.opponent).reduce(
@@ -266,81 +266,79 @@ export function CombatCalculator({
             })}
           </div>
 
-          {showAdvancedControls ? (
-            <div className="combat-advanced-controls" id={ADVANCED_CONTROLS_ID}>
-              <div className="combat-field-grid">
-                <label className="field">
-                  <span>Météo</span>
-                  <select
-                    value={state.weather}
-                    onChange={(event) =>
-                      setState((current) => ({ ...current, weather: event.target.value as CombatState['weather'] }))
-                    }
-                  >
-                    {WEATHER_OPTIONS.map((weather) => (
-                      <option key={weather.value} value={weather.value}>
-                        {weather.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="field">
-                  <span>Terrain</span>
-                  <select
-                    value={state.terrain}
-                    onChange={(event) =>
-                      setState((current) => ({ ...current, terrain: event.target.value as CombatState['terrain'] }))
-                    }
-                  >
-                    {TERRAIN_OPTIONS.map((terrain) => (
-                      <option key={terrain.value} value={terrain.value}>
-                        {terrain.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-
-              <div className="combat-screens">
-                <ScreenControls
-                  title="Protections alliées"
-                  side={state.friendlySide}
-                  onChange={(patch) =>
-                    setState((current) => ({
-                      ...current,
-                      friendlySide: { ...current.friendlySide, ...patch },
-                    }))
+          <div className="combat-advanced-controls" id={ADVANCED_CONTROLS_ID} hidden={!showAdvancedControls}>
+            <div className="combat-field-grid">
+              <label className="field">
+                <span>Météo</span>
+                <select
+                  value={state.weather}
+                  onChange={(event) =>
+                    setState((current) => ({ ...current, weather: event.target.value as CombatState['weather'] }))
                   }
-                />
-                <ScreenControls
-                  title="Protections adverses"
-                  side={state.opponentSide}
-                  onChange={(patch) =>
-                    setState((current) => ({
-                      ...current,
-                      opponentSide: { ...current.opponentSide, ...patch },
-                    }))
+                >
+                  {WEATHER_OPTIONS.map((weather) => (
+                    <option key={weather.value} value={weather.value}>
+                      {weather.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="field">
+                <span>Terrain</span>
+                <select
+                  value={state.terrain}
+                  onChange={(event) =>
+                    setState((current) => ({ ...current, terrain: event.target.value as CombatState['terrain'] }))
                   }
-                />
-              </div>
-
-              {selectedTeam
-                .filter((member) => state.friendlyActiveSlots.includes(member.slot))
-                .map((member) => (
-                  <ModifierControls
-                    key={member.slot}
-                    title={`Modifs allié · ${pokemonDisplayName(reference, member.species)}`}
-                    modifiers={state.friendly[member.slot]}
-                    onChange={(patch) =>
-                      setState((current) => ({
-                        ...current,
-                        friendly: updateModifiers(current.friendly, member.slot, patch),
-                      }))
-                    }
-                  />
-                ))}
+                >
+                  {TERRAIN_OPTIONS.map((terrain) => (
+                    <option key={terrain.value} value={terrain.value}>
+                      {terrain.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
             </div>
-          ) : null}
+
+            <div className="combat-screens">
+              <ScreenControls
+                title="Protections alliées"
+                side={state.friendlySide}
+                onChange={(patch) =>
+                  setState((current) => ({
+                    ...current,
+                    friendlySide: { ...current.friendlySide, ...patch },
+                  }))
+                }
+              />
+              <ScreenControls
+                title="Protections adverses"
+                side={state.opponentSide}
+                onChange={(patch) =>
+                  setState((current) => ({
+                    ...current,
+                    opponentSide: { ...current.opponentSide, ...patch },
+                  }))
+                }
+              />
+            </div>
+
+            {selectedTeam
+              .filter((member) => state.friendlyActiveSlots.includes(member.slot))
+              .map((member) => (
+                <ModifierControls
+                  key={member.slot}
+                  title={`Modifs allié · ${pokemonDisplayName(reference, member.species)}`}
+                  modifiers={state.friendly[member.slot]}
+                  onChange={(patch) =>
+                    setState((current) => ({
+                      ...current,
+                      friendly: updateModifiers(current.friendly, member.slot, patch),
+                    }))
+                  }
+                />
+              ))}
+          </div>
         </aside>
 
         <div className="combat-opponents">
@@ -380,20 +378,18 @@ export function CombatCalculator({
                     </button>
                   ))}
                 </div>
-                {showAdvancedControls ? (
-                  <div id={opponentAdvancedControlsId(opponent.id)}>
-                    <ModifierControls
-                      title="Modifs adversaire"
-                      modifiers={state.opponent[opponent.id]}
-                      onChange={(patch) =>
-                        setState((current) => ({
-                          ...current,
-                          opponent: updateModifiers(current.opponent, opponent.id, patch),
-                        }))
-                      }
-                    />
-                  </div>
-                ) : null}
+                <div id={opponentAdvancedControlsId(opponent.id)} hidden={!showAdvancedControls}>
+                  <ModifierControls
+                    title="Modifs adversaire"
+                    modifiers={state.opponent[opponent.id]}
+                    onChange={(patch) =>
+                      setState((current) => ({
+                        ...current,
+                        opponent: updateModifiers(current.opponent, opponent.id, patch),
+                      }))
+                    }
+                  />
+                </div>
               </article>
             );
           })}

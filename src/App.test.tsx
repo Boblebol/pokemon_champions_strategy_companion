@@ -273,12 +273,16 @@ Jolly Nature
     expect(advancedToggle).toHaveAttribute('aria-expanded', 'false');
     expect(controlledRegionIds).toContain('combat-advanced-controls');
     expect(controlledRegionIds.some((id) => id.startsWith('combat-opponent-advanced-controls-'))).toBe(true);
+    expect(document.getElementById('combat-advanced-controls')).toBeInTheDocument();
+    expect(
+      controlledRegionIds.some((id) => id.startsWith('combat-opponent-advanced-controls-') && document.getElementById(id)),
+    ).toBe(true);
     expect(screen.getByLabelText(/rechercher adversaire 1/i)).toBeInTheDocument();
-    expect(screen.queryByLabelText(/météo/i)).not.toBeInTheDocument();
-    expect(screen.queryByLabelText(/terrain/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/protections alliées/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/modifs allié/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/modifs adversaire/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole('combobox', { name: /météo/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('combobox', { name: /terrain/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: /protections alliées/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: /modifs allié/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: /modifs adversaire/i })).not.toBeInTheDocument();
 
     await user.click(advancedToggle);
 
@@ -287,17 +291,17 @@ Jolly Nature
     expect(controlledRegionIds.some((id) => document.getElementById(id)?.textContent?.match(/modifs adversaire/i))).toBe(
       true,
     );
-    expect(screen.getByLabelText(/météo/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/terrain/i)).toBeInTheDocument();
-    expect(screen.getByText(/protections alliées/i)).toBeInTheDocument();
-    expect(screen.getByText(/modifs allié/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/modifs adversaire/i).length).toBeGreaterThan(0);
+    expect(screen.getByRole('combobox', { name: /météo/i })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /terrain/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /protections alliées/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /modifs allié/i })).toBeInTheDocument();
+    expect(screen.getAllByRole('heading', { name: /modifs adversaire/i }).length).toBeGreaterThan(0);
 
-    await user.selectOptions(screen.getByLabelText(/météo/i), 'Sun');
+    await user.selectOptions(screen.getByRole('combobox', { name: /météo/i }), 'Sun');
     await user.click(advancedToggle);
 
     expect(advancedToggle).toHaveAttribute('aria-expanded', 'false');
-    expect(screen.queryByLabelText(/météo/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole('combobox', { name: /météo/i })).not.toBeInTheDocument();
     expect(screen.getByRole('button', { name: /options combat avancées · 1 active/i })).toBeInTheDocument();
   });
 

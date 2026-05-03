@@ -1629,6 +1629,10 @@ small {
   gap: 12px;
 }
 
+.combat-calculator [hidden] {
+  display: none;
+}
+
 .combat-layout {
   display: grid;
   grid-template-columns: minmax(300px, 0.86fr) minmax(0, 1.34fr);
@@ -2182,7 +2186,7 @@ small {
     text-align: left;
   }
 
-  .panel-heading {
+  .combat-calculator .panel-heading {
     display: grid;
   }
 
