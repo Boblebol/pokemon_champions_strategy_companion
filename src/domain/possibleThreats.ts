@@ -26,6 +26,9 @@ export interface PossibleThreat {
   reasons: string[];
 }
 
+export const POSSIBLE_THREAT_SCORE_EXPLANATION =
+  'Le score repère les Pokémon hors top méta capables de couvrir ta sélection avec leur movepool complet et assez de Vitesse.';
+
 const SETUP_MOVES = new Set(['dragondance', 'swordsdance', 'nastyplot', 'calmmind', 'quiverdance', 'bulkup']);
 const PRIORITY_MOVES = new Set(['extremespeed', 'suckerpunch', 'aquajet', 'iceshard', 'machpunch', 'bulletpunch']);
 const RECOVERY_MOVES = new Set(['roost', 'recover', 'slackoff', 'softboiled', 'moonlight', 'morningsun', 'synthesis']);

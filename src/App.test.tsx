@@ -1,7 +1,28 @@
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import App from './App';
+import { SAVED_TEAMS_STORAGE_KEY } from './domain/savedTeams';
+
+async function renderAppPage() {
+  const result = render(<App />);
+  await screen.findByLabelText(/cockpit d'analyse/i, undefined, { timeout: 5000 });
+  return result;
+}
+
+async function renderLandingPage() {
+  window.history.pushState({}, '', '/landing');
+  const result = render(<App />);
+  await screen.findByLabelText(/présentation marketing/i, undefined, { timeout: 5000 });
+  return result;
+}
+
+async function renderDocsPage() {
+  window.history.pushState({}, '', '/docs');
+  const result = render(<App />);
+  await screen.findByLabelText(/documentation/i, undefined, { timeout: 5000 });
+  return result;
+}
 
 async function waitForCompleteReference() {
   expect(await screen.findByText(/source complète/i, undefined, { timeout: 5000 })).toBeInTheDocument();
@@ -27,19 +48,19 @@ describe('App', () => {
   afterEach(() => {
     window.history.pushState({}, '', '/');
     window.localStorage.clear();
+    vi.unstubAllGlobals();
   });
 
-  it('opens the app directly on the local root route', () => {
-    render(<App />);
+  it('opens the app directly on the local root route', async () => {
+    await renderAppPage();
 
     expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
     expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
   });
 
-  it('renders a marketing landing page with app and doc entry points', () => {
-    window.history.pushState({}, '', '/landing');
-    render(<App />);
+  it('renders a marketing landing page with app and doc entry points', async () => {
+    await renderLandingPage();
 
     const landing = screen.getByLabelText(/présentation marketing/i);
     expect(landing).toBeInTheDocument();
@@ -52,9 +73,8 @@ describe('App', () => {
     expect(screen.queryByLabelText(/cockpit d'analyse/i)).not.toBeInTheDocument();
   });
 
-  it('renders a standalone documentation page', () => {
-    window.history.pushState({}, '', '/docs');
-    render(<App />);
+  it('renders a standalone documentation page', async () => {
+    await renderDocsPage();
 
     const docs = screen.getByLabelText(/documentation/i);
     expect(within(docs).getByRole('heading', { name: /documentation champions companion/i })).toBeInTheDocument();
@@ -66,17 +86,17 @@ describe('App', () => {
     expect(within(docs).getByText(/le refresh smogon peut échouer/i)).toBeInTheDocument();
   });
 
-  it('renders the app route without the landing page', () => {
+  it('renders the app route without the landing page', async () => {
     window.history.pushState({}, '', '/app');
-    render(<App />);
+    await renderAppPage();
 
     expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
     expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
   });
 
-  it('keeps responsive layout hooks available for cockpit sections', () => {
-    const { container } = render(<App />);
+  it('keeps responsive layout hooks available for cockpit sections', async () => {
+    const { container } = await renderAppPage();
 
     expect(container.querySelector('.top-bar')).not.toBeNull();
     expect(container.querySelector('.setup-guide')).not.toBeNull();
@@ -85,8 +105,8 @@ describe('App', () => {
     expect(container.querySelector('.dashboard')).not.toBeNull();
   });
 
-  it('groups dashboard analysis panels for desktop scanning', () => {
-    const { container } = render(<App />);
+  it('groups dashboard analysis panels for desktop scanning', async () => {
+    const { container } = await renderAppPage();
 
     const dashboardPrimary = container.querySelector('.dashboard-primary');
     const dashboardSecondary = container.querySelector('.dashboard-secondary');
@@ -107,7 +127,7 @@ describe('App', () => {
 
   it('renders the French graphical wizard and dashboard regions', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
 
     await openSetupWizard(user);
 
@@ -129,8 +149,8 @@ describe('App', () => {
     expect(screen.getAllByText(/niveau 100/i).length).toBeGreaterThan(0);
   });
 
-  it('renders contextual help for strategy and data freshness', () => {
-    render(<App />);
+  it('renders contextual help for strategy and data freshness', async () => {
+    await renderAppPage();
 
     expect(screen.getByRole('heading', { name: /aides rapides/i })).toBeInTheDocument();
     expect(screen.getByText(/assistant de départ/i)).toBeInTheDocument();
@@ -141,25 +161,53 @@ describe('App', () => {
 
   it('renders the setup wizard compact by default and can expand it', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
 
     expect(screen.queryByLabelText(/équipe showdown/i)).not.toBeInTheDocument();
     expect(screen.getByLabelText(/résumé assistant/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /afficher l'assistant/i })).toBeInTheDocument();
+    const toggle = screen.getByRole('button', { name: /afficher l'assistant/i });
+    expect(toggle).toBeInTheDocument();
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(toggle).toHaveAttribute('aria-controls');
+    const regionId = toggle.getAttribute('aria-controls');
+    expect(regionId).toBeTruthy();
+    expect(document.getElementById(regionId!)).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /afficher l'assistant/i }));
+    await user.click(toggle);
 
     expect(screen.getByLabelText(/équipe showdown/i)).toBeInTheDocument();
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    expect(document.getElementById(regionId!)).toBeInTheDocument();
     expect(window.localStorage.getItem('champions-companion.setup-wizard')).toBe('visible');
 
-    await user.click(screen.getByRole('button', { name: /masquer l'assistant/i }));
+    await user.click(toggle);
 
     expect(screen.queryByLabelText(/équipe showdown/i)).not.toBeInTheDocument();
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
     expect(window.localStorage.getItem('champions-companion.setup-wizard')).toBe('hidden');
   });
 
-  it('renders a portfolio footer link', () => {
-    render(<App />);
+  it('announces refresh messages as a polite status', async () => {
+    const user = userEvent.setup();
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: false,
+        status: 503,
+        json: vi.fn(),
+      }),
+    );
+    await renderAppPage();
+
+    await user.click(screen.getByRole('button', { name: /mettre à jour/i }));
+
+    const status = await screen.findByRole('status');
+    expect(status).toHaveAttribute('aria-live', 'polite');
+    expect(status).toHaveTextContent(/données smogon indisponibles/i);
+  });
+
+  it('renders a portfolio footer link', async () => {
+    await renderAppPage();
 
     expect(screen.getByRole('contentinfo')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /alexandre enouf/i })).toHaveAttribute(
@@ -168,8 +216,8 @@ describe('App', () => {
     );
   });
 
-  it('renders the integrated team builder controls', () => {
-    render(<App />);
+  it('renders the integrated team builder controls', async () => {
+    await renderAppPage();
 
     expect(screen.getByRole('heading', { name: /constructeur d'équipe/i })).toBeInTheDocument();
     expect(screen.getByText(/étapes constructeur/i)).toBeInTheDocument();
@@ -184,7 +232,11 @@ describe('App', () => {
 
   it('lets users switch slots from a compact team rail', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
+
+    const slotRail = screen.getByLabelText(/slots de l'équipe/i);
+    const activeEditor = screen.getByLabelText(/slot 1 pokémon/i);
+    expect(slotRail.compareDocumentPosition(activeEditor) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 
     await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
 
@@ -195,7 +247,7 @@ describe('App', () => {
 
   it('keeps picker results closed until the user searches or focuses the picker', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
 
     expect(screen.queryByRole('listbox', { name: /résultats de recherche/i })).not.toBeInTheDocument();
     expect(screen.queryByRole('option', { name: /carchacrok/i })).not.toBeInTheDocument();
@@ -218,9 +270,50 @@ describe('App', () => {
     expect(screen.queryByRole('option', { name: /dragonite/i })).not.toBeInTheDocument();
   });
 
+  it('lets keyboard users highlight and select picker options', async () => {
+    const user = userEvent.setup();
+    await renderAppPage();
+
+    const pokemonInput = screen.getByLabelText(/slot 1 pokémon/i);
+    await user.click(pokemonInput);
+    await user.type(pokemonInput, 'Carcha');
+
+    const option = await screen.findByRole('option', { name: /carchacrok/i });
+    await user.keyboard('{ArrowDown}');
+
+    const activeOptionId = pokemonInput.getAttribute('aria-activedescendant');
+    expect(activeOptionId).toBeTruthy();
+    expect(document.getElementById(activeOptionId!)).toBe(option);
+    expect(option).toHaveAttribute('aria-selected', 'true');
+
+    await user.keyboard('{Enter}');
+
+    expect(screen.getAllByText(/Carchacrok \(Garchomp\)/i).length).toBeGreaterThan(0);
+    expect(pokemonInput).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('closes picker results with Escape and clears the active option', async () => {
+    const user = userEvent.setup();
+    await renderAppPage();
+
+    const pokemonInput = screen.getByLabelText(/slot 1 pokémon/i);
+    await user.click(pokemonInput);
+    await user.type(pokemonInput, 'Carcha');
+    await screen.findByRole('option', { name: /carchacrok/i });
+    await user.keyboard('{ArrowDown}');
+
+    expect(pokemonInput).toHaveAttribute('aria-activedescendant');
+
+    await user.keyboard('{Escape}');
+
+    expect(pokemonInput).toHaveAttribute('aria-expanded', 'false');
+    expect(pokemonInput).not.toHaveAttribute('aria-activedescendant');
+    expect(screen.queryByRole('listbox', { name: /résultats de recherche/i })).not.toBeInTheDocument();
+  });
+
   it('imports and exports a Showdown team file from the setup assistant', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
     await openSetupWizard(user);
 
     const importedPaste = `Dragonite @ Heavy-Duty Boots
@@ -232,6 +325,9 @@ Jolly Nature
     const file = new File([importedPaste], 'dragonite-team.txt', { type: 'text/plain' });
 
     await user.upload(screen.getByLabelText(/importer un fichier équipe/i), file);
+    const status = await screen.findByRole('status');
+    expect(status).toHaveAttribute('aria-live', 'polite');
+    expect(status).toHaveTextContent(/équipe importée depuis le fichier/i);
     expect(await screen.findByText(/fichier importé : dragonite-team\.txt/i)).toBeInTheDocument();
 
     const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
@@ -243,9 +339,78 @@ Jolly Nature
     expect(decodeURIComponent(exportLink.getAttribute('href') ?? '')).toContain('Dragonite @ Heavy-Duty Boots');
   });
 
+  it('saves, loads and deletes teams from local browser storage', async () => {
+    const user = userEvent.setup();
+    await renderAppPage();
+
+    await user.type(screen.getByLabelText(/nom de sauvegarde/i), 'Ladder BO1');
+    await user.click(screen.getByRole('button', { name: /sauvegarder l'équipe/i }));
+
+    expect(screen.getByText(/équipe sauvegardée localement/i)).toBeInTheDocument();
+    expect(JSON.parse(window.localStorage.getItem(SAVED_TEAMS_STORAGE_KEY) ?? '[]')).toHaveLength(1);
+    expect(within(screen.getByLabelText(/sauvegardes locales/i)).getByText(/^Ladder BO1$/i)).toBeInTheDocument();
+
+    await openSetupWizard(user);
+    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
+    await user.clear(paste);
+    await user.type(
+      paste,
+      `Dragonite @ Heavy-Duty Boots
+Ability: Multiscale
+- Extreme Speed`,
+    );
+    expect(paste.value).toContain('Dragonite @ Heavy-Duty Boots');
+
+    await user.click(screen.getByRole('button', { name: /charger Ladder BO1/i }));
+
+    expect(paste.value).toContain('Great Tusk @ Booster Energy');
+    expect(screen.getByText(/équipe chargée depuis les sauvegardes locales/i)).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /supprimer Ladder BO1/i }));
+
+    expect(screen.getByText(/aucune équipe sauvegardée/i)).toBeInTheDocument();
+    expect(JSON.parse(window.localStorage.getItem(SAVED_TEAMS_STORAGE_KEY) ?? '[]')).toEqual([]);
+  });
+
+  it('exports a markdown analysis report and explains threat scores', async () => {
+    await renderAppPage();
+
+    expect(screen.getByText(/le score combine l'usage smogon/i)).toBeInTheDocument();
+    expect(screen.getByText(/hors top méta/i)).toBeInTheDocument();
+
+    const exportLink = screen.getByRole('link', { name: /exporter l'analyse/i });
+    expect(exportLink).toHaveAttribute('download', 'pokemon-champions-analyse.md');
+    const decodedReport = decodeURIComponent(exportLink.getAttribute('href') ?? '');
+    expect(decodedReport).toContain('# Rapport Champions Companion');
+    expect(decodedReport).toContain('Great Tusk');
+    expect(decodedReport).toContain('Menaces frequentes');
+  });
+
+  it('announces file import failures as a polite status', async () => {
+    const user = userEvent.setup();
+    await renderAppPage();
+    await openSetupWizard(user);
+
+    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
+    const initialPaste = paste.value;
+    const file = new File(['broken'], 'broken-team.txt', { type: 'text/plain' });
+    Object.defineProperty(file, 'text', {
+      configurable: true,
+      value: vi.fn().mockRejectedValue(new Error('lecture impossible')),
+    });
+
+    await user.upload(screen.getByLabelText(/importer un fichier équipe/i), file);
+
+    const status = await screen.findByRole('status');
+    expect(status).toHaveAttribute('aria-live', 'polite');
+    expect(status).toHaveTextContent(/impossible de lire ce fichier/i);
+    expect(status).toHaveTextContent(/collez l'équipe manuellement/i);
+    expect(paste.value).toBe(initialPaste);
+  });
+
   it('helps users fill a standard 252 / 252 / 6 EV spread', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
     await openSetupWizard(user);
 
     await user.click(screen.getByRole('button', { name: /attaquant physique rapide/i }));
@@ -264,7 +429,7 @@ Jolly Nature
 
   it('explains selected abilities and natures in simple French', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
 
     expect(screen.getByText(/active paléosynthèse avec le soleil/i)).toBeInTheDocument();
     await user.selectOptions(screen.getByLabelText(/slot 1 nature/i), 'Jolly');
@@ -274,7 +439,7 @@ Jolly Nature
   });
 
   it('shows a combat calculator after the team tools', async () => {
-    render(<App />);
+    await renderAppPage();
 
     expect(await screen.findByRole('heading', { level: 2, name: /^combat$/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/rechercher adversaire 1/i)).toBeInTheDocument();
@@ -284,7 +449,7 @@ Jolly Nature
 
   it('hides advanced combat controls behind a disclosure', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
 
     expect(screen.getByRole('heading', { level: 2, name: /^combat$/i })).toBeInTheDocument();
     const advancedToggle = screen.getByRole('button', { name: /options combat avancées/i });
@@ -327,7 +492,7 @@ Jolly Nature
 
   it('loads the complete Showdown reference in the builder with French searchable media', async () => {
     const user = userEvent.setup();
-    const { container } = render(<App />);
+    const { container } = await renderAppPage();
 
     await waitForCompleteReference();
     await selectPickerOption(user, /slot 1 pokémon/i, 'Kangourex', /Kangourex \(Kangaskhan\)/i);
@@ -340,7 +505,7 @@ Jolly Nature
 
   it('updates the roster from builder controls and exports the generated paste', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
     await openSetupWizard(user);
 
     await waitForCompleteReference();
@@ -361,7 +526,7 @@ Jolly Nature
 
   it('filters set dropdowns from the selected Pokémon reference', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
     await openSetupWizard(user);
 
     await waitForCompleteReference();
@@ -389,8 +554,8 @@ Jolly Nature
     expect(paste.value).toContain('- Earthquake');
   });
 
-  it('uses Champions 3v3 as the default pick 3 level 100 mode', () => {
-    render(<App />);
+  it('uses Champions 3v3 as the default pick 3 level 100 mode', async () => {
+    await renderAppPage();
 
     expect(screen.getAllByText(/sélection de match : choisis 3 pokémon/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/sélection incomplète : choisis 3 pokémon/i)).toBeInTheDocument();
@@ -399,7 +564,7 @@ Jolly Nature
 
   it('adapts match selection to Champions BSS pick 3', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
     await openSetupWizard(user);
 
     await user.selectOptions(screen.getByLabelText(/format champions/i), 'champions-bss');
@@ -410,7 +575,7 @@ Jolly Nature
 
   it('parses a pasted team and displays threats', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
     await openSetupWizard(user);
 
     await user.clear(screen.getByLabelText(/équipe showdown/i));
@@ -430,7 +595,7 @@ Jolly Nature
 
   it('shows member parse warnings from pasted teams', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    await renderAppPage();
     await openSetupWizard(user);
 
     await user.clear(screen.getByLabelText(/équipe showdown/i));

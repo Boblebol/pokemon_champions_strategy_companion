@@ -21,6 +21,7 @@ function readTeamFile(file: File): Promise<string> {
 export function TeamInput({ value, onChange }: { value: string; onChange: (value: string) => void }) {
   const textareaId = useId();
   const [importedFileName, setImportedFileName] = useState<string>();
+  const [fileMessage, setFileMessage] = useState<string>();
   const exportHref = useMemo(() => teamExportHref(value), [value]);
 
   async function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
@@ -30,10 +31,17 @@ export function TeamInput({ value, onChange }: { value: string; onChange: (value
       return;
     }
 
-    const content = await readTeamFile(file);
-    onChange(content);
-    setImportedFileName(file.name);
-    input.value = '';
+    try {
+      const content = await readTeamFile(file);
+      onChange(content);
+      setImportedFileName(file.name);
+      setFileMessage('Équipe importée depuis le fichier.');
+    } catch {
+      setImportedFileName(undefined);
+      setFileMessage("Impossible de lire ce fichier. Collez l'équipe manuellement ou choisissez un fichier texte Showdown.");
+    } finally {
+      input.value = '';
+    }
   }
 
   return (
@@ -56,7 +64,12 @@ export function TeamInput({ value, onChange }: { value: string; onChange: (value
       </div>
       <textarea id={textareaId} value={value} onChange={(event) => onChange(event.target.value)} />
       <small>Colle un export Pokémon Showdown : objet, talent, points d'entraînement, nature et attaques.</small>
-      {importedFileName ? <small aria-live="polite">Fichier importé : {importedFileName}</small> : null}
+      {fileMessage ? (
+        <p role="status" aria-live="polite">
+          {fileMessage}
+        </p>
+      ) : null}
+      {importedFileName ? <small>Fichier importé : {importedFileName}</small> : null}
     </div>
   );
 }

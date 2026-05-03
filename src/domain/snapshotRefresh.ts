@@ -1,12 +1,13 @@
 import { getFormatDefinition } from './formatRules';
 import type { FormatId, MetaSnapshot, UsageEntry } from './types';
 
-const SMOGON_USAGE_MONTH = '2026-03';
-const SMOGON_CUTOFF = 1760;
-const SMOGON_FORMAT_FILES: Record<FormatId, string> = {
-  'champions-vgc': 'gen9vgc2026regf-1760.json',
-  'champions-bss': 'gen9bssregi-1760.json',
-  'champions-ou': 'gen9nationaldex-1760.json',
+export const DEFAULT_SMOGON_USAGE_MONTH = '2026-03';
+export const DEFAULT_SMOGON_CUTOFF = 1760;
+
+const SMOGON_FORMAT_SLUGS: Record<FormatId, string> = {
+  'champions-vgc': 'gen9vgc2026regf',
+  'champions-bss': 'gen9bssregi',
+  'champions-ou': 'gen9nationaldex',
 };
 
 export type RefreshResult =
@@ -18,6 +19,11 @@ export type SnapshotRefreshFetcher = (input: string) => Promise<{
   status: number;
   json(): Promise<unknown>;
 }>;
+
+export interface SnapshotRefreshConfig {
+  usageMonth?: string;
+  cutoff?: number;
+}
 
 interface SmogonChaosPayload {
   info?: {
@@ -59,11 +65,15 @@ function parseSmogonChaosSnapshot({
   format,
   source,
   importedAt,
+  usageMonth,
+  cutoff,
 }: {
   payload: unknown;
   format: FormatId;
   source: string;
   importedAt: string;
+  usageMonth: string;
+  cutoff: number;
 }): MetaSnapshot {
   if (!isRecord(payload) || !isRecord((payload as SmogonChaosPayload).data)) {
     throw new Error('payload Smogon invalide');
@@ -106,11 +116,11 @@ function parseSmogonChaosSnapshot({
   }
 
   return {
-    id: `smogon-${format}-${SMOGON_USAGE_MONTH}-${SMOGON_CUTOFF}`,
+    id: `smogon-${format}-${usageMonth}-${cutoff}`,
     format,
-    label: `${formatDefinition.label} Smogon ${SMOGON_USAGE_MONTH}`,
+    label: `${formatDefinition.label} Smogon ${usageMonth}`,
     source,
-    date: SMOGON_USAGE_MONTH,
+    date: usageMonth,
     importedAt,
     battleCount: info ? numberValue(info, 'number of battles') : undefined,
     isDemo: false,
@@ -122,13 +132,15 @@ export async function refreshSnapshots({
   fetcher = fetch,
   format = 'champions-vgc',
   useProxy = false,
+  usageMonth = DEFAULT_SMOGON_USAGE_MONTH,
+  cutoff = DEFAULT_SMOGON_CUTOFF,
 }: {
   fetcher?: SnapshotRefreshFetcher;
   format?: FormatId;
   useProxy?: boolean;
-} = {}): Promise<RefreshResult> {
-  const fileName = SMOGON_FORMAT_FILES[format];
-  const statsPath = `/stats/${SMOGON_USAGE_MONTH}/chaos/${fileName}`;
+} & SnapshotRefreshConfig = {}): Promise<RefreshResult> {
+  const fileName = `${SMOGON_FORMAT_SLUGS[format]}-${cutoff}.json`;
+  const statsPath = `/stats/${usageMonth}/chaos/${fileName}`;
   const source = `https://www.smogon.com${statsPath}`;
   const fetchUrl = useProxy ? `/smogon-stats${statsPath}` : source;
   const formatDefinition = getFormatDefinition(format);
@@ -148,11 +160,13 @@ export async function refreshSnapshots({
       format,
       source,
       importedAt,
+      usageMonth,
+      cutoff,
     });
 
     return {
       ok: true,
-      message: `Données Smogon ${SMOGON_USAGE_MONTH} importées pour ${formatDefinition?.label ?? format}.`,
+      message: `Données Smogon ${usageMonth} importées pour ${formatDefinition?.label ?? format}.`,
       importedAt,
       snapshot,
     };

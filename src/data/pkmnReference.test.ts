@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { buildPkmnReferenceSnapshot } from './pkmnReference';
+import { getPkmnReferenceSnapshot } from './pkmnReference';
+import { buildPkmnReferenceSnapshot } from './pkmnReferenceBuilder';
 
 describe('pkmnReference', () => {
   it('builds a complete Showdown Gen 9 reference with learnset-filtered moves', async () => {
@@ -53,5 +54,15 @@ describe('pkmnReference', () => {
     });
     expect(snapshot.moves.suckerpunch?.priority).toBe(1);
     expect(snapshot.moves.earthquake?.target).toBe('allAdjacent');
+  });
+
+  it('loads and caches the generated reference snapshot at runtime', async () => {
+    const firstSnapshot = await getPkmnReferenceSnapshot();
+    const secondSnapshot = await getPkmnReferenceSnapshot();
+
+    expect(firstSnapshot).toBe(secondSnapshot);
+    expect(firstSnapshot.id).toBe('pkmn-showdown-gen9');
+    expect(firstSnapshot.pokemon.garchomp.moveIds).toContain('earthquake');
+    expect(firstSnapshot.moves.closecombat.power).toBe(120);
   });
 });

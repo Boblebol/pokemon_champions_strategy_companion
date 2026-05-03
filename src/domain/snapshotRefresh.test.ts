@@ -89,6 +89,50 @@ describe('refreshSnapshots', () => {
     );
   });
 
+  it('uses a custom usage month and cutoff for the Smogon URL and snapshot metadata', async () => {
+    const fetcher = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: vi.fn().mockResolvedValue({
+        info: {
+          metagame: 'gen9bssregi',
+          cutoff: 1630,
+          'number of battles': 42123,
+        },
+        data: {
+          'Flutter Mane': {
+            usage: 29.4,
+            Moves: {
+              moonblast: 92.4,
+            },
+          },
+        },
+      }),
+    });
+
+    const result = await refreshSnapshots({
+      fetcher,
+      format: 'champions-bss',
+      usageMonth: '2026-04',
+      cutoff: 1630,
+    });
+
+    expect(fetcher).toHaveBeenCalledWith(
+      'https://www.smogon.com/stats/2026-04/chaos/gen9bssregi-1630.json',
+    );
+    expect(result.ok).toBe(true);
+    if (!result.ok) {
+      throw new Error(result.message);
+    }
+    expect(result.message).toBe('Données Smogon 2026-04 importées pour Champions 3v3.');
+    expect(result.snapshot.date).toBe('2026-04');
+    expect(result.snapshot.id).toBe('smogon-champions-bss-2026-04-1630');
+    expect(result.snapshot.label).toBe('Champions 3v3 Smogon 2026-04');
+    expect(result.snapshot.source).toBe(
+      'https://www.smogon.com/stats/2026-04/chaos/gen9bssregi-1630.json',
+    );
+  });
+
   it('can fetch through the local Vite proxy while keeping the Smogon source URL', async () => {
     const fetcher = vi.fn().mockResolvedValue({
       ok: true,

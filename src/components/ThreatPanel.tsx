@@ -1,4 +1,5 @@
 import { PokemonAvatar } from './PokemonMedia';
+import { META_THREAT_SCORE_EXPLANATION } from '../domain/metaThreats';
 import { pokemonDisplayName } from '../domain/referenceDisplay';
 import type { RankedThreat } from '../domain/metaThreats';
 import type { ReferenceSnapshot } from '../domain/types';
@@ -7,6 +8,7 @@ export function ThreatPanel({ reference, threats }: { reference: ReferenceSnapsh
   return (
     <section className="panel">
       <h2>Adversaires fréquents dangereux</h2>
+      <p className="score-explanation">{META_THREAT_SCORE_EXPLANATION}</p>
       {threats.length === 0 ? <p>Aucune donnée d'usage disponible pour ce format.</p> : null}
       <div className="threat-list">
         {threats.map((threat) => (

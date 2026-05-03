@@ -111,6 +111,65 @@ function moveOptionsForSlot(
   return moveOptions.filter((move) => allowedMoveIds.has(move.id) || currentMoves.has(move.name));
 }
 
+function TeamSlotRail({
+  slots,
+  activeSlotId,
+  selectedSlots,
+  pickSize,
+  reference,
+  onActiveSlotChange,
+}: {
+  slots: BuilderSlot[];
+  activeSlotId: number;
+  selectedSlots: number[];
+  pickSize: number;
+  reference: ReferenceSnapshot;
+  onActiveSlotChange: (slotId: number) => void;
+}) {
+  return (
+    <aside className="builder-summary" aria-label="Slots de l'équipe">
+      <div className="summary-heading">
+        <h3>Équipe de 6</h3>
+        <span>
+          {selectedSlots.length}/{pickSize} joués
+        </span>
+      </div>
+      <div className="roster-summary-list">
+        {slots.map((slot) => {
+          const slotSelected = selectedSlots.includes(slot.id);
+          const slotActive = slot.id === activeSlotId;
+
+          return (
+            <article
+              className={`roster-summary-card ${slotActive ? 'active' : ''}`}
+              data-selected={slotSelected}
+              data-filled={Boolean(slot.species)}
+              key={slot.id}
+            >
+              <div className="roster-summary-main">
+                <PokemonAvatar reference={reference} species={slot.species} />
+                <div>
+                  <strong>Slot {slot.id}</strong>
+                  <span>{slot.species ? pokemonDisplayName(reference, slot.species) : 'Libre'}</span>
+                  <small>{slotSelected ? 'Joué au match' : 'Dans l’équipe'}</small>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="slot-edit-button"
+                aria-pressed={slotActive}
+                onClick={() => onActiveSlotChange(slot.id)}
+              >
+                Modifier slot {slot.id}
+              </button>
+            </article>
+          );
+        })}
+      </div>
+    </aside>
+  );
+}
+
 export function TeamBuilder({
   state,
   pokemonOptions,
@@ -236,6 +295,15 @@ export function TeamBuilder({
             </li>
           </ol>
         </aside>
+
+        <TeamSlotRail
+          slots={state.slots}
+          activeSlotId={activeSlot.id}
+          selectedSlots={selectedSlots}
+          pickSize={pickSize}
+          reference={reference}
+          onActiveSlotChange={setActiveSlotId}
+        />
 
         <article className={`builder-slot builder-slot-editor ${isSelected ? 'selected' : ''}`}>
           <div className="slot-header">
@@ -423,47 +491,6 @@ export function TeamBuilder({
             />
           </label>
         </article>
-
-        <aside className="builder-summary" aria-label="Résumé de l'équipe">
-          <div className="summary-heading">
-            <h3>Équipe de 6</h3>
-            <span>
-              {selectedSlots.length}/{pickSize} joués
-            </span>
-          </div>
-          <div className="roster-summary-list">
-            {state.slots.map((slot) => {
-              const slotSelected = selectedSlots.includes(slot.id);
-              const slotActive = slot.id === activeSlot.id;
-
-              return (
-                <article
-                  className={`roster-summary-card ${slotActive ? 'active' : ''}`}
-                  data-selected={slotSelected}
-                  data-filled={Boolean(slot.species)}
-                  key={slot.id}
-                >
-                  <div className="roster-summary-main">
-                    <PokemonAvatar reference={reference} species={slot.species} />
-                    <div>
-                      <strong>Slot {slot.id}</strong>
-                      <span>{slot.species ? pokemonDisplayName(reference, slot.species) : 'Libre'}</span>
-                      <small>{slotSelected ? 'Joué au match' : 'Dans l’équipe'}</small>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    className="slot-edit-button"
-                    aria-pressed={slotActive}
-                    onClick={() => setActiveSlotId(slot.id)}
-                  >
-                    Modifier slot {slot.id}
-                  </button>
-                </article>
-              );
-            })}
-          </div>
-        </aside>
       </div>
     </section>
   );

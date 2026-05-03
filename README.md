@@ -1,7 +1,15 @@
 # Assistant stratégique Pokémon Champions
 
-Application web locale pour auditer une équipe Pokémon Champions à partir d'un
-paste Pokémon Showdown ou d'un constructeur d'équipe intégré.
+Compagnon local-first pour préparer une équipe Pokémon Champions dans le
+navigateur. L'app permet d'importer un paste Pokémon Showdown, de construire une
+équipe avec le builder intégré, de choisir une sélection de match 3v3, d'analyser
+les menaces et de simuler les dégâts avec le calculateur Combat.
+
+Les équipes restent côté navigateur. Le refresh Smogon est une tentative
+best-effort pour récupérer des statistiques publiques récentes ; si le réseau,
+Smogon ou CORS échoue, les snapshots locaux et les données démo restent
+utilisables hors ligne. Les sprites Pokémon et icônes d'objets peuvent encore
+être chargés depuis des URLs publiques issues de PokéAPI.
 
 Repository public : <https://github.com/Boblebol/pokemon_champions_strategy_companion>
 
@@ -13,7 +21,12 @@ Pages :
 - App : <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
 - Documentation : <https://boblebol.github.io/pokemon_champions_strategy_companion/docs>
 
-Guide repo : [docs/user-guide.md](docs/user-guide.md)
+Documentation repo :
+
+- [Guide utilisateur](docs/user-guide.md)
+- [Données et confidentialité](docs/data-and-privacy.md)
+- [Plan produit](docs/product-plan.md)
+- [Checklist release](docs/release-checklist.md)
 
 ## Fonctionnalités
 
@@ -113,7 +126,7 @@ sélection jouée :
 Au 30 avril 2026, le dernier mois publié dans l'index public Smogon `/stats/`
 est `2026-03`.
 
-La V1.2 cible ces snapshots :
+Les snapshots locaux actuellement ciblés sont :
 
 - `gen9vgc2026regf-1760.json` pour Champions VGC 4v4 Duo
 - `gen9bssregi-1760.json` pour Champions 3v3
@@ -145,7 +158,12 @@ pnpm run fetch:assets
 ```
 
 Cette commande nécessite un accès réseau et régénère
-`src/data/generated/pokeAssets.ts`.
+`src/data/generated/pokeAssets.ts` puis la référence Pokémon générée. Pour une
+génération reproductible, pinner le commit `PokeAPI/pokeapi` utilisé :
+
+```bash
+POKEAPI_DATA_REF=<commit-sha> pnpm run fetch:assets
+```
 
 ## Développement
 

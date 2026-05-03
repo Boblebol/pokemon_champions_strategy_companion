@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@pkmn/data':
-        specifier: ^0.10.7
-        version: 0.10.7
-      '@pkmn/dex':
-        specifier: ^0.10.7
-        version: 0.10.7
       '@smogon/calc':
         specifier: ^0.11.0
         version: 0.11.0
@@ -24,6 +18,12 @@ importers:
         specifier: ^19.0.0
         version: 19.2.5(react@19.2.5)
     devDependencies:
+      '@pkmn/data':
+        specifier: ^0.10.7
+        version: 0.10.7
+      '@pkmn/dex':
+        specifier: ^0.10.7
+        version: 0.10.7
       '@testing-library/jest-dom':
         specifier: ^6.6.0
         version: 6.9.1

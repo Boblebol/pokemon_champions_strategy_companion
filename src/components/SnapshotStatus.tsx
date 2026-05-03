@@ -20,7 +20,11 @@ export function SnapshotStatus({
       <button type="button" onClick={onRefresh} disabled={isRefreshing}>
         {isRefreshing ? 'Mise à jour...' : 'Mettre à jour'}
       </button>
-      {refreshMessage ? <p>{refreshMessage}</p> : null}
+      {refreshMessage ? (
+        <p role="status" aria-live="polite">
+          {refreshMessage}
+        </p>
+      ) : null}
     </section>
   );
 }

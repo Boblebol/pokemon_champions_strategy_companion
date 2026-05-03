@@ -1,29 +1,38 @@
 {
   "name": "pokemon-champions-strategy-companion",
-  "version": "0.1.10",
+  "version": "0.2.0-beta.1",
   "description": "Assistant local de stratégie Pokémon Champions avec audit d'équipe et usages Smogon.",
   "private": true,
   "author": "Alexandre Enouf",
   "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@10.27.0",
+  "engines": {
+    "node": ">=22 <23",
+    "pnpm": ">=10.27.0 <11"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/copy-static-routes.mjs",
-    "check": "pnpm lint && pnpm test && pnpm build",
-    "fetch:assets": "node scripts/fetch-poke-assets.mjs",
+    "build": "pnpm run generate:reference && tsc -b && vite build && node scripts/copy-static-routes.mjs",
+    "check": "pnpm lint && pnpm test && pnpm build && pnpm check:bundle",
+    "check:bundle": "node scripts/check-bundle-budget.mjs",
+    "audit": "pnpm audit --audit-level moderate",
+    "deps:outdated": "pnpm outdated",
+    "fetch:assets": "node scripts/fetch-poke-assets.mjs && pnpm run generate:reference",
+    "generate:reference": "node scripts/generate-pkmn-reference.mjs",
+    "smoke:browser": "node scripts/smoke-lightpanda.mjs",
     "test": "vitest --run",
     "test:watch": "vitest",
     "lint": "tsc -b --pretty false"
   },
   "dependencies": {
-    "@pkmn/data": "^0.10.7",
-    "@pkmn/dex": "^0.10.7",
     "@smogon/calc": "^0.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@pkmn/data": "^0.10.7",
+    "@pkmn/dex": "^0.10.7",
     "@testing-library/jest-dom": "^6.6.0",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.0",

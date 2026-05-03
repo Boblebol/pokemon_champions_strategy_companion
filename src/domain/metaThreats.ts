@@ -11,6 +11,9 @@ export interface RankedThreat {
   reasons: string[];
 }
 
+export const META_THREAT_SCORE_EXPLANATION =
+  "Le score combine l'usage Smogon, les attaques connues qui touchent super efficacement ton équipe, puis retire les résistances fiables.";
+
 function resolveKnownDamagingMoves(commonMoves: string[], store: DataStore): MoveReference[] {
   return commonMoves.flatMap((moveName) => {
     const move = store.getMove(moveName);

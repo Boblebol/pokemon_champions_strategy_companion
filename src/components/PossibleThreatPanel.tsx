@@ -1,4 +1,5 @@
 import { PokemonAvatar } from './PokemonMedia';
+import { POSSIBLE_THREAT_SCORE_EXPLANATION } from '../domain/possibleThreats';
 import { moveDisplayName, pokemonDisplayName } from '../domain/referenceDisplay';
 import type { PossibleThreat } from '../domain/possibleThreats';
 import type { ReferenceSnapshot } from '../domain/types';
@@ -19,7 +20,7 @@ export function PossibleThreatPanel({
   return (
     <section className="panel possible-threat-panel">
       <h2>Adversaires rares dangereux</h2>
-      <p>Pokémon moins joués qui peuvent quand même toucher ta sélection avec des attaques super efficaces.</p>
+      <p>{POSSIBLE_THREAT_SCORE_EXPLANATION}</p>
       {!isSelectionComplete ? (
         <p>Choisis {pickSize} Pokémon pour voir les adversaires rares à surveiller.</p>
       ) : null}

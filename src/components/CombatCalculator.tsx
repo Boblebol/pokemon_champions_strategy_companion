@@ -162,15 +162,13 @@ function ModifierControls({
   );
 }
 
-export function CombatCalculator({
-  format,
-  selectedTeam,
-  reference,
-}: {
+export interface CombatCalculatorProps {
   format: FormatId;
   selectedTeam: TeamMember[];
   reference: ReferenceSnapshot;
-}) {
+}
+
+export function CombatCalculator({ format, selectedTeam, reference }: CombatCalculatorProps) {
   const defaultStateKey = stateKey(format, selectedTeam);
   const [state, setState] = useState<CombatState>(() => createDefaultCombatState(format, selectedTeam));
   const [queries, setQueries] = useState<Record<string, string>>({});

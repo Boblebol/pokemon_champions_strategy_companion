@@ -70,6 +70,11 @@ données locales et affiche un message explicite.
 Les images ne sont pas stockées dans le repo. Le repo conserve uniquement les
 URLs publiques et les noms localisés nécessaires à l'affichage.
 
+Pour le détail des données locales, du stockage navigateur et des accès réseau,
+voir [Données et confidentialité](data-and-privacy.md). Les équipes restent dans
+le navigateur ; seuls le refresh Smogon et le chargement de sprites ou d'icônes
+depuis des URLs publiques peuvent utiliser le réseau.
+
 ## Limites connues
 
 - Les IV ne sont pas encore éditables dans le constructeur.

@@ -1,4 +1,4 @@
-import { useId, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
 export interface PickerOption {
@@ -44,22 +44,53 @@ export function SearchablePicker({
   const pickerRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const selected = options.find((option) => option.value === value);
   const normalizedQuery = normalizeSearch(query.trim());
   const compactQuery = compactSearch(query.trim());
+  const indexedOptions = useMemo(
+    () =>
+      options.map((option) => {
+        const haystack = `${option.label} ${option.searchText}`;
+        return {
+          ...option,
+          compactHaystack: compactSearch(haystack),
+          normalizedHaystack: normalizeSearch(haystack),
+        };
+      }),
+    [options],
+  );
   const visibleOptions = useMemo(() => {
-    const sorted = [...options].sort((left, right) => left.label.localeCompare(right.label, 'fr'));
+    const sorted = [...indexedOptions].sort((left, right) => left.label.localeCompare(right.label, 'fr'));
     if (!normalizedQuery) {
       return sorted.slice(0, 24);
     }
 
     return sorted
-      .filter((option) => {
-        const haystack = `${option.label} ${option.searchText}`;
-        return normalizeSearch(haystack).includes(normalizedQuery) || compactSearch(haystack).includes(compactQuery);
-      })
+      .filter((option) => option.normalizedHaystack.includes(normalizedQuery) || option.compactHaystack.includes(compactQuery))
       .slice(0, 24);
-  }, [compactQuery, normalizedQuery, options]);
+  }, [compactQuery, indexedOptions, normalizedQuery]);
+
+  useEffect(() => {
+    setActiveIndex((currentIndex) => {
+      if (!isExpanded || visibleOptions.length === 0) {
+        return -1;
+      }
+
+      return currentIndex >= visibleOptions.length ? visibleOptions.length - 1 : currentIndex;
+    });
+  }, [isExpanded, visibleOptions.length]);
+
+  function optionId(index: number): string {
+    return `${resultsId}-option-${index}`;
+  }
+
+  function selectOption(option: PickerOption) {
+    onChange(option.value);
+    setQuery('');
+    setIsExpanded(false);
+    setActiveIndex(-1);
+  }
 
   return (
     <div
@@ -68,6 +99,7 @@ export function SearchablePicker({
       onBlur={(event) => {
         if (!pickerRef.current?.contains(event.relatedTarget)) {
           setIsExpanded(false);
+          setActiveIndex(-1);
         }
       }}
     >
@@ -84,6 +116,7 @@ export function SearchablePicker({
       <input
         id={inputId}
         aria-autocomplete="list"
+        aria-activedescendant={isExpanded && activeIndex >= 0 ? optionId(activeIndex) : undefined}
         aria-controls={resultsId}
         aria-describedby={helpId}
         aria-expanded={isExpanded}
@@ -93,11 +126,45 @@ export function SearchablePicker({
         onChange={(event) => {
           setQuery(event.target.value);
           setIsExpanded(true);
+          setActiveIndex(-1);
         }}
         onFocus={() => setIsExpanded(true)}
         onKeyDown={(event) => {
+          if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            setIsExpanded(true);
+            setActiveIndex((currentIndex) => {
+              if (visibleOptions.length === 0) {
+                return -1;
+              }
+
+              return currentIndex >= visibleOptions.length - 1 ? 0 : currentIndex + 1;
+            });
+          }
+
+          if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            setIsExpanded(true);
+            setActiveIndex((currentIndex) => {
+              if (visibleOptions.length === 0) {
+                return -1;
+              }
+
+              return currentIndex <= 0 ? visibleOptions.length - 1 : currentIndex - 1;
+            });
+          }
+
+          if (event.key === 'Enter' && isExpanded && activeIndex >= 0) {
+            event.preventDefault();
+            const activeOption = visibleOptions[activeIndex];
+            if (activeOption) {
+              selectOption(activeOption);
+            }
+          }
+
           if (event.key === 'Escape') {
             setIsExpanded(false);
+            setActiveIndex(-1);
           }
         }}
         placeholder={placeholder}
@@ -110,6 +177,7 @@ export function SearchablePicker({
             onChange(undefined);
             setQuery('');
             setIsExpanded(false);
+            setActiveIndex(-1);
           }}
         >
           Effacer
@@ -121,26 +189,23 @@ export function SearchablePicker({
       {isExpanded ? (
         <div className="picker-results" id={resultsId} role="listbox" aria-label="Résultats de recherche">
           {visibleOptions.length === 0 ? <p>{emptyLabel}</p> : null}
-          {visibleOptions.map((option) => (
-            <button
-              type="button"
+          {visibleOptions.map((option, index) => (
+            <div
               key={option.value}
-              aria-selected={option.value === value}
-              className={option.value === value ? 'active' : ''}
+              aria-selected={index === activeIndex || option.value === value}
+              className={index === activeIndex || option.value === value ? 'picker-option active' : 'picker-option'}
+              id={optionId(index)}
               role="option"
               onMouseDown={(event) => event.preventDefault()}
-              onClick={() => {
-                onChange(option.value);
-                setQuery('');
-                setIsExpanded(false);
-              }}
+              onMouseEnter={() => setActiveIndex(index)}
+              onClick={() => selectOption(option)}
             >
               {option.media}
               <span>
                 <strong>{option.label}</strong>
                 {option.description ? <small>{option.description}</small> : null}
               </span>
-            </button>
+            </div>
           ))}
         </div>
       ) : null}

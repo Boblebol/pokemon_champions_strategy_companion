@@ -4,8 +4,24 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OUTPUT_PATH = resolve(ROOT_DIR, 'src/data/generated/pokeAssets.ts');
-const CSV_BASE = 'https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/v2/csv/';
+const POKEAPI_DATA_REF = process.env.POKEAPI_DATA_REF ?? 'master';
+const CSV_URL_PREFIX = 'https://raw.githubusercontent.com/PokeAPI/pokeapi';
+const CSV_URL_SUFFIX = 'data/v2/csv';
 const SPRITE_BASE = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites';
+const FETCH_TIMEOUT_MS = 15_000;
+const MAX_CSV_BYTES = 5 * 1024 * 1024;
+const REQUIRED_CSV_HEADERS = {
+  'pokemon.csv': ['id', 'identifier', 'species_id'],
+  'pokemon_forms.csv': ['id', 'pokemon_id'],
+  'pokemon_form_names.csv': ['pokemon_form_id', 'local_language_id', 'pokemon_name', 'form_name'],
+  'pokemon_species_names.csv': ['pokemon_species_id', 'local_language_id', 'name'],
+  'move_names.csv': ['move_id', 'local_language_id', 'name'],
+  'ability_names.csv': ['ability_id', 'local_language_id', 'name'],
+  'ability_prose.csv': ['ability_id', 'local_language_id', 'short_effect'],
+  'item_names.csv': ['item_id', 'local_language_id', 'name'],
+  'item_prose.csv': ['item_id', 'local_language_id', 'short_effect'],
+  'nature_names.csv': ['nature_id', 'local_language_id', 'name'],
+};
 const LOCALES = {
   fr: '5',
   en: '9',
@@ -20,7 +36,15 @@ function toSearchId(value) {
     .replace(/[^a-z0-9]+/g, '');
 }
 
-function parseCsv(text) {
+function byteLength(value) {
+  return Buffer.byteLength(value, 'utf8');
+}
+
+export function buildPokeApiCsvUrl(fileName, ref = POKEAPI_DATA_REF) {
+  return `${CSV_URL_PREFIX}/${ref}/${CSV_URL_SUFFIX}/${fileName}`;
+}
+
+export function parseCsv(text) {
   const rows = [];
   let currentRow = [];
   let currentValue = '';
@@ -59,17 +83,73 @@ function parseCsv(text) {
   }
 
   const [headers, ...body] = rows.filter((row) => row.some((value) => value.length > 0));
+  if (!headers) {
+    return [];
+  }
+
   return body.map((row) =>
     Object.fromEntries(headers.map((header, index) => [header, row[index] ?? ''])),
   );
 }
 
-async function fetchCsv(fileName) {
-  const response = await fetch(`${CSV_BASE}${fileName}`);
-  if (!response.ok) {
-    throw new Error(`Unable to fetch ${fileName}: ${response.status} ${response.statusText}`);
+function validateRequiredHeaders(fileName, rows, requiredHeaders = REQUIRED_CSV_HEADERS[fileName] ?? []) {
+  if (requiredHeaders.length === 0) {
+    return;
   }
-  return parseCsv(await response.text());
+
+  const headers = new Set(Object.keys(rows[0] ?? {}));
+  const missingHeader = requiredHeaders.find((header) => !headers.has(header));
+  if (missingHeader) {
+    throw new Error(`${fileName} missing required header ${missingHeader}`);
+  }
+}
+
+export async function fetchCsv(
+  fileName,
+  {
+    fetcher = fetch,
+    ref = POKEAPI_DATA_REF,
+    timeoutMs = FETCH_TIMEOUT_MS,
+    maxBytes = MAX_CSV_BYTES,
+    requiredHeaders = REQUIRED_CSV_HEADERS[fileName],
+  } = {},
+) {
+  const controller = new AbortController();
+  let timedOut = false;
+  const timeout = setTimeout(() => {
+    timedOut = true;
+    controller.abort();
+  }, timeoutMs);
+
+  try {
+    const response = await fetcher(buildPokeApiCsvUrl(fileName, ref), { signal: controller.signal });
+    if (!response.ok) {
+      throw new Error(`Unable to fetch ${fileName}: ${response.status} ${response.statusText}`);
+    }
+
+    const contentLength = Number(response.headers?.get?.('content-length'));
+    if (Number.isFinite(contentLength) && contentLength > maxBytes) {
+      throw new Error(`${fileName} is too large (${contentLength} bytes > ${maxBytes} bytes)`);
+    }
+
+    const text = await response.text();
+    const textBytes = byteLength(text);
+    if (textBytes > maxBytes) {
+      throw new Error(`${fileName} is too large (${textBytes} bytes > ${maxBytes} bytes)`);
+    }
+
+    const rows = parseCsv(text);
+    validateRequiredHeaders(fileName, rows, requiredHeaders);
+    return rows;
+  } catch (error) {
+    if (timedOut || error?.name === 'AbortError') {
+      throw new Error(`Fetching ${fileName} timed out after ${timeoutMs}ms`);
+    }
+
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 function collectNames(rows, idColumn, valueColumns) {
@@ -296,7 +376,9 @@ async function main() {
   );
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+if (fileURLToPath(import.meta.url) === process.argv[1]) {
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}
