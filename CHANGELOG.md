@@ -4,6 +4,11 @@
 
 - À venir.
 
+## 0.2.0-beta.3 - 2026-05-03
+
+- UI: masque la navigation principale sur le cockpit app pour garder l'outil
+  plein écran, tout en conservant la navigation sur les pages landing et docs.
+
 ## 0.2.0-beta.2 - 2026-05-03
 
 - Release: déclaration directe de `esbuild` pour rendre la génération de

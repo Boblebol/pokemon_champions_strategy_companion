@@ -1,6 +1,6 @@
 {
   "name": "pokemon-champions-strategy-companion",
-  "version": "0.2.0-beta.2",
+  "version": "0.2.0-beta.3",
   "description": "Assistant local de stratégie Pokémon Champions avec audit d'équipe et usages Smogon.",
   "private": true,
   "author": "Alexandre Enouf",

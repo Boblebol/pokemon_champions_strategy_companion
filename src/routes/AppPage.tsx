@@ -26,7 +26,7 @@ import {
 import type { SavedTeam } from '../domain/savedTeams';
 import type { BuilderSlot } from '../domain/teamBuilder';
 import type { DataBundle, FormatId } from '../domain/types';
-import { MarketingFooter, PageNav } from './navigation';
+import { MarketingFooter } from './navigation';
 
 const initialPaste = `Great Tusk @ Booster Energy
 Ability: Protosynthesis
@@ -155,7 +155,6 @@ export default function AppPage() {
 
   return (
     <main className="product-shell app-only-shell app-redesign">
-      <PageNav tone="light" />
       <section className="app-shell" id="app" aria-label="Cockpit d'analyse">
         <header className="top-bar">
           <div className="cockpit-intro">

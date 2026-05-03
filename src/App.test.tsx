@@ -55,7 +55,7 @@ describe('App', () => {
     await renderAppPage();
 
     expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
+    expect(screen.queryByRole('navigation', { name: /navigation principale/i })).not.toBeInTheDocument();
     expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
   });
 
@@ -91,7 +91,7 @@ describe('App', () => {
     await renderAppPage();
 
     expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
+    expect(screen.queryByRole('navigation', { name: /navigation principale/i })).not.toBeInTheDocument();
     expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
   });
 
