@@ -1871,6 +1871,11 @@ small {
   min-width: 0;
 }
 
+.dashboard-primary > *,
+.dashboard-secondary > * {
+  min-width: 0;
+}
+
 .selected-analysis {
   display: grid;
   gap: 10px;

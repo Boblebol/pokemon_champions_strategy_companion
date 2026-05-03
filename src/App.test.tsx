@@ -88,8 +88,21 @@ describe('App', () => {
   it('groups dashboard analysis panels for desktop scanning', () => {
     const { container } = render(<App />);
 
-    expect(container.querySelector('.dashboard-primary')).not.toBeNull();
-    expect(container.querySelector('.dashboard-secondary')).not.toBeNull();
+    const dashboardPrimary = container.querySelector('.dashboard-primary');
+    const dashboardSecondary = container.querySelector('.dashboard-secondary');
+
+    expect(dashboardPrimary).not.toBeNull();
+    expect(dashboardSecondary).not.toBeNull();
+
+    const primaryPanels = within(dashboardPrimary as HTMLElement);
+    const secondaryPanels = within(dashboardSecondary as HTMLElement);
+
+    expect(primaryPanels.getByRole('heading', { name: /^équipe$/i })).toBeInTheDocument();
+    expect(primaryPanels.getByRole('heading', { name: /plan de match 3v3/i })).toBeInTheDocument();
+    expect(secondaryPanels.getByRole('heading', { name: /audit d'équipe/i })).toBeInTheDocument();
+    expect(secondaryPanels.getByRole('heading', { name: /adversaires fréquents dangereux/i })).toBeInTheDocument();
+    expect(secondaryPanels.getByRole('heading', { name: /adversaires rares dangereux/i })).toBeInTheDocument();
+    expect(secondaryPanels.getByRole('heading', { name: /aides rapides/i })).toBeInTheDocument();
   });
 
   it('renders the French graphical wizard and dashboard regions', async () => {
