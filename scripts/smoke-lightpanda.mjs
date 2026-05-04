@@ -35,6 +35,7 @@ const routes = [
     expectedText: [
       'Présentation marketing',
       'Gagne du temps au team preview',
+      'Mobile',
       "Ouvrir l'app",
       'Ouvrir la doc',
     ],

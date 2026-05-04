@@ -82,6 +82,10 @@ describe('App', () => {
 
     const landing = screen.getByLabelText(/présentation marketing/i);
     expect(landing).toBeInTheDocument();
+    const pageNav = within(landing).getByRole('navigation', { name: /navigation principale/i });
+    expect(within(pageNav).getByRole('link', { name: /^app$/i })).toHaveAttribute('href', '/app');
+    expect(within(pageNav).getByRole('link', { name: /^mobile$/i })).toHaveAttribute('href', '/mobile');
+    expect(within(pageNav).getByRole('link', { name: /^doc$/i })).toHaveAttribute('href', '/docs');
     expect(within(landing).getByRole('heading', { name: /gagne du temps au team preview/i })).toBeInTheDocument();
     expect(within(landing).getByRole('link', { name: /ouvrir l'app desktop/i })).toHaveAttribute('href', '/app');
     expect(within(landing).getByRole('link', { name: /ouvrir l'app mobile/i })).toHaveAttribute('href', '/mobile');
