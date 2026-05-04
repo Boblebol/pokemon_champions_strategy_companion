@@ -20,6 +20,7 @@ Pages :
 
 - Landing : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 - App : <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
+- App mobile PWA : <https://boblebol.github.io/pokemon_champions_strategy_companion/mobile>
 - Documentation : <https://boblebol.github.io/pokemon_champions_strategy_companion/docs>
 
 Documentation repo :
@@ -35,6 +36,8 @@ Documentation repo :
   analyse.
 - Landing marketing séparée, cockpit applicatif séparé et documentation
   utilisateur dédiée.
+- Deux fronts en parallèle : cockpit desktop sur `/app` et expérience mobile
+  tactile sur `/mobile`.
 - PWA installable sans store depuis le navigateur, avec manifest, service worker
   et cache applicatif local.
 - Interface française avec cartes d'équipe, audit et adversaires dangereux.
@@ -87,8 +90,8 @@ chargement.
 
 Installation sur iPhone ou iPad :
 
-1. Ouvrir la page publique dans Safari :
-   <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
+1. Ouvrir l'expérience mobile dans Safari :
+   <https://boblebol.github.io/pokemon_champions_strategy_companion/mobile>
 2. Toucher le bouton de partage de Safari.
 3. Choisir `Sur l'écran d'accueil`.
 4. Valider le nom `Champions` ou le modifier.
@@ -96,8 +99,8 @@ Installation sur iPhone ou iPad :
 
 Installation sur Android :
 
-1. Ouvrir la page publique dans Chrome ou un navigateur compatible PWA :
-   <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
+1. Ouvrir l'expérience mobile dans Chrome ou un navigateur compatible PWA :
+   <https://boblebol.github.io/pokemon_champions_strategy_companion/mobile>
 2. Ouvrir le menu du navigateur.
 3. Choisir `Installer l'application` ou `Ajouter à l'écran d'accueil`.
 4. Valider l'installation.

@@ -15,7 +15,10 @@ export default function DocsPage() {
           </p>
           <div className="hero-actions">
             <a className="primary-cta" href={pageHref('app')}>
-              Ouvrir l'app
+              Ouvrir l'app desktop
+            </a>
+            <a className="secondary-cta" href={pageHref('mobile')}>
+              Ouvrir l'app mobile
             </a>
             <a className="secondary-cta" href={pageHref('landing')}>
               Voir la landing
@@ -27,8 +30,9 @@ export default function DocsPage() {
           <article>
             <h2>1. Démarrer avec l'assistant</h2>
             <p>
-              L'assistant de départ est optionnel et repliable. Il garde sous les yeux le format, l'équipe complète,
-              les Pokémon joués, le Combat et les priorités d'analyse sans bloquer le cockpit.
+              Utilise le cockpit desktop sur <code>/app</code> pour scanner toutes les informations ensemble, ou
+              l'expérience <code>/mobile</code> pour une navigation tactile par écrans : accueil, équipe, sélection,
+              Combat, analyse et données.
             </p>
           </article>
           <article>

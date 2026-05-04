@@ -6,7 +6,7 @@ Showdown dédiés à Pokémon Champions.
 
 ## Parcours rapide
 
-1. Ouvrir l'app locale ou la page publique `/app`.
+1. Ouvrir le cockpit desktop `/app` ou l'expérience mobile tactile `/mobile`.
 2. Choisir le format Showdown : `[Champions] BSS Reg M-A`,
    `[Champions] VGC 2026 Reg M-A` ou `[Champions] OU`.
 3. Importer un paste Showdown, charger un fichier `.txt` ou construire les 6
@@ -29,7 +29,7 @@ gardés en cache par le service worker.
 
 Sur iOS ou iPadOS :
 
-1. Ouvre `/app` dans Safari.
+1. Ouvre `/mobile` dans Safari.
 2. Appuie sur le bouton de partage.
 3. Choisis `Sur l'écran d'accueil`.
 4. Valide le nom proposé ou renomme l'app.
@@ -37,7 +37,7 @@ Sur iOS ou iPadOS :
 
 Sur Android :
 
-1. Ouvre `/app` dans Chrome ou un navigateur compatible PWA.
+1. Ouvre `/mobile` dans Chrome ou un navigateur compatible PWA.
 2. Ouvre le menu du navigateur.
 3. Choisis `Installer l'application` ou `Ajouter à l'écran d'accueil`.
 4. Valide l'installation.
@@ -46,6 +46,10 @@ Sur Android :
 Le statut PWA dans le cockpit indique si l'app est en ligne ou hors ligne. Hors
 ligne, les données locales et les équipes sauvegardées restent disponibles ; la
 mise à jour Smogon attend simplement le retour du réseau.
+
+La landing propose les deux entrées : `/app` pour le cockpit desktop complet et
+`/mobile` pour l'interface installée pensée pour le doigt. Les deux utilisent les
+mêmes données, les mêmes formats, les mêmes calculs et les mêmes exports.
 
 ## Formats
 

@@ -20,6 +20,16 @@ const routes = [
     ],
   },
   {
+    path: '/mobile',
+    selector: '.mobile-shell',
+    expectedText: [
+      'Application mobile Champions',
+      'Champions mobile',
+      'Pensé pour le doigt',
+      "Continuer l'équipe",
+    ],
+  },
+  {
     path: '/landing',
     selector: '.marketing-hero',
     expectedText: [

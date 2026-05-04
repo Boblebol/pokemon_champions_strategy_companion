@@ -41,7 +41,10 @@ export default function LandingPage() {
             </p>
             <div className="hero-actions">
               <a className="primary-cta" href={pageHref('app')}>
-                Ouvrir l'app
+                Ouvrir l'app desktop
+              </a>
+              <a className="secondary-cta" href={pageHref('mobile')}>
+                Ouvrir l'app mobile
               </a>
               <a className="secondary-cta" href={pageHref('docs')}>
                 Ouvrir la doc
@@ -117,7 +120,10 @@ export default function LandingPage() {
         </div>
         <div className="landing-final-cta">
           <a className="primary-cta" href={pageHref('app')}>
-            Ouvrir l'app
+            Ouvrir l'app desktop
+          </a>
+          <a className="secondary-cta" href={pageHref('mobile')}>
+            Ouvrir l'app mobile
           </a>
           <a className="secondary-cta" href={pageHref('docs')}>
             Ouvrir la doc

@@ -29,7 +29,7 @@ assert(manifest.name === 'Pokemon Champions Strategy Companion', 'manifest.name 
 assert(manifest.short_name === 'Champions', 'manifest.short_name is incorrect');
 assert(manifest.lang === 'fr', 'manifest.lang must be fr');
 assert(manifest.display === 'standalone', 'manifest.display must be standalone');
-assert(manifest.start_url === './app', 'manifest.start_url must target ./app for GitHub Pages');
+assert(manifest.start_url === './mobile', 'manifest.start_url must target ./mobile for the PWA mobile front');
 assert(manifest.scope === './', 'manifest.scope must be ./ for GitHub Pages');
 assert(Array.isArray(manifest.icons) && manifest.icons.length >= 3, 'manifest.icons must include app icons');
 assert(
@@ -57,6 +57,7 @@ assert(styles.includes('env(safe-area-inset-bottom'), 'styles must account for m
 assert(styles.includes('@media (max-width: 900px)'), 'styles must include the mobile breakpoint');
 
 await fileExists('dist/index.html');
+await fileExists('dist/mobile/index.html');
 await fileExists('dist/manifest.webmanifest');
 await fileExists('dist/sw.js');
 
