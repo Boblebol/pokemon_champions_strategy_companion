@@ -1,13 +1,14 @@
 # Guide utilisateur Champions Companion
 
 Ce guide complète la documentation intégrée de l'app. Il décrit le workflow local
-recommandé pour préparer une sélection Pokémon Champions.
+recommandé pour préparer une sélection Pokémon Champions avec les tiers Pokémon
+Showdown dédiés à Pokémon Champions.
 
 ## Parcours rapide
 
 1. Ouvrir l'app locale ou la page publique `/app`.
-2. Choisir le format : `Champions 3v3`, `Champions VGC 4v4 Duo` ou
-   `Champions OU`.
+2. Choisir le format Showdown : `[Champions] BSS Reg M-A`,
+   `[Champions] VGC 2026 Reg M-A` ou `[Champions] OU`.
 3. Importer un paste Showdown, charger un fichier `.txt` ou construire les 6
    slots dans le constructeur.
 4. Cocher les Pokémon réellement joués dans la sélection de match.
@@ -19,24 +20,60 @@ recommandé pour préparer une sélection Pokémon Champions.
 L'assistant de départ est optionnel. Il peut être masqué, puis rouvert depuis le
 résumé compact.
 
+## Installation mobile
+
+L'app est prévue pour fonctionner comme PWA. Sur mobile, elle peut être ajoutée à
+l'écran d'accueil depuis le navigateur, sans store. Une fois chargée au moins une
+fois, le shell applicatif, les routes principales et les assets versionnés sont
+gardés en cache par le service worker.
+
+Sur iOS ou iPadOS :
+
+1. Ouvre `/app` dans Safari.
+2. Appuie sur le bouton de partage.
+3. Choisis `Sur l'écran d'accueil`.
+4. Valide le nom proposé ou renomme l'app.
+5. Lance Champions Companion depuis l'icône créée.
+
+Sur Android :
+
+1. Ouvre `/app` dans Chrome ou un navigateur compatible PWA.
+2. Ouvre le menu du navigateur.
+3. Choisis `Installer l'application` ou `Ajouter à l'écran d'accueil`.
+4. Valide l'installation.
+5. Lance Champions Companion depuis l'icône créée.
+
+Le statut PWA dans le cockpit indique si l'app est en ligne ou hors ligne. Hors
+ligne, les données locales et les équipes sauvegardées restent disponibles ; la
+mise à jour Smogon attend simplement le retour du réseau.
+
 ## Formats
 
-| Format | Style | Équipe | Sélection | Niveau |
+| Format Showdown | Style | Équipe | Sélection | Niveau |
 | --- | --- | ---: | ---: | ---: |
-| Champions 3v3 | Solo | 6 | 3 | 100 |
-| Champions VGC 4v4 Duo | Duo | 6 | 4 | 50 |
-| Champions OU | 6v6 | 6 | 6 | 100 |
+| [Champions] BSS Reg M-A | Solo Flat Rules | 6 | 3 | 50 |
+| [Champions] VGC 2026 Reg M-A | Duo Flat Rules | 6 | 4 | 50 |
+| [Champions] OU | 6v6 | 6 | 6 | 100 |
 
 Le format pilote le niveau des calculs, le nombre de Pokémon joués, le style de
-Combat et les données d'usage Smogon utilisées.
+Combat et les données d'usage Smogon utilisées. Ces libellés sont les formats
+Pokémon Showdown pour Pokémon Champions.
 
 ## Constructeur
 
 Le constructeur propose les Pokémon, talents, objets, natures et attaques depuis
-la référence Gen 9 NatDex générée avec `@pkmn/dex` et `@pkmn/data`. La recherche
+la référence locale filtrée par le roster Showdown Champions et générée avec
+`@pkmn/dex` et `@pkmn/data`. La recherche
 affiche les résultats en français, triés alphabétiquement, avec images Pokémon,
 images d'objets et descriptions d'objets quand la source les fournit. Les valeurs
 internes et l'export restent compatibles Pokémon Showdown en anglais.
+
+Le roster local vient du mod Pokémon Showdown `champions`. Il est filtré pour ne
+pas proposer les entrées marquées `Illegal` dans
+`data/mods/champions/formats-data.ts`. Les formes qui ne correspondent pas à un
+slot d'équipe directement sélectionnable, comme les Méga, Gigamax, Primo,
+Eternamax, Totem ou formes battle-only, ne sont pas proposées comme Pokémon
+séparés dans le constructeur.
 
 Dans l'assistant, `Importer un fichier` lit un `.txt` Showdown et remplace
 l'équipe courante. `Exporter l'équipe` télécharge le paste actuel dans
@@ -57,8 +94,9 @@ Il calcule :
 - les effets des boosts, de la Téracristallisation, de la brûlure, du coup
   critique, de la météo, du terrain et des protections par côté.
 
-En Champions VGC 4v4 Duo, la scène peut contenir deux alliés actifs et deux
-adversaires. En Champions 3v3 et OU, elle démarre en 1v1.
+En `[Champions] VGC 2026 Reg M-A`, la scène peut contenir deux alliés actifs et
+deux adversaires. En `[Champions] BSS Reg M-A` et `[Champions] OU`, elle démarre
+en 1v1.
 
 ## Données
 

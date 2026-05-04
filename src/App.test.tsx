@@ -25,7 +25,7 @@ async function renderDocsPage() {
 }
 
 async function waitForCompleteReference() {
-  expect(await screen.findByText(/source complète/i, undefined, { timeout: 5000 })).toBeInTheDocument();
+  expect(await screen.findByText(/roster showdown champions/i, undefined, { timeout: 5000 })).toBeInTheDocument();
 }
 
 async function selectPickerOption(
@@ -55,6 +55,17 @@ describe('App', () => {
     await renderAppPage();
 
     expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/statut pwa/i)).toBeInTheDocument();
+    expect(screen.getByText(/installable sans store/i)).toBeInTheDocument();
+    const mobileNav = screen.getByRole('navigation', { name: /navigation mobile app/i });
+    expect(within(mobileNav).getByRole('link', { name: /équipe/i })).toHaveAttribute('href', '#builder');
+    expect(within(mobileNav).getByRole('link', { name: /sélection/i })).toHaveAttribute(
+      'href',
+      '#selected-analysis',
+    );
+    expect(within(mobileNav).getByRole('link', { name: /combat/i })).toHaveAttribute('href', '#combat');
+    expect(within(mobileNav).getByRole('link', { name: /analyse/i })).toHaveAttribute('href', '#analysis-dashboard');
+    expect(within(mobileNav).getByRole('link', { name: /données/i })).toHaveAttribute('href', '#data-status');
     expect(screen.queryByRole('navigation', { name: /navigation principale/i })).not.toBeInTheDocument();
     expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
   });
@@ -67,7 +78,7 @@ describe('App', () => {
     expect(within(landing).getByRole('heading', { name: /gagne du temps au team preview/i })).toBeInTheDocument();
     expect(within(landing).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
     expect(within(landing).getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
-    expect(within(landing).getByText(/analyse 3v3 niveau 100/i)).toBeInTheDocument();
+    expect(within(landing).getByText(/formats showdown champions/i)).toBeInTheDocument();
     expect(within(landing).getAllByText(/adversaires rares/i).length).toBeGreaterThan(0);
     expect(within(landing).getAllByText(/équipe de 6/i).length).toBeGreaterThan(0);
     expect(screen.queryByLabelText(/cockpit d'analyse/i)).not.toBeInTheDocument();
@@ -118,7 +129,7 @@ describe('App', () => {
     const secondaryPanels = within(dashboardSecondary as HTMLElement);
 
     expect(primaryPanels.getByRole('heading', { name: /^équipe$/i })).toBeInTheDocument();
-    expect(primaryPanels.getByRole('heading', { name: /plan de match 3v3/i })).toBeInTheDocument();
+    expect(primaryPanels.getByRole('heading', { name: /plan de match showdown/i })).toBeInTheDocument();
     expect(secondaryPanels.getByRole('heading', { name: /audit d'équipe/i })).toBeInTheDocument();
     expect(secondaryPanels.getByRole('heading', { name: /adversaires fréquents dangereux/i })).toBeInTheDocument();
     expect(secondaryPanels.getByRole('heading', { name: /adversaires rares dangereux/i })).toBeInTheDocument();
@@ -145,8 +156,8 @@ describe('App', () => {
     expect(screen.getByText(/choisis 3 pokémon pour voir les adversaires rares/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
     expect(screen.getAllByText(/équipe de 6/i).length).toBeGreaterThan(0);
-    expect(screen.getByRole('heading', { name: /plan de match 3v3/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/niveau 100/i).length).toBeGreaterThan(0);
+    expect(screen.getByRole('heading', { name: /plan de match showdown/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/niveau 50/i).length).toBeGreaterThan(0);
   });
 
   it('renders contextual help for strategy and data freshness', async () => {
@@ -363,7 +374,7 @@ Ability: Multiscale
 
     await user.click(screen.getByRole('button', { name: /charger Ladder BO1/i }));
 
-    expect(paste.value).toContain('Great Tusk @ Booster Energy');
+    expect(paste.value).toContain('Dragonite @ Heavy-Duty Boots');
     expect(screen.getByText(/équipe chargée depuis les sauvegardes locales/i)).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /supprimer Ladder BO1/i }));
@@ -382,7 +393,7 @@ Ability: Multiscale
     expect(exportLink).toHaveAttribute('download', 'pokemon-champions-analyse.md');
     const decodedReport = decodeURIComponent(exportLink.getAttribute('href') ?? '');
     expect(decodedReport).toContain('# Rapport Champions Companion');
-    expect(decodedReport).toContain('Great Tusk');
+    expect(decodedReport).toContain('Dragonite');
     expect(decodedReport).toContain('Menaces frequentes');
   });
 
@@ -431,7 +442,7 @@ Ability: Multiscale
     const user = userEvent.setup();
     await renderAppPage();
 
-    expect(screen.getByText(/active paléosynthèse avec le soleil/i)).toBeInTheDocument();
+    expect(screen.getByText(/réduit les dégâts (subis|reçus).*(pv sont pleins|tous ses pv)/i)).toBeInTheDocument();
     await user.selectOptions(screen.getByLabelText(/slot 1 nature/i), 'Jolly');
 
     expect(screen.getByText(/augmente la vitesse/i)).toBeInTheDocument();
@@ -554,12 +565,13 @@ Ability: Multiscale
     expect(paste.value).toContain('- Earthquake');
   });
 
-  it('uses Champions 3v3 as the default pick 3 level 100 mode', async () => {
+  it('uses Champions BSS as the default pick 3 Showdown mode', async () => {
     await renderAppPage();
 
     expect(screen.getAllByText(/sélection de match : choisis 3 pokémon/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/sélection incomplète : choisis 3 pokémon/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/(Fort-Ivoire \(Great Tusk\)|Great Tusk): 300 exact/i).length).toBeGreaterThan(0);
+    expect(screen.getByText(/tiers pokémon showdown pour pokémon champions/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/(Dracolosse \(Dragonite\)|Dragonite): 145 exact/i).length).toBeGreaterThan(0);
   });
 
   it('adapts match selection to Champions BSS pick 3', async () => {
@@ -589,8 +601,10 @@ Ability: Multiscale
     const threatPanel = screen.getByRole('heading', { name: /adversaires fréquents dangereux/i }).closest('section');
     expect(threatPanel).not.toBeNull();
     expect(
-      within(threatPanel as HTMLElement).getByText(/Fort-Ivoire|Scalpereur|Corvaillus|Great Tusk|Kingambit|Corviknight/i),
-    ).toBeInTheDocument();
+      within(threatPanel as HTMLElement).getAllByText(
+        /Dracolosse|Scalpereur|Corvaillus|Kangourex|Dragonite|Kingambit|Corviknight|Kangaskhan/i,
+      ).length,
+    ).toBeGreaterThan(0);
   });
 
   it('shows member parse warnings from pasted teams', async () => {

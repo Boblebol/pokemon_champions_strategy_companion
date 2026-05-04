@@ -2,13 +2,15 @@
 
 ## Audience
 
-Joueurs Pokémon Champions, VGC, BSS et OU qui veulent préparer rapidement une
-équipe avant un match, un entraînement ou un tournoi.
+Joueurs Pokémon Champions qui préparent des équipes pour les formats Pokémon
+Showdown `[Champions] BSS Reg M-A`, `[Champions] VGC 2026 Reg M-A` et
+`[Champions] OU` avant un match, un entraînement ou un tournoi.
 
 ## Promesse
 
 Comprendre les menaces principales, choisir une sélection solide et vérifier les
-lignes de dégâts importantes sans quitter le navigateur.
+lignes de dégâts importantes sans quitter le navigateur, avec des libellés et
+données alignés sur les tiers Pokémon Showdown pour Pokémon Champions.
 
 ## Non-objectifs
 

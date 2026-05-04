@@ -7,11 +7,11 @@ import { DeferredCombatCalculator } from './DeferredCombatCalculator';
 const selectedTeam: TeamMember[] = [
   {
     slot: 1,
-    species: 'Great Tusk',
-    item: 'Booster Energy',
-    ability: 'Protosynthesis',
+    species: 'Dragonite',
+    item: 'Heavy-Duty Boots',
+    ability: 'Multiscale',
     evs: { atk: 252, spd: 4, spe: 252 },
-    moves: ['Earthquake', 'Close Combat'],
+    moves: ['Earthquake', 'Extreme Speed'],
     parseWarnings: [],
   },
 ];

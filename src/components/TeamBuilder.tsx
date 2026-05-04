@@ -245,7 +245,7 @@ export function TeamBuilder({
   );
   const sourceLabel =
     referenceStatus === 'complete'
-      ? 'Source complète'
+      ? 'Roster Showdown Champions'
       : referenceStatus === 'error'
         ? 'Source démo active'
         : 'Source démo, chargement complet';

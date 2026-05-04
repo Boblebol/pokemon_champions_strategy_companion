@@ -1,6 +1,6 @@
 {
   "name": "pokemon-champions-strategy-companion",
-  "version": "0.2.0-beta.3",
+  "version": "0.2.0-beta.4",
   "description": "Assistant local de stratégie Pokémon Champions avec audit d'équipe et usages Smogon.",
   "private": true,
   "author": "Alexandre Enouf",
@@ -14,11 +14,13 @@
   "scripts": {
     "dev": "vite",
     "build": "pnpm run generate:reference && tsc -b && vite build && node scripts/copy-static-routes.mjs",
-    "check": "pnpm lint && pnpm test && pnpm build && pnpm check:bundle",
+    "check": "pnpm lint && pnpm test && pnpm build && pnpm pwa:check && pnpm check:bundle",
     "check:bundle": "node scripts/check-bundle-budget.mjs",
+    "pwa:check": "node scripts/check-pwa.mjs",
     "audit": "pnpm audit --audit-level moderate",
     "deps:outdated": "pnpm outdated",
     "fetch:assets": "node scripts/fetch-poke-assets.mjs && pnpm run generate:reference",
+    "fetch:champions": "node scripts/fetch-showdown-champions-data.mjs && pnpm run generate:reference",
     "generate:reference": "node scripts/generate-pkmn-reference.mjs",
     "smoke:browser": "node scripts/smoke-lightpanda.mjs",
     "test": "vitest --run",

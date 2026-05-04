@@ -34,18 +34,18 @@ describe('rankMetaThreats', () => {
       limit: 2,
     });
 
-    expect(threats.map((threat) => threat.species)).toEqual(['Dragonite', 'Kingambit']);
+    expect(threats.map((threat) => threat.species)).toEqual(['Charizard', 'Dragonite']);
   });
 
   it('explains why a high-usage attacker is dangerous', () => {
     const threats = rankMetaThreats({
-      team: [member('Garchomp'), member('Dragonite'), member('Great Tusk')],
+      team: [member('Clefable')],
       store,
-      format: 'champions-vgc',
+      format: 'champions-bss',
       limit: 1,
     });
 
-    expect(threats[0].species).toBe('Flutter Mane');
+    expect(threats[0].species).toBe('Kingambit');
     expect(threats[0].reasons.join(' ')).toContain('usage');
     expect(threats[0].reasons.join(' ')).toContain('super efficacement');
   });

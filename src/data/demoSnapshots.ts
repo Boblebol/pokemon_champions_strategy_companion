@@ -7,26 +7,28 @@ export const demoDataBundle: DataBundle = {
     importedAt: '2026-04-29T00:00:00.000Z',
     locale: 'fr',
     pokemon: {
-      greattusk: {
-        id: 'greattusk',
-        name: 'Great Tusk',
-        localizedNames: { en: 'Great Tusk', fr: 'Fort-Ivoire', ja: 'イダイナキバ' },
-        types: ['Ground', 'Fighting'],
-        baseStats: { hp: 115, atk: 131, def: 131, spa: 53, spd: 53, spe: 87 },
-        abilities: ['Protosynthesis'],
-        moveIds: ['earthquake', 'closecombat', 'lowkick', 'stealthrock', 'icebeam'],
+      quaquaval: {
+        id: 'quaquaval',
+        name: 'Quaquaval',
+        localizedNames: { en: 'Quaquaval', fr: 'Palmaval', ja: 'ウェーニバル' },
+        types: ['Water', 'Fighting'],
+        baseStats: { hp: 85, atk: 120, def: 80, spa: 85, spd: 75, spe: 85 },
+        abilities: ['Torrent', 'Moxie'],
+        moveIds: ['closecombat', 'lowkick', 'hydropump', 'uturn', 'swordsdance'],
       },
-      fluttermane: {
-        id: 'fluttermane',
-        name: 'Flutter Mane',
-        types: ['Ghost', 'Fairy'],
-        baseStats: { hp: 55, atk: 55, def: 55, spa: 135, spd: 135, spe: 135 },
-        abilities: ['Protosynthesis'],
-        moveIds: ['moonblast', 'shadowball', 'thunderbolt'],
+      clefable: {
+        id: 'clefable',
+        name: 'Clefable',
+        localizedNames: { en: 'Clefable', fr: 'Mélodelfe', ja: 'ピクシー' },
+        types: ['Fairy'],
+        baseStats: { hp: 95, atk: 70, def: 73, spa: 95, spd: 90, spe: 60 },
+        abilities: ['Cute Charm', 'Magic Guard', 'Unaware'],
+        moveIds: ['moonblast', 'thunderbolt', 'fireblast', 'icebeam'],
       },
       kingambit: {
         id: 'kingambit',
         name: 'Kingambit',
+        localizedNames: { en: 'Kingambit', fr: 'Scalpereur', ja: 'ドドゲザン' },
         types: ['Dark', 'Steel'],
         baseStats: { hp: 100, atk: 135, def: 120, spa: 60, spd: 85, spe: 50 },
         abilities: ['Supreme Overlord', 'Defiant', 'Pressure'],
@@ -35,6 +37,12 @@ export const demoDataBundle: DataBundle = {
       dragonite: {
         id: 'dragonite',
         name: 'Dragonite',
+        localizedNames: { en: 'Dragonite', fr: 'Dracolosse', ja: 'カイリュー' },
+        image: {
+          artwork: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/149.png',
+          sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png',
+          icon: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/icons/149.png',
+        },
         types: ['Dragon', 'Flying'],
         baseStats: { hp: 91, atk: 134, def: 95, spa: 100, spd: 100, spe: 80 },
         abilities: ['Multiscale', 'Inner Focus'],
@@ -43,6 +51,7 @@ export const demoDataBundle: DataBundle = {
       corviknight: {
         id: 'corviknight',
         name: 'Corviknight',
+        localizedNames: { en: 'Corviknight', fr: 'Corvaillus', ja: 'アーマーガア' },
         types: ['Flying', 'Steel'],
         baseStats: { hp: 98, atk: 87, def: 105, spa: 53, spd: 85, spe: 67 },
         abilities: ['Mirror Armor', 'Pressure', 'Unnerve'],
@@ -79,13 +88,14 @@ export const demoDataBundle: DataBundle = {
         abilities: ['Scrappy', 'Inner Focus', 'Early Bird'],
         moveIds: ['fakeout', 'earthquake', 'suckerpunch', 'icebeam', 'fireblast'],
       },
-      dondozo: {
-        id: 'dondozo',
-        name: 'Dondozo',
+      palafin: {
+        id: 'palafin',
+        name: 'Palafin',
+        localizedNames: { en: 'Palafin', fr: 'Superdofin', ja: 'イルカマン' },
         types: ['Water'],
-        baseStats: { hp: 150, atk: 100, def: 115, spa: 65, spd: 65, spe: 35 },
-        abilities: ['Unaware', 'Oblivious', 'Water Veil'],
-        moveIds: ['hydropump', 'earthquake'],
+        baseStats: { hp: 100, atk: 70, def: 72, spa: 53, spd: 62, spe: 100 },
+        abilities: ['Zero to Hero'],
+        moveIds: ['hydropump', 'closecombat', 'icebeam'],
       },
       aegislash: {
         id: 'aegislash',
@@ -98,6 +108,7 @@ export const demoDataBundle: DataBundle = {
       charizard: {
         id: 'charizard',
         name: 'Charizard',
+        localizedNames: { en: 'Charizard', fr: 'Dracaufeu', ja: 'リザードン' },
         types: ['Fire', 'Flying'],
         baseStats: { hp: 78, atk: 84, def: 78, spa: 109, spd: 85, spe: 100 },
         abilities: ['Blaze', 'Solar Power'],
@@ -267,6 +278,12 @@ export const demoDataBundle: DataBundle = {
         localizedNames: { en: 'Inner Focus', fr: 'Attention', ja: 'せいしんりょく' },
         description: 'Empêche la peur et protège contre Intimidation.',
       },
+      multiscale: {
+        id: 'multiscale',
+        name: 'Multiscale',
+        localizedNames: { en: 'Multiscale', fr: 'Multiécaille', ja: 'マルチスケイル' },
+        description: 'Réduit les dégâts subis quand les PV sont pleins.',
+      },
       earlybird: {
         id: 'earlybird',
         name: 'Early Bird',
@@ -386,6 +403,7 @@ export const demoDataBundle: DataBundle = {
       abilities: {
         earlybird: { en: 'Early Bird', fr: 'Matinal', ja: 'はやおき' },
         innerfocus: { en: 'Inner Focus', fr: 'Attention', ja: 'せいしんりょく' },
+        multiscale: { en: 'Multiscale', fr: 'Multiécaille', ja: 'マルチスケイル' },
         protosynthesis: { en: 'Protosynthesis', fr: 'Paléosynthèse', ja: 'こだいかっせい' },
         roughskin: { en: 'Rough Skin', fr: 'Peau Dure', ja: 'さめはだ' },
         scrappy: { en: 'Scrappy', fr: 'Querelleur', ja: 'きもったま' },
@@ -423,8 +441,8 @@ export const demoDataBundle: DataBundle = {
     'champions-vgc': {
       id: 'demo-vgc-2026-04',
       format: 'champions-vgc',
-      label: 'Champions VGC 4v4 Duo démo locale',
-      source: "Snapshot d'usage VGC 4v4 Duo démo",
+      label: '[Champions] VGC 2026 Reg M-A démo locale',
+      source: "Snapshot d'usage Showdown Champions VGC 2026 Reg M-A démo",
       date: '2026-04',
       importedAt: '2026-04-29T00:00:00.000Z',
       battleCount: 1200,
@@ -432,29 +450,29 @@ export const demoDataBundle: DataBundle = {
       entries: [
         {
           rank: 1,
-          species: 'Flutter Mane',
-          usage: 34.2,
-          commonMoves: ['Moonblast', 'Shadow Ball'],
+          species: 'Dragonite',
+          usage: 31.8,
+          commonMoves: ['Dragon Dance', 'Extreme Speed'],
         },
         {
           rank: 2,
-          species: 'Great Tusk',
-          usage: 28.5,
-          commonMoves: ['Earthquake', 'Close Combat'],
+          species: 'Kingambit',
+          usage: 26.4,
+          commonMoves: ['Sucker Punch', 'Iron Head'],
         },
         {
           rank: 3,
-          species: 'Dragonite',
-          usage: 21.1,
-          commonMoves: ['Dragon Dance', 'Extreme Speed'],
+          species: 'Kangaskhan',
+          usage: 18.7,
+          commonMoves: ['Fake Out', 'Sucker Punch'],
         },
       ],
     },
     'champions-bss': {
       id: 'demo-bss-2026-04',
       format: 'champions-bss',
-      label: 'Champions BSS démo locale',
-      source: "Snapshot d'usage BSS démo",
+      label: '[Champions] BSS Reg M-A démo locale',
+      source: "Snapshot d'usage Showdown Champions BSS Reg M-A démo",
       date: '2026-04',
       importedAt: '2026-04-29T00:00:00.000Z',
       battleCount: 900,
@@ -474,9 +492,9 @@ export const demoDataBundle: DataBundle = {
         },
         {
           rank: 3,
-          species: 'Garchomp',
+          species: 'Charizard',
           usage: 18.9,
-          commonMoves: ['Earthquake', 'Stealth Rock'],
+          commonMoves: ['Fire Blast', 'Roost'],
         },
         {
           rank: 4,
@@ -489,8 +507,8 @@ export const demoDataBundle: DataBundle = {
     'champions-ou': {
       id: 'demo-ou-2026-04',
       format: 'champions-ou',
-      label: 'Champions OU démo locale',
-      source: "Snapshot d'usage OU démo",
+      label: '[Champions] OU démo locale',
+      source: "Snapshot d'usage Showdown Champions OU démo",
       date: '2026-04',
       importedAt: '2026-04-29T00:00:00.000Z',
       battleCount: 2500,
@@ -498,9 +516,9 @@ export const demoDataBundle: DataBundle = {
       entries: [
         {
           rank: 1,
-          species: 'Great Tusk',
+          species: 'Dragonite',
           usage: 35.2,
-          commonMoves: ['Earthquake', 'Close Combat', 'Stealth Rock'],
+          commonMoves: ['Dragon Dance', 'Extreme Speed', 'Earthquake'],
         },
         {
           rank: 2,

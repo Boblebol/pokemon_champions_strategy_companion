@@ -3,7 +3,9 @@ import { AnalysisExport } from '../components/AnalysisExport';
 import { AuditPanel } from '../components/AuditPanel';
 import { DeferredCombatCalculator } from '../components/DeferredCombatCalculator';
 import { HelpPanel } from '../components/HelpPanel';
+import { MobileNav } from '../components/MobileNav';
 import { PossibleThreatPanel } from '../components/PossibleThreatPanel';
+import { PwaStatus } from '../components/PwaStatus';
 import { SavedTeamManager } from '../components/SavedTeamManager';
 import { SetupWizard } from '../components/SetupWizard';
 import { SnapshotStatus } from '../components/SnapshotStatus';
@@ -28,15 +30,15 @@ import type { BuilderSlot } from '../domain/teamBuilder';
 import type { DataBundle, FormatId } from '../domain/types';
 import { MarketingFooter } from './navigation';
 
-const initialPaste = `Great Tusk @ Booster Energy
-Ability: Protosynthesis
-Tera Type: Ground
+const initialPaste = `Dragonite @ Heavy-Duty Boots
+Ability: Multiscale
+Tera Type: Normal
 EVs: 252 Atk / 4 SpD / 252 Spe
 Jolly Nature
+- Dragon Dance
+- Extreme Speed
 - Earthquake
-- Close Combat
-- Stealth Rock
-- Ice Beam`;
+- Roost`;
 
 export default function AppPage() {
   const [format, setFormat] = useState<FormatId>('champions-bss');
@@ -158,9 +160,12 @@ export default function AppPage() {
       <section className="app-shell" id="app" aria-label="Cockpit d'analyse">
         <header className="top-bar">
           <div className="cockpit-intro">
-            <span className="eyebrow">Cockpit local · 3v3 / 4v4</span>
+            <span className="eyebrow">Cockpit local · tiers Pokémon Showdown Champions</span>
             <h1>Cockpit stratégique</h1>
-            <p>Importe, ajuste et valide ton équipe : tu prépares 6 Pokémon, puis tu choisis ceux qui jouent le match.</p>
+            <p>
+              Analyse les tiers Pokémon Showdown pour Pokémon Champions : prépare 6 Pokémon, puis choisis ceux qui
+              jouent le match.
+            </p>
             <dl className="cockpit-kpis">
               <div>
                 <dt>Équipe de 6</dt>
@@ -179,6 +184,7 @@ export default function AppPage() {
             </dl>
           </div>
           <SnapshotStatus
+            id="data-status"
             label={analysis.snapshotStatus.label}
             source={analysis.snapshotStatus.source}
             onRefresh={handleRefresh}
@@ -186,6 +192,9 @@ export default function AppPage() {
             isRefreshing={isRefreshing}
           />
         </header>
+
+        <PwaStatus />
+        <MobileNav />
 
         <SetupWizard
           format={format}
@@ -221,11 +230,11 @@ export default function AppPage() {
           reference={dataBundle.reference}
         />
 
-        <div className="dashboard">
+        <div className="dashboard" id="analysis-dashboard">
           <div className="dashboard-primary">
             <TeamPreview reference={dataBundle.reference} team={analysis.team} />
-            <section className="panel selected-analysis">
-              <h2>Plan de match 3v3</h2>
+            <section className="panel selected-analysis" id="selected-analysis">
+              <h2>Plan de match Showdown</h2>
               <h3>Analyse sélection jouée</h3>
               <p>
                 Sélection de match : choisis {analysis.pickSize} Pokémon au niveau{' '}

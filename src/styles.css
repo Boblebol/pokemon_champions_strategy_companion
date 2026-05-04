@@ -818,6 +818,53 @@ small {
   padding: 9px 10px;
 }
 
+.pwa-status {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+  border: 1px solid #c9d8ea;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 248, 253, 0.96)),
+    linear-gradient(90deg, rgba(53, 92, 141, 0.1), rgba(47, 133, 90, 0.08));
+  box-shadow: var(--shadow-soft);
+  padding: 12px 14px;
+}
+
+.pwa-status div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.pwa-status strong {
+  color: var(--navy);
+  font-size: 15px;
+}
+
+.pwa-status span,
+.pwa-status p {
+  color: #52637a;
+  font-size: 13px;
+}
+
+.pwa-status p {
+  margin: 0;
+  border: 1px solid #b8dbc5;
+  border-radius: 999px;
+  background: #f2fbf5;
+  color: #1f6844;
+  padding: 7px 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.mobile-app-nav {
+  display: none;
+}
+
 .setup-guide {
   display: grid;
   gap: 12px;
@@ -1941,6 +1988,14 @@ small {
   align-items: start;
 }
 
+#builder,
+#combat,
+#selected-analysis,
+#analysis-dashboard,
+#data-status {
+  scroll-margin-top: 16px;
+}
+
 .dashboard-primary,
 .dashboard-secondary {
   display: grid;
@@ -2312,7 +2367,60 @@ small {
   }
 
   .app-shell {
-    padding: 12px;
+    padding: 12px 12px calc(86px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .pwa-status {
+    grid-template-columns: 1fr;
+  }
+
+  .pwa-status p {
+    width: fit-content;
+    white-space: normal;
+  }
+
+  .mobile-app-nav {
+    position: fixed;
+    z-index: 40;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+    border: 1px solid rgba(19, 36, 58, 0.16);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 12px 32px rgba(19, 36, 58, 0.2);
+    padding: 7px max(7px, env(safe-area-inset-right, 0px)) max(7px, env(safe-area-inset-bottom, 0px))
+      max(7px, env(safe-area-inset-left, 0px));
+    backdrop-filter: blur(12px);
+  }
+
+  .mobile-app-nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    border-radius: 7px;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .mobile-app-nav a:hover,
+  .mobile-app-nav a:focus-visible {
+    background: #eaf3ff;
+  }
+
+  #builder,
+  #combat,
+  #selected-analysis,
+  #analysis-dashboard,
+  #data-status {
+    scroll-margin-top: 12px;
+    scroll-margin-bottom: 92px;
   }
 
   .panel,

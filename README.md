@@ -1,9 +1,10 @@
 # Assistant stratégique Pokémon Champions
 
 Compagnon local-first pour préparer une équipe Pokémon Champions dans le
-navigateur. L'app permet d'importer un paste Pokémon Showdown, de construire une
-équipe avec le builder intégré, de choisir une sélection de match 3v3, d'analyser
-les menaces et de simuler les dégâts avec le calculateur Combat.
+navigateur, alignée sur les formats Pokémon Showdown dédiés à Pokémon Champions.
+L'app permet d'importer un paste Pokémon Showdown, de construire une équipe avec
+le builder intégré, de choisir une sélection de match, d'analyser les menaces et
+de simuler les dégâts avec le calculateur Combat.
 
 Les équipes restent côté navigateur. Le refresh Smogon est une tentative
 best-effort pour récupérer des statistiques publiques récentes ; si le réseau,
@@ -34,6 +35,8 @@ Documentation repo :
   analyse.
 - Landing marketing séparée, cockpit applicatif séparé et documentation
   utilisateur dédiée.
+- PWA installable sans store depuis le navigateur, avec manifest, service worker
+  et cache applicatif local.
 - Interface française avec cartes d'équipe, audit et adversaires dangereux.
 - Import d'un paste Pokémon Showdown ou d'un fichier `.txt` Showdown.
 - Constructeur d'équipe guidé sur 6 slots avec parcours étape par étape,
@@ -49,14 +52,13 @@ Documentation repo :
 - Noms localisés FR/EN/JA pour Pokémon, attaques, objets, talents, natures et
   types. L'UI privilégie le français, mais les valeurs internes et l'export
   restent compatibles Pokémon Showdown en anglais.
-- Référence complète Gen 9 via `@pkmn/dex` et `@pkmn/data` : Pokémon, talents,
-  learnsets, objets et natures.
+- Référence locale filtrée par le roster Showdown Champions via `@pkmn/dex` et
+  `@pkmn/data` : Pokémon légaux, talents, learnsets, objets et natures.
 - Export Showdown généré automatiquement depuis le constructeur, avec téléchargement
   `.txt` depuis l'assistant.
-- Formats cibles : Champions 3v3 niveau 100, Champions VGC 4v4 Duo et
-  Champions OU.
-- Sélection de match adaptée au format : 3 Pokémon en Champions 3v3, 4 en VGC
-  4v4 Duo, 6 en OU.
+- Formats Pokémon Showdown pour Pokémon Champions : `[Champions] BSS Reg M-A`,
+  `[Champions] VGC 2026 Reg M-A` et `[Champions] OU`.
+- Sélection de match adaptée au format : 3 Pokémon en BSS, 4 en VGC, 6 en OU.
 - Analyse séparée de l'équipe complète et de la sélection jouée.
 - Audit défensif, types que tes attaques menacent, rôles et vitesses exactes.
 - Classement des adversaires fréquents dangereux selon les usages et la pression
@@ -75,6 +77,36 @@ pnpm run dev
 
 En local, la racine ouvre directement le cockpit applicatif. La landing reste
 accessible via `/landing` et la documentation via `/docs`.
+
+## PWA mobile
+
+L'app peut être ajoutée à l'écran d'accueil depuis le navigateur, sans passer par
+un store. Le manifest et le service worker gardent le shell applicatif, les
+routes principales et les assets versionnés disponibles après le premier
+chargement.
+
+Installation sur iPhone ou iPad :
+
+1. Ouvrir la page publique dans Safari :
+   <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
+2. Toucher le bouton de partage de Safari.
+3. Choisir `Sur l'écran d'accueil`.
+4. Valider le nom `Champions` ou le modifier.
+5. Ouvrir l'app depuis l'icône ajoutée à l'écran d'accueil.
+
+Installation sur Android :
+
+1. Ouvrir la page publique dans Chrome ou un navigateur compatible PWA :
+   <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
+2. Ouvrir le menu du navigateur.
+3. Choisir `Installer l'application` ou `Ajouter à l'écran d'accueil`.
+4. Valider l'installation.
+5. Ouvrir l'app depuis l'icône ajoutée au lanceur.
+
+Le mode hors ligne conserve les données locales, les équipes sauvegardées dans
+le navigateur et les snapshots démo. Les appels live Smogon restent best-effort :
+si le réseau est absent ou si Smogon bloque la requête, l'app affiche le fallback
+local et ne perd pas l'équipe en cours.
 
 ## Workflow recommandé
 
@@ -101,9 +133,13 @@ courant. L'export fichier télécharge le paste actuel sous
 
 ## Formats
 
-- `Champions 3v3` : combat solo, équipe de 6, sélection de 3, niveau 100.
-- `Champions VGC 4v4 Duo` : combat duo, équipe de 6, sélection de 4, niveau 50.
-- `Champions OU` : combat 6v6, équipe de 6, sélection de 6, niveau 100.
+Ces formats sont les tiers Pokémon Showdown utilisés pour Pokémon Champions.
+
+| Format Showdown | Style | Équipe | Sélection | Niveau |
+| --- | --- | ---: | ---: | ---: |
+| `[Champions] BSS Reg M-A` | Solo Flat Rules | 6 | 3 | 50 |
+| `[Champions] VGC 2026 Reg M-A` | Duo Flat Rules | 6 | 4 | 50 |
+| `[Champions] OU` | 6v6 | 6 | 6 | 100 |
 
 Le format pilote le niveau utilisé par l'audit, les vitesses, le nombre de
 Pokémon joués et le mode par défaut du calculateur Combat.
@@ -113,7 +149,8 @@ Pokémon joués et le mode par défaut du calculateur Combat.
 Le panneau Combat utilise `@smogon/calc` pour calculer les dégâts depuis la
 sélection jouée :
 
-- 1 allié actif en Champions 3v3 et OU, 2 alliés actifs en Champions VGC 4v4 Duo.
+- 1 allié actif en `[Champions] BSS Reg M-A` et `[Champions] OU`, 2 alliés
+  actifs en `[Champions] VGC 2026 Reg M-A`.
 - 1 adversaire en solo, jusqu'à 2 adversaires en duo.
 - Recherche adversaire locale FR/EN, insensible aux accents.
 - Dégâts donnés depuis les attaques du set ou toutes les attaques apprenables.
@@ -123,19 +160,27 @@ sélection jouée :
 
 ## Données
 
-Au 30 avril 2026, le dernier mois publié dans l'index public Smogon `/stats/`
-est `2026-03`.
+Au 4 mai 2026, les fichiers chaos Smogon disponibles pour les tiers Champions
+utilisés par l'app sont ceux du mois `2026-04`. C'est le mois ciblé par défaut
+par le bouton `Mettre à jour`.
 
-Les snapshots locaux actuellement ciblés sont :
+Les snapshots locaux actuellement ciblés suivent les slugs Pokémon Showdown
+Champions :
 
-- `gen9vgc2026regf-1760.json` pour Champions VGC 4v4 Duo
-- `gen9bssregi-1760.json` pour Champions 3v3
-- `gen9nationaldex-1760.json` pour Champions OU
+- `gen9championsbssregma-1760.json` pour `[Champions] BSS Reg M-A`
+- `gen9championsvgc2026regma-1760.json` pour `[Champions] VGC 2026 Reg M-A`
+- `gen9championsou-1760.json` pour `[Champions] OU`
 
 Des données démo typées restent incluses pour que l'app fonctionne hors ligne.
-La référence de construction est générée localement depuis les packages `@pkmn`
-afin de proposer les Pokémon, attaques apprenables, objets et natures sans API
-payante ni scraping côté client.
+Le roster local proposé par le constructeur est filtré depuis le mod Pokémon
+Showdown `champions`. Les entrées marquées `Illegal` dans
+`data/mods/champions/formats-data.ts` ne sont pas proposées. Les formes qui ne
+correspondent pas à un slot d'équipe directement sélectionnable, comme les
+Méga, Gigamax, Primo, Eternamax, Totem ou formes battle-only, ne sont pas
+proposées comme Pokémon séparés dans le constructeur. La référence de
+construction est générée localement depuis les packages `@pkmn` afin de proposer
+les Pokémon, attaques apprenables, objets et natures sans API payante ni
+scraping côté client.
 
 Les métadonnées visuelles et localisées sont générées depuis les CSV publics de
 PokéAPI et les URLs du repository `PokeAPI/sprites`. Le repo stocke uniquement
@@ -179,6 +224,7 @@ Commandes utiles :
 pnpm run lint
 pnpm run test
 pnpm run build
+pnpm run pwa:check
 pnpm run fetch:assets
 make dev
 make check

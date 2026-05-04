@@ -9,7 +9,7 @@ function LandingHeroVisual() {
         <strong>6 vers 3</strong>
       </div>
       <div className="match-board">
-        {['Great Tusk', 'Dragonite', 'Gholdengo', 'Slot libre', 'Slot libre', 'Slot libre'].map((slot, index) => (
+        {['Dragonite', 'Kingambit', 'Kangaskhan', 'Slot libre', 'Slot libre', 'Slot libre'].map((slot, index) => (
           <div className={`board-slot ${index < 3 ? 'picked' : ''}`} key={`${slot}-${index}`}>
             <span>{index + 1}</span>
             <strong>{slot}</strong>
@@ -19,8 +19,8 @@ function LandingHeroVisual() {
       </div>
       <div className="threat-radar">
         <span>Adversaire dangereux</span>
-        <strong>Flutter Mane</strong>
-        <small>Moonblast · Vitesse max 405</small>
+        <strong>Palafin</strong>
+        <small>Jet Punch · pression prioritaire</small>
       </div>
     </div>
   );
@@ -33,7 +33,7 @@ export default function LandingPage() {
         <PageNav compact />
         <div className="hero-layout">
           <div className="hero-copy">
-            <span className="eyebrow">Pokémon Champions · équipe de 6, choix de 3 / VGC 4v4</span>
+            <span className="eyebrow">Formats Pokémon Showdown pour Pokémon Champions</span>
             <h1>Gagne du temps au team preview</h1>
             <p>
               Construis ton équipe, choisis les Pokémon qui jouent et repère tout de suite ce qui compte :
@@ -53,8 +53,8 @@ export default function LandingPage() {
                 <dd>Pokémon, objets, attaques, images, noms FR et notes au même endroit</dd>
               </div>
               <div>
-                <dt>Analyse 3v3 niveau 100</dt>
-                <dd>sélection jouée, points faibles réels et vitesses après bonus</dd>
+                <dt>Formats Showdown Champions</dt>
+                <dd>[Champions] BSS Reg M-A, [Champions] VGC 2026 Reg M-A et [Champions] OU</dd>
               </div>
               <div>
                 <dt>Combat rapide</dt>
@@ -78,8 +78,8 @@ export default function LandingPage() {
         </div>
         <div className="landing-feature-grid">
           <article>
-            <strong>Construit pour Champions 3v3</strong>
-            <p>L'équipe complète reste visible, mais les alertes se recalculent sur les 3 Pokémon réellement joués.</p>
+            <strong>Aligné Showdown Champions</strong>
+            <p>L'équipe complète reste visible, avec des sélections 3, 4 ou 6 selon le format choisi.</p>
           </article>
           <article>
             <strong>Données exploitables</strong>
@@ -99,12 +99,12 @@ export default function LandingPage() {
         </div>
         <div className="landing-metrics">
           <div>
-            <strong>3v3</strong>
-            <span>lecture adaptée au match réel</span>
+            <strong>BSS</strong>
+            <span>Reg M-A, 3 choix sur 6, niveau 50</span>
           </div>
           <div>
-            <strong>Niveau 100</strong>
-            <span>calculs vitesse alignés Champions</span>
+            <strong>Niveaux 50/100</strong>
+            <span>calculs alignés sur le format Showdown</span>
           </div>
           <div>
             <strong>Learnsets</strong>

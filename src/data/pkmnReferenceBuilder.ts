@@ -19,6 +19,7 @@ import type {
 import { generatedPokeAssets } from './generated/pokeAssets';
 import type { LocalizedEntityAsset, PokeAssetData } from './pokeAssets';
 import { TYPE_LABELS } from './pokeAssets';
+import { championsShowdownSnapshot, isChampionsLegalSpeciesId } from './showdownChampions';
 
 const SHOWDOWN_GENERATION = 9;
 const TYPE_SET = new Set<string>(POKEMON_TYPES);
@@ -244,6 +245,16 @@ function isSelectableSpecies(species: { num: number; forme?: string; isMega?: bo
   return !['Gmax', 'Primal', 'Eternamax'].includes(species.forme ?? '') && !(species.forme ?? '').includes('Totem');
 }
 
+function isSelectableChampionsSpecies(species: {
+  name: string;
+  num: number;
+  forme?: string;
+  isMega?: boolean;
+  battleOnly?: unknown;
+}): boolean {
+  return isSelectableSpecies(species) && isChampionsLegalSpeciesId(toId(species.name));
+}
+
 export async function buildPkmnReferenceSnapshot({
   importedAt = new Date().toISOString(),
 }: {
@@ -274,7 +285,7 @@ export async function buildPkmnReferenceSnapshot({
   );
   const pokemonEntries = await Promise.all(
     Array.from(gen.species)
-      .filter(isSelectableSpecies)
+      .filter(isSelectableChampionsSpecies)
       .sort((left, right) => left.name.localeCompare(right.name))
       .map(async (species) => {
         const learnable = await gen.learnsets.learnable(species.name);
@@ -314,8 +325,8 @@ export async function buildPkmnReferenceSnapshot({
   );
 
   return {
-    id: `pkmn-showdown-gen${SHOWDOWN_GENERATION}`,
-    source: `@pkmn/dex + @pkmn/data Gen ${SHOWDOWN_GENERATION} · ${pokeAssets.source}`,
+    id: `pkmn-showdown-champions-gen${SHOWDOWN_GENERATION}`,
+    source: `@pkmn/dex + @pkmn/data Gen ${SHOWDOWN_GENERATION} filtré par les tiers Pokemon Showdown Champions et les formes sélectionnables (${championsShowdownSnapshot.sourceUrls.formatsData}, vérifié ${championsShowdownSnapshot.checkedAt}) · ${pokeAssets.source}`,
     importedAt,
     locale: 'fr',
     pokemon: Object.fromEntries(pokemonEntries),

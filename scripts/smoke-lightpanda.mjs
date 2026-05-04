@@ -12,6 +12,7 @@ const routes = [
     selector: '.dashboard',
     expectedText: [
       "Cockpit d'analyse",
+      'Installable sans store',
       "Constructeur d'équipe",
       "Slots de l'équipe",
       'Combat',
