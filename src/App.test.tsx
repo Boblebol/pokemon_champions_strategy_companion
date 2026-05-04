@@ -24,6 +24,13 @@ async function renderDocsPage() {
   return result;
 }
 
+async function renderMobilePage() {
+  window.history.pushState({}, '', '/mobile');
+  const result = render(<App />);
+  await screen.findByLabelText(/application mobile champions/i, undefined, { timeout: 5000 });
+  return result;
+}
+
 async function waitForCompleteReference() {
   expect(await screen.findByText(/roster showdown champions/i, undefined, { timeout: 5000 })).toBeInTheDocument();
 }
@@ -76,7 +83,8 @@ describe('App', () => {
     const landing = screen.getByLabelText(/présentation marketing/i);
     expect(landing).toBeInTheDocument();
     expect(within(landing).getByRole('heading', { name: /gagne du temps au team preview/i })).toBeInTheDocument();
-    expect(within(landing).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
+    expect(within(landing).getByRole('link', { name: /ouvrir l'app desktop/i })).toHaveAttribute('href', '/app');
+    expect(within(landing).getByRole('link', { name: /ouvrir l'app mobile/i })).toHaveAttribute('href', '/mobile');
     expect(within(landing).getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
     expect(within(landing).getByText(/formats showdown champions/i)).toBeInTheDocument();
     expect(within(landing).getAllByText(/adversaires rares/i).length).toBeGreaterThan(0);
@@ -89,7 +97,8 @@ describe('App', () => {
 
     const docs = screen.getByLabelText(/documentation/i);
     expect(within(docs).getByRole('heading', { name: /documentation champions companion/i })).toBeInTheDocument();
-    expect(within(docs).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
+    expect(within(docs).getByRole('link', { name: /ouvrir l'app desktop/i })).toHaveAttribute('href', '/app');
+    expect(within(docs).getByRole('link', { name: /ouvrir l'app mobile/i })).toHaveAttribute('href', '/mobile');
     expect(within(docs).getByText(/1\. démarrer avec l'assistant/i)).toBeInTheDocument();
     expect(within(docs).getByText(/importer un fichier \.txt/i)).toBeInTheDocument();
     expect(within(docs).getByText(/5\. simuler le combat/i)).toBeInTheDocument();
@@ -104,6 +113,23 @@ describe('App', () => {
     expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
     expect(screen.queryByRole('navigation', { name: /navigation principale/i })).not.toBeInTheDocument();
     expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
+  });
+
+  it('renders a dedicated touch-first mobile app route', async () => {
+    await renderMobilePage();
+
+    const mobileApp = screen.getByLabelText(/application mobile champions/i);
+    expect(within(mobileApp).getByRole('heading', { name: /champions mobile/i })).toBeInTheDocument();
+    expect(within(mobileApp).getByText(/pensé pour le doigt/i)).toBeInTheDocument();
+    const nav = within(mobileApp).getByRole('navigation', { name: /navigation mobile tactile/i });
+    expect(within(nav).getByRole('button', { name: /accueil/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(within(nav).getByRole('button', { name: /équipe/i })).toBeInTheDocument();
+    expect(within(nav).getByRole('button', { name: /sélection/i })).toBeInTheDocument();
+    expect(within(nav).getByRole('button', { name: /combat/i })).toBeInTheDocument();
+    expect(within(nav).getByRole('button', { name: /analyse/i })).toBeInTheDocument();
+    expect(within(nav).getByRole('button', { name: /données/i })).toBeInTheDocument();
+    expect(within(mobileApp).getByText(/continuer l'équipe/i)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/cockpit d'analyse/i)).not.toBeInTheDocument();
   });
 
   it('keeps responsive layout hooks available for cockpit sections', async () => {

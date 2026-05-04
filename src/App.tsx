@@ -4,6 +4,7 @@ import { resolvePage } from './routing';
 const AppPage = lazy(() => import('./routes/AppPage'));
 const LandingPage = lazy(() => import('./routes/LandingPage'));
 const DocsPage = lazy(() => import('./routes/DocsPage'));
+const MobileAppPage = lazy(() => import('./routes/MobileAppPage'));
 
 export default function App() {
   const page = resolvePage();
@@ -13,6 +14,7 @@ export default function App() {
       {page === 'docs' ? <DocsPage /> : null}
       {page === 'landing' ? <LandingPage /> : null}
       {page === 'app' ? <AppPage /> : null}
+      {page === 'mobile' ? <MobileAppPage /> : null}
     </Suspense>
   );
 }

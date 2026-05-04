@@ -8,6 +8,7 @@ describe('routing helpers', () => {
 
   it('builds app route hrefs from the configured base path', () => {
     expect(pageHref('app')).toBe('/app');
+    expect(pageHref('mobile')).toBe('/mobile');
     expect(pageHref('docs')).toBe('/docs');
     expect(pageHref('landing')).toBe('/landing');
   });
@@ -16,5 +17,11 @@ describe('routing helpers', () => {
     window.history.pushState({}, '', '/?path=/docs');
 
     expect(resolvePage()).toBe('docs');
+  });
+
+  it('resolves the dedicated mobile route', () => {
+    window.history.pushState({}, '', '/mobile');
+
+    expect(resolvePage()).toBe('mobile');
   });
 });

@@ -1,7 +1,7 @@
 import { copyFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const routes = ['app', 'docs', 'landing'];
+const routes = ['app', 'docs', 'landing', 'mobile'];
 const source = join('dist', 'index.html');
 
 await Promise.all(
