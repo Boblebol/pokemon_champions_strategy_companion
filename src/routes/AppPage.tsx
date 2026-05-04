@@ -5,6 +5,7 @@ import { DeferredCombatCalculator } from '../components/DeferredCombatCalculator
 import { HelpPanel } from '../components/HelpPanel';
 import { MobileNav } from '../components/MobileNav';
 import { PossibleThreatPanel } from '../components/PossibleThreatPanel';
+import { ProjectCreditPanel } from '../components/ProjectCreditPanel';
 import { PwaStatus } from '../components/PwaStatus';
 import { SavedTeamManager } from '../components/SavedTeamManager';
 import { SetupWizard } from '../components/SetupWizard';
@@ -284,6 +285,7 @@ export default function AppPage() {
               pickSize={analysis.pickSize}
             />
             <HelpPanel />
+            <ProjectCreditPanel />
           </div>
         </div>
       </section>

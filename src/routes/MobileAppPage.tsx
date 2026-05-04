@@ -4,6 +4,7 @@ import { AuditPanel } from '../components/AuditPanel';
 import { DeferredCombatCalculator } from '../components/DeferredCombatCalculator';
 import { HelpPanel } from '../components/HelpPanel';
 import { PossibleThreatPanel } from '../components/PossibleThreatPanel';
+import { ProjectCreditPanel } from '../components/ProjectCreditPanel';
 import { PwaStatus } from '../components/PwaStatus';
 import { SavedTeamManager } from '../components/SavedTeamManager';
 import { SnapshotStatus } from '../components/SnapshotStatus';
@@ -216,6 +217,7 @@ export default function MobileAppPage() {
           <button type="button" className="mobile-primary-action" onClick={() => setActiveTab('team')}>
             Continuer l'équipe
           </button>
+          <ProjectCreditPanel />
         </section>
       ) : null}
 

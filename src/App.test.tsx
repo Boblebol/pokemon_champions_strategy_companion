@@ -136,6 +136,38 @@ describe('App', () => {
     expect(screen.queryByLabelText(/cockpit d'analyse/i)).not.toBeInTheDocument();
   });
 
+  it('shows creator and repository links in the desktop app', async () => {
+    await renderAppPage();
+
+    const projectInfo = screen.getByLabelText(/infos projet et créateur/i);
+    expect(within(projectInfo).getByRole('heading', { name: /coin du dresseur/i })).toBeInTheDocument();
+    expect(within(projectInfo).getByText(/alexandre enouf/i)).toBeInTheDocument();
+    expect(within(projectInfo).getByRole('link', { name: /site perso/i })).toHaveAttribute(
+      'href',
+      'https://alexandre-enouf.fr',
+    );
+    expect(within(projectInfo).getByRole('link', { name: /repo github/i })).toHaveAttribute(
+      'href',
+      'https://github.com/Boblebol/pokemon_champions_strategy_companion',
+    );
+  });
+
+  it('shows creator and repository links in the mobile PWA app', async () => {
+    await renderMobilePage();
+
+    const mobileApp = screen.getByLabelText(/application mobile champions/i);
+    const projectInfo = within(mobileApp).getByLabelText(/infos projet et créateur/i);
+    expect(within(projectInfo).getByText(/alexandre enouf/i)).toBeInTheDocument();
+    expect(within(projectInfo).getByRole('link', { name: /site perso/i })).toHaveAttribute(
+      'href',
+      'https://alexandre-enouf.fr',
+    );
+    expect(within(projectInfo).getByRole('link', { name: /repo github/i })).toHaveAttribute(
+      'href',
+      'https://github.com/Boblebol/pokemon_champions_strategy_companion',
+    );
+  });
+
   it('keeps responsive layout hooks available for cockpit sections', async () => {
     const { container } = await renderAppPage();
 

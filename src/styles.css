@@ -1252,6 +1252,50 @@ small {
   color: var(--navy);
 }
 
+.project-credit-card {
+  display: grid;
+  gap: 14px;
+  border-color: rgba(247, 195, 95, 0.58);
+  background:
+    linear-gradient(135deg, rgba(255, 248, 232, 0.96), rgba(246, 252, 248, 0.96)),
+    #ffffff;
+}
+
+.project-credit-card h2 {
+  margin-bottom: 6px;
+}
+
+.project-credit-card p {
+  margin: 0;
+  color: #3f5269;
+}
+
+.project-credit-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-credit-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  border: 1px solid #d7b45c;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #17324d;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.project-credit-links a:hover,
+.project-credit-links a:focus-visible {
+  border-color: #a87b20;
+  background: #fff4cf;
+}
+
 .app-actions {
   display: grid;
   grid-template-columns: minmax(360px, 1fr) minmax(320px, 0.72fr);

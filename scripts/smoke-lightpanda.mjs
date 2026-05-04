@@ -17,6 +17,7 @@ const routes = [
       "Slots de l'équipe",
       'Combat',
       'Aides rapides',
+      'Coin du dresseur',
     ],
   },
   {
@@ -27,6 +28,7 @@ const routes = [
       'Champions mobile',
       'Pensé pour le doigt',
       "Continuer l'équipe",
+      'Coin du dresseur',
     ],
   },
   {
