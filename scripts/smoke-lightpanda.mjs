@@ -9,14 +9,11 @@ const FAILURE_MARKERS = ['CouldntConnect', 'fetch error', 'navigate failed', '$l
 const routes = [
   {
     path: '/app',
-    selector: '.dashboard',
+    selector: '.mobile-shell',
     expectedText: [
-      "Cockpit d'analyse",
+      'Application mobile Champions',
+      'Champions mobile',
       'Installable sans store',
-      "Constructeur d'équipe",
-      "Slots de l'équipe",
-      'Combat',
-      'Aides rapides',
       'Coin du dresseur',
     ],
   },
@@ -37,7 +34,6 @@ const routes = [
     expectedText: [
       'Présentation marketing',
       'Gagne du temps au team preview',
-      'Mobile',
       "Ouvrir l'app",
       'Ouvrir la doc',
     ],

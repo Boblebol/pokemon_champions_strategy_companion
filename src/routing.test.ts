@@ -24,4 +24,12 @@ describe('routing helpers', () => {
 
     expect(resolvePage()).toBe('mobile');
   });
+
+  it('keeps the mobile route as a compatibility alias for the app', () => {
+    window.history.pushState({}, '', '/mobile');
+
+    expect(resolvePage()).toBe('mobile');
+    expect(pageHref('app')).toBe('/app');
+    expect(pageHref('mobile')).toBe('/mobile');
+  });
 });

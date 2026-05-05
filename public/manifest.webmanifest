@@ -4,7 +4,7 @@
   "description": "Assistant local-first pour preparer une equipe Pokemon Champions avec les tiers Pokemon Showdown Champions.",
   "lang": "fr",
   "dir": "ltr",
-  "start_url": "./mobile",
+  "start_url": "./app",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -33,13 +33,7 @@
   ],
   "shortcuts": [
     {
-      "name": "Ouvrir l'app mobile",
-      "short_name": "Mobile",
-      "url": "./mobile",
-      "description": "Preparer une equipe Pokemon Champions sur mobile"
-    },
-    {
-      "name": "Ouvrir le cockpit",
+      "name": "Ouvrir l'app",
       "short_name": "App",
       "url": "./app",
       "description": "Preparer une equipe Pokemon Champions"

@@ -20,7 +20,6 @@ Pages :
 
 - Landing : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 - App : <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
-- App mobile PWA : <https://boblebol.github.io/pokemon_champions_strategy_companion/mobile>
 - Documentation : <https://boblebol.github.io/pokemon_champions_strategy_companion/docs>
 
 Documentation repo :
@@ -32,28 +31,30 @@ Documentation repo :
 
 ## Fonctionnalités
 
-- Assistant de départ optionnel et repliable : format, équipe, sélection, Combat,
-  analyse.
+- Navigation tactile par écrans : accueil, équipe, sélection, Combat, analyse et
+  données.
 - Landing marketing séparée, cockpit applicatif séparé et documentation
   utilisateur dédiée.
-- Deux fronts en parallèle : cockpit desktop sur `/app` et expérience mobile
-  tactile sur `/mobile`.
+- Vue applicative unique sur `/app`, avec `/mobile` conservé comme alias pour les
+  anciens liens.
 - PWA installable sans store depuis le navigateur, avec manifest, service worker
   et cache applicatif local.
 - Interface française avec cartes d'équipe, audit et adversaires dangereux.
-- Import d'un paste Pokémon Showdown ou d'un fichier `.txt` Showdown.
 - Constructeur d'équipe guidé sur 6 slots avec parcours étape par étape,
   Pokémon, attaques, objet, talent, nature, points d'entraînement (EV) et notes
   privées.
-- Recherche Pokémon et objets en français, triée alphabétiquement, avec image,
-  description d'objet et compatibilité Showdown en anglais.
+- Recherche Pokémon, objets et attaques selon la langue active, triée
+  alphabétiquement, avec image, description d'objet et compatibilité Showdown en
+  anglais.
+- Résultats d'attaques enrichis avec type, catégorie, STAB, puissance, précision
+  et PP.
 - Calculateur Combat après validation de la sélection : dégâts donnés, dégâts
   reçus les plus dangereux, boosts, météo, terrain, protections par côté,
   brûlure, coup critique, Téracristallisation et recherche rapide adversaire.
 - Images Pokémon dans le constructeur, l'équipe et les panneaux de dangers via
   les URLs publiques `PokeAPI/sprites`, sans stocker les images dans le repo.
-- Noms localisés FR/EN/JA pour Pokémon, attaques, objets, talents, natures et
-  types. L'UI privilégie le français, mais les valeurs internes et l'export
+- Switch FR/EN pour Pokémon, attaques, objets, talents, natures et types. L'UI
+  affiche une seule langue à la fois, mais les valeurs internes et l'export
   restent compatibles Pokémon Showdown en anglais.
 - Référence locale filtrée par le roster Showdown Champions via `@pkmn/dex` et
   `@pkmn/data` : Pokémon légaux, talents, learnsets, objets et natures.
@@ -90,8 +91,8 @@ chargement.
 
 Installation sur iPhone ou iPad :
 
-1. Ouvrir l'expérience mobile dans Safari :
-   <https://boblebol.github.io/pokemon_champions_strategy_companion/mobile>
+1. Ouvrir l'app dans Safari :
+   <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
 2. Toucher le bouton de partage de Safari.
 3. Choisir `Sur l'écran d'accueil`.
 4. Valider le nom `Champions` ou le modifier.
@@ -99,8 +100,8 @@ Installation sur iPhone ou iPad :
 
 Installation sur Android :
 
-1. Ouvrir l'expérience mobile dans Chrome ou un navigateur compatible PWA :
-   <https://boblebol.github.io/pokemon_champions_strategy_companion/mobile>
+1. Ouvrir l'app dans Chrome ou un navigateur compatible PWA :
+   <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
 2. Ouvrir le menu du navigateur.
 3. Choisir `Installer l'application` ou `Ajouter à l'écran d'accueil`.
 4. Valider l'installation.
@@ -113,9 +114,8 @@ local et ne perd pas l'équipe en cours.
 
 ## Workflow recommandé
 
-1. Choisir le format cible dans l'assistant de départ ou le sélecteur dédié.
-2. Construire l'équipe dans les 6 slots, coller un paste Showdown existant ou
-   importer un fichier `.txt`.
+1. Choisir le format cible dans le sélecteur dédié.
+2. Construire l'équipe dans les 6 slots.
 3. Cocher les slots joués pour simuler la sélection de match.
 4. Simuler un adversaire dans le panneau Combat pour comparer les dégâts que tu
    fais et les dégâts que tu peux recevoir.
@@ -123,9 +123,6 @@ local et ne perd pas l'équipe en cours.
 6. Télécharger l'export `.txt` pour conserver ou partager l'équipe.
 7. Cliquer sur `Mettre à jour` pour tenter de récupérer les derniers usages
    Smogon disponibles.
-
-L'assistant de départ peut être masqué. L'app garde ce choix en local et affiche
-un résumé compact pour rouvrir l'assistant.
 
 Les commentaires restent dans le constructeur pour les notes de plan de jeu. Ils
 ne sont pas injectés dans l'export Showdown.

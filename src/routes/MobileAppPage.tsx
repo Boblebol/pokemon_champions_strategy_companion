@@ -17,7 +17,7 @@ import { analyzeTeam } from '../domain/analysis';
 import { createDataStore } from '../domain/dataStore';
 import { SUPPORTED_FORMATS } from '../domain/formatRules';
 import { getPickSize } from '../domain/matchSelection';
-import { pokemonDisplayName } from '../domain/referenceDisplay';
+import { moveDisplayName, pokemonDisplayName } from '../domain/referenceDisplay';
 import type { SavedTeam } from '../domain/savedTeams';
 import { refreshSnapshots } from '../domain/snapshotRefresh';
 import { parseShowdownTeam } from '../domain/teamImport';
@@ -27,8 +27,7 @@ import {
   updateBuilderSlot,
 } from '../domain/teamBuilder';
 import type { BuilderSlot } from '../domain/teamBuilder';
-import type { DataBundle, FormatId } from '../domain/types';
-import { pageHref } from '../routing';
+import type { DataBundle, FormatId, LocaleId } from '../domain/types';
 
 type MobileTab = 'home' | 'team' | 'selection' | 'combat' | 'analysis' | 'data';
 
@@ -51,6 +50,10 @@ Jolly Nature
 - Earthquake
 - Roost`;
 
+function teamExportHref(value: string): string {
+  return `data:text/plain;charset=utf-8,${encodeURIComponent(value)}`;
+}
+
 export default function MobileAppPage() {
   const [activeTab, setActiveTab] = useState<MobileTab>('home');
   const [format, setFormat] = useState<FormatId>('champions-bss');
@@ -58,6 +61,7 @@ export default function MobileAppPage() {
   const [builderState, setBuilderState] = useState(() => builderStateFromMembers(parseShowdownTeam(initialPaste).members));
   const [selectedSlots, setSelectedSlots] = useState<number[]>([1]);
   const [dataBundle, setDataBundle] = useState<DataBundle>(demoDataBundle);
+  const [locale, setLocale] = useState<LocaleId>('fr');
   const [referenceStatus, setReferenceStatus] = useState<'loading' | 'complete' | 'error'>('loading');
   const [refreshMessage, setRefreshMessage] = useState<string>();
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -92,20 +96,25 @@ export default function MobileAppPage() {
   const pickSize = getPickSize(format);
   const pokemonOptions = useMemo(() => {
     return Object.values(dataBundle.reference.pokemon).sort((left, right) =>
-      pokemonDisplayName(dataBundle.reference, left.name).localeCompare(
-        pokemonDisplayName(dataBundle.reference, right.name),
-        'fr',
+      pokemonDisplayName(dataBundle.reference, left.name, locale).localeCompare(
+        pokemonDisplayName(dataBundle.reference, right.name, locale),
+        locale,
       ),
     );
-  }, [dataBundle]);
+  }, [dataBundle, locale]);
   const moveOptions = useMemo(() => {
-    return Object.values(dataBundle.reference.moves).sort((left, right) => left.name.localeCompare(right.name));
-  }, [dataBundle]);
+    return Object.values(dataBundle.reference.moves).sort((left, right) =>
+      moveDisplayName(dataBundle.reference, left.name, locale).localeCompare(
+        moveDisplayName(dataBundle.reference, right.name, locale),
+        locale,
+      ),
+    );
+  }, [dataBundle, locale]);
   const analysis = useMemo(() => {
     return analyzeTeam({ paste, format, store, selectedSlots });
   }, [paste, format, store, selectedSlots]);
   const selectedNames = analysis.selectedTeam.members.map((member) =>
-    pokemonDisplayName(dataBundle.reference, member.species),
+    pokemonDisplayName(dataBundle.reference, member.species, locale),
   );
   const topThreat = analysis.threats[0];
 
@@ -164,7 +173,18 @@ export default function MobileAppPage() {
           <h1>Champions mobile</h1>
           <p>Pensé pour le doigt : un écran, une action, les mêmes calculs.</p>
         </div>
-        <a href={pageHref('app')}>Desktop</a>
+        <div className="locale-switch" aria-label="Langue">
+          {(['fr', 'en'] as const).map((nextLocale) => (
+            <button
+              type="button"
+              aria-pressed={locale === nextLocale}
+              onClick={() => setLocale(nextLocale)}
+              key={nextLocale}
+            >
+              {nextLocale.toUpperCase()}
+            </button>
+          ))}
+        </div>
       </header>
 
       <nav className="mobile-tabbar" aria-label="Navigation mobile tactile">
@@ -201,7 +221,9 @@ export default function MobileAppPage() {
             </article>
             <article>
               <span>Menace</span>
-              <strong>{topThreat ? pokemonDisplayName(dataBundle.reference, topThreat.species) : 'À compléter'}</strong>
+              <strong>
+                {topThreat ? pokemonDisplayName(dataBundle.reference, topThreat.species, locale) : 'À compléter'}
+              </strong>
             </article>
           </div>
           <label className="mobile-field">
@@ -230,6 +252,7 @@ export default function MobileAppPage() {
             itemOptions={dataBundle.reference.items}
             natureOptions={dataBundle.reference.natures}
             reference={dataBundle.reference}
+            locale={locale}
             referenceStatus={referenceStatus}
             referenceSource={dataBundle.reference.source}
             selectedSlots={selectedSlots}
@@ -258,7 +281,9 @@ export default function MobileAppPage() {
                     onChange={(event) => handleToggleSelection(slot.id, event.target.checked)}
                   />
                   <span>Slot {slot.id}</span>
-                  <strong>{slot.species ? pokemonDisplayName(dataBundle.reference, slot.species) : 'Libre'}</strong>
+                  <strong>
+                    {slot.species ? pokemonDisplayName(dataBundle.reference, slot.species, locale) : 'Libre'}
+                  </strong>
                 </label>
               );
             })}
@@ -281,7 +306,7 @@ export default function MobileAppPage() {
 
       {activeTab === 'analysis' ? (
         <section className="mobile-screen" aria-label="Analyse mobile">
-          <TeamPreview reference={dataBundle.reference} team={analysis.team} />
+          <TeamPreview reference={dataBundle.reference} team={analysis.team} locale={locale} />
           <section className="panel selected-analysis">
             <h2>Plan de match</h2>
             <p>Joués : {selectedNames.join(', ') || 'aucun'}</p>
@@ -292,12 +317,13 @@ export default function MobileAppPage() {
             ))}
           </section>
           <AuditPanel audit={analysis.audit} />
-          <ThreatPanel reference={dataBundle.reference} threats={analysis.threats} />
+          <ThreatPanel reference={dataBundle.reference} threats={analysis.threats} locale={locale} />
           <PossibleThreatPanel
             reference={dataBundle.reference}
             threats={analysis.selectedPossibleThreats}
             selectedCount={analysis.selectedTeam.members.length}
             pickSize={analysis.pickSize}
+            locale={locale}
           />
           <HelpPanel />
         </section>
@@ -313,6 +339,13 @@ export default function MobileAppPage() {
             isRefreshing={isRefreshing}
           />
           <SavedTeamManager paste={paste} format={format} onLoad={handleLoadSavedTeam} />
+          <section className="panel team-export-panel" aria-label="Export équipe">
+            <h2>Export équipe</h2>
+            <p>Le fichier reste compatible Pokémon Showdown.</p>
+            <a className="team-file-action" href={teamExportHref(paste)} download="pokemon-champions-team.txt">
+              Exporter l'équipe
+            </a>
+          </section>
           <AnalysisExport analysis={analysis} reference={dataBundle.reference} format={format} />
         </section>
       ) : null}

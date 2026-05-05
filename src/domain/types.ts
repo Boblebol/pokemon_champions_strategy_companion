@@ -66,6 +66,7 @@ export interface MoveReference {
   category: MoveCategory;
   power?: number;
   accuracy?: number;
+  pp?: number;
   priority?: number;
   target?: string;
 }

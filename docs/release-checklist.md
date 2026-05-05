@@ -10,7 +10,7 @@
 - [ ] Vérifier mobile 430 px
 - [ ] Vérifier tablette 834 px
 - [ ] Vérifier tablette paysage 1024 px
-- [ ] Vérifier desktop 1440 px
+- [ ] Vérifier largeur desktop 1440 px avec la vue tactile unique
 - [ ] Vérifier le fallback des routes statiques GitHub Pages
 - [ ] Vérifier qu'un échec Smogon conserve les snapshots locaux
 - [ ] Si les métadonnées PokéAPI sont régénérées, utiliser `POKEAPI_DATA_REF=<commit-sha> pnpm run fetch:assets`

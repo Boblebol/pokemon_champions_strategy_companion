@@ -4,6 +4,7 @@ import { PokemonAvatar } from './PokemonMedia';
 import { SearchablePicker } from './SearchablePicker';
 import type { BuilderSlot, TeamBuilderState } from '../domain/teamBuilder';
 import { toId } from '../domain/ids';
+import { localizedSearchText } from '../domain/localization';
 import {
   abilityDescription,
   abilityDisplayName,
@@ -16,7 +17,16 @@ import {
   typeDisplayName,
 } from '../domain/referenceDisplay';
 import { POKEMON_TYPES } from '../domain/types';
-import type { MoveReference, PokemonReference, PokemonType, ReferenceSnapshot, StatId, StatTable } from '../domain/types';
+import type {
+  LocaleId,
+  MoveCategory,
+  MoveReference,
+  PokemonReference,
+  PokemonType,
+  ReferenceSnapshot,
+  StatId,
+  StatTable,
+} from '../domain/types';
 
 const STAT_FIELDS: Array<{ id: StatId; label: string }> = [
   { id: 'hp', label: 'HP' },
@@ -28,6 +38,11 @@ const STAT_FIELDS: Array<{ id: StatId; label: string }> = [
 ];
 
 const EV_TOTAL_LIMIT = 510;
+const MOVE_CATEGORY_LABELS: Record<MoveCategory, Record<LocaleId, string>> = {
+  Physical: { fr: 'Physique', en: 'Physical', ja: 'Physical' },
+  Special: { fr: 'Spécial', en: 'Special', ja: 'Special' },
+  Status: { fr: 'Statut', en: 'Status', ja: 'Status' },
+};
 
 const EV_PRESETS: Array<{ label: string; description: string; evs: StatTable }> = [
   {
@@ -87,17 +102,25 @@ function findPokemon(pokemonOptions: PokemonReference[], species: string | undef
   return pokemonOptions.find((pokemon) => pokemon.name === species);
 }
 
-function pokemonSearchText(pokemon: PokemonReference): string {
-  return [pokemon.name, pokemon.localizedNames?.fr, pokemon.localizedNames?.en, pokemon.localizedNames?.ja]
-    .filter(Boolean)
-    .join(' ');
+function pokemonSearchText(pokemon: PokemonReference, locale: LocaleId): string {
+  return localizedSearchText(pokemon.name, pokemon.localizedNames, locale);
 }
 
-function itemSearchText(reference: ReferenceSnapshot, item: string): string {
+function itemSearchText(reference: ReferenceSnapshot, item: string, locale: LocaleId): string {
   const itemReference = reference.itemDetails[toId(item)];
-  return [item, itemReference?.localizedNames?.fr, itemReference?.localizedNames?.en, itemReference?.localizedNames?.ja]
-    .filter(Boolean)
-    .join(' ');
+  return localizedSearchText(item, itemReference?.localizedNames, locale);
+}
+
+function moveSearchText(move: MoveReference, locale: LocaleId): string {
+  return localizedSearchText(move.name, move.localizedNames, locale);
+}
+
+function moveStatValue(value: number | undefined): string {
+  return typeof value === 'number' ? String(value) : '-';
+}
+
+function isStabMove(move: MoveReference, pokemon: PokemonReference | undefined): boolean {
+  return Boolean(pokemon?.types.includes(move.type));
 }
 
 function moveOptionsForSlot(
@@ -117,6 +140,7 @@ function TeamSlotRail({
   selectedSlots,
   pickSize,
   reference,
+  locale,
   onActiveSlotChange,
 }: {
   slots: BuilderSlot[];
@@ -124,6 +148,7 @@ function TeamSlotRail({
   selectedSlots: number[];
   pickSize: number;
   reference: ReferenceSnapshot;
+  locale: LocaleId;
   onActiveSlotChange: (slotId: number) => void;
 }) {
   return (
@@ -150,7 +175,7 @@ function TeamSlotRail({
                 <PokemonAvatar reference={reference} species={slot.species} />
                 <div>
                   <strong>Slot {slot.id}</strong>
-                  <span>{slot.species ? pokemonDisplayName(reference, slot.species) : 'Libre'}</span>
+                  <span>{slot.species ? pokemonDisplayName(reference, slot.species, locale) : 'Libre'}</span>
                   <small>{slotSelected ? 'Joué au match' : 'Dans l’équipe'}</small>
                 </div>
               </div>
@@ -177,6 +202,7 @@ export function TeamBuilder({
   itemOptions,
   natureOptions,
   reference,
+  locale,
   referenceStatus,
   referenceSource,
   selectedSlots,
@@ -190,6 +216,7 @@ export function TeamBuilder({
   itemOptions: string[];
   natureOptions: string[];
   reference: ReferenceSnapshot;
+  locale: LocaleId;
   referenceStatus: 'loading' | 'complete' | 'error';
   referenceSource: string;
   selectedSlots: number[];
@@ -210,7 +237,9 @@ export function TeamBuilder({
   const selectedPokemon = findPokemon(pokemonOptions, activeSlot.species);
   const abilityOptions = withCurrentOption(selectedPokemon?.abilities ?? [], activeSlot.ability);
   const filteredMoveOptions = moveOptionsForSlot(activeSlot, selectedPokemon, moveOptions);
-  const activePokemonLabel = activeSlot.species ? pokemonDisplayName(reference, activeSlot.species) : 'Choisir un Pokémon';
+  const activePokemonLabel = activeSlot.species
+    ? pokemonDisplayName(reference, activeSlot.species, locale)
+    : 'Choisir un Pokémon';
   const activeEvTotal = evTotal(activeSlot.evs);
   const remainingEvs = Math.max(0, EV_TOTAL_LIMIT - activeEvTotal);
   const activeAbilityDescription = abilityDescription(reference, activeSlot.ability);
@@ -225,23 +254,49 @@ export function TeamBuilder({
     () =>
       pokemonOptions.map((pokemon) => ({
         value: pokemon.name,
-        label: pokemonDisplayName(reference, pokemon.name),
-        searchText: pokemonSearchText(pokemon),
-        description: `Type : ${pokemon.types.map((type) => typeDisplayName(reference, type)).join(' / ')}`,
+        label: pokemonDisplayName(reference, pokemon.name, locale),
+        searchText: pokemonSearchText(pokemon, locale),
+        description: `Type : ${pokemon.types.map((type) => typeDisplayName(reference, type, locale)).join(' / ')}`,
         media: <PokemonAvatar reference={reference} species={pokemon.name} />,
       })),
-    [pokemonOptions, reference],
+    [locale, pokemonOptions, reference],
   );
   const itemPickerOptions = useMemo(
     () =>
       withCurrentOption(itemOptions, activeSlot.item).map((item) => ({
         value: item,
-        label: itemDisplayName(reference, item),
-        searchText: itemSearchText(reference, item),
+        label: itemDisplayName(reference, item, locale),
+        searchText: itemSearchText(reference, item, locale),
         description: itemDescription(reference, item),
         media: <ItemIcon reference={reference} item={item} />,
       })),
-    [activeSlot.item, itemOptions, reference],
+    [activeSlot.item, itemOptions, locale, reference],
+  );
+  const movePickerOptions = useMemo(
+    () =>
+      filteredMoveOptions.map((moveOption) => {
+        const moveType = typeDisplayName(reference, moveOption.type, locale);
+        const moveCategory = MOVE_CATEGORY_LABELS[moveOption.category][locale];
+        const isStab = isStabMove(moveOption, selectedPokemon);
+
+        return {
+          value: moveOption.name,
+          label: moveDisplayName(reference, moveOption.name, locale),
+          searchText: moveSearchText(moveOption, locale),
+          description: `${moveType} · ${moveCategory}`,
+          media: <span className={`type-chip type-${moveOption.type.toLowerCase()}`}>{moveType}</span>,
+          details: (
+            <span className="move-result-details">
+              <span>{moveCategory}</span>
+              {isStab ? <span className="stab-chip">STAB</span> : null}
+              <span>Puissance {moveStatValue(moveOption.power)}</span>
+              <span>Précision {moveStatValue(moveOption.accuracy)}</span>
+              <span>PP {moveStatValue(moveOption.pp)}</span>
+            </span>
+          ),
+        };
+      }),
+    [filteredMoveOptions, locale, reference, selectedPokemon],
   );
   const sourceLabel =
     referenceStatus === 'complete'
@@ -258,7 +313,7 @@ export function TeamBuilder({
           <p>Sélection de match : choisis {pickSize} Pokémon parmi ton équipe de 6.</p>
           <p className="builder-source">
             {sourceLabel} : {referenceSource} · {pokemonOptions.length} Pokémon · {moveOptions.length} attaques ·
-            labels FR
+            labels {locale.toUpperCase()}
           </p>
         </div>
       </div>
@@ -302,6 +357,7 @@ export function TeamBuilder({
           selectedSlots={selectedSlots}
           pickSize={pickSize}
           reference={reference}
+          locale={locale}
           onActiveSlotChange={setActiveSlotId}
         />
 
@@ -360,7 +416,7 @@ export function TeamBuilder({
                 <option value="">Choisir</option>
                 {abilityOptions.map((ability) => (
                   <option key={ability} value={ability}>
-                    {abilityDisplayName(reference, ability)}
+                    {abilityDisplayName(reference, ability, locale)}
                   </option>
                 ))}
               </select>
@@ -379,7 +435,7 @@ export function TeamBuilder({
                 <option value="">Choisir</option>
                 {POKEMON_TYPES.map((type) => (
                   <option key={type} value={type}>
-                    {typeDisplayName(reference, type)}
+                    {typeDisplayName(reference, type, locale)}
                   </option>
                 ))}
               </select>
@@ -393,7 +449,7 @@ export function TeamBuilder({
                 <option value="">Choisir</option>
                 {withCurrentOption(natureOptions, activeSlot.nature).map((nature) => (
                   <option key={nature} value={nature}>
-                    {natureDisplayName(reference, nature)}
+                    {natureDisplayName(reference, nature, locale)}
                   </option>
                 ))}
               </select>
@@ -403,27 +459,19 @@ export function TeamBuilder({
 
           <div className="move-grid">
             {activeSlot.moves.map((move, index) => (
-              <label className="field" key={`${activeSlot.id}-${index}`}>
-                <span>
-                  Slot {activeSlot.id} Attaque {index + 1}
-                </span>
-                <select
-                  value={move}
-                  disabled={!selectedPokemon}
-                  onChange={(event) =>
-                    onSlotChange(activeSlot.id, {
-                      moves: replaceMove(activeSlot.moves, index, event.target.value),
-                    })
-                  }
-                >
-                  <option value="">Choisir</option>
-                  {filteredMoveOptions.map((moveOption) => (
-                    <option key={moveOption.id} value={moveOption.name}>
-                      {moveDisplayName(reference, moveOption.name)}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <SearchablePicker
+                label={`Slot ${activeSlot.id} Attaque ${index + 1}`}
+                value={move || undefined}
+                placeholder={selectedPokemon ? 'Chercher une attaque' : "Choisis d'abord un Pokémon"}
+                options={selectedPokemon ? movePickerOptions : []}
+                emptyLabel="Aucune attaque trouvée"
+                onChange={(value) =>
+                  onSlotChange(activeSlot.id, {
+                    moves: replaceMove(activeSlot.moves, index, value ?? ''),
+                  })
+                }
+                key={`${activeSlot.id}-${index}`}
+              />
             ))}
           </div>
 

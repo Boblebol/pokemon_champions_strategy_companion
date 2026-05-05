@@ -6,11 +6,10 @@ Showdown dédiés à Pokémon Champions.
 
 ## Parcours rapide
 
-1. Ouvrir le cockpit desktop `/app` ou l'expérience mobile tactile `/mobile`.
+1. Ouvrir l'app tactile `/app`. `/mobile` reste un alias compatible.
 2. Choisir le format Showdown : `[Champions] BSS Reg M-A`,
    `[Champions] VGC 2026 Reg M-A` ou `[Champions] OU`.
-3. Importer un paste Showdown, charger un fichier `.txt` ou construire les 6
-   slots dans le constructeur.
+3. Construire les 6 slots dans le constructeur.
 4. Cocher les Pokémon réellement joués dans la sélection de match.
 5. Utiliser le panneau Combat pour simuler les dégâts contre un ou deux
    adversaires.
@@ -29,7 +28,7 @@ gardés en cache par le service worker.
 
 Sur iOS ou iPadOS :
 
-1. Ouvre `/mobile` dans Safari.
+1. Ouvre `/app` dans Safari.
 2. Appuie sur le bouton de partage.
 3. Choisis `Sur l'écran d'accueil`.
 4. Valide le nom proposé ou renomme l'app.
@@ -37,19 +36,19 @@ Sur iOS ou iPadOS :
 
 Sur Android :
 
-1. Ouvre `/mobile` dans Chrome ou un navigateur compatible PWA.
+1. Ouvre `/app` dans Chrome ou un navigateur compatible PWA.
 2. Ouvre le menu du navigateur.
 3. Choisis `Installer l'application` ou `Ajouter à l'écran d'accueil`.
 4. Valide l'installation.
 5. Lance Champions Companion depuis l'icône créée.
 
-Le statut PWA dans le cockpit indique si l'app est en ligne ou hors ligne. Hors
+Le statut PWA indique si l'app est en ligne ou hors ligne. Hors
 ligne, les données locales et les équipes sauvegardées restent disponibles ; la
 mise à jour Smogon attend simplement le retour du réseau.
 
-La landing propose les deux entrées : `/app` pour le cockpit desktop complet et
-`/mobile` pour l'interface installée pensée pour le doigt. Les deux utilisent les
-mêmes données, les mêmes formats, les mêmes calculs et les mêmes exports.
+La landing propose une seule entrée vers `/app`. L'alias `/mobile` utilise les
+mêmes données, les mêmes formats, les mêmes calculs et les mêmes exports pour
+préserver les anciens liens.
 
 ## Formats
 
@@ -68,9 +67,10 @@ Pokémon Showdown pour Pokémon Champions.
 Le constructeur propose les Pokémon, talents, objets, natures et attaques depuis
 la référence locale filtrée par le roster Showdown Champions et générée avec
 `@pkmn/dex` et `@pkmn/data`. La recherche
-affiche les résultats en français, triés alphabétiquement, avec images Pokémon,
-images d'objets et descriptions d'objets quand la source les fournit. Les valeurs
-internes et l'export restent compatibles Pokémon Showdown en anglais.
+affiche les résultats dans la langue active, triés alphabétiquement, avec images
+Pokémon, images d'objets et descriptions d'objets quand la source les fournit.
+Les attaques affichent aussi type, catégorie, STAB, puissance, précision et PP.
+Les valeurs internes et l'export restent compatibles Pokémon Showdown en anglais.
 
 Le roster local vient du mod Pokémon Showdown `champions`. Il est filtré pour ne
 pas proposer les entrées marquées `Illegal` dans
@@ -79,8 +79,7 @@ slot d'équipe directement sélectionnable, comme les Méga, Gigamax, Primo,
 Eternamax, Totem ou formes battle-only, ne sont pas proposées comme Pokémon
 séparés dans le constructeur.
 
-Dans l'assistant, `Importer un fichier` lit un `.txt` Showdown et remplace
-l'équipe courante. `Exporter l'équipe` télécharge le paste actuel dans
+Dans l'écran Données, `Exporter l'équipe` télécharge le paste actuel dans
 `pokemon-champions-team.txt`, pratique pour le garder localement ou le partager.
 
 Les commentaires restent privés au constructeur. Ils servent aux notes de plan de

@@ -917,6 +917,33 @@ small {
   text-decoration: none;
 }
 
+.locale-switch {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(44px, 1fr));
+  gap: 4px;
+  width: auto;
+  border: 1px solid #c9d8ea;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 4px;
+}
+
+.locale-switch button {
+  min-height: 34px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--navy);
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.locale-switch button[aria-pressed="true"] {
+  background: var(--navy);
+  color: #ffffff;
+}
+
 .mobile-tabbar {
   position: fixed;
   z-index: 50;
@@ -1722,6 +1749,43 @@ small {
   display: grid;
   gap: 2px;
   min-width: 0;
+}
+
+.picker-option-details,
+.move-result-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 7px;
+}
+
+.move-result-details span,
+.type-chip,
+.stab-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  border-radius: 999px;
+  background: #e7edf4;
+  color: var(--navy);
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.stab-chip {
+  background: #dff0e6;
+  color: #21623e;
+}
+
+.move-grid .searchable-picker {
+  min-width: 0;
+}
+
+.move-grid .picker-option {
+  align-items: flex-start;
+  min-height: 78px;
 }
 
 @media (max-width: 900px) {

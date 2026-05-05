@@ -57,8 +57,11 @@ describe('pkmnReference', () => {
       type: 'Fighting',
       category: 'Physical',
       power: 120,
+      pp: 5,
       target: 'normal',
     });
+    expect(snapshot.moves.earthquake?.pp).toBe(10);
+    expect(snapshot.moves.dragondance?.pp).toBe(20);
     expect(snapshot.moves.suckerpunch?.priority).toBe(1);
     expect(snapshot.moves.earthquake?.target).toBe('allAdjacent');
   });

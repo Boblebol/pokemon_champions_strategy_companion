@@ -7,6 +7,7 @@ export interface PickerOption {
   searchText: string;
   description?: string;
   media: ReactNode;
+  details?: ReactNode;
 }
 
 function normalizeSearch(value: string): string {
@@ -204,6 +205,7 @@ export function SearchablePicker({
               <span>
                 <strong>{option.label}</strong>
                 {option.description ? <small>{option.description}</small> : null}
+                {option.details ? <span className="picker-option-details">{option.details}</span> : null}
               </span>
             </div>
           ))}

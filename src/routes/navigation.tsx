@@ -8,7 +8,6 @@ export function PageNav({ tone = 'dark', compact = false }: { tone?: 'dark' | 'l
       </a>
       <div>
         <a href={pageHref('app')}>{compact ? 'App' : "Ouvrir l'app"}</a>
-        <a href={pageHref('mobile')}>{compact ? 'Mobile' : "Ouvrir l'app mobile"}</a>
         <a href={pageHref('docs')}>{compact ? 'Doc' : 'Ouvrir la doc'}</a>
       </div>
     </nav>

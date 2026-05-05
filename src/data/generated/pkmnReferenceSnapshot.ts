@@ -25562,6 +25562,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Electric",
       "category": "Special",
       "power": 195,
+      "pp": 1,
       "target": "normal"
     },
     "absorb": {
@@ -25576,6 +25577,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 20,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "accelerock": {
@@ -25590,6 +25592,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 20,
       "priority": 1,
       "target": "normal"
     },
@@ -25605,6 +25608,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 30,
       "target": "allAdjacentFoes"
     },
     "acidarmor": {
@@ -25617,6 +25621,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Poison",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "aciddownpour": {
@@ -25630,6 +25635,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Poison",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "acidspray": {
@@ -25644,6 +25650,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "acrobatics": {
@@ -25658,6 +25665,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 55,
       "accuracy": 100,
+      "pp": 15,
       "target": "any"
     },
     "acupressure": {
@@ -25670,6 +25678,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 30,
       "target": "adjacentAllyOrSelf"
     },
     "aerialace": {
@@ -25683,6 +25692,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Flying",
       "category": "Physical",
       "power": 60,
+      "pp": 20,
       "target": "any"
     },
     "aeroblast": {
@@ -25697,6 +25707,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 95,
+      "pp": 5,
       "target": "any"
     },
     "afteryou": {
@@ -25709,6 +25720,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 15,
       "target": "normal"
     },
     "agility": {
@@ -25721,6 +25733,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 30,
       "target": "self"
     },
     "aircutter": {
@@ -25735,6 +25748,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 95,
+      "pp": 25,
       "target": "allAdjacentFoes"
     },
     "airslash": {
@@ -25749,6 +25763,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 75,
       "accuracy": 95,
+      "pp": 15,
       "target": "any"
     },
     "alloutpummeling": {
@@ -25762,6 +25777,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fighting",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "alluringvoice": {
@@ -25776,6 +25792,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "allyswitch": {
@@ -25788,6 +25805,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 15,
       "priority": 2,
       "target": "self"
     },
@@ -25801,6 +25819,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "anchorshot": {
@@ -25815,6 +25834,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "ancientpower": {
@@ -25829,6 +25849,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "appleacid": {
@@ -25843,6 +25864,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "aquacutter": {
@@ -25857,6 +25879,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "aquajet": {
@@ -25871,6 +25894,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 20,
       "priority": 1,
       "target": "normal"
     },
@@ -25884,6 +25908,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Water",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "aquastep": {
@@ -25898,6 +25923,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "aquatail": {
@@ -25912,6 +25938,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "armthrust": {
@@ -25926,6 +25953,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 15,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "armorcannon": {
@@ -25940,6 +25968,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "aromatherapy": {
@@ -25952,6 +25981,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Grass",
       "category": "Status",
+      "pp": 5,
       "target": "allyTeam"
     },
     "aromaticmist": {
@@ -25964,6 +25994,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fairy",
       "category": "Status",
+      "pp": 20,
       "target": "adjacentAlly"
     },
     "assist": {
@@ -25976,6 +26007,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "assurance": {
@@ -25990,6 +26022,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "astonish": {
@@ -26004,6 +26037,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 30,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "astralbarrage": {
@@ -26018,6 +26052,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "attackorder": {
@@ -26032,6 +26067,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "attract": {
@@ -26045,6 +26081,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "aurasphere": {
@@ -26058,6 +26095,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fighting",
       "category": "Special",
       "power": 80,
+      "pp": 20,
       "target": "any"
     },
     "aurawheel": {
@@ -26072,6 +26110,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 110,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "aurorabeam": {
@@ -26086,6 +26125,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "auroraveil": {
@@ -26098,6 +26138,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ice",
       "category": "Status",
+      "pp": 20,
       "target": "allySide"
     },
     "autotomize": {
@@ -26110,6 +26151,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Steel",
       "category": "Status",
+      "pp": 15,
       "target": "self"
     },
     "avalanche": {
@@ -26124,6 +26166,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 10,
       "priority": -4,
       "target": "normal"
     },
@@ -26139,6 +26182,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "babydolleyes": {
@@ -26152,6 +26196,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fairy",
       "category": "Status",
       "accuracy": 100,
+      "pp": 30,
       "priority": 1,
       "target": "normal"
     },
@@ -26165,6 +26210,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Poison",
       "category": "Status",
+      "pp": 10,
       "priority": 4,
       "target": "self"
     },
@@ -26180,6 +26226,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "barrage": {
@@ -26194,6 +26241,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 15,
       "accuracy": 85,
+      "pp": 20,
       "target": "normal"
     },
     "barrier": {
@@ -26206,6 +26254,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "batonpass": {
@@ -26218,6 +26267,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 40,
       "target": "self"
     },
     "beakblast": {
@@ -26232,6 +26282,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 15,
       "priority": -3,
       "target": "normal"
     },
@@ -26246,6 +26297,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "behemothbash": {
@@ -26260,6 +26312,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "behemothblade": {
@@ -26274,6 +26327,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "belch": {
@@ -26288,6 +26342,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "bellydrum": {
@@ -26300,6 +26355,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "bestow": {
@@ -26312,6 +26368,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 15,
       "target": "normal"
     },
     "bide": {
@@ -26324,6 +26381,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Physical",
+      "pp": 10,
       "priority": 1,
       "target": "self"
     },
@@ -26339,6 +26397,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 15,
       "accuracy": 85,
+      "pp": 20,
       "target": "normal"
     },
     "bite": {
@@ -26353,6 +26412,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "bitterblade": {
@@ -26367,6 +26427,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "bittermalice": {
@@ -26381,6 +26442,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 75,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "blackholeeclipse": {
@@ -26394,6 +26456,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "blastburn": {
@@ -26408,6 +26471,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "blazekick": {
@@ -26422,6 +26486,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "bleakwindstorm": {
@@ -26436,6 +26501,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 80,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "blizzard": {
@@ -26450,6 +26516,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 110,
       "accuracy": 70,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "block": {
@@ -26462,6 +26529,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "normal"
     },
     "bloodmoon": {
@@ -26476,6 +26544,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 140,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "bloomdoom": {
@@ -26489,6 +26558,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "blueflare": {
@@ -26503,6 +26573,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 130,
       "accuracy": 85,
+      "pp": 5,
       "target": "normal"
     },
     "bodypress": {
@@ -26517,6 +26588,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "bodyslam": {
@@ -26531,6 +26603,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "boltbeak": {
@@ -26545,6 +26618,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "boltstrike": {
@@ -26559,6 +26633,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 130,
       "accuracy": 85,
+      "pp": 5,
       "target": "normal"
     },
     "boneclub": {
@@ -26573,6 +26648,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 85,
+      "pp": 20,
       "target": "normal"
     },
     "bonerush": {
@@ -26587,6 +26663,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 25,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "bonemerang": {
@@ -26601,6 +26678,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "boomburst": {
@@ -26615,6 +26693,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 140,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacent"
     },
     "bounce": {
@@ -26629,6 +26708,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 85,
+      "pp": 5,
       "target": "any"
     },
     "branchpoke": {
@@ -26643,6 +26723,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 40,
       "target": "normal"
     },
     "bravebird": {
@@ -26657,6 +26738,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 15,
       "target": "any"
     },
     "breakingswipe": {
@@ -26671,6 +26753,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "allAdjacentFoes"
     },
     "breakneckblitz": {
@@ -26684,6 +26767,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "brickbreak": {
@@ -26698,6 +26782,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "brine": {
@@ -26712,6 +26797,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "brutalswing": {
@@ -26726,6 +26812,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 20,
       "target": "allAdjacent"
     },
     "bubble": {
@@ -26740,6 +26827,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 30,
       "target": "allAdjacentFoes"
     },
     "bubblebeam": {
@@ -26754,6 +26842,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "bugbite": {
@@ -26768,6 +26857,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "bugbuzz": {
@@ -26782,6 +26872,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "bulkup": {
@@ -26794,6 +26885,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fighting",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "bulldoze": {
@@ -26808,6 +26900,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 20,
       "target": "allAdjacent"
     },
     "bulletpunch": {
@@ -26822,6 +26915,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 30,
       "priority": 1,
       "target": "normal"
     },
@@ -26837,6 +26931,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 25,
       "accuracy": 100,
+      "pp": 30,
       "target": "normal"
     },
     "burningbulwark": {
@@ -26849,6 +26944,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fire",
       "category": "Status",
+      "pp": 10,
       "priority": 4,
       "target": "self"
     },
@@ -26864,6 +26960,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 70,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "calmmind": {
@@ -26876,6 +26973,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "camouflage": {
@@ -26888,6 +26986,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "captivate": {
@@ -26901,6 +27000,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "allAdjacentFoes"
     },
     "catastropika": {
@@ -26914,6 +27014,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Electric",
       "category": "Physical",
       "power": 210,
+      "pp": 1,
       "target": "normal"
     },
     "ceaselessedge": {
@@ -26928,6 +27029,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 90,
+      "pp": 15,
       "target": "normal"
     },
     "celebrate": {
@@ -26940,6 +27042,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 40,
       "target": "self"
     },
     "charge": {
@@ -26952,6 +27055,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Electric",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "chargebeam": {
@@ -26966,6 +27070,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 50,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "charm": {
@@ -26979,6 +27084,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fairy",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "chatter": {
@@ -26993,6 +27099,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "any"
     },
     "chillingwater": {
@@ -27007,6 +27114,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 50,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "chillyreception": {
@@ -27019,6 +27127,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ice",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "chipaway": {
@@ -27033,6 +27142,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "chloroblast": {
@@ -27047,6 +27157,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 95,
+      "pp": 5,
       "target": "normal"
     },
     "circlethrow": {
@@ -27061,6 +27172,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 90,
+      "pp": 10,
       "priority": -6,
       "target": "normal"
     },
@@ -27076,6 +27188,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 35,
       "accuracy": 85,
+      "pp": 15,
       "target": "normal"
     },
     "clangingscales": {
@@ -27090,6 +27203,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 110,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "clangoroussoul": {
@@ -27103,6 +27217,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dragon",
       "category": "Status",
       "accuracy": 100,
+      "pp": 5,
       "target": "self"
     },
     "clangoroussoulblaze": {
@@ -27116,6 +27231,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dragon",
       "category": "Special",
       "power": 185,
+      "pp": 1,
       "target": "allAdjacentFoes"
     },
     "clearsmog": {
@@ -27129,6 +27245,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Poison",
       "category": "Special",
       "power": 50,
+      "pp": 15,
       "target": "normal"
     },
     "closecombat": {
@@ -27143,6 +27260,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "coaching": {
@@ -27155,6 +27273,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fighting",
       "category": "Status",
+      "pp": 10,
       "target": "adjacentAlly"
     },
     "coil": {
@@ -27167,6 +27286,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Poison",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "collisioncourse": {
@@ -27181,6 +27301,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "cometpunch": {
@@ -27195,6 +27316,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 18,
       "accuracy": 85,
+      "pp": 15,
       "target": "normal"
     },
     "comeuppance": {
@@ -27208,6 +27330,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 10,
       "target": "scripted"
     },
     "confide": {
@@ -27220,6 +27343,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "normal"
     },
     "confuseray": {
@@ -27233,6 +27357,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "confusion": {
@@ -27247,6 +27372,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 50,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "constrict": {
@@ -27261,6 +27387,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 10,
       "accuracy": 100,
+      "pp": 35,
       "target": "normal"
     },
     "continentalcrush": {
@@ -27274,6 +27401,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Rock",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "conversion": {
@@ -27286,6 +27414,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 30,
       "target": "self"
     },
     "conversion2": {
@@ -27298,6 +27427,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 30,
       "target": "normal"
     },
     "copycat": {
@@ -27310,6 +27440,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "coreenforcer": {
@@ -27324,6 +27455,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "corkscrewcrash": {
@@ -27337,6 +27469,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "cosmicpower": {
@@ -27349,6 +27482,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "cottonguard": {
@@ -27361,6 +27495,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Grass",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "cottonspore": {
@@ -27374,6 +27509,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Status",
       "accuracy": 100,
+      "pp": 40,
       "target": "allAdjacentFoes"
     },
     "counter": {
@@ -27387,6 +27523,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fighting",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 20,
       "priority": -5,
       "target": "scripted"
     },
@@ -27401,6 +27538,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "all"
     },
     "covet": {
@@ -27415,6 +27553,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "crabhammer": {
@@ -27429,6 +27568,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "craftyshield": {
@@ -27441,6 +27581,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fairy",
       "category": "Status",
+      "pp": 10,
       "priority": 3,
       "target": "allySide"
     },
@@ -27456,6 +27597,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 80,
+      "pp": 5,
       "target": "normal"
     },
     "crosspoison": {
@@ -27470,6 +27612,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "crunch": {
@@ -27484,6 +27627,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "crushclaw": {
@@ -27498,6 +27642,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 95,
+      "pp": 10,
       "target": "normal"
     },
     "crushgrip": {
@@ -27511,6 +27656,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "curse": {
@@ -27523,6 +27669,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ghost",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "darkpulse": {
@@ -27537,6 +27684,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "any"
     },
     "darkvoid": {
@@ -27550,6 +27698,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 50,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "darkestlariat": {
@@ -27564,6 +27713,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "dazzlinggleam": {
@@ -27578,6 +27728,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "decorate": {
@@ -27590,6 +27741,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fairy",
       "category": "Status",
+      "pp": 15,
       "target": "normal"
     },
     "defendorder": {
@@ -27602,6 +27754,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Bug",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "defensecurl": {
@@ -27614,6 +27767,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 40,
       "target": "self"
     },
     "defog": {
@@ -27626,6 +27780,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Flying",
       "category": "Status",
+      "pp": 15,
       "target": "normal"
     },
     "destinybond": {
@@ -27638,6 +27793,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ghost",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "detect": {
@@ -27650,6 +27806,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fighting",
       "category": "Status",
+      "pp": 5,
       "priority": 4,
       "target": "self"
     },
@@ -27664,6 +27821,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dragon",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "diamondstorm": {
@@ -27678,6 +27836,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 95,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "dig": {
@@ -27692,6 +27851,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "direclaw": {
@@ -27706,6 +27866,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "disable": {
@@ -27719,6 +27880,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "disarmingvoice": {
@@ -27732,6 +27894,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fairy",
       "category": "Special",
       "power": 40,
+      "pp": 15,
       "target": "allAdjacentFoes"
     },
     "discharge": {
@@ -27746,6 +27909,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "allAdjacent"
     },
     "dive": {
@@ -27760,6 +27924,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "dizzypunch": {
@@ -27774,6 +27939,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "doodle": {
@@ -27787,6 +27953,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "doomdesire": {
@@ -27801,6 +27968,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 140,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "doublehit": {
@@ -27815,6 +27983,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 35,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "doubleironbash": {
@@ -27829,6 +27998,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "doublekick": {
@@ -27843,6 +28013,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 30,
       "accuracy": 100,
+      "pp": 30,
       "target": "normal"
     },
     "doubleshock": {
@@ -27857,6 +28028,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "doubleslap": {
@@ -27871,6 +28043,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 15,
       "accuracy": 85,
+      "pp": 10,
       "target": "normal"
     },
     "doubleteam": {
@@ -27883,6 +28056,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 15,
       "target": "self"
     },
     "doubleedge": {
@@ -27897,6 +28071,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "dracometeor": {
@@ -27911,6 +28086,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 130,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "dragonascent": {
@@ -27925,6 +28101,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "any"
     },
     "dragonbreath": {
@@ -27939,6 +28116,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "dragoncheer": {
@@ -27951,6 +28129,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Dragon",
       "category": "Status",
+      "pp": 15,
       "target": "adjacentAlly"
     },
     "dragonclaw": {
@@ -27965,6 +28144,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "dragondance": {
@@ -27977,6 +28157,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Dragon",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "dragondarts": {
@@ -27991,6 +28172,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "dragonenergy": {
@@ -28005,6 +28187,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "dragonhammer": {
@@ -28019,6 +28202,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "dragonpulse": {
@@ -28033,6 +28217,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 85,
       "accuracy": 100,
+      "pp": 10,
       "target": "any"
     },
     "dragonrage": {
@@ -28046,6 +28231,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dragon",
       "category": "Special",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "dragonrush": {
@@ -28060,6 +28246,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 75,
+      "pp": 10,
       "target": "normal"
     },
     "dragontail": {
@@ -28074,6 +28261,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 90,
+      "pp": 10,
       "priority": -6,
       "target": "normal"
     },
@@ -28089,6 +28277,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "drainingkiss": {
@@ -28103,6 +28292,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 50,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "dreameater": {
@@ -28117,6 +28307,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "drillpeck": {
@@ -28131,6 +28322,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 20,
       "target": "any"
     },
     "drillrun": {
@@ -28145,6 +28337,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 95,
+      "pp": 10,
       "target": "normal"
     },
     "drumbeating": {
@@ -28159,6 +28352,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "dualchop": {
@@ -28173,6 +28367,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 90,
+      "pp": 15,
       "target": "normal"
     },
     "dualwingbeat": {
@@ -28187,6 +28382,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "dynamaxcannon": {
@@ -28201,6 +28397,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "dynamicpunch": {
@@ -28215,6 +28412,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 50,
+      "pp": 5,
       "target": "normal"
     },
     "earthpower": {
@@ -28229,6 +28427,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "earthquake": {
@@ -28243,6 +28442,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacent"
     },
     "echoedvoice": {
@@ -28257,6 +28457,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "eerieimpulse": {
@@ -28270,6 +28471,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Electric",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "eeriespell": {
@@ -28284,6 +28486,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "eggbomb": {
@@ -28298,6 +28501,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 75,
+      "pp": 10,
       "target": "normal"
     },
     "electricterrain": {
@@ -28310,6 +28514,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Electric",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "electrify": {
@@ -28322,6 +28527,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Electric",
       "category": "Status",
+      "pp": 20,
       "target": "normal"
     },
     "electroball": {
@@ -28335,6 +28541,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Electric",
       "category": "Special",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "electrodrift": {
@@ -28349,6 +28556,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "electroshot": {
@@ -28363,6 +28571,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 130,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "electroweb": {
@@ -28377,6 +28586,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 55,
       "accuracy": 95,
+      "pp": 15,
       "target": "allAdjacentFoes"
     },
     "embargo": {
@@ -28390,6 +28600,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "ember": {
@@ -28404,6 +28615,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "encore": {
@@ -28417,6 +28629,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "endeavor": {
@@ -28430,6 +28643,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "endure": {
@@ -28442,6 +28656,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "priority": 4,
       "target": "self"
     },
@@ -28457,6 +28672,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "entrainment": {
@@ -28470,6 +28686,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "eruption": {
@@ -28484,6 +28701,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "esperwing": {
@@ -28498,6 +28716,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "eternabeam": {
@@ -28512,6 +28731,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 160,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "expandingforce": {
@@ -28526,6 +28746,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "explosion": {
@@ -28540,6 +28761,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 250,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacent"
     },
     "extrasensory": {
@@ -28554,6 +28776,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "extremeevoboost": {
@@ -28566,6 +28789,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 1,
       "target": "self"
     },
     "extremespeed": {
@@ -28580,6 +28804,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 5,
       "priority": 2,
       "target": "normal"
     },
@@ -28595,6 +28820,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "fairylock": {
@@ -28607,6 +28833,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fairy",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "fairywind": {
@@ -28621,6 +28848,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 30,
       "target": "normal"
     },
     "fakeout": {
@@ -28635,6 +28863,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 10,
       "priority": 3,
       "target": "normal"
     },
@@ -28649,6 +28878,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "falsesurrender": {
@@ -28662,6 +28892,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "power": 80,
+      "pp": 10,
       "target": "normal"
     },
     "falseswipe": {
@@ -28676,6 +28907,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 40,
       "target": "normal"
     },
     "featherdance": {
@@ -28689,6 +28921,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Flying",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "feint": {
@@ -28703,6 +28936,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 30,
       "accuracy": 100,
+      "pp": 10,
       "priority": 2,
       "target": "normal"
     },
@@ -28717,6 +28951,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "power": 60,
+      "pp": 20,
       "target": "normal"
     },
     "fellstinger": {
@@ -28731,6 +28966,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "ficklebeam": {
@@ -28745,6 +28981,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "fierydance": {
@@ -28759,6 +28996,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "fierywrath": {
@@ -28773,6 +29011,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "filletaway": {
@@ -28785,6 +29024,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "finalgambit": {
@@ -28798,6 +29038,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fighting",
       "category": "Special",
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "fireblast": {
@@ -28812,6 +29053,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 110,
       "accuracy": 85,
+      "pp": 5,
       "target": "normal"
     },
     "firefang": {
@@ -28826,6 +29068,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 95,
+      "pp": 15,
       "target": "normal"
     },
     "firelash": {
@@ -28840,6 +29083,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "firepledge": {
@@ -28854,6 +29098,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "firepunch": {
@@ -28868,6 +29113,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "firespin": {
@@ -28882,6 +29128,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 35,
       "accuracy": 85,
+      "pp": 15,
       "target": "normal"
     },
     "firstimpression": {
@@ -28896,6 +29143,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "priority": 2,
       "target": "normal"
     },
@@ -28911,6 +29159,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "fissure": {
@@ -28924,6 +29173,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ground",
       "category": "Physical",
       "accuracy": 30,
+      "pp": 5,
       "target": "normal"
     },
     "flail": {
@@ -28937,6 +29187,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "flameburst": {
@@ -28951,6 +29202,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 70,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "flamecharge": {
@@ -28965,6 +29217,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "flamewheel": {
@@ -28979,6 +29232,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "flamethrower": {
@@ -28993,6 +29247,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "flareblitz": {
@@ -29007,6 +29262,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "flash": {
@@ -29020,6 +29276,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "flashcannon": {
@@ -29034,6 +29291,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "flatter": {
@@ -29047,6 +29305,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "fleurcannon": {
@@ -29061,6 +29320,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 130,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "fling": {
@@ -29074,6 +29334,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "flipturn": {
@@ -29088,6 +29349,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "floralhealing": {
@@ -29100,6 +29362,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fairy",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "flowershield": {
@@ -29112,6 +29375,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fairy",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "flowertrick": {
@@ -29125,6 +29389,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Physical",
       "power": 70,
+      "pp": 10,
       "target": "normal"
     },
     "fly": {
@@ -29139,6 +29404,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 95,
+      "pp": 15,
       "target": "any"
     },
     "flyingpress": {
@@ -29153,6 +29419,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 95,
+      "pp": 10,
       "target": "any"
     },
     "focusblast": {
@@ -29167,6 +29434,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 70,
+      "pp": 5,
       "target": "normal"
     },
     "focusenergy": {
@@ -29179,6 +29447,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 30,
       "target": "self"
     },
     "focuspunch": {
@@ -29193,6 +29462,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 150,
       "accuracy": 100,
+      "pp": 20,
       "priority": -3,
       "target": "normal"
     },
@@ -29206,6 +29476,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "priority": 2,
       "target": "self"
     },
@@ -29221,6 +29492,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "foresight": {
@@ -29233,6 +29505,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 40,
       "target": "normal"
     },
     "forestscurse": {
@@ -29246,6 +29519,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "foulplay": {
@@ -29260,6 +29534,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 95,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "freezeshock": {
@@ -29274,6 +29549,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 140,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "freezedry": {
@@ -29288,6 +29564,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "freezingglare": {
@@ -29302,6 +29579,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "frenzyplant": {
@@ -29316,6 +29594,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "frostbreath": {
@@ -29330,6 +29609,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "frustration": {
@@ -29343,6 +29623,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "furyattack": {
@@ -29357,6 +29638,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 15,
       "accuracy": 85,
+      "pp": 20,
       "target": "normal"
     },
     "furycutter": {
@@ -29371,6 +29653,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 95,
+      "pp": 20,
       "target": "normal"
     },
     "furyswipes": {
@@ -29385,6 +29668,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 18,
       "accuracy": 80,
+      "pp": 15,
       "target": "normal"
     },
     "fusionbolt": {
@@ -29399,6 +29683,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "fusionflare": {
@@ -29413,6 +29698,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "futuresight": {
@@ -29427,6 +29713,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "gastroacid": {
@@ -29440,6 +29727,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Poison",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "geargrind": {
@@ -29454,6 +29742,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 85,
+      "pp": 15,
       "target": "normal"
     },
     "gearup": {
@@ -29466,6 +29755,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Steel",
       "category": "Status",
+      "pp": 20,
       "target": "allySide"
     },
     "genesissupernova": {
@@ -29479,6 +29769,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Special",
       "power": 185,
+      "pp": 1,
       "target": "normal"
     },
     "geomancy": {
@@ -29491,6 +29782,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fairy",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "gigadrain": {
@@ -29505,6 +29797,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 75,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "gigaimpact": {
@@ -29519,6 +29812,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 150,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "gigatonhammer": {
@@ -29533,6 +29827,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 160,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "gigavolthavoc": {
@@ -29546,6 +29841,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Electric",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "glaciallance": {
@@ -29560,6 +29856,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "glaciate": {
@@ -29574,6 +29871,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 95,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "glaiverush": {
@@ -29588,6 +29886,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "glare": {
@@ -29601,6 +29900,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 30,
       "target": "normal"
     },
     "grassknot": {
@@ -29614,6 +29914,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Special",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "grasspledge": {
@@ -29628,6 +29929,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "grasswhistle": {
@@ -29641,6 +29943,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Status",
       "accuracy": 55,
+      "pp": 15,
       "target": "normal"
     },
     "grassyglide": {
@@ -29655,6 +29958,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 55,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "grassyterrain": {
@@ -29667,6 +29971,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Grass",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "gravapple": {
@@ -29681,6 +29986,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "gravity": {
@@ -29693,6 +29999,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 5,
       "target": "all"
     },
     "growl": {
@@ -29706,6 +30013,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 40,
       "target": "allAdjacentFoes"
     },
     "growth": {
@@ -29718,6 +30026,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "grudge": {
@@ -29730,6 +30039,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ghost",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "guardsplit": {
@@ -29742,6 +30052,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "guardswap": {
@@ -29754,6 +30065,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "guardianofalola": {
@@ -29766,6 +30078,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fairy",
       "category": "Special",
+      "pp": 1,
       "target": "normal"
     },
     "guillotine": {
@@ -29779,6 +30092,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "accuracy": 30,
+      "pp": 5,
       "target": "normal"
     },
     "gunkshot": {
@@ -29793,6 +30107,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 80,
+      "pp": 5,
       "target": "normal"
     },
     "gust": {
@@ -29807,6 +30122,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 35,
       "target": "any"
     },
     "gyroball": {
@@ -29820,6 +30136,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "hail": {
@@ -29832,6 +30149,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ice",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "hammerarm": {
@@ -29846,6 +30164,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "happyhour": {
@@ -29858,6 +30177,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 30,
       "target": "allySide"
     },
     "hardpress": {
@@ -29871,6 +30191,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "harden": {
@@ -29883,6 +30204,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 30,
       "target": "self"
     },
     "haze": {
@@ -29895,6 +30217,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ice",
       "category": "Status",
+      "pp": 30,
       "target": "all"
     },
     "headcharge": {
@@ -29909,6 +30232,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "headsmash": {
@@ -29923,6 +30247,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 150,
       "accuracy": 80,
+      "pp": 5,
       "target": "normal"
     },
     "headbutt": {
@@ -29937,6 +30262,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "headlongrush": {
@@ -29951,6 +30277,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "healbell": {
@@ -29963,6 +30290,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "allyTeam"
     },
     "healblock": {
@@ -29976,6 +30304,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "allAdjacentFoes"
     },
     "healorder": {
@@ -29988,6 +30317,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Bug",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "healpulse": {
@@ -30000,6 +30330,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "any"
     },
     "healingwish": {
@@ -30012,6 +30343,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "heartstamp": {
@@ -30026,6 +30358,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "heartswap": {
@@ -30038,6 +30371,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "heatcrash": {
@@ -30051,6 +30385,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fire",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "heatwave": {
@@ -30065,6 +30400,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 95,
       "accuracy": 90,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "heavyslam": {
@@ -30078,6 +30414,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "helpinghand": {
@@ -30090,6 +30427,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "priority": 5,
       "target": "adjacentAlly"
     },
@@ -30105,6 +30443,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "hiddenpower": {
@@ -30119,6 +30458,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerbug": {
@@ -30128,6 +30468,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerdark": {
@@ -30137,6 +30478,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerdragon": {
@@ -30146,6 +30488,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerelectric": {
@@ -30155,6 +30498,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerfighting": {
@@ -30164,6 +30508,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerfire": {
@@ -30173,6 +30518,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerflying": {
@@ -30182,6 +30528,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerghost": {
@@ -30191,6 +30538,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowergrass": {
@@ -30200,6 +30548,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerground": {
@@ -30209,6 +30558,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerice": {
@@ -30218,6 +30568,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerpoison": {
@@ -30227,6 +30578,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerpsychic": {
@@ -30236,6 +30588,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerrock": {
@@ -30245,6 +30598,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowersteel": {
@@ -30254,6 +30608,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hiddenpowerwater": {
@@ -30263,6 +30618,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "highhorsepower": {
@@ -30277,6 +30633,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 95,
       "accuracy": 95,
+      "pp": 10,
       "target": "normal"
     },
     "highjumpkick": {
@@ -30291,6 +30648,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 130,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "honeclaws": {
@@ -30303,6 +30661,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Dark",
       "category": "Status",
+      "pp": 15,
       "target": "self"
     },
     "hornattack": {
@@ -30317,6 +30676,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "horndrill": {
@@ -30330,6 +30690,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "accuracy": 30,
+      "pp": 5,
       "target": "normal"
     },
     "hornleech": {
@@ -30344,6 +30705,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "howl": {
@@ -30356,6 +30718,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 40,
       "target": "allies"
     },
     "hurricane": {
@@ -30370,6 +30733,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 110,
       "accuracy": 70,
+      "pp": 10,
       "target": "any"
     },
     "hydrocannon": {
@@ -30384,6 +30748,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "hydropump": {
@@ -30398,6 +30763,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 110,
       "accuracy": 80,
+      "pp": 5,
       "target": "normal"
     },
     "hydrosteam": {
@@ -30412,6 +30778,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "hydrovortex": {
@@ -30425,6 +30792,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Water",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "hyperbeam": {
@@ -30439,6 +30807,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "hyperdrill": {
@@ -30453,6 +30822,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "hyperfang": {
@@ -30467,6 +30837,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 90,
+      "pp": 15,
       "target": "normal"
     },
     "hypervoice": {
@@ -30481,6 +30852,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "hyperspacefury": {
@@ -30494,6 +30866,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "power": 100,
+      "pp": 5,
       "target": "normal"
     },
     "hyperspacehole": {
@@ -30507,6 +30880,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Special",
       "power": 80,
+      "pp": 5,
       "target": "normal"
     },
     "hypnosis": {
@@ -30520,6 +30894,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Status",
       "accuracy": 60,
+      "pp": 20,
       "target": "normal"
     },
     "iceball": {
@@ -30534,6 +30909,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 30,
       "accuracy": 90,
+      "pp": 20,
       "target": "normal"
     },
     "icebeam": {
@@ -30548,6 +30924,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "iceburn": {
@@ -30562,6 +30939,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 140,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "icefang": {
@@ -30576,6 +30954,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 95,
+      "pp": 15,
       "target": "normal"
     },
     "icehammer": {
@@ -30590,6 +30969,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "icepunch": {
@@ -30604,6 +30984,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "iceshard": {
@@ -30618,6 +30999,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 30,
       "priority": 1,
       "target": "normal"
     },
@@ -30633,6 +31015,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "iciclecrash": {
@@ -30647,6 +31030,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "iciclespear": {
@@ -30661,6 +31045,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 25,
       "accuracy": 100,
+      "pp": 30,
       "target": "normal"
     },
     "icywind": {
@@ -30675,6 +31060,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 55,
       "accuracy": 95,
+      "pp": 15,
       "target": "allAdjacentFoes"
     },
     "imprison": {
@@ -30687,6 +31073,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "incinerate": {
@@ -30701,6 +31088,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "allAdjacentFoes"
     },
     "infernalparade": {
@@ -30715,6 +31103,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "inferno": {
@@ -30729,6 +31118,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 50,
+      "pp": 5,
       "target": "normal"
     },
     "infernooverdrive": {
@@ -30742,6 +31132,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fire",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "infestation": {
@@ -30756,6 +31147,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 20,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "ingrain": {
@@ -30768,6 +31160,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Grass",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "instruct": {
@@ -30780,6 +31173,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 15,
       "target": "normal"
     },
     "iondeluge": {
@@ -30792,6 +31186,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Electric",
       "category": "Status",
+      "pp": 25,
       "priority": 1,
       "target": "all"
     },
@@ -30805,6 +31200,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Steel",
       "category": "Status",
+      "pp": 15,
       "target": "self"
     },
     "ironhead": {
@@ -30819,6 +31215,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "irontail": {
@@ -30833,6 +31230,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 75,
+      "pp": 15,
       "target": "normal"
     },
     "ivycudgel": {
@@ -30847,6 +31245,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "jawlock": {
@@ -30861,6 +31260,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "jetpunch": {
@@ -30875,6 +31275,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "priority": 1,
       "target": "normal"
     },
@@ -30890,6 +31291,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "jumpkick": {
@@ -30904,6 +31306,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 95,
+      "pp": 10,
       "target": "normal"
     },
     "junglehealing": {
@@ -30916,6 +31319,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Grass",
       "category": "Status",
+      "pp": 10,
       "target": "allies"
     },
     "karatechop": {
@@ -30930,6 +31334,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "kinesis": {
@@ -30943,6 +31348,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Status",
       "accuracy": 80,
+      "pp": 15,
       "target": "normal"
     },
     "kingsshield": {
@@ -30955,6 +31361,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Steel",
       "category": "Status",
+      "pp": 10,
       "priority": 4,
       "target": "self"
     },
@@ -30970,6 +31377,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "kowtowcleave": {
@@ -30983,6 +31391,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "power": 85,
+      "pp": 10,
       "target": "normal"
     },
     "landswrath": {
@@ -30997,6 +31406,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "laserfocus": {
@@ -31009,6 +31419,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 30,
       "target": "self"
     },
     "lashout": {
@@ -31023,6 +31434,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "lastresort": {
@@ -31037,6 +31449,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 140,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "lastrespects": {
@@ -31051,6 +31464,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "lavaplume": {
@@ -31065,6 +31479,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "allAdjacent"
     },
     "leafblade": {
@@ -31079,6 +31494,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "leafstorm": {
@@ -31093,6 +31509,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 130,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "leaftornado": {
@@ -31107,6 +31524,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "leafage": {
@@ -31121,6 +31539,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 40,
       "target": "normal"
     },
     "leechlife": {
@@ -31135,6 +31554,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "leechseed": {
@@ -31148,6 +31568,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Status",
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "leer": {
@@ -31161,6 +31582,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 30,
       "target": "allAdjacentFoes"
     },
     "letssnuggleforever": {
@@ -31174,6 +31596,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fairy",
       "category": "Physical",
       "power": 190,
+      "pp": 1,
       "target": "normal"
     },
     "lick": {
@@ -31188,6 +31611,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 30,
       "accuracy": 100,
+      "pp": 30,
       "target": "normal"
     },
     "lifedew": {
@@ -31200,6 +31624,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Water",
       "category": "Status",
+      "pp": 10,
       "target": "allies"
     },
     "lightofruin": {
@@ -31214,6 +31639,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 140,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "lightscreen": {
@@ -31226,6 +31652,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 30,
       "target": "allySide"
     },
     "lightthatburnsthesky": {
@@ -31239,6 +31666,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Special",
       "power": 200,
+      "pp": 1,
       "target": "normal"
     },
     "liquidation": {
@@ -31253,6 +31681,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "lockon": {
@@ -31265,6 +31694,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "normal"
     },
     "lovelykiss": {
@@ -31278,6 +31708,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 75,
+      "pp": 10,
       "target": "normal"
     },
     "lowkick": {
@@ -31291,6 +31722,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fighting",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "lowsweep": {
@@ -31305,6 +31737,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "luckychant": {
@@ -31317,6 +31750,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 30,
       "target": "allySide"
     },
     "luminacrash": {
@@ -31331,6 +31765,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "lunarblessing": {
@@ -31343,6 +31778,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 5,
       "target": "allies"
     },
     "lunardance": {
@@ -31355,6 +31791,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "lunge": {
@@ -31369,6 +31806,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "lusterpurge": {
@@ -31383,6 +31821,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 95,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "machpunch": {
@@ -31397,6 +31836,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 30,
       "priority": 1,
       "target": "normal"
     },
@@ -31410,6 +31850,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 15,
       "priority": 4,
       "target": "self"
     },
@@ -31424,6 +31865,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "magicroom": {
@@ -31436,6 +31878,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "magicalleaf": {
@@ -31449,6 +31892,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Special",
       "power": 60,
+      "pp": 20,
       "target": "normal"
     },
     "magmastorm": {
@@ -31463,6 +31907,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 75,
+      "pp": 5,
       "target": "normal"
     },
     "magnetbomb": {
@@ -31476,6 +31921,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Physical",
       "power": 60,
+      "pp": 20,
       "target": "normal"
     },
     "magnetrise": {
@@ -31488,6 +31934,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Electric",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "magneticflux": {
@@ -31500,6 +31947,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Electric",
       "category": "Status",
+      "pp": 20,
       "target": "allySide"
     },
     "magnitude": {
@@ -31513,6 +31961,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ground",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 30,
       "target": "allAdjacent"
     },
     "makeitrain": {
@@ -31527,6 +31976,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "maliciousmoonsault": {
@@ -31540,6 +31990,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "power": 180,
+      "pp": 1,
       "target": "normal"
     },
     "malignantchain": {
@@ -31554,6 +32005,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "matblock": {
@@ -31566,6 +32018,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fighting",
       "category": "Status",
+      "pp": 10,
       "target": "allySide"
     },
     "matchagotcha": {
@@ -31580,6 +32033,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 90,
+      "pp": 15,
       "target": "allAdjacentFoes"
     },
     "maxairstream": {
@@ -31593,6 +32047,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Flying",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxdarkness": {
@@ -31606,6 +32061,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxflare": {
@@ -31619,6 +32075,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fire",
       "category": "Physical",
       "power": 100,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxflutterby": {
@@ -31632,6 +32089,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Bug",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxgeyser": {
@@ -31645,6 +32103,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Water",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxguard": {
@@ -31657,6 +32116,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "priority": 4,
       "target": "self"
     },
@@ -31671,6 +32131,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ice",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxknuckle": {
@@ -31684,6 +32145,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fighting",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxlightning": {
@@ -31697,6 +32159,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Electric",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxmindstorm": {
@@ -31710,6 +32173,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxooze": {
@@ -31723,6 +32187,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Poison",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxovergrowth": {
@@ -31736,6 +32201,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxphantasm": {
@@ -31749,6 +32215,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxquake": {
@@ -31762,6 +32229,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ground",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxrockfall": {
@@ -31775,6 +32243,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Rock",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxstarfall": {
@@ -31788,6 +32257,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fairy",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxsteelspike": {
@@ -31801,6 +32271,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxstrike": {
@@ -31814,6 +32285,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "maxwyrmwind": {
@@ -31827,6 +32299,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dragon",
       "category": "Physical",
       "power": 10,
+      "pp": 10,
       "target": "adjacentFoe"
     },
     "mefirst": {
@@ -31839,6 +32312,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "adjacentFoe"
     },
     "meanlook": {
@@ -31851,6 +32325,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "normal"
     },
     "meditate": {
@@ -31863,6 +32338,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 40,
       "target": "self"
     },
     "megadrain": {
@@ -31877,6 +32353,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "megakick": {
@@ -31891,6 +32368,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 75,
+      "pp": 5,
       "target": "normal"
     },
     "megapunch": {
@@ -31905,6 +32383,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 85,
+      "pp": 20,
       "target": "normal"
     },
     "megahorn": {
@@ -31919,6 +32398,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 85,
+      "pp": 10,
       "target": "normal"
     },
     "memento": {
@@ -31932,6 +32412,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "menacingmoonrazemaelstrom": {
@@ -31945,6 +32426,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Special",
       "power": 200,
+      "pp": 1,
       "target": "normal"
     },
     "metalburst": {
@@ -31958,6 +32440,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 10,
       "target": "scripted"
     },
     "metalclaw": {
@@ -31972,6 +32455,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 95,
+      "pp": 35,
       "target": "normal"
     },
     "metalsound": {
@@ -31985,6 +32469,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Status",
       "accuracy": 85,
+      "pp": 40,
       "target": "normal"
     },
     "meteorassault": {
@@ -31999,6 +32484,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 150,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "meteorbeam": {
@@ -32013,6 +32499,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "meteormash": {
@@ -32027,6 +32514,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "metronome": {
@@ -32039,6 +32527,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "mightycleave": {
@@ -32053,6 +32542,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 95,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "milkdrink": {
@@ -32065,6 +32555,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "mimic": {
@@ -32077,6 +32568,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "mindblown": {
@@ -32091,6 +32583,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacent"
     },
     "mindreader": {
@@ -32103,6 +32596,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "normal"
     },
     "minimize": {
@@ -32115,6 +32609,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "miracleeye": {
@@ -32127,6 +32622,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 40,
       "target": "normal"
     },
     "mirrorcoat": {
@@ -32140,6 +32636,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Special",
       "accuracy": 100,
+      "pp": 20,
       "priority": -5,
       "target": "scripted"
     },
@@ -32153,6 +32650,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Flying",
       "category": "Status",
+      "pp": 20,
       "target": "normal"
     },
     "mirrorshot": {
@@ -32167,6 +32665,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 85,
+      "pp": 10,
       "target": "normal"
     },
     "mist": {
@@ -32179,6 +32678,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ice",
       "category": "Status",
+      "pp": 30,
       "target": "allySide"
     },
     "mistball": {
@@ -32193,6 +32693,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 95,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "mistyexplosion": {
@@ -32207,6 +32708,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacent"
     },
     "mistyterrain": {
@@ -32219,6 +32721,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fairy",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "moonblast": {
@@ -32233,6 +32736,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 95,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "moongeistbeam": {
@@ -32247,6 +32751,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "moonlight": {
@@ -32259,6 +32764,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fairy",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "morningsun": {
@@ -32271,6 +32777,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "mortalspin": {
@@ -32285,6 +32792,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 30,
       "accuracy": 100,
+      "pp": 15,
       "target": "allAdjacentFoes"
     },
     "mountaingale": {
@@ -32299,6 +32807,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 85,
+      "pp": 10,
       "target": "normal"
     },
     "mudbomb": {
@@ -32313,6 +32822,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 85,
+      "pp": 10,
       "target": "normal"
     },
     "mudshot": {
@@ -32327,6 +32837,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 55,
       "accuracy": 95,
+      "pp": 15,
       "target": "normal"
     },
     "mudsport": {
@@ -32339,6 +32850,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ground",
       "category": "Status",
+      "pp": 15,
       "target": "all"
     },
     "mudslap": {
@@ -32353,6 +32865,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 20,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "muddywater": {
@@ -32367,6 +32880,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 85,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "multiattack": {
@@ -32381,6 +32895,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "mysticalfire": {
@@ -32395,6 +32910,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 75,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "mysticalpower": {
@@ -32409,6 +32925,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 70,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "nastyplot": {
@@ -32421,6 +32938,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Dark",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "naturalgift": {
@@ -32434,6 +32952,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "naturepower": {
@@ -32446,6 +32965,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "normal"
     },
     "naturesmadness": {
@@ -32459,6 +32979,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fairy",
       "category": "Special",
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "needlearm": {
@@ -32473,6 +32994,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "neverendingnightmare": {
@@ -32486,6 +33008,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "nightdaze": {
@@ -32500,6 +33023,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 85,
       "accuracy": 95,
+      "pp": 10,
       "target": "normal"
     },
     "nightshade": {
@@ -32513,6 +33037,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Special",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "nightslash": {
@@ -32527,6 +33052,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "nightmare": {
@@ -32540,6 +33066,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "noretreat": {
@@ -32552,6 +33079,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fighting",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "nobleroar": {
@@ -32565,6 +33093,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 30,
       "target": "normal"
     },
     "nuzzle": {
@@ -32579,6 +33108,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 20,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "oblivionwing": {
@@ -32593,6 +33123,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "any"
     },
     "obstruct": {
@@ -32606,6 +33137,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "priority": 4,
       "target": "self"
     },
@@ -32620,6 +33152,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Water",
       "category": "Special",
       "power": 195,
+      "pp": 1,
       "target": "normal"
     },
     "octazooka": {
@@ -32634,6 +33167,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 85,
+      "pp": 10,
       "target": "normal"
     },
     "octolock": {
@@ -32647,6 +33181,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fighting",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "odorsleuth": {
@@ -32659,6 +33194,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 40,
       "target": "normal"
     },
     "ominouswind": {
@@ -32673,6 +33209,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "orderup": {
@@ -32687,6 +33224,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "originpulse": {
@@ -32701,6 +33239,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 110,
       "accuracy": 85,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "outrage": {
@@ -32715,6 +33254,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 10,
       "target": "randomNormal"
     },
     "overdrive": {
@@ -32729,6 +33269,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "overheat": {
@@ -32743,6 +33284,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 130,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "painsplit": {
@@ -32755,6 +33297,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "normal"
     },
     "paraboliccharge": {
@@ -32769,6 +33312,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "allAdjacent"
     },
     "partingshot": {
@@ -32782,6 +33326,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "payday": {
@@ -32796,6 +33341,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "payback": {
@@ -32810,6 +33356,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "peck": {
@@ -32824,6 +33371,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 35,
       "accuracy": 100,
+      "pp": 35,
       "target": "any"
     },
     "perishsong": {
@@ -32836,6 +33384,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "all"
     },
     "petalblizzard": {
@@ -32850,6 +33399,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "allAdjacent"
     },
     "petaldance": {
@@ -32864,6 +33414,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 100,
+      "pp": 10,
       "target": "randomNormal"
     },
     "phantomforce": {
@@ -32878,6 +33429,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "photongeyser": {
@@ -32892,6 +33444,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "pinmissile": {
@@ -32906,6 +33459,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 25,
       "accuracy": 95,
+      "pp": 20,
       "target": "normal"
     },
     "plasmafists": {
@@ -32920,6 +33474,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "playnice": {
@@ -32932,6 +33487,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "normal"
     },
     "playrough": {
@@ -32946,6 +33502,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "pluck": {
@@ -32960,6 +33517,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 20,
       "target": "any"
     },
     "poisonfang": {
@@ -32974,6 +33532,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "poisongas": {
@@ -32987,6 +33546,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Poison",
       "category": "Status",
       "accuracy": 90,
+      "pp": 40,
       "target": "allAdjacentFoes"
     },
     "poisonjab": {
@@ -33001,6 +33561,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "poisonpowder": {
@@ -33014,6 +33575,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Poison",
       "category": "Status",
       "accuracy": 75,
+      "pp": 35,
       "target": "normal"
     },
     "poisonsting": {
@@ -33028,6 +33590,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 15,
       "accuracy": 100,
+      "pp": 35,
       "target": "normal"
     },
     "poisontail": {
@@ -33042,6 +33605,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "pollenpuff": {
@@ -33056,6 +33620,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "poltergeist": {
@@ -33070,6 +33635,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 110,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "populationbomb": {
@@ -33084,6 +33650,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 20,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "pounce": {
@@ -33098,6 +33665,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "pound": {
@@ -33112,6 +33680,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 35,
       "target": "normal"
     },
     "powder": {
@@ -33125,6 +33694,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Bug",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "priority": 1,
       "target": "normal"
     },
@@ -33140,6 +33710,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 25,
       "target": "allAdjacentFoes"
     },
     "powergem": {
@@ -33154,6 +33725,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "powersplit": {
@@ -33166,6 +33738,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "powerswap": {
@@ -33178,6 +33751,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "powertrick": {
@@ -33190,6 +33764,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "powertrip": {
@@ -33204,6 +33779,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 20,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "powerwhip": {
@@ -33218,6 +33794,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 85,
+      "pp": 10,
       "target": "normal"
     },
     "poweruppunch": {
@@ -33232,6 +33809,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "precipiceblades": {
@@ -33246,6 +33824,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 85,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "present": {
@@ -33259,6 +33838,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "accuracy": 90,
+      "pp": 15,
       "target": "normal"
     },
     "prismaticlaser": {
@@ -33273,6 +33853,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 160,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "protect": {
@@ -33285,6 +33866,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "priority": 4,
       "target": "self"
     },
@@ -33300,6 +33882,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "psyblade": {
@@ -33314,6 +33897,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "psychup": {
@@ -33326,6 +33910,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "psychic": {
@@ -33340,6 +33925,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "psychicfangs": {
@@ -33354,6 +33940,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "psychicnoise": {
@@ -33368,6 +33955,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 75,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "psychicterrain": {
@@ -33380,6 +33968,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "psychoboost": {
@@ -33394,6 +33983,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 140,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "psychocut": {
@@ -33408,6 +33998,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "psychoshift": {
@@ -33421,6 +34012,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "psyshieldbash": {
@@ -33435,6 +34027,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "psyshock": {
@@ -33449,6 +34042,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "psystrike": {
@@ -33463,6 +34057,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "psywave": {
@@ -33476,6 +34071,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Special",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "pulverizingpancake": {
@@ -33489,6 +34085,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "power": 210,
+      "pp": 1,
       "target": "normal"
     },
     "punishment": {
@@ -33502,6 +34099,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "purify": {
@@ -33514,6 +34112,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Poison",
       "category": "Status",
+      "pp": 20,
       "target": "normal"
     },
     "pursuit": {
@@ -33528,6 +34127,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "pyroball": {
@@ -33542,6 +34142,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "quash": {
@@ -33555,6 +34156,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "quickattack": {
@@ -33569,6 +34171,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 30,
       "priority": 1,
       "target": "normal"
     },
@@ -33582,6 +34185,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fighting",
       "category": "Status",
+      "pp": 15,
       "priority": 3,
       "target": "allySide"
     },
@@ -33595,6 +34199,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Bug",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "rage": {
@@ -33609,6 +34214,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 20,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "ragefist": {
@@ -33623,6 +34229,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "ragepowder": {
@@ -33635,6 +34242,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Bug",
       "category": "Status",
+      "pp": 20,
       "priority": 2,
       "target": "self"
     },
@@ -33650,6 +34258,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "ragingfury": {
@@ -33664,6 +34273,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 10,
       "target": "randomNormal"
     },
     "raindance": {
@@ -33676,6 +34286,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Water",
       "category": "Status",
+      "pp": 5,
       "target": "all"
     },
     "rapidspin": {
@@ -33690,6 +34301,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 40,
       "target": "normal"
     },
     "razorleaf": {
@@ -33704,6 +34316,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 55,
       "accuracy": 95,
+      "pp": 25,
       "target": "allAdjacentFoes"
     },
     "razorshell": {
@@ -33718,6 +34331,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 95,
+      "pp": 10,
       "target": "normal"
     },
     "razorwind": {
@@ -33732,6 +34346,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "recover": {
@@ -33744,6 +34359,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "recycle": {
@@ -33756,6 +34372,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "reflect": {
@@ -33768,6 +34385,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 20,
       "target": "allySide"
     },
     "reflecttype": {
@@ -33780,6 +34398,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 15,
       "target": "normal"
     },
     "refresh": {
@@ -33792,6 +34411,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "relicsong": {
@@ -33806,6 +34426,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 75,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "rest": {
@@ -33818,6 +34439,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "retaliate": {
@@ -33832,6 +34454,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "return": {
@@ -33845,6 +34468,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "revelationdance": {
@@ -33859,6 +34483,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "revenge": {
@@ -33873,6 +34498,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 10,
       "priority": -4,
       "target": "normal"
     },
@@ -33887,6 +34513,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fighting",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "revivalblessing": {
@@ -33899,6 +34526,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 1,
       "target": "self"
     },
     "risingvoltage": {
@@ -33913,6 +34541,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "roar": {
@@ -33925,6 +34554,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "priority": -6,
       "target": "normal"
     },
@@ -33940,6 +34570,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "rockblast": {
@@ -33954,6 +34585,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 25,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "rockclimb": {
@@ -33968,6 +34600,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 85,
+      "pp": 20,
       "target": "normal"
     },
     "rockpolish": {
@@ -33980,6 +34613,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Rock",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "rockslide": {
@@ -33994,6 +34628,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 90,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "rocksmash": {
@@ -34008,6 +34643,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "rockthrow": {
@@ -34022,6 +34658,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 90,
+      "pp": 15,
       "target": "normal"
     },
     "rocktomb": {
@@ -34036,6 +34673,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 95,
+      "pp": 15,
       "target": "normal"
     },
     "rockwrecker": {
@@ -34050,6 +34688,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 150,
       "accuracy": 90,
+      "pp": 5,
       "target": "normal"
     },
     "roleplay": {
@@ -34062,6 +34701,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "rollingkick": {
@@ -34076,6 +34716,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 85,
+      "pp": 15,
       "target": "normal"
     },
     "rollout": {
@@ -34090,6 +34731,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 30,
       "accuracy": 90,
+      "pp": 20,
       "target": "normal"
     },
     "roost": {
@@ -34102,6 +34744,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Flying",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "rototiller": {
@@ -34114,6 +34757,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ground",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "round": {
@@ -34128,6 +34772,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "ruination": {
@@ -34141,6 +34786,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Special",
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "sacredfire": {
@@ -34155,6 +34801,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 95,
+      "pp": 5,
       "target": "normal"
     },
     "sacredsword": {
@@ -34169,6 +34816,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "safeguard": {
@@ -34181,6 +34829,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 25,
       "target": "allySide"
     },
     "saltcure": {
@@ -34195,6 +34844,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "sandattack": {
@@ -34208,6 +34858,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ground",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "sandtomb": {
@@ -34222,6 +34873,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 35,
       "accuracy": 85,
+      "pp": 15,
       "target": "normal"
     },
     "sandsearstorm": {
@@ -34236,6 +34888,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 80,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "sandstorm": {
@@ -34248,6 +34901,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Rock",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "savagespinout": {
@@ -34261,6 +34915,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Bug",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "scald": {
@@ -34275,6 +34930,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "scaleshot": {
@@ -34289,6 +34945,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 25,
       "accuracy": 90,
+      "pp": 20,
       "target": "normal"
     },
     "scaryface": {
@@ -34302,6 +34959,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "scorchingsands": {
@@ -34316,6 +34974,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 70,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "scratch": {
@@ -34330,6 +34989,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 35,
       "target": "normal"
     },
     "screech": {
@@ -34343,6 +35003,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 85,
+      "pp": 40,
       "target": "normal"
     },
     "searingshot": {
@@ -34357,6 +35018,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacent"
     },
     "searingsunrazesmash": {
@@ -34370,6 +35032,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Physical",
       "power": 200,
+      "pp": 1,
       "target": "normal"
     },
     "secretpower": {
@@ -34384,6 +35047,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "secretsword": {
@@ -34398,6 +35062,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 85,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "seedbomb": {
@@ -34412,6 +35077,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "seedflare": {
@@ -34426,6 +35092,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 85,
+      "pp": 5,
       "target": "normal"
     },
     "seismictoss": {
@@ -34439,6 +35106,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fighting",
       "category": "Physical",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "selfdestruct": {
@@ -34453,6 +35121,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 200,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacent"
     },
     "shadowball": {
@@ -34467,6 +35136,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "shadowbone": {
@@ -34481,6 +35151,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "shadowclaw": {
@@ -34495,6 +35166,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "shadowforce": {
@@ -34509,6 +35181,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "shadowpunch": {
@@ -34522,6 +35195,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Physical",
       "power": 60,
+      "pp": 20,
       "target": "normal"
     },
     "shadowsneak": {
@@ -34536,6 +35210,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 30,
       "priority": 1,
       "target": "normal"
     },
@@ -34549,6 +35224,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 30,
       "target": "self"
     },
     "shatteredpsyche": {
@@ -34562,6 +35238,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "shedtail": {
@@ -34574,6 +35251,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "sheercold": {
@@ -34587,6 +35265,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ice",
       "category": "Special",
       "accuracy": 30,
+      "pp": 5,
       "target": "normal"
     },
     "shellsidearm": {
@@ -34601,6 +35280,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "shellsmash": {
@@ -34613,6 +35293,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 15,
       "target": "self"
     },
     "shelltrap": {
@@ -34627,6 +35308,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 100,
+      "pp": 5,
       "priority": -3,
       "target": "allAdjacentFoes"
     },
@@ -34640,6 +35322,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Steel",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "shiftgear": {
@@ -34652,6 +35335,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Steel",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "shockwave": {
@@ -34665,6 +35349,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Electric",
       "category": "Special",
       "power": 60,
+      "pp": 20,
       "target": "normal"
     },
     "shoreup": {
@@ -34677,6 +35362,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ground",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "signalbeam": {
@@ -34691,6 +35377,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 75,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "silktrap": {
@@ -34703,6 +35390,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Bug",
       "category": "Status",
+      "pp": 10,
       "priority": 4,
       "target": "self"
     },
@@ -34718,6 +35406,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "simplebeam": {
@@ -34731,6 +35420,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "sing": {
@@ -34744,6 +35434,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 55,
+      "pp": 15,
       "target": "normal"
     },
     "sinisterarrowraid": {
@@ -34757,6 +35448,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Physical",
       "power": 180,
+      "pp": 1,
       "target": "normal"
     },
     "sketch": {
@@ -34769,6 +35461,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 1,
       "target": "normal"
     },
     "skillswap": {
@@ -34781,6 +35474,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "skittersmack": {
@@ -34795,6 +35489,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "skullbash": {
@@ -34809,6 +35504,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 130,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "skyattack": {
@@ -34823,6 +35519,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 140,
       "accuracy": 90,
+      "pp": 5,
       "target": "any"
     },
     "skydrop": {
@@ -34837,6 +35534,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 10,
       "target": "any"
     },
     "skyuppercut": {
@@ -34851,6 +35549,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 85,
       "accuracy": 90,
+      "pp": 15,
       "target": "normal"
     },
     "slackoff": {
@@ -34863,6 +35562,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "slam": {
@@ -34877,6 +35577,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 75,
+      "pp": 20,
       "target": "normal"
     },
     "slash": {
@@ -34891,6 +35592,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "sleeppowder": {
@@ -34904,6 +35606,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Status",
       "accuracy": 75,
+      "pp": 15,
       "target": "normal"
     },
     "sleeptalk": {
@@ -34916,6 +35619,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "sludge": {
@@ -34930,6 +35634,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "sludgebomb": {
@@ -34944,6 +35649,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "sludgewave": {
@@ -34958,6 +35664,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 95,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacent"
     },
     "smackdown": {
@@ -34972,6 +35679,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "smartstrike": {
@@ -34985,6 +35693,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Physical",
       "power": 70,
+      "pp": 10,
       "target": "normal"
     },
     "smellingsalts": {
@@ -34999,6 +35708,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "smog": {
@@ -35013,6 +35723,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 30,
       "accuracy": 70,
+      "pp": 20,
       "target": "normal"
     },
     "smokescreen": {
@@ -35026,6 +35737,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "snaptrap": {
@@ -35040,6 +35752,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 35,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "snarl": {
@@ -35054,6 +35767,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 55,
       "accuracy": 95,
+      "pp": 15,
       "target": "allAdjacentFoes"
     },
     "snatch": {
@@ -35066,6 +35780,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Dark",
       "category": "Status",
+      "pp": 10,
       "priority": 4,
       "target": "self"
     },
@@ -35081,6 +35796,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "snore": {
@@ -35095,6 +35811,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 50,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "snowscape": {
@@ -35107,6 +35824,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ice",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "soak": {
@@ -35120,6 +35838,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Water",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "softboiled": {
@@ -35132,6 +35851,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "solarbeam": {
@@ -35146,6 +35866,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "solarblade": {
@@ -35160,6 +35881,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 125,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "sonicboom": {
@@ -35173,6 +35895,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Special",
       "accuracy": 90,
+      "pp": 20,
       "target": "normal"
     },
     "soulstealing7starstrike": {
@@ -35186,6 +35909,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Physical",
       "power": 195,
+      "pp": 1,
       "target": "normal"
     },
     "spacialrend": {
@@ -35200,6 +35924,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 95,
+      "pp": 5,
       "target": "normal"
     },
     "spark": {
@@ -35214,6 +35939,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "sparklingaria": {
@@ -35228,6 +35954,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacent"
     },
     "spectralthief": {
@@ -35242,6 +35969,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "speedswap": {
@@ -35254,6 +35982,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "spicyextract": {
@@ -35266,6 +35995,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Grass",
       "category": "Status",
+      "pp": 15,
       "target": "normal"
     },
     "spiderweb": {
@@ -35278,6 +36008,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Bug",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "spikecannon": {
@@ -35292,6 +36023,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 20,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "spikes": {
@@ -35304,6 +36036,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Ground",
       "category": "Status",
+      "pp": 20,
       "target": "foeSide"
     },
     "spikyshield": {
@@ -35316,6 +36049,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Grass",
       "category": "Status",
+      "pp": 10,
       "priority": 4,
       "target": "self"
     },
@@ -35331,6 +36065,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "spiritbreak": {
@@ -35345,6 +36080,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "spiritshackle": {
@@ -35359,6 +36095,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "spitup": {
@@ -35372,6 +36109,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Special",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "spite": {
@@ -35385,6 +36123,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "splash": {
@@ -35397,6 +36136,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 40,
       "target": "self"
     },
     "splinteredstormshards": {
@@ -35410,6 +36150,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Rock",
       "category": "Physical",
       "power": 190,
+      "pp": 1,
       "target": "normal"
     },
     "spore": {
@@ -35423,6 +36164,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "spotlight": {
@@ -35435,6 +36177,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 15,
       "priority": 3,
       "target": "normal"
     },
@@ -35450,6 +36193,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 80,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "stealthrock": {
@@ -35462,6 +36206,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Rock",
       "category": "Status",
+      "pp": 20,
       "target": "foeSide"
     },
     "steameruption": {
@@ -35476,6 +36221,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 110,
       "accuracy": 95,
+      "pp": 5,
       "target": "normal"
     },
     "steamroller": {
@@ -35490,6 +36236,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "steelbeam": {
@@ -35504,6 +36251,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 140,
       "accuracy": 95,
+      "pp": 5,
       "target": "normal"
     },
     "steelroller": {
@@ -35518,6 +36266,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 130,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "steelwing": {
@@ -35532,6 +36281,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 90,
+      "pp": 25,
       "target": "normal"
     },
     "stickyweb": {
@@ -35544,6 +36294,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Bug",
       "category": "Status",
+      "pp": 20,
       "target": "foeSide"
     },
     "stockpile": {
@@ -35556,6 +36307,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "stokedsparksurfer": {
@@ -35569,6 +36321,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Electric",
       "category": "Special",
       "power": 175,
+      "pp": 1,
       "target": "normal"
     },
     "stomp": {
@@ -35583,6 +36336,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "stompingtantrum": {
@@ -35597,6 +36351,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "stoneaxe": {
@@ -35611,6 +36366,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 90,
+      "pp": 15,
       "target": "normal"
     },
     "stoneedge": {
@@ -35625,6 +36381,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 80,
+      "pp": 5,
       "target": "normal"
     },
     "storedpower": {
@@ -35639,6 +36396,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 20,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "stormthrow": {
@@ -35653,6 +36411,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "strangesteam": {
@@ -35667,6 +36426,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 95,
+      "pp": 10,
       "target": "normal"
     },
     "strength": {
@@ -35681,6 +36441,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "strengthsap": {
@@ -35694,6 +36455,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "stringshot": {
@@ -35707,6 +36469,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Bug",
       "category": "Status",
       "accuracy": 95,
+      "pp": 40,
       "target": "allAdjacentFoes"
     },
     "struggle": {
@@ -35720,6 +36483,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "power": 50,
+      "pp": 1,
       "target": "randomNormal"
     },
     "strugglebug": {
@@ -35734,6 +36498,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 50,
       "accuracy": 100,
+      "pp": 20,
       "target": "allAdjacentFoes"
     },
     "stuffcheeks": {
@@ -35746,6 +36511,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "stunspore": {
@@ -35759,6 +36525,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Status",
       "accuracy": 75,
+      "pp": 30,
       "target": "normal"
     },
     "submission": {
@@ -35773,6 +36540,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 80,
+      "pp": 20,
       "target": "normal"
     },
     "substitute": {
@@ -35785,6 +36553,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "subzeroslammer": {
@@ -35798,6 +36567,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ice",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "suckerpunch": {
@@ -35812,6 +36582,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 5,
       "priority": 1,
       "target": "normal"
     },
@@ -35825,6 +36596,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fire",
       "category": "Status",
+      "pp": 5,
       "target": "all"
     },
     "sunsteelstrike": {
@@ -35839,6 +36611,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "superfang": {
@@ -35852,6 +36625,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Physical",
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "supercellslam": {
@@ -35866,6 +36640,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 100,
       "accuracy": 95,
+      "pp": 15,
       "target": "normal"
     },
     "superpower": {
@@ -35880,6 +36655,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "supersonic": {
@@ -35893,6 +36669,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 55,
+      "pp": 20,
       "target": "normal"
     },
     "supersonicskystrike": {
@@ -35906,6 +36683,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Flying",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "surf": {
@@ -35920,6 +36698,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "allAdjacent"
     },
     "surgingstrikes": {
@@ -35934,6 +36713,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 25,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "swagger": {
@@ -35947,6 +36727,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 85,
+      "pp": 15,
       "target": "normal"
     },
     "swallow": {
@@ -35959,6 +36740,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "sweetkiss": {
@@ -35972,6 +36754,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fairy",
       "category": "Status",
       "accuracy": 75,
+      "pp": 10,
       "target": "normal"
     },
     "sweetscent": {
@@ -35985,6 +36768,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "allAdjacentFoes"
     },
     "swift": {
@@ -35998,6 +36782,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Special",
       "power": 60,
+      "pp": 20,
       "target": "allAdjacentFoes"
     },
     "switcheroo": {
@@ -36011,6 +36796,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "swordsdance": {
@@ -36023,6 +36809,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "synchronoise": {
@@ -36037,6 +36824,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacent"
     },
     "synthesis": {
@@ -36049,6 +36837,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Grass",
       "category": "Status",
+      "pp": 5,
       "target": "self"
     },
     "syrupbomb": {
@@ -36063,6 +36852,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 85,
+      "pp": 10,
       "target": "normal"
     },
     "tachyoncutter": {
@@ -36076,6 +36866,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Steel",
       "category": "Special",
       "power": 50,
+      "pp": 10,
       "target": "normal"
     },
     "tackle": {
@@ -36090,6 +36881,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 40,
       "accuracy": 100,
+      "pp": 35,
       "target": "normal"
     },
     "tailglow": {
@@ -36102,6 +36894,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Bug",
       "category": "Status",
+      "pp": 20,
       "target": "self"
     },
     "tailslap": {
@@ -36116,6 +36909,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 25,
       "accuracy": 85,
+      "pp": 10,
       "target": "normal"
     },
     "tailwhip": {
@@ -36129,6 +36923,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 30,
       "target": "allAdjacentFoes"
     },
     "tailwind": {
@@ -36141,6 +36936,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Flying",
       "category": "Status",
+      "pp": 15,
       "target": "allySide"
     },
     "takedown": {
@@ -36155,6 +36951,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 85,
+      "pp": 20,
       "target": "normal"
     },
     "takeheart": {
@@ -36167,6 +36964,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 15,
       "target": "self"
     },
     "tarshot": {
@@ -36180,6 +36978,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Rock",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "taunt": {
@@ -36193,6 +36992,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "tearfullook": {
@@ -36205,6 +37005,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "target": "normal"
     },
     "teatime": {
@@ -36217,6 +37018,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "technoblast": {
@@ -36231,6 +37033,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "tectonicrage": {
@@ -36244,6 +37047,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ground",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "teeterdance": {
@@ -36257,6 +37061,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "allAdjacent"
     },
     "telekinesis": {
@@ -36269,6 +37074,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 15,
       "target": "normal"
     },
     "teleport": {
@@ -36281,6 +37087,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 20,
       "priority": -6,
       "target": "self"
     },
@@ -36296,6 +37103,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "terablast": {
@@ -36310,6 +37118,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "terastarstorm": {
@@ -36324,6 +37133,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "terrainpulse": {
@@ -36338,6 +37148,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 50,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "thief": {
@@ -36352,6 +37163,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "thousandarrows": {
@@ -36366,6 +37178,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "thousandwaves": {
@@ -36380,6 +37193,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "thrash": {
@@ -36394,6 +37208,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 10,
       "target": "randomNormal"
     },
     "throatchop": {
@@ -36408,6 +37223,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "thunder": {
@@ -36422,6 +37238,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 110,
       "accuracy": 70,
+      "pp": 10,
       "target": "normal"
     },
     "thundercage": {
@@ -36436,6 +37253,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 90,
+      "pp": 15,
       "target": "normal"
     },
     "thunderfang": {
@@ -36450,6 +37268,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 95,
+      "pp": 15,
       "target": "normal"
     },
     "thunderpunch": {
@@ -36464,6 +37283,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "thundershock": {
@@ -36478,6 +37298,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 30,
       "target": "normal"
     },
     "thunderwave": {
@@ -36491,6 +37312,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Electric",
       "category": "Status",
       "accuracy": 90,
+      "pp": 20,
       "target": "normal"
     },
     "thunderbolt": {
@@ -36505,6 +37327,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "thunderclap": {
@@ -36519,6 +37342,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 70,
       "accuracy": 100,
+      "pp": 5,
       "priority": 1,
       "target": "normal"
     },
@@ -36534,6 +37358,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "tickle": {
@@ -36547,6 +37372,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "tidyup": {
@@ -36559,6 +37385,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "topsyturvy": {
@@ -36571,6 +37398,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Dark",
       "category": "Status",
+      "pp": 20,
       "target": "normal"
     },
     "torchsong": {
@@ -36585,6 +37413,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "torment": {
@@ -36598,6 +37427,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Dark",
       "category": "Status",
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "toxic": {
@@ -36611,6 +37441,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Poison",
       "category": "Status",
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "toxicspikes": {
@@ -36623,6 +37454,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Poison",
       "category": "Status",
+      "pp": 20,
       "target": "foeSide"
     },
     "toxicthread": {
@@ -36636,6 +37468,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Poison",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "trailblaze": {
@@ -36650,6 +37483,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 50,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "transform": {
@@ -36662,6 +37496,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "triattack": {
@@ -36676,6 +37511,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "trick": {
@@ -36689,6 +37525,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Psychic",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "trickroom": {
@@ -36701,6 +37538,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 5,
       "priority": -7,
       "target": "all"
     },
@@ -36715,6 +37553,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Ghost",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "triplearrows": {
@@ -36729,6 +37568,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "tripleaxel": {
@@ -36743,6 +37583,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 20,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "tripledive": {
@@ -36757,6 +37598,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 30,
       "accuracy": 95,
+      "pp": 10,
       "target": "normal"
     },
     "triplekick": {
@@ -36771,6 +37613,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 10,
       "accuracy": 90,
+      "pp": 10,
       "target": "normal"
     },
     "tropkick": {
@@ -36785,6 +37628,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "trumpcard": {
@@ -36797,6 +37641,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Special",
+      "pp": 5,
       "target": "normal"
     },
     "twinbeam": {
@@ -36811,6 +37656,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "twineedle": {
@@ -36825,6 +37671,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 25,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "twinkletackle": {
@@ -36838,6 +37685,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fairy",
       "category": "Physical",
       "power": 1,
+      "pp": 1,
       "target": "normal"
     },
     "twister": {
@@ -36852,6 +37700,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 20,
       "target": "allAdjacentFoes"
     },
     "uturn": {
@@ -36866,6 +37715,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "upperhand": {
@@ -36880,6 +37730,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 65,
       "accuracy": 100,
+      "pp": 15,
       "priority": 3,
       "target": "normal"
     },
@@ -36895,6 +37746,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 90,
       "accuracy": 100,
+      "pp": 10,
       "target": "randomNormal"
     },
     "vacuumwave": {
@@ -36909,6 +37761,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 30,
       "priority": 1,
       "target": "normal"
     },
@@ -36923,6 +37776,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Poison",
       "category": "Status",
       "accuracy": 100,
+      "pp": 20,
       "target": "allAdjacentFoes"
     },
     "venoshock": {
@@ -36937,6 +37791,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 65,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "victorydance": {
@@ -36949,6 +37804,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Fighting",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "vinewhip": {
@@ -36963,6 +37819,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 45,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "visegrip": {
@@ -36977,6 +37834,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 55,
       "accuracy": 100,
+      "pp": 30,
       "target": "normal"
     },
     "vitalthrow": {
@@ -36990,6 +37848,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fighting",
       "category": "Physical",
       "power": 70,
+      "pp": 10,
       "priority": -1,
       "target": "normal"
     },
@@ -37005,6 +37864,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 70,
       "accuracy": 100,
+      "pp": 20,
       "target": "normal"
     },
     "volttackle": {
@@ -37019,6 +37879,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "wakeupslap": {
@@ -37033,6 +37894,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 70,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "watergun": {
@@ -37047,6 +37909,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 40,
       "accuracy": 100,
+      "pp": 25,
       "target": "normal"
     },
     "waterpledge": {
@@ -37061,6 +37924,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "waterpulse": {
@@ -37075,6 +37939,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 60,
       "accuracy": 100,
+      "pp": 20,
       "target": "any"
     },
     "watershuriken": {
@@ -37089,6 +37954,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 15,
       "accuracy": 100,
+      "pp": 20,
       "priority": 1,
       "target": "normal"
     },
@@ -37102,6 +37968,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Water",
       "category": "Status",
+      "pp": 15,
       "target": "all"
     },
     "waterspout": {
@@ -37116,6 +37983,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 150,
       "accuracy": 100,
+      "pp": 5,
       "target": "allAdjacentFoes"
     },
     "waterfall": {
@@ -37130,6 +37998,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "wavecrash": {
@@ -37144,6 +38013,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "weatherball": {
@@ -37158,6 +38028,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 50,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "whirlpool": {
@@ -37172,6 +38043,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 35,
       "accuracy": 85,
+      "pp": 15,
       "target": "normal"
     },
     "whirlwind": {
@@ -37184,6 +38056,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 20,
       "priority": -6,
       "target": "normal"
     },
@@ -37199,6 +38072,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 75,
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "wideguard": {
@@ -37211,6 +38085,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Rock",
       "category": "Status",
+      "pp": 10,
       "priority": 3,
       "target": "allySide"
     },
@@ -37226,6 +38101,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 90,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "wildboltstorm": {
@@ -37240,6 +38116,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 100,
       "accuracy": 80,
+      "pp": 10,
       "target": "allAdjacentFoes"
     },
     "willowisp": {
@@ -37253,6 +38130,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Fire",
       "category": "Status",
       "accuracy": 85,
+      "pp": 15,
       "target": "normal"
     },
     "wingattack": {
@@ -37267,6 +38145,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 60,
       "accuracy": 100,
+      "pp": 35,
       "target": "any"
     },
     "wish": {
@@ -37279,6 +38158,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "self"
     },
     "withdraw": {
@@ -37291,6 +38171,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Water",
       "category": "Status",
+      "pp": 40,
       "target": "self"
     },
     "wonderroom": {
@@ -37303,6 +38184,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Psychic",
       "category": "Status",
+      "pp": 10,
       "target": "all"
     },
     "woodhammer": {
@@ -37317,6 +38199,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 120,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "workup": {
@@ -37329,6 +38212,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 30,
       "target": "self"
     },
     "worryseed": {
@@ -37342,6 +38226,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Grass",
       "category": "Status",
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     },
     "wrap": {
@@ -37356,6 +38241,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 15,
       "accuracy": 90,
+      "pp": 20,
       "target": "normal"
     },
     "wringout": {
@@ -37369,6 +38255,7 @@ export const pkmnReferenceSnapshot = {
       "type": "Normal",
       "category": "Special",
       "accuracy": 100,
+      "pp": 5,
       "target": "normal"
     },
     "xscissor": {
@@ -37383,6 +38270,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 15,
       "target": "normal"
     },
     "yawn": {
@@ -37395,6 +38283,7 @@ export const pkmnReferenceSnapshot = {
       },
       "type": "Normal",
       "category": "Status",
+      "pp": 10,
       "target": "normal"
     },
     "zapcannon": {
@@ -37409,6 +38298,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Special",
       "power": 120,
       "accuracy": 50,
+      "pp": 5,
       "target": "normal"
     },
     "zenheadbutt": {
@@ -37423,6 +38313,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 90,
+      "pp": 15,
       "target": "normal"
     },
     "zingzap": {
@@ -37437,6 +38328,7 @@ export const pkmnReferenceSnapshot = {
       "category": "Physical",
       "power": 80,
       "accuracy": 100,
+      "pp": 10,
       "target": "normal"
     }
   },

@@ -15,10 +15,7 @@ export default function DocsPage() {
           </p>
           <div className="hero-actions">
             <a className="primary-cta" href={pageHref('app')}>
-              Ouvrir l'app desktop
-            </a>
-            <a className="secondary-cta" href={pageHref('mobile')}>
-              Ouvrir l'app mobile
+              Ouvrir l'app
             </a>
             <a className="secondary-cta" href={pageHref('landing')}>
               Voir la landing
@@ -30,9 +27,8 @@ export default function DocsPage() {
           <article>
             <h2>1. Démarrer avec l'assistant</h2>
             <p>
-              Utilise le cockpit desktop sur <code>/app</code> pour scanner toutes les informations ensemble, ou
-              l'expérience <code>/mobile</code> pour une navigation tactile par écrans : accueil, équipe, sélection,
-              Combat, analyse et données.
+              Utilise <code>/app</code> pour une navigation tactile par écrans : accueil, équipe, sélection, Combat,
+              analyse et données. <code>/mobile</code> reste un alias compatible pour les anciens liens.
             </p>
           </article>
           <article>
@@ -46,9 +42,8 @@ export default function DocsPage() {
             <h2>3. Construire l'équipe</h2>
             <p>
               Utilise les menus du constructeur pour choisir un Pokémon, son talent, son objet, sa nature, ses points
-              d'entraînement (EV) et ses quatre attaques disponibles dans la source locale filtrée. Les libellés sont affichés
-              en français quand PokéAPI les fournit. Tu peux aussi importer un fichier .txt Showdown ou exporter
-              l'équipe actuelle en .txt ; le contenu reste en anglais compatible Showdown.
+              d'entraînement (EV) et ses quatre attaques disponibles dans la source locale filtrée. Le switch FR/EN
+              change les libellés et les recherches, tandis que l'export reste en anglais compatible Showdown.
             </p>
           </article>
           <article>

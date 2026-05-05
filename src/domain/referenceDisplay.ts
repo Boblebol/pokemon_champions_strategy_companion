@@ -1,5 +1,5 @@
 import { toId } from './ids';
-import { formatLocalizedName, localizedLabelMap } from './localization';
+import { displayLocalizedName, localizedLabelMap } from './localization';
 import type {
   AbilityReference,
   ItemReference,
@@ -21,30 +21,34 @@ export function getPokemonReference(
   return species ? reference.pokemon[toId(species)] : undefined;
 }
 
-export function pokemonDisplayName(reference: ReferenceSnapshot, species: string | undefined): string {
+export function pokemonDisplayName(
+  reference: ReferenceSnapshot,
+  species: string | undefined,
+  locale = localeOf(reference),
+): string {
   if (!species) {
     return 'Libre';
   }
 
   const pokemon = getPokemonReference(reference, species);
-  return formatLocalizedName(species, pokemon?.localizedNames, localeOf(reference));
+  return displayLocalizedName(species, pokemon?.localizedNames, locale);
 }
 
-export function moveDisplayName(reference: ReferenceSnapshot, move: string): string {
+export function moveDisplayName(reference: ReferenceSnapshot, move: string, locale = localeOf(reference)): string {
   const moveReference = reference.moves[toId(move)];
-  return formatLocalizedName(move, moveReference?.localizedNames, localeOf(reference));
+  return displayLocalizedName(move, moveReference?.localizedNames, locale);
 }
 
 export function getAbilityReference(reference: ReferenceSnapshot, ability: string | undefined): AbilityReference | undefined {
   return ability ? reference.abilityDetails[toId(ability)] : undefined;
 }
 
-export function abilityDisplayName(reference: ReferenceSnapshot, ability: string): string {
+export function abilityDisplayName(reference: ReferenceSnapshot, ability: string, locale = localeOf(reference)): string {
   const abilityReference = getAbilityReference(reference, ability);
-  return formatLocalizedName(
+  return displayLocalizedName(
     ability,
     abilityReference?.localizedNames ?? localizedLabelMap(reference.labels.abilities, ability),
-    localeOf(reference),
+    locale,
   );
 }
 
@@ -56,12 +60,12 @@ export function getItemReference(reference: ReferenceSnapshot, item: string | un
   return item ? reference.itemDetails[toId(item)] : undefined;
 }
 
-export function itemDisplayName(reference: ReferenceSnapshot, item: string): string {
+export function itemDisplayName(reference: ReferenceSnapshot, item: string, locale = localeOf(reference)): string {
   const itemReference = getItemReference(reference, item);
-  return formatLocalizedName(
+  return displayLocalizedName(
     item,
     itemReference?.localizedNames ?? localizedLabelMap(reference.labels.items, item),
-    localeOf(reference),
+    locale,
   );
 }
 
@@ -73,12 +77,12 @@ export function getNatureReference(reference: ReferenceSnapshot, nature: string 
   return nature ? reference.natureDetails[toId(nature)] : undefined;
 }
 
-export function natureDisplayName(reference: ReferenceSnapshot, nature: string): string {
+export function natureDisplayName(reference: ReferenceSnapshot, nature: string, locale = localeOf(reference)): string {
   const natureReference = getNatureReference(reference, nature);
-  return formatLocalizedName(
+  return displayLocalizedName(
     nature,
     natureReference?.localizedNames ?? localizedLabelMap(reference.labels.natures, nature),
-    localeOf(reference),
+    locale,
   );
 }
 
@@ -86,6 +90,6 @@ export function natureDescription(reference: ReferenceSnapshot, nature: string |
   return nature ? getNatureReference(reference, nature)?.description ?? 'Effet non documenté dans la source.' : '';
 }
 
-export function typeDisplayName(reference: ReferenceSnapshot, type: PokemonType): string {
-  return formatLocalizedName(type, reference.labels.types[type], localeOf(reference));
+export function typeDisplayName(reference: ReferenceSnapshot, type: PokemonType, locale = localeOf(reference)): string {
+  return displayLocalizedName(type, reference.labels.types[type], locale);
 }
