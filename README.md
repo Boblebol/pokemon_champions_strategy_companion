@@ -40,6 +40,8 @@ Documentation repo :
 - PWA installable sans store depuis le navigateur, avec manifest, service worker
   et cache applicatif local.
 - Interface française avec cartes d'équipe, audit et adversaires dangereux.
+- Accueil orienté partie en cours : créer une team vide, charger une sauvegarde,
+  sauvegarder vite et choisir le mode `1v1 actif` ou `2v2 actif`.
 - Constructeur d'équipe guidé sur 6 slots avec parcours étape par étape,
   Pokémon, attaques, objet, talent, nature, points d'entraînement (EV) et notes
   privées.
@@ -62,8 +64,10 @@ Documentation repo :
   `.txt` depuis l'assistant.
 - Formats Pokémon Showdown pour Pokémon Champions : `[Champions] BSS Reg M-A`,
   `[Champions] VGC 2026 Reg M-A` et `[Champions] OU`.
-- Sélection de match adaptée au format : 3 Pokémon en BSS, 4 en VGC, 6 en OU.
-- Analyse séparée de l'équipe complète et de la sélection jouée.
+- Sélection de match par recherche dans ta team : 3 Pokémon en BSS, 4 en VGC,
+  sans obligation de remplir les 6 slots avant d'analyser.
+- Analyse centrée sur les actifs joués : couverture offensive et défensive,
+  rôles, vitesses et adversaires dangereux.
 - Audit défensif, types que tes attaques menacent, rôles et vitesses exactes.
 - Classement des adversaires fréquents dangereux selon les usages et la pression
   sur l'équipe.
@@ -114,12 +118,14 @@ local et ne perd pas l'équipe en cours.
 
 ## Workflow recommandé
 
-1. Choisir le format cible dans le sélecteur dédié.
-2. Construire l'équipe dans les 6 slots.
-3. Cocher les slots joués pour simuler la sélection de match.
-4. Simuler un adversaire dans le panneau Combat pour comparer les dégâts que tu
+1. Depuis l'accueil, choisir `1v1 actif` ou `2v2 actif`, créer une team vide ou
+   charger une sauvegarde.
+2. Remplir rapidement les Pokémon nécessaires dans le constructeur. Les 6 slots
+   peuvent rester incomplets.
+3. Dans `Sélection`, chercher les 3 ou 4 Pokémon réellement joués.
+4. Lire la couverture rapide et les adversaires dangereux dès que les actifs sont prêts.
+5. Simuler un adversaire dans le panneau Combat pour comparer les dégâts que tu
    fais et les dégâts que tu peux recevoir.
-5. Lire l'analyse de la sélection jouée, puis ajuster l'équipe complète.
 6. Télécharger l'export `.txt` pour conserver ou partager l'équipe.
 7. Cliquer sur `Mettre à jour` pour tenter de récupérer les derniers usages
    Smogon disponibles.

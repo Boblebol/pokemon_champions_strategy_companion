@@ -7,17 +7,18 @@ Showdown dédiés à Pokémon Champions.
 ## Parcours rapide
 
 1. Ouvrir l'app tactile `/app`. `/mobile` reste un alias compatible.
-2. Choisir le format Showdown : `[Champions] BSS Reg M-A`,
-   `[Champions] VGC 2026 Reg M-A` ou `[Champions] OU`.
-3. Construire les 6 slots dans le constructeur.
-4. Cocher les Pokémon réellement joués dans la sélection de match.
-5. Utiliser le panneau Combat pour simuler les dégâts contre un ou deux
+2. Depuis l'accueil, créer une team vide ou charger une sauvegarde locale.
+3. Choisir `1v1 actif` pour préparer 3 Pokémon ou `2v2 actif` pour préparer 4
+   Pokémon.
+4. Remplir seulement les slots nécessaires dans le constructeur ; les 6 slots ne
+   sont pas obligatoires pour commencer l'analyse.
+5. Dans `Sélection`, chercher les Pokémon réellement joués dans ta team.
+6. Lire `Couverture rapide`, puis les adversaires dangereux.
+7. Utiliser le panneau Combat pour simuler les dégâts contre un ou deux
    adversaires.
-6. Lire les panneaux d'audit, d'adversaires fréquents dangereux, d'adversaires
-   rares dangereux et de vitesses.
 
-L'assistant de départ est optionnel. Il peut être masqué, puis rouvert depuis le
-résumé compact.
+Les onglets `Analyse` et `Combat` restent verrouillés tant que les 3 ou 4 actifs
+du mode choisi ne sont pas remplis.
 
 ## Installation mobile
 
@@ -81,6 +82,8 @@ séparés dans le constructeur.
 
 Dans l'écran Données, `Exporter l'équipe` télécharge le paste actuel dans
 `pokemon-champions-team.txt`, pratique pour le garder localement ou le partager.
+La sauvegarde et le chargement des teams sont disponibles dès l'accueil pour
+éviter de chercher le management en pleine partie.
 
 Les commentaires restent privés au constructeur. Ils servent aux notes de plan de
 jeu et ne sont pas ajoutés au paste Showdown exporté.
@@ -100,6 +103,8 @@ Il calcule :
 En `[Champions] VGC 2026 Reg M-A`, la scène peut contenir deux alliés actifs et
 deux adversaires. En `[Champions] BSS Reg M-A` et `[Champions] OU`, elle démarre
 en 1v1.
+Les alliés actifs se sélectionnent par recherche dans la sélection jouée, ce qui
+permet de changer vite de lead sans revenir dans le constructeur.
 
 ## Données
 

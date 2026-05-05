@@ -23,9 +23,33 @@ describe('DeferredCombatCalculator', () => {
         format="champions-bss"
         selectedTeam={selectedTeam}
         reference={demoDataBundle.reference}
+        locale="fr"
       />,
     );
 
     expect(await screen.findByRole('heading', { name: /^combat$/i })).toBeInTheDocument();
+  });
+
+  it('shows searchable friendly active pickers based on the battle style', async () => {
+    render(
+      <DeferredCombatCalculator
+        format="champions-vgc"
+        selectedTeam={[
+          ...selectedTeam,
+          {
+            slot: 2,
+            species: 'Garchomp',
+            evs: {},
+            moves: ['Earthquake'],
+            parseWarnings: [],
+          },
+        ]}
+        reference={demoDataBundle.reference}
+        locale="fr"
+      />,
+    );
+
+    expect(await screen.findByLabelText(/allié actif 1/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/allié actif 2/i)).toBeInTheDocument();
   });
 });

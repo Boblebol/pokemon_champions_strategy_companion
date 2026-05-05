@@ -4,10 +4,13 @@ import {
   createDefaultCombatState,
   searchCombatPokemon,
 } from '../domain/damageCalculator';
+import { toId } from '../domain/ids';
+import { localizedSearchText } from '../domain/localization';
 import { moveDisplayName, pokemonDisplayName } from '../domain/referenceDisplay';
 import type { CombatOpponent, CombatPokemonModifiers, CombatState } from '../domain/damageCalculator';
-import type { FormatId, ReferenceSnapshot, StatId, TeamMember } from '../domain/types';
+import type { FormatId, LocaleId, ReferenceSnapshot, StatId, TeamMember } from '../domain/types';
 import { PokemonAvatar } from './PokemonMedia';
+import { SearchablePicker } from './SearchablePicker';
 
 const BOOST_STATS: Array<Exclude<StatId, 'hp'>> = ['atk', 'def', 'spa', 'spd', 'spe'];
 const ADVANCED_CONTROLS_ID = 'combat-advanced-controls';
@@ -166,9 +169,10 @@ export interface CombatCalculatorProps {
   format: FormatId;
   selectedTeam: TeamMember[];
   reference: ReferenceSnapshot;
+  locale: LocaleId;
 }
 
-export function CombatCalculator({ format, selectedTeam, reference }: CombatCalculatorProps) {
+export function CombatCalculator({ format, selectedTeam, reference, locale }: CombatCalculatorProps) {
   const defaultStateKey = stateKey(format, selectedTeam);
   const [state, setState] = useState<CombatState>(() => createDefaultCombatState(format, selectedTeam));
   const [queries, setQueries] = useState<Record<string, string>>({});
@@ -185,6 +189,22 @@ export function CombatCalculator({ format, selectedTeam, reference }: CombatCalc
     [format, includeAllFriendlyMoves, reference, selectedTeam, state],
   );
   const activeLimit = result.isDoubles ? 2 : 1;
+  const friendlyPickerOptions = useMemo(
+    () =>
+      selectedTeam.map((member) => {
+        const pokemon = reference.pokemon[toId(member.species)];
+        const label = pokemonDisplayName(reference, member.species, locale);
+
+        return {
+          value: String(member.slot),
+          label,
+          searchText: localizedSearchText(member.species, pokemon?.localizedNames, locale),
+          description: `Slot ${member.slot}`,
+          media: <PokemonAvatar reference={reference} species={member.species} />,
+        };
+      }),
+    [locale, reference, selectedTeam],
+  );
   const activeAdvancedOptions = useMemo(() => {
     const fieldOptions = Number(state.weather !== 'none') + Number(state.terrain !== 'none');
     const sideConditions = countActiveSideConditions(state.friendlySide) + countActiveSideConditions(state.opponentSide);
@@ -207,6 +227,24 @@ export function CombatCalculator({ format, selectedTeam, reference }: CombatCalc
     ADVANCED_CONTROLS_ID,
     ...state.opponents.map((opponent) => opponentAdvancedControlsId(opponent.id)),
   ].join(' ');
+
+  function handleFriendlyActiveChange(index: number, value: string | undefined) {
+    setState((current) => {
+      const slotId = value ? Number(value) : undefined;
+      const nextSlots = current.friendlyActiveSlots.filter(
+        (currentSlot, currentIndex) => currentIndex !== index && currentSlot !== slotId,
+      );
+
+      if (slotId) {
+        nextSlots.splice(index, 0, slotId);
+      }
+
+      return {
+        ...current,
+        friendlyActiveSlots: nextSlots.slice(0, activeLimit),
+      };
+    });
+  }
 
   return (
     <section className="panel combat-calculator" id="combat" aria-label="Calculateur de combat">
@@ -237,31 +275,19 @@ export function CombatCalculator({ format, selectedTeam, reference }: CombatCalc
       <div className="combat-layout">
         <aside className="combat-scene" aria-label="Scène de combat">
           <h3>Actifs et terrain</h3>
-          <div className="combat-active-list" aria-label="Pokémon alliés actifs">
+          <div className="combat-active-pickers" aria-label="Pokémon alliés actifs">
             {selectedTeam.length === 0 ? <p className="warning">Choisis au moins un Pokémon dans la sélection.</p> : null}
-            {selectedTeam.map((member) => {
-              const isActive = state.friendlyActiveSlots.includes(member.slot);
-              const cannotAdd = !isActive && state.friendlyActiveSlots.length >= activeLimit;
-              return (
-                <label className="combat-pokemon-chip" key={member.slot}>
-                  <input
-                    type="checkbox"
-                    checked={isActive}
-                    disabled={cannotAdd}
-                    onChange={(event) =>
-                      setState((current) => ({
-                        ...current,
-                        friendlyActiveSlots: event.target.checked
-                          ? [...current.friendlyActiveSlots, member.slot].slice(0, activeLimit)
-                          : current.friendlyActiveSlots.filter((slot) => slot !== member.slot),
-                      }))
-                    }
-                  />
-                  <PokemonAvatar reference={reference} species={member.species} />
-                  <span>{pokemonDisplayName(reference, member.species)}</span>
-                </label>
-              );
-            })}
+            {Array.from({ length: activeLimit }, (_, index) => (
+              <SearchablePicker
+                label={`Allié actif ${index + 1}`}
+                value={state.friendlyActiveSlots[index] ? String(state.friendlyActiveSlots[index]) : undefined}
+                placeholder="Chercher dans la sélection"
+                options={friendlyPickerOptions}
+                emptyLabel="Aucun Pokémon sélectionné"
+                onChange={(value) => handleFriendlyActiveChange(index, value)}
+                key={index}
+              />
+            ))}
           </div>
 
           <div className="combat-advanced-controls" id={ADVANCED_CONTROLS_ID} hidden={!showAdvancedControls}>
@@ -326,7 +352,7 @@ export function CombatCalculator({ format, selectedTeam, reference }: CombatCalc
               .map((member) => (
                 <ModifierControls
                   key={member.slot}
-                  title={`Modifs allié · ${pokemonDisplayName(reference, member.species)}`}
+                  title={`Modifs allié · ${pokemonDisplayName(reference, member.species, locale)}`}
                   modifiers={state.friendly[member.slot]}
                   onChange={(patch) =>
                     setState((current) => ({
@@ -343,13 +369,16 @@ export function CombatCalculator({ format, selectedTeam, reference }: CombatCalc
           {state.opponents.map((opponent, index) => {
             const query = queries[opponent.id] ?? '';
             const options = searchCombatPokemon(reference, query).sort((left, right) =>
-              pokemonDisplayName(reference, left.name).localeCompare(pokemonDisplayName(reference, right.name), 'fr'),
+              pokemonDisplayName(reference, left.name, locale).localeCompare(
+                pokemonDisplayName(reference, right.name, locale),
+                locale,
+              ),
             );
             return (
               <article className="combat-opponent-card" key={opponent.id}>
                 <div className="slot-header">
                   <strong>Adversaire {index + 1}</strong>
-                  <span>{opponent.species ? pokemonDisplayName(reference, opponent.species) : 'Non défini'}</span>
+                  <span>{opponent.species ? pokemonDisplayName(reference, opponent.species, locale) : 'Non défini'}</span>
                 </div>
                 <label className="field">
                   <span>Rechercher adversaire {index + 1}</span>
@@ -372,7 +401,7 @@ export function CombatCalculator({ format, selectedTeam, reference }: CombatCalc
                       }
                     >
                       <PokemonAvatar reference={reference} species={pokemon.name} />
-                      <span>{pokemonDisplayName(reference, pokemon.name)}</span>
+                      <span>{pokemonDisplayName(reference, pokemon.name, locale)}</span>
                     </button>
                   ))}
                 </div>

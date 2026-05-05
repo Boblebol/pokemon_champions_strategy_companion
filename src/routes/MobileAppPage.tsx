@@ -6,7 +6,9 @@ import { HelpPanel } from '../components/HelpPanel';
 import { PossibleThreatPanel } from '../components/PossibleThreatPanel';
 import { ProjectCreditPanel } from '../components/ProjectCreditPanel';
 import { PwaStatus } from '../components/PwaStatus';
+import { PokemonAvatar } from '../components/PokemonMedia';
 import { SavedTeamManager } from '../components/SavedTeamManager';
+import { SearchablePicker } from '../components/SearchablePicker';
 import { SnapshotStatus } from '../components/SnapshotStatus';
 import { TeamBuilder } from '../components/TeamBuilder';
 import { TeamPreview } from '../components/TeamPreview';
@@ -15,7 +17,8 @@ import { demoDataBundle } from '../data/demoSnapshots';
 import { getPkmnReferenceSnapshot } from '../data/pkmnReference';
 import { analyzeTeam } from '../domain/analysis';
 import { createDataStore } from '../domain/dataStore';
-import { SUPPORTED_FORMATS } from '../domain/formatRules';
+import { toId } from '../domain/ids';
+import { localizedSearchText } from '../domain/localization';
 import { getPickSize } from '../domain/matchSelection';
 import { moveDisplayName, pokemonDisplayName } from '../domain/referenceDisplay';
 import type { SavedTeam } from '../domain/savedTeams';
@@ -23,7 +26,9 @@ import { refreshSnapshots } from '../domain/snapshotRefresh';
 import { parseShowdownTeam } from '../domain/teamImport';
 import {
   builderStateFromMembers,
+  builderStateToMembers,
   builderStateToShowdownPaste,
+  createEmptyBuilderState,
   updateBuilderSlot,
 } from '../domain/teamBuilder';
 import type { BuilderSlot } from '../domain/teamBuilder';
@@ -40,6 +45,11 @@ const MOBILE_TABS: Array<{ id: MobileTab; label: string }> = [
   { id: 'data', label: 'Données' },
 ];
 
+const QUICK_MODES: Array<{ format: FormatId; label: string; description: string }> = [
+  { format: 'champions-bss', label: '1v1 actif', description: '3 Pokémon à choisir' },
+  { format: 'champions-vgc', label: '2v2 actif', description: '4 Pokémon à choisir' },
+];
+
 const initialPaste = `Dragonite @ Heavy-Duty Boots
 Ability: Multiscale
 Tera Type: Normal
@@ -54,10 +64,13 @@ function teamExportHref(value: string): string {
   return `data:text/plain;charset=utf-8,${encodeURIComponent(value)}`;
 }
 
+function isMatchToolTab(tab: MobileTab): boolean {
+  return tab === 'combat' || tab === 'analysis';
+}
+
 export default function MobileAppPage() {
   const [activeTab, setActiveTab] = useState<MobileTab>('home');
   const [format, setFormat] = useState<FormatId>('champions-bss');
-  const [paste, setPaste] = useState(initialPaste);
   const [builderState, setBuilderState] = useState(() => builderStateFromMembers(parseShowdownTeam(initialPaste).members));
   const [selectedSlots, setSelectedSlots] = useState<number[]>([1]);
   const [dataBundle, setDataBundle] = useState<DataBundle>(demoDataBundle);
@@ -93,6 +106,8 @@ export default function MobileAppPage() {
   }, []);
 
   const store = useMemo(() => createDataStore(dataBundle), [dataBundle]);
+  const paste = useMemo(() => builderStateToShowdownPaste(builderState), [builderState]);
+  const teamMembers = useMemo(() => builderStateToMembers(builderState), [builderState]);
   const pickSize = getPickSize(format);
   const pokemonOptions = useMemo(() => {
     return Object.values(dataBundle.reference.pokemon).sort((left, right) =>
@@ -111,12 +126,35 @@ export default function MobileAppPage() {
     );
   }, [dataBundle, locale]);
   const analysis = useMemo(() => {
-    return analyzeTeam({ paste, format, store, selectedSlots });
-  }, [paste, format, store, selectedSlots]);
+    return analyzeTeam({ format, store, teamMembers, selectedSlots });
+  }, [format, selectedSlots, store, teamMembers]);
+  const filledSlots = builderState.slots.filter((slot) => Boolean(slot.species));
+  const activeReadyCount = selectedSlots
+    .slice(0, pickSize)
+    .filter((slotId) => builderState.slots.some((slot) => slot.id === slotId && slot.species)).length;
+  const canUseMatchTools = activeReadyCount >= pickSize;
+  const readyLabel = `${activeReadyCount}/${pickSize} actifs prêts`;
   const selectedNames = analysis.selectedTeam.members.map((member) =>
     pokemonDisplayName(dataBundle.reference, member.species, locale),
   );
   const topThreat = analysis.threats[0];
+  const activePickerOptions = useMemo(
+    () =>
+      filledSlots.map((slot) => {
+        const species = slot.species as string;
+        const pokemon = dataBundle.reference.pokemon[toId(species)];
+        const label = pokemonDisplayName(dataBundle.reference, species, locale);
+
+        return {
+          value: String(slot.id),
+          label,
+          searchText: localizedSearchText(species, pokemon?.localizedNames, locale),
+          description: `Slot ${slot.id}`,
+          media: <PokemonAvatar reference={dataBundle.reference} species={species} />,
+        };
+      }),
+    [dataBundle.reference, filledSlots, locale],
+  );
 
   function handleFormatChange(nextFormat: FormatId) {
     const nextPickSize = getPickSize(nextFormat);
@@ -124,10 +162,24 @@ export default function MobileAppPage() {
     setSelectedSlots((currentSlots) => currentSlots.slice(0, nextPickSize));
   }
 
+  function handleTabChange(tab: MobileTab) {
+    if (isMatchToolTab(tab) && !canUseMatchTools) {
+      return;
+    }
+
+    setActiveTab(tab);
+  }
+
+  function handleCreateEmptyTeam() {
+    const nextState = createEmptyBuilderState();
+    setBuilderState(nextState);
+    setSelectedSlots([]);
+    setActiveTab('team');
+  }
+
   function handleBuilderSlotChange(slotId: number, patch: Partial<Omit<BuilderSlot, 'id'>>) {
     const nextState = updateBuilderSlot(builderState, slotId, patch);
     setBuilderState(nextState);
-    setPaste(builderStateToShowdownPaste(nextState));
   }
 
   function handleToggleSelection(slotId: number, selected: boolean) {
@@ -143,10 +195,22 @@ export default function MobileAppPage() {
   function handleLoadSavedTeam(team: SavedTeam) {
     setFormat(team.format);
     const parsedTeam = parseShowdownTeam(team.paste);
-    setPaste(team.paste);
     setBuilderState(builderStateFromMembers(parsedTeam.members));
     setSelectedSlots(parsedTeam.members.length > 0 ? [1] : []);
     setActiveTab('team');
+  }
+
+  function handleActivePickChange(index: number, value: string | undefined) {
+    setSelectedSlots((currentSlots) => {
+      const slotId = value ? Number(value) : undefined;
+      const nextSlots = currentSlots.filter((currentSlot, currentIndex) => currentIndex !== index && currentSlot !== slotId);
+
+      if (slotId) {
+        nextSlots.splice(index, 0, slotId);
+      }
+
+      return nextSlots.slice(0, pickSize);
+    });
   }
 
   async function handleRefresh() {
@@ -188,36 +252,69 @@ export default function MobileAppPage() {
       </header>
 
       <nav className="mobile-tabbar" aria-label="Navigation mobile tactile">
-        {MOBILE_TABS.map((tab) => (
-          <button
-            type="button"
-            aria-pressed={activeTab === tab.id}
-            className={activeTab === tab.id ? 'active' : ''}
-            onClick={() => setActiveTab(tab.id)}
-            key={tab.id}
-          >
-            {tab.label}
-          </button>
-        ))}
+        {MOBILE_TABS.map((tab) => {
+          const disabled = isMatchToolTab(tab.id) && !canUseMatchTools;
+
+          return (
+            <button
+              type="button"
+              aria-pressed={activeTab === tab.id}
+              className={activeTab === tab.id ? 'active' : ''}
+              disabled={disabled}
+              onClick={() => handleTabChange(tab.id)}
+              key={tab.id}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
       </nav>
 
       {activeTab === 'home' ? (
         <section className="mobile-screen mobile-home" aria-label="Accueil mobile">
-          <PwaStatus />
+          <section className="mobile-quick-start" aria-label="Préparer la team">
+            <div className="panel-heading">
+              <div>
+                <h2>Préparer la team</h2>
+                <p>Crée, charge et sauve depuis le premier écran, puis remplis juste les actifs nécessaires.</p>
+              </div>
+              <strong className={canUseMatchTools ? 'ready-pill done' : 'ready-pill'}>{readyLabel}</strong>
+            </div>
+            <div className="quick-mode-switch" aria-label="Mode de match rapide">
+              {QUICK_MODES.map((mode) => (
+                <button
+                  type="button"
+                  aria-pressed={format === mode.format}
+                  onClick={() => handleFormatChange(mode.format)}
+                  key={mode.format}
+                >
+                  <strong>{mode.label}</strong>
+                  <span>{mode.description}</span>
+                </button>
+              ))}
+            </div>
+            <div className="quick-actions">
+              <button type="button" className="mobile-primary-action" onClick={() => setActiveTab('team')}>
+                Continuer l'équipe
+              </button>
+              <button type="button" className="secondary-action" onClick={handleCreateEmptyTeam}>
+                Créer une team vide
+              </button>
+            </div>
+            <SavedTeamManager paste={paste} format={format} onLoad={handleLoadSavedTeam} />
+          </section>
           <div className="mobile-summary-grid">
             <article>
               <span>Format</span>
-              <strong>{SUPPORTED_FORMATS.find((currentFormat) => currentFormat.id === format)?.label}</strong>
+              <strong>{format === 'champions-vgc' ? '2v2 actif' : '1v1 actif'}</strong>
             </article>
             <article>
               <span>Équipe</span>
-              <strong>{analysis.team.members.length}/6</strong>
+              <strong>{filledSlots.length}/6</strong>
             </article>
             <article>
-              <span>Sélection</span>
-              <strong>
-                {selectedSlots.length}/{pickSize}
-              </strong>
+              <span>Actifs</span>
+              <strong>{readyLabel}</strong>
             </article>
             <article>
               <span>Menace</span>
@@ -226,19 +323,7 @@ export default function MobileAppPage() {
               </strong>
             </article>
           </div>
-          <label className="mobile-field">
-            Format Showdown Champions
-            <select value={format} onChange={(event) => handleFormatChange(event.target.value as FormatId)}>
-              {SUPPORTED_FORMATS.map((currentFormat) => (
-                <option value={currentFormat.id} key={currentFormat.id}>
-                  {currentFormat.label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button type="button" className="mobile-primary-action" onClick={() => setActiveTab('team')}>
-            Continuer l'équipe
-          </button>
+          <PwaStatus />
           <ProjectCreditPanel />
         </section>
       ) : null}
@@ -265,31 +350,35 @@ export default function MobileAppPage() {
 
       {activeTab === 'selection' ? (
         <section className="mobile-screen" aria-label="Sélection mobile">
-          <h2>Sélection de match</h2>
-          <p>
-            Choisis {pickSize} Pokémon. Actuellement : {selectedSlots.length}/{pickSize}.
-          </p>
-          <div className="mobile-pick-list">
-            {builderState.slots.map((slot) => {
-              const selected = selectedSlots.includes(slot.id);
+          <h2>Actifs du match</h2>
+          <p>{readyLabel}. Les slots restants peuvent rester vides tant que ces actifs sont prêts.</p>
+          <div className="active-pick-grid">
+            {Array.from({ length: pickSize }, (_, index) => {
+              const currentValue = selectedSlots[index] ? String(selectedSlots[index]) : undefined;
+
               return (
-                <label className="mobile-pick-card" data-selected={selected} key={slot.id}>
-                  <input
-                    type="checkbox"
-                    checked={selected}
-                    disabled={!selected && selectedSlots.length >= pickSize}
-                    onChange={(event) => handleToggleSelection(slot.id, event.target.checked)}
-                  />
-                  <span>Slot {slot.id}</span>
-                  <strong>
-                    {slot.species ? pokemonDisplayName(dataBundle.reference, slot.species, locale) : 'Libre'}
-                  </strong>
-                </label>
+                <SearchablePicker
+                  label={`Actif ${index + 1}`}
+                  value={currentValue}
+                  placeholder="Chercher dans ta team"
+                  options={activePickerOptions}
+                  emptyLabel="Remplis d'abord un slot d'équipe"
+                  onChange={(value) => handleActivePickChange(index, value)}
+                  key={index}
+                />
               );
             })}
           </div>
-          <button type="button" className="mobile-primary-action" onClick={() => setActiveTab('analysis')}>
-            Analyser la sélection
+          {!canUseMatchTools ? (
+            <p className="warning">Il faut {pickSize} Pokémon actifs remplis pour ouvrir la couverture et le combat.</p>
+          ) : null}
+          <button
+            type="button"
+            className="mobile-primary-action"
+            disabled={!canUseMatchTools}
+            onClick={() => setActiveTab('analysis')}
+          >
+            Voir couverture et menaces
           </button>
         </section>
       ) : null}
@@ -300,13 +389,14 @@ export default function MobileAppPage() {
             format={format}
             selectedTeam={analysis.selectedTeam.members}
             reference={dataBundle.reference}
+            locale={locale}
           />
         </section>
       ) : null}
 
       {activeTab === 'analysis' ? (
         <section className="mobile-screen" aria-label="Analyse mobile">
-          <TeamPreview reference={dataBundle.reference} team={analysis.team} locale={locale} />
+          <TeamPreview reference={dataBundle.reference} team={analysis.selectedTeam} locale={locale} />
           <section className="panel selected-analysis">
             <h2>Plan de match</h2>
             <p>Joués : {selectedNames.join(', ') || 'aucun'}</p>
@@ -316,8 +406,8 @@ export default function MobileAppPage() {
               </p>
             ))}
           </section>
-          <AuditPanel audit={analysis.audit} />
-          <ThreatPanel reference={dataBundle.reference} threats={analysis.threats} locale={locale} />
+          <AuditPanel audit={analysis.selectedAudit} title="Couverture rapide" />
+          <ThreatPanel reference={dataBundle.reference} threats={analysis.selectedThreats} locale={locale} />
           <PossibleThreatPanel
             reference={dataBundle.reference}
             threats={analysis.selectedPossibleThreats}
@@ -338,7 +428,6 @@ export default function MobileAppPage() {
             refreshMessage={refreshMessage}
             isRefreshing={isRefreshing}
           />
-          <SavedTeamManager paste={paste} format={format} onLoad={handleLoadSavedTeam} />
           <section className="panel team-export-panel" aria-label="Export équipe">
             <h2>Export équipe</h2>
             <p>Le fichier reste compatible Pokémon Showdown.</p>

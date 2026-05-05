@@ -216,9 +216,9 @@ export default function AppPage() {
           moveOptions={moveOptions}
           itemOptions={dataBundle.reference.items}
           natureOptions={dataBundle.reference.natures}
-            reference={dataBundle.reference}
-            locale={dataBundle.reference.locale}
-            referenceStatus={referenceStatus}
+          reference={dataBundle.reference}
+          locale={dataBundle.reference.locale}
+          referenceStatus={referenceStatus}
           referenceSource={dataBundle.reference.source}
           selectedSlots={selectedSlots}
           pickSize={pickSize}
@@ -230,6 +230,7 @@ export default function AppPage() {
           format={format}
           selectedTeam={analysis.selectedTeam.members}
           reference={dataBundle.reference}
+          locale={dataBundle.reference.locale}
         />
 
         <div className="dashboard" id="analysis-dashboard">

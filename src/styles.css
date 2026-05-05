@@ -981,6 +981,12 @@ small {
   color: #ffffff;
 }
 
+.mobile-tabbar button:disabled {
+  cursor: not-allowed;
+  color: #9aa7b6;
+  opacity: 0.58;
+}
+
 .mobile-screen {
   display: grid;
   gap: 12px;
@@ -994,6 +1000,65 @@ small {
 
 .mobile-home .pwa-status {
   margin-bottom: 0;
+}
+
+.mobile-quick-start {
+  display: grid;
+  gap: 12px;
+}
+
+.ready-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  border: 1px solid #f0c57b;
+  border-radius: 999px;
+  background: #fff8e8;
+  color: #805109;
+  padding: 6px 10px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.ready-pill.done {
+  border-color: #99d3aa;
+  background: #effaf3;
+  color: #1f6844;
+}
+
+.quick-mode-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.quick-mode-switch button {
+  display: grid;
+  gap: 4px;
+  min-height: 62px;
+  border-color: #cfdbe9;
+  background: #ffffff;
+  color: var(--navy);
+  text-align: left;
+}
+
+.quick-mode-switch button[aria-pressed="true"] {
+  border-color: #17324d;
+  background: #17324d;
+  color: #ffffff;
+}
+
+.quick-mode-switch span {
+  font-size: 12px;
+  font-weight: 750;
+  opacity: 0.82;
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
 }
 
 .mobile-summary-grid {
@@ -1044,6 +1109,19 @@ small {
   background: #17324d;
   color: #ffffff;
   font-size: 16px;
+}
+
+.secondary-action {
+  min-height: 54px;
+  border-color: #cfdbe9;
+  background: #ffffff;
+  color: var(--navy);
+  font-size: 15px;
+}
+
+.active-pick-grid {
+  display: grid;
+  gap: 10px;
 }
 
 .mobile-pick-list {
@@ -2080,6 +2158,7 @@ small {
 }
 
 .combat-active-list,
+.combat-active-pickers,
 .combat-opponents,
 .combat-results {
   display: grid;
