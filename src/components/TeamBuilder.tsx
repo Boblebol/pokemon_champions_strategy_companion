@@ -38,6 +38,59 @@ const STAT_FIELDS: Array<{ id: StatId; label: string }> = [
 ];
 
 const EV_TOTAL_LIMIT = 510;
+const NATURE_EFFECTS: Partial<Record<string, { plus?: StatId; minus?: StatId }>> = {
+  adamant: { plus: 'atk', minus: 'spa' },
+  bashful: {},
+  bold: { plus: 'def', minus: 'atk' },
+  brave: { plus: 'atk', minus: 'spe' },
+  calm: { plus: 'spd', minus: 'atk' },
+  careful: { plus: 'spd', minus: 'spa' },
+  docile: {},
+  gentle: { plus: 'spd', minus: 'def' },
+  hardy: {},
+  hasty: { plus: 'spe', minus: 'def' },
+  impish: { plus: 'def', minus: 'spa' },
+  jolly: { plus: 'spe', minus: 'spa' },
+  lax: { plus: 'def', minus: 'spd' },
+  lonely: { plus: 'atk', minus: 'def' },
+  mild: { plus: 'spa', minus: 'def' },
+  modest: { plus: 'spa', minus: 'atk' },
+  naive: { plus: 'spe', minus: 'spd' },
+  naughty: { plus: 'atk', minus: 'spd' },
+  quiet: { plus: 'spa', minus: 'spe' },
+  quirky: {},
+  rash: { plus: 'spa', minus: 'spd' },
+  relaxed: { plus: 'def', minus: 'spe' },
+  sassy: { plus: 'spd', minus: 'spe' },
+  serious: {},
+  timid: { plus: 'spe', minus: 'atk' },
+};
+const STAT_EFFECT_LABELS: Record<LocaleId, Record<StatId, string>> = {
+  fr: {
+    hp: 'PV',
+    atk: 'Attaque',
+    def: 'Défense',
+    spa: 'Attaque Spéciale',
+    spd: 'Défense Spéciale',
+    spe: 'Vitesse',
+  },
+  en: {
+    hp: 'HP',
+    atk: 'Attack',
+    def: 'Defense',
+    spa: 'Special Attack',
+    spd: 'Special Defense',
+    spe: 'Speed',
+  },
+  ja: {
+    hp: 'HP',
+    atk: 'Attack',
+    def: 'Defense',
+    spa: 'Special Attack',
+    spd: 'Special Defense',
+    spe: 'Speed',
+  },
+};
 const MOVE_CATEGORY_LABELS: Record<MoveCategory, Record<LocaleId, string>> = {
   Physical: { fr: 'Physique', en: 'Physical', ja: 'Physical' },
   Special: { fr: 'Spécial', en: 'Special', ja: 'Special' },
@@ -119,6 +172,19 @@ function moveStatValue(value: number | undefined): string {
   return typeof value === 'number' ? String(value) : '-';
 }
 
+function natureEffectLabel(nature: string | undefined, locale: LocaleId): string {
+  if (!nature) {
+    return '';
+  }
+
+  const effect = NATURE_EFFECTS[toId(nature)];
+  if (!effect?.plus || !effect.minus || effect.plus === effect.minus) {
+    return locale === 'fr' ? 'neutre' : 'neutral';
+  }
+
+  return `+${STAT_EFFECT_LABELS[locale][effect.plus]} / -${STAT_EFFECT_LABELS[locale][effect.minus]}`;
+}
+
 function isStabMove(move: MoveReference, pokemon: PokemonReference | undefined): boolean {
   return Boolean(pokemon?.types.includes(move.type));
 }
@@ -195,6 +261,52 @@ function TeamSlotRail({
   );
 }
 
+function AbilityChoiceGroup({
+  slot,
+  pokemon,
+  reference,
+  locale,
+  onSlotChange,
+}: {
+  slot: BuilderSlot;
+  pokemon: PokemonReference | undefined;
+  reference: ReferenceSnapshot;
+  locale: LocaleId;
+  onSlotChange: (slotId: number, patch: Partial<Omit<BuilderSlot, 'id'>>) => void;
+}) {
+  if (!pokemon || pokemon.abilities.length === 0) {
+    return null;
+  }
+
+  const abilityOptions = withCurrentOption(pokemon.abilities, slot.ability);
+  const selectedAbility = slot.ability ?? pokemon.abilities[0];
+
+  return (
+    <fieldset className="ability-choice-group" aria-label={`Talents slot ${slot.id}`}>
+      <legend>Talent</legend>
+      <div className="ability-choice-list">
+        {abilityOptions.map((ability) => {
+          const isSelected = selectedAbility === ability;
+          const description = abilityDescription(reference, ability);
+
+          return (
+            <button
+              type="button"
+              className="ability-choice"
+              aria-pressed={isSelected}
+              onClick={() => onSlotChange(slot.id, { ability })}
+              key={ability}
+            >
+              <strong>{abilityDisplayName(reference, ability, locale)}</strong>
+              {description ? <span>{description}</span> : null}
+            </button>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
 export function TeamBuilder({
   state,
   pokemonOptions,
@@ -232,19 +344,17 @@ export function TeamBuilder({
     return null;
   }
 
-  const completedSlots = state.slots.filter((slot) => Boolean(slot.species)).length;
   const isSelected = selectedSlots.includes(activeSlot.id);
   const cannotSelectMore = !isSelected && selectedSlots.length >= pickSize;
   const selectedPokemon = findPokemon(pokemonOptions, activeSlot.species);
-  const abilityOptions = withCurrentOption(selectedPokemon?.abilities ?? [], activeSlot.ability);
   const filteredMoveOptions = moveOptionsForSlot(activeSlot, selectedPokemon, moveOptions);
   const activePokemonLabel = activeSlot.species
     ? pokemonDisplayName(reference, activeSlot.species, locale)
     : 'Choisir un Pokémon';
   const activeEvTotal = evTotal(activeSlot.evs);
   const remainingEvs = Math.max(0, EV_TOTAL_LIMIT - activeEvTotal);
-  const activeAbilityDescription = abilityDescription(reference, activeSlot.ability);
   const activeNatureDescription = natureDescription(reference, activeSlot.nature);
+  const activeNatureEffect = natureEffectLabel(activeSlot.nature, locale);
   const evStatus =
     activeEvTotal > EV_TOTAL_LIMIT
       ? `EV utilisés : ${activeEvTotal}/${EV_TOTAL_LIMIT} · baisse une stat.`
@@ -358,11 +468,19 @@ export function TeamBuilder({
             onChange={(value) =>
               onSlotChange(activeSlot.id, {
                 species: value,
-                ability: undefined,
+                ability: findPokemon(pokemonOptions, value)?.abilities[0],
                 teraType: undefined,
                 moves: ['', '', '', ''],
               })
             }
+          />
+
+          <AbilityChoiceGroup
+            slot={activeSlot}
+            pokemon={selectedPokemon}
+            reference={reference}
+            locale={locale}
+            onSlotChange={onSlotChange}
           />
 
           <div className="slot-basics">
@@ -404,22 +522,6 @@ export function TeamBuilder({
               <>
                 <div className="slot-basics advanced-slot-basics">
                   <label className="field">
-                    <span>Slot {activeSlot.id} Talent</span>
-                    <select
-                      value={activeSlot.ability ?? ''}
-                      disabled={!selectedPokemon}
-                      onChange={(event) => onSlotChange(activeSlot.id, { ability: event.target.value || undefined })}
-                    >
-                      <option value="">Choisir</option>
-                      {abilityOptions.map((ability) => (
-                        <option key={ability} value={ability}>
-                          {abilityDisplayName(reference, ability, locale)}
-                        </option>
-                      ))}
-                    </select>
-                    {activeAbilityDescription ? <small className="field-help">{activeAbilityDescription}</small> : null}
-                  </label>
-                  <label className="field">
                     <span>Slot {activeSlot.id} Téracristallisation (Type Tera)</span>
                     <select
                       value={activeSlot.teraType ?? ''}
@@ -450,6 +552,7 @@ export function TeamBuilder({
                         </option>
                       ))}
                     </select>
+                    {activeNatureEffect ? <small className="nature-effect-pill">{activeNatureEffect}</small> : null}
                     {activeNatureDescription ? <small className="field-help">{activeNatureDescription}</small> : null}
                   </label>
                 </div>
@@ -459,13 +562,24 @@ export function TeamBuilder({
                     <div>
                       <strong>Points d'entraînement (EV)</strong>
                       <small>Choisis un modèle 252 / 252 / 6. Les stats non remplies valent 0.</small>
+                      {activeSlot.nature ? (
+                        <small className="ev-nature-note">
+                          Nature : {natureDisplayName(reference, activeSlot.nature, locale)}
+                          {activeNatureEffect ? ` (${activeNatureEffect})` : ''}
+                        </small>
+                      ) : null}
                     </div>
-                    <span
-                      className={activeEvTotal > EV_TOTAL_LIMIT ? 'ev-status warning' : 'ev-status'}
-                      aria-live="polite"
-                    >
-                      {evStatus}
-                    </span>
+                    <div className="ev-status-stack">
+                      <strong className={activeEvTotal > EV_TOTAL_LIMIT ? 'ev-total-pill warning' : 'ev-total-pill'}>
+                        {activeEvTotal}/{EV_TOTAL_LIMIT} EV
+                      </strong>
+                      <span
+                        className={activeEvTotal > EV_TOTAL_LIMIT ? 'ev-status warning' : 'ev-status'}
+                        aria-live="polite"
+                      >
+                        {evStatus}
+                      </span>
+                    </div>
                   </div>
                   <div className="ev-preset-list" aria-label={`Modèles EV slot ${activeSlot.id}`}>
                     {EV_PRESETS.map((preset) => (

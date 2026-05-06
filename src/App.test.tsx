@@ -157,7 +157,8 @@ describe('App', () => {
     await openMatchTab(user);
 
     expect(await screen.findByRole('heading', { name: /^combat$/i }, { timeout: 5000 })).toBeInTheDocument();
-    expect(await screen.findByRole('heading', { name: /couverture rapide/i })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /couverture offensive/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /couverture défensive/i })).toBeInTheDocument();
     expect(screen.getAllByText(/joués : dracolosse, carchacrok, kangourex/i).length).toBeGreaterThan(0);
     expect(screen.getByRole('heading', { name: /adversaires fréquents dangereux/i })).toBeInTheDocument();
   }, 15000);
@@ -232,6 +233,28 @@ describe('App', () => {
 
     expect(screen.getByLabelText(/slot 1 ev hp/i)).toBeInTheDocument();
   });
+
+  it('adapts the mockup build controls to real ability, nature and EV data', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+
+    const abilityGroup = screen.getByRole('group', { name: /talents slot 1/i });
+    expect(within(abilityGroup).getByRole('button', { name: /multiécaille/i })).toBeInTheDocument();
+    expect(within(abilityGroup).getByText(/réduit/i)).toBeInTheDocument();
+
+    await user.click(screen.getByText(/détails du slot/i));
+
+    const natureSelect = screen.getByLabelText(/slot 1 nature/i);
+    await user.selectOptions(natureSelect, 'Jolly');
+    expect(screen.getAllByText(/\+vitesse \/ -attaque spéciale/i).length).toBeGreaterThan(0);
+
+    await user.click(screen.getByRole('button', { name: /attaquant physique rapide/i }));
+    expect(screen.getByText(/510\/510 EV/i)).toBeInTheDocument();
+    expect(screen.getByText(/nature : jovial/i)).toBeInTheDocument();
+  }, 10000);
 
   it('saves, loads, deletes and exports teams from local browser storage', async () => {
     const user = userEvent.setup();

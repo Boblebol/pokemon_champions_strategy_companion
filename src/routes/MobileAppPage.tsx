@@ -414,7 +414,7 @@ export default function MobileAppPage() {
               </p>
             ))}
           </section>
-          <AuditPanel audit={analysis.selectedAudit} title="Couverture rapide" />
+          <AuditPanel audit={analysis.selectedAudit} title="Couverture" />
           <ThreatPanel reference={dataBundle.reference} threats={analysis.selectedThreats} locale={locale} />
           <PossibleThreatPanel
             reference={dataBundle.reference}
