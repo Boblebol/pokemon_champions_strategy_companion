@@ -16,11 +16,10 @@ Repository public : <https://github.com/Boblebol/pokemon_champions_strategy_comp
 
 Démo publique : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 
-Pages :
+Application :
 
-- Landing : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
-- App : <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
-- Documentation : <https://boblebol.github.io/pokemon_champions_strategy_companion/docs>
+- Vue mobile : <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
+- Racine compatible : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 
 Documentation repo :
 
@@ -32,10 +31,8 @@ Documentation repo :
 ## Fonctionnalités
 
 - Navigation tactile par écrans : `Team`, `Build`, `Actifs` et `Match`.
-- Landing marketing séparée, cockpit applicatif séparé et documentation
-  utilisateur dédiée.
-- Vue applicative unique sur `/app`, avec `/mobile` conservé comme alias pour les
-  anciens liens.
+- Vue mobile unique sur `/app`, avec `/`, `/mobile` et les anciennes routes
+  publiques redirigées vers le même cockpit tactile.
 - PWA installable sans store depuis le navigateur, avec manifest, service worker
   et cache applicatif local.
 - Interface française avec cartes d'équipe, audit et adversaires dangereux.
@@ -84,14 +81,15 @@ pnpm install
 pnpm run dev
 ```
 
-En local, la racine ouvre directement le cockpit applicatif. La landing reste
-accessible via `/landing` et la documentation via `/docs`.
+En local, la racine ouvre directement le cockpit mobile. Les anciennes routes
+`/landing`, `/docs` et `/mobile` restent compatibles, mais affichent la même vue
+mobile unique.
 
 ## PWA mobile
 
 L'app peut être ajoutée à l'écran d'accueil depuis le navigateur, sans passer par
-un store. Le manifest et le service worker gardent le shell applicatif, les
-routes principales et les assets versionnés disponibles après le premier
+un store. Le manifest et le service worker gardent le shell mobile, la route
+applicative et les assets versionnés disponibles après le premier
 chargement.
 
 Installation sur iPhone ou iPad :

@@ -10,20 +10,6 @@ async function renderAppRoute(path = '/app') {
   return result;
 }
 
-async function renderLandingPage() {
-  window.history.pushState({}, '', '/landing');
-  const result = render(<App />);
-  await screen.findByLabelText(/présentation marketing/i, undefined, { timeout: 5000 });
-  return result;
-}
-
-async function renderDocsPage() {
-  window.history.pushState({}, '', '/docs');
-  const result = render(<App />);
-  await screen.findByLabelText(/documentation/i, undefined, { timeout: 5000 });
-  return result;
-}
-
 async function openBuildTab(user: ReturnType<typeof userEvent.setup>) {
   const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
   await user.click(within(nav).getByRole('button', { name: /^build$/i }));
@@ -56,9 +42,12 @@ describe('App', () => {
   });
 
   it('opens the touch-first app on the app route', async () => {
-    await renderAppRoute('/app');
+    const { container } = await renderAppRoute('/app');
 
     expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
+    expect(container.querySelector('.mockup-mobile-shell')).toHaveAttribute('data-design-source', 'maquette_v1');
+    expect(screen.getByRole('heading', { name: /^team$/i })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: /champions mobile/i })).not.toBeInTheDocument();
     expect(screen.queryByLabelText(/cockpit d'analyse/i)).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /desktop/i })).not.toBeInTheDocument();
   });
@@ -67,7 +56,7 @@ describe('App', () => {
     await renderAppRoute('/mobile');
 
     expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /champions mobile/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /^team$/i })).toBeInTheDocument();
   });
 
   it('renders the local root route as the touch-first app in development', async () => {
@@ -77,43 +66,24 @@ describe('App', () => {
     expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
   });
 
-  it('renders a marketing landing page with a single app entry point', async () => {
-    await renderLandingPage();
+  it('routes former landing and docs pages to the mobile app only', async () => {
+    const landing = await renderAppRoute('/landing');
 
-    const landing = screen.getByLabelText(/présentation marketing/i);
-    const pageNav = within(landing).getByRole('navigation', { name: /navigation principale/i });
-    expect(within(pageNav).getByRole('link', { name: /^app$/i })).toHaveAttribute('href', '/app');
-    expect(within(pageNav).queryByRole('link', { name: /^mobile$/i })).not.toBeInTheDocument();
-    expect(within(landing).getAllByRole('link', { name: /ouvrir l'app/i })[0]).toHaveAttribute('href', '/app');
-    expect(within(landing).queryByText(/ouvrir l'app desktop/i)).not.toBeInTheDocument();
-    expect(within(landing).queryByText(/ouvrir l'app mobile/i)).not.toBeInTheDocument();
-    expect(within(landing).getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
+    expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
+    landing.unmount();
+
+    const docs = await renderAppRoute('/docs');
+    expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/documentation/i)).not.toBeInTheDocument();
+    docs.unmount();
   });
 
-  it('renders documentation with one app CTA', async () => {
-    await renderDocsPage();
-
-    const docs = screen.getByLabelText(/documentation/i);
-    expect(within(docs).getByRole('heading', { name: /documentation champions companion/i })).toBeInTheDocument();
-    expect(within(docs).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
-    expect(within(docs).queryByText(/ouvrir l'app desktop/i)).not.toBeInTheDocument();
-    expect(within(docs).queryByText(/ouvrir l'app mobile/i)).not.toBeInTheDocument();
-    expect(within(docs).getByText(/navigation tactile par écrans/i)).toBeInTheDocument();
-  });
-
-  it('shows creator and repository links in the app', async () => {
+  it('keeps the active app free of non-mockup project chrome', async () => {
     await renderAppRoute();
 
-    const projectInfo = screen.getByLabelText(/infos projet et créateur/i);
-    expect(within(projectInfo).getByText(/alexandre enouf/i)).toBeInTheDocument();
-    expect(within(projectInfo).getByRole('link', { name: /site perso/i })).toHaveAttribute(
-      'href',
-      'https://alexandre-enouf.fr',
-    );
-    expect(within(projectInfo).getByRole('link', { name: /repo github/i })).toHaveAttribute(
-      'href',
-      'https://github.com/Boblebol/pokemon_champions_strategy_companion',
-    );
+    expect(screen.queryByLabelText(/infos projet et créateur/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/disponible hors ligne/i)).toBeInTheDocument();
   });
 
   it('starts as a four-step assistant with an empty team ready to build', async () => {
@@ -128,8 +98,8 @@ describe('App', () => {
     expect(within(nav).queryByRole('button', { name: /^combat$/i })).not.toBeInTheDocument();
     expect(within(nav).queryByRole('button', { name: /analyse/i })).not.toBeInTheDocument();
 
-    expect(screen.getByRole('heading', { name: /gérer la team/i })).toBeInTheDocument();
-    expect(screen.getByText(/team vide prête/i)).toBeInTheDocument();
+    expect(screen.getByText(/mon équipe/i)).toBeInTheDocument();
+    expect(screen.getByText(/^team vide$/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/sauvegardes locales/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /créer une team vide/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /exporter l'équipe/i })).toBeInTheDocument();

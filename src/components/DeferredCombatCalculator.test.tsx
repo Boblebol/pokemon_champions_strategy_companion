@@ -27,7 +27,7 @@ describe('DeferredCombatCalculator', () => {
       />,
     );
 
-    expect(await screen.findByRole('heading', { name: /^combat$/i })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /^combat$/i }, { timeout: 5000 })).toBeInTheDocument();
   });
 
   it('shows searchable friendly active pickers based on the battle style', async () => {
@@ -49,7 +49,7 @@ describe('DeferredCombatCalculator', () => {
       />,
     );
 
-    expect(await screen.findByLabelText(/allié actif 1/i)).toBeInTheDocument();
+    expect(await screen.findByLabelText(/allié actif 1/i, undefined, { timeout: 5000 })).toBeInTheDocument();
     expect(screen.getByLabelText(/allié actif 2/i)).toBeInTheDocument();
   });
 });

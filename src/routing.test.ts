@@ -8,28 +8,29 @@ describe('routing helpers', () => {
 
   it('builds app route hrefs from the configured base path', () => {
     expect(pageHref('app')).toBe('/app');
-    expect(pageHref('mobile')).toBe('/mobile');
-    expect(pageHref('docs')).toBe('/docs');
-    expect(pageHref('landing')).toBe('/landing');
   });
 
-  it('resolves GitHub Pages redirect query paths before the browser path', () => {
+  it('keeps every public path on the mobile app', () => {
+    window.history.pushState({}, '', '/');
+
+    expect(resolvePage()).toBe('app');
+
+    window.history.pushState({}, '', '/app');
+    expect(resolvePage()).toBe('app');
+
+    window.history.pushState({}, '', '/mobile');
+    expect(resolvePage()).toBe('app');
+
+    window.history.pushState({}, '', '/landing');
+    expect(resolvePage()).toBe('app');
+
+    window.history.pushState({}, '', '/docs');
+    expect(resolvePage()).toBe('app');
+  });
+
+  it('resolves GitHub Pages redirect query paths to the mobile app', () => {
     window.history.pushState({}, '', '/?path=/docs');
 
-    expect(resolvePage()).toBe('docs');
-  });
-
-  it('resolves the dedicated mobile route', () => {
-    window.history.pushState({}, '', '/mobile');
-
-    expect(resolvePage()).toBe('mobile');
-  });
-
-  it('keeps the mobile route as a compatibility alias for the app', () => {
-    window.history.pushState({}, '', '/mobile');
-
-    expect(resolvePage()).toBe('mobile');
-    expect(pageHref('app')).toBe('/app');
-    expect(pageHref('mobile')).toBe('/mobile');
+    expect(resolvePage()).toBe('app');
   });
 });

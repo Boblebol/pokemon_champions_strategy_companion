@@ -27,8 +27,8 @@ en mode partiel.
 
 L'app est prévue pour fonctionner comme PWA. Sur mobile, elle peut être ajoutée à
 l'écran d'accueil depuis le navigateur, sans store. Une fois chargée au moins une
-fois, le shell applicatif, les routes principales et les assets versionnés sont
-gardés en cache par le service worker.
+fois, le shell mobile, la route applicative et les assets versionnés sont gardés
+en cache par le service worker.
 
 Sur iOS ou iPadOS :
 
@@ -50,9 +50,9 @@ Le statut PWA indique si l'app est en ligne ou hors ligne. Hors
 ligne, les données locales et les équipes sauvegardées restent disponibles ; la
 mise à jour Smogon attend simplement le retour du réseau.
 
-La landing propose une seule entrée vers `/app`. L'alias `/mobile` utilise les
-mêmes données, les mêmes formats, les mêmes calculs et les mêmes exports pour
-préserver les anciens liens.
+Les anciennes routes publiques ouvrent maintenant la même vue mobile. L'alias
+`/mobile` utilise les mêmes données, les mêmes formats, les mêmes calculs et les
+mêmes exports pour préserver les anciens liens.
 
 ## Formats
 

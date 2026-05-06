@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
+import type { ComponentType } from 'react';
 import { AnalysisExport } from '../components/AnalysisExport';
 import { AuditPanel } from '../components/AuditPanel';
 import { DeferredCombatCalculator } from '../components/DeferredCombatCalculator';
 import { PossibleThreatPanel } from '../components/PossibleThreatPanel';
-import { ProjectCreditPanel } from '../components/ProjectCreditPanel';
-import { PwaStatus } from '../components/PwaStatus';
 import { PokemonAvatar } from '../components/PokemonMedia';
 import { SavedTeamManager } from '../components/SavedTeamManager';
 import { SearchablePicker } from '../components/SearchablePicker';
@@ -18,7 +17,7 @@ import { createDataStore } from '../domain/dataStore';
 import { toId } from '../domain/ids';
 import { localizedSearchText } from '../domain/localization';
 import { getPickSize } from '../domain/matchSelection';
-import { moveDisplayName, pokemonDisplayName } from '../domain/referenceDisplay';
+import { moveDisplayName, pokemonDisplayName, typeDisplayName } from '../domain/referenceDisplay';
 import type { SavedTeam } from '../domain/savedTeams';
 import { refreshSnapshots } from '../domain/snapshotRefresh';
 import { parseShowdownTeam } from '../domain/teamImport';
@@ -34,11 +33,78 @@ import type { DataBundle, FormatId, LocaleId } from '../domain/types';
 
 type MobileTab = 'team' | 'build' | 'active' | 'match';
 
-const MOBILE_TABS: Array<{ id: MobileTab; label: string }> = [
-  { id: 'team', label: 'Team' },
-  { id: 'build', label: 'Build' },
-  { id: 'active', label: 'Actifs' },
-  { id: 'match', label: 'Match' },
+type NavIconProps = { active: boolean };
+
+function TeamIcon({ active }: NavIconProps) {
+  return (
+    <svg aria-hidden="true" fill="none" height="20" viewBox="0 0 24 24" width="20">
+      <path
+        d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={active ? 2.5 : 2}
+      />
+      <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth={active ? 2.5 : 2} />
+      <path
+        d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={active ? 2.5 : 2}
+      />
+    </svg>
+  );
+}
+
+function BuildIcon({ active }: NavIconProps) {
+  return (
+    <svg aria-hidden="true" fill="none" height="20" viewBox="0 0 24 24" width="20">
+      <path
+        d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={active ? 2.5 : 2}
+      />
+    </svg>
+  );
+}
+
+function ActifsIcon({ active }: NavIconProps) {
+  return (
+    <svg aria-hidden="true" fill="none" height="20" viewBox="0 0 24 24" width="20">
+      <polygon
+        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={active ? 2.5 : 2}
+      />
+    </svg>
+  );
+}
+
+function MatchIcon({ active }: NavIconProps) {
+  return (
+    <svg aria-hidden="true" fill="none" height="20" viewBox="0 0 24 24" width="20">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth={active ? 2.5 : 2} />
+      <path
+        d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={active ? 2.5 : 2}
+      />
+    </svg>
+  );
+}
+
+const MOBILE_TABS: Array<{ id: MobileTab; label: Record<'fr' | 'en', string>; Icon: ComponentType<NavIconProps> }> = [
+  { id: 'team', label: { fr: 'Team', en: 'Team' }, Icon: TeamIcon },
+  { id: 'build', label: { fr: 'Build', en: 'Build' }, Icon: BuildIcon },
+  { id: 'active', label: { fr: 'Actifs', en: 'Active' }, Icon: ActifsIcon },
+  { id: 'match', label: { fr: 'Match', en: 'Match' }, Icon: MatchIcon },
 ];
 
 const QUICK_MODES: Array<{ format: FormatId; label: string; description: string }> = [
@@ -120,7 +186,10 @@ export default function MobileAppPage() {
     .filter((slotId) => builderState.slots.some((slot) => slot.id === slotId && slot.species)).length;
   const canUseMatchTools = activeReadyCount >= pickSize;
   const readyLabel = `${activeReadyCount}/${pickSize} actifs prêts`;
-  const teamStatusLabel = filledSlots.length > 0 ? `${filledSlots.length}/6 Pokémon dans la team` : 'Team vide prête';
+  const teamStatusLabel = filledSlots.length > 0 ? `${filledSlots.length}/6 Pokémon` : 'Team vide';
+  const screenTitle = MOBILE_TABS.find((tab) => tab.id === activeTab)?.label[locale === 'en' ? 'en' : 'fr'] ?? 'Team';
+  const activeStatusClass = activeReadyCount === pickSize ? 'ready' : activeReadyCount > 0 ? 'partial' : 'empty';
+  const teamStatusClass = filledSlots.length === 6 ? 'ready' : filledSlots.length > 0 ? 'partial' : 'empty';
   const selectedNames = analysis.selectedTeam.members.map((member) =>
     pokemonDisplayName(dataBundle.reference, member.species, locale),
   );
@@ -231,12 +300,11 @@ export default function MobileAppPage() {
   }
 
   return (
-    <main className="mobile-shell" aria-label="Application mobile Champions">
-      <header className="mobile-topbar">
-        <div>
-          <span className="eyebrow">PWA mobile</span>
-          <h1>Champions mobile</h1>
-          <p>Pensé pour le doigt : un écran, une action, les mêmes calculs.</p>
+    <main className="mockup-mobile-shell mobile-shell" data-design-source="maquette_v1" aria-label="Application mobile Champions">
+      <header className="mockup-app-header mobile-topbar">
+        <div className="mockup-app-title">
+          <span>Pokémon Champions</span>
+          <h1>{screenTitle}</h1>
         </div>
         <div className="locale-switch" aria-label="Langue">
           {(['fr', 'en'] as const).map((nextLocale) => (
@@ -259,9 +327,11 @@ export default function MobileAppPage() {
             aria-pressed={activeTab === tab.id}
             className={activeTab === tab.id ? 'active' : ''}
             onClick={() => setActiveTab(tab.id)}
+            title={tab.label[locale === 'en' ? 'en' : 'fr']}
             key={tab.id}
           >
-            {tab.label}
+            <tab.Icon active={activeTab === tab.id} />
+            <span>{tab.label[locale === 'en' ? 'en' : 'fr']}</span>
           </button>
         ))}
       </nav>
@@ -269,31 +339,64 @@ export default function MobileAppPage() {
       {activeTab === 'team' ? (
         <section className="mobile-screen mobile-home" aria-label="Team mobile">
           <section className="mobile-quick-start" aria-label="Préparer la team">
-            <div className="panel-heading">
-              <div>
-                <h2>Gérer la team</h2>
-                <p>Charge, sauvegarde ou exporte sans quitter le parcours de match.</p>
+            <div className="mockup-card team-status-card">
+              <div className="team-status-heading">
+                <span>Mon équipe</span>
+                <div className="team-status-pills">
+                  <strong className={`status-pill ${teamStatusClass}`}>{teamStatusLabel}</strong>
+                  <strong className={`status-pill ${activeStatusClass}`}>{readyLabel}</strong>
+                </div>
               </div>
-              <strong className={canUseMatchTools ? 'ready-pill done' : 'ready-pill'}>{readyLabel}</strong>
-            </div>
-            <p className="team-state-line">{teamStatusLabel}</p>
-            <div className="quick-mode-switch" aria-label="Mode de match rapide">
-              {QUICK_MODES.map((mode) => (
-                <button
-                  type="button"
-                  aria-pressed={format === mode.format}
-                  onClick={() => handleFormatChange(mode.format)}
-                  key={mode.format}
-                >
-                  <strong>{mode.label}</strong>
-                  <span>{mode.description}</span>
-                </button>
-              ))}
-            </div>
-            <div className="quick-actions">
+              <div className="mobile-team-strip" aria-label="Slots équipe">
+                {builderState.slots.map((slot) => {
+                  const pokemon = slot.species ? dataBundle.reference.pokemon[toId(slot.species)] : undefined;
+                  const isActiveSlot = selectedSlots.includes(slot.id);
+
+                  return (
+                    <button
+                      type="button"
+                      className="mobile-team-slot"
+                      data-filled={Boolean(slot.species)}
+                      data-active-slot={isActiveSlot}
+                      onClick={() => setActiveTab('build')}
+                      key={slot.id}
+                    >
+                      {slot.species && pokemon ? (
+                        <>
+                          <span>{pokemonDisplayName(dataBundle.reference, slot.species, locale)}</span>
+                          <span className="mobile-team-slot-types">
+                            {pokemon.types.slice(0, 1).map((type) => (
+                              <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
+                                {typeDisplayName(dataBundle.reference, type, locale)}
+                              </span>
+                            ))}
+                          </span>
+                        </>
+                      ) : (
+                        <span aria-hidden="true">+</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="quick-mode-switch" aria-label="Mode de match rapide">
+                {QUICK_MODES.map((mode) => (
+                  <button
+                    type="button"
+                    aria-label={`${mode.label} ${mode.description}`}
+                    aria-pressed={format === mode.format}
+                    onClick={() => handleFormatChange(mode.format)}
+                    key={mode.format}
+                  >
+                    <strong>{mode.format === 'champions-vgc' ? '2v2 · 4 Pokémon' : '1v1 · 3 Pokémon'}</strong>
+                  </button>
+                ))}
+              </div>
               <button type="button" className="mobile-primary-action" onClick={() => setActiveTab('build')}>
                 Continuer le build
               </button>
+            </div>
+            <div className="quick-actions">
               <button type="button" className="secondary-action" onClick={handleCreateEmptyTeam}>
                 Créer une team vide
               </button>
@@ -327,8 +430,10 @@ export default function MobileAppPage() {
               </strong>
             </article>
           </div>
-          <PwaStatus />
-          <ProjectCreditPanel />
+          <div className="mockup-offline-indicator">
+            <span aria-hidden="true" />
+            <strong>Disponible hors ligne</strong>
+          </div>
         </section>
       ) : null}
 

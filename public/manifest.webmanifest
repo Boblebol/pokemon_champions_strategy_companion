@@ -33,16 +33,10 @@
   ],
   "shortcuts": [
     {
-      "name": "Ouvrir l'app",
-      "short_name": "App",
+      "name": "Preparer une team",
+      "short_name": "Team",
       "url": "./app",
-      "description": "Preparer une equipe Pokemon Champions"
-    },
-    {
-      "name": "Lire la documentation",
-      "short_name": "Docs",
-      "url": "./docs",
-      "description": "Consulter le guide utilisateur"
+      "description": "Ouvrir la vue mobile Pokemon Champions"
     }
   ]
 }

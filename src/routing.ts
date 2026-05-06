@@ -1,4 +1,4 @@
-export type PageId = 'landing' | 'app' | 'mobile' | 'docs';
+export type PageId = 'app';
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -18,23 +18,7 @@ function routePath(): string {
 }
 
 export function resolvePage(): PageId {
-  const path = routePath().replace(/\/$/, '');
+  routePath();
 
-  if (path.endsWith('/docs')) {
-    return 'docs';
-  }
-
-  if (path.endsWith('/landing')) {
-    return 'landing';
-  }
-
-  if (path.endsWith('/mobile')) {
-    return 'mobile';
-  }
-
-  if (path.endsWith('/app')) {
-    return 'app';
-  }
-
-  return import.meta.env.DEV ? 'app' : 'landing';
+  return 'app';
 }

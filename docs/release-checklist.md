@@ -5,7 +5,8 @@
 - [ ] `pnpm audit --audit-level moderate`
 - [ ] Lancer le serveur local : `pnpm exec vite --host 127.0.0.1 --port 5175 --strictPort`
 - [ ] Smoke browser : `LIGHTPANDA_BIN=/tmp/lightpanda APP_URL=http://127.0.0.1:5175 pnpm run smoke:browser`
-- [ ] Smoke test manuel `/`, `/landing`, `/app`, `/docs`
+- [ ] Smoke test manuel `/`, `/app`, `/mobile`
+- [ ] Vérifier que `/landing` et `/docs` affichent la vue mobile unique
 - [ ] Vérifier mobile 390 px
 - [ ] Vérifier mobile 430 px
 - [ ] Vérifier tablette 834 px

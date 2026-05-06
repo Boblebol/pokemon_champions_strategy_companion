@@ -2,8 +2,6 @@ const CACHE_VERSION = 'pokemon-champions-shell-v1';
 const APP_SHELL = [
   './',
   './app',
-  './landing',
-  './docs',
   './manifest.webmanifest',
   './icons/icon.svg',
   './icons/maskable-icon.svg',

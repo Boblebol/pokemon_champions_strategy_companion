@@ -32,7 +32,7 @@ données alignés sur les tiers Pokémon Showdown pour Pokémon Champions.
   avec les snapshots locaux.
 - Un échec de refresh Smogon affiche un message clair et conserve les données
   locales.
-- Les pages `/`, `/landing`, `/app` et `/docs` se construisent et se chargent via
-  le fallback GitHub Pages.
+- La vue mobile unique se charge via `/`, `/app`, `/mobile` et les anciennes
+  routes publiques grâce au fallback GitHub Pages.
 - `pnpm run check` passe avant tag de version.
 - Le changelog décrit les changements produit, QA et documentation livrés.
