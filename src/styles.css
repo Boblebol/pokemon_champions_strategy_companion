@@ -4930,7 +4930,147 @@ body,
     background: var(--primary-alpha);
   }
 
-  .mockup-mobile-shell .mobile-tabbar button[aria-pressed="true"]::before {
+.mockup-mobile-shell .mobile-tabbar button[aria-pressed="true"]::before {
     display: none;
   }
+}
+
+/* Build correction pass */
+.type-chip.type-normal { background: #9fa19f; color: #ffffff; }
+.type-chip.type-fire { background: #e86f21; color: #ffffff; }
+.type-chip.type-water { background: #3b82f6; color: #ffffff; }
+.type-chip.type-electric { background: #f3c537; color: #332a00; }
+.type-chip.type-grass { background: #43a047; color: #ffffff; }
+.type-chip.type-ice { background: #6bd3d9; color: #063a40; }
+.type-chip.type-fighting { background: #c43b2f; color: #ffffff; }
+.type-chip.type-poison { background: #9c4dcc; color: #ffffff; }
+.type-chip.type-ground { background: #d09a45; color: #ffffff; }
+.type-chip.type-flying { background: #7c92dc; color: #ffffff; }
+.type-chip.type-psychic { background: #e95682; color: #ffffff; }
+.type-chip.type-bug { background: #8a9a24; color: #ffffff; }
+.type-chip.type-rock { background: #9b7d3b; color: #ffffff; }
+.type-chip.type-ghost { background: #65539b; color: #ffffff; }
+.type-chip.type-dragon { background: #5d55d6; color: #ffffff; }
+.type-chip.type-dark { background: #4f4038; color: #ffffff; }
+.type-chip.type-steel { background: #7d8d99; color: #ffffff; }
+.type-chip.type-fairy { background: #d96aa8; color: #ffffff; }
+
+.nature-effect-token {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  min-height: 24px;
+  border: 1px solid #badbc8;
+  border-radius: 999px;
+  background: #eef9f2;
+  color: #1f6844;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.mockup-mobile-shell .roster-summary-list {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-padding-inline: 14px;
+  scroll-snap-type: x proximity;
+}
+
+.mockup-mobile-shell .builder-summary {
+  align-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.mockup-mobile-shell .roster-summary-card {
+  flex: 0 0 calc((100% - 18px) / 4);
+  width: auto;
+  min-width: 0;
+  height: 72px;
+  scroll-snap-align: start;
+}
+
+.mockup-mobile-shell .roster-summary-main {
+  grid-template-rows: 42px auto;
+}
+
+.mockup-mobile-shell .roster-summary-main .pokemon-avatar {
+  width: 42px;
+  height: 42px;
+}
+
+.mockup-mobile-shell .roster-summary-main span {
+  max-width: 100%;
+  font-size: 9px;
+}
+
+.mockup-mobile-shell .picker-option {
+  grid-template-columns: minmax(42px, auto) minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+  min-height: 50px;
+}
+
+.mockup-mobile-shell .picker-option > .pokemon-avatar,
+.mockup-mobile-shell .picker-option > .item-icon,
+.mockup-mobile-shell .picker-option > .type-chip,
+.mockup-mobile-shell .picker-option > .nature-effect-token {
+  justify-self: center;
+}
+
+.mockup-mobile-shell .picker-option > .pokemon-avatar,
+.mockup-mobile-shell .picker-option > .item-icon {
+  width: 34px;
+  height: 34px;
+}
+
+.mockup-mobile-shell .picker-option > .type-chip {
+  min-width: 42px;
+  justify-content: center;
+}
+
+.mockup-mobile-shell .picker-option-details,
+.mockup-mobile-shell .move-result-details {
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.mockup-mobile-shell .move-grid {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.mockup-mobile-shell .move-grid .picker-option {
+  min-height: 62px;
+}
+
+.mockup-mobile-shell .move-picker-stack {
+  width: 100%;
+}
+
+.mockup-mobile-shell .selected-move-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 5px;
+  padding: 7px 9px;
+}
+
+.mockup-mobile-shell .selected-move-row strong {
+  min-width: 0;
+}
+
+.mockup-mobile-shell .selected-move-row div {
+  justify-content: flex-start;
+}
+
+.mockup-mobile-shell .slot-details-section .searchable-picker {
+  width: 100%;
 }

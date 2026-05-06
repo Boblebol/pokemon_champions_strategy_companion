@@ -227,11 +227,21 @@ function moveOptionsForSlot(
   slot: BuilderSlot,
   pokemon: PokemonReference | undefined,
   moveOptions: MoveReference[],
+  moveIndex: number,
 ): MoveReference[] {
   const allowedMoveIds = new Set(pokemon?.moveIds ?? []);
-  const currentMoves = new Set(slot.moves.filter(Boolean));
+  const currentMove = slot.moves[moveIndex];
+  const selectedMovesInOtherFields = new Set(
+    slot.moves.filter((move, index) => Boolean(move) && index !== moveIndex),
+  );
 
-  return moveOptions.filter((move) => allowedMoveIds.has(move.id) || currentMoves.has(move.name));
+  return moveOptions.filter((move) => {
+    if (selectedMovesInOtherFields.has(move.name)) {
+      return false;
+    }
+
+    return allowedMoveIds.has(move.id) || move.name === currentMove;
+  });
 }
 
 function SelectedMoveRow({
@@ -449,7 +459,6 @@ export function TeamBuilder({
   const isSelected = selectedSlots.includes(activeSlot.id);
   const cannotSelectMore = !isSelected && selectedSlots.length >= pickSize;
   const selectedPokemon = findPokemon(pokemonOptions, activeSlot.species);
-  const filteredMoveOptions = moveOptionsForSlot(activeSlot, selectedPokemon, moveOptions);
   const activePokemonLabel = activeSlot.species
     ? pokemonDisplayName(reference, activeSlot.species, locale)
     : 'Choisir un Pokémon';
@@ -485,31 +494,22 @@ export function TeamBuilder({
       })),
     [activeSlot.item, itemOptions, locale, reference],
   );
-  const movePickerOptions = useMemo(
+  const naturePickerOptions = useMemo(
     () =>
-      filteredMoveOptions.map((moveOption) => {
-        const moveType = typeDisplayName(reference, moveOption.type, locale);
-        const moveCategory = MOVE_CATEGORY_LABELS[moveOption.category][locale];
-        const isStab = isStabMove(moveOption, selectedPokemon);
+      withCurrentOption(natureOptions, activeSlot.nature).map((nature) => {
+        const effect = natureEffectLabel(nature, locale);
+        const description = natureDescription(reference, nature);
 
         return {
-          value: moveOption.name,
-          label: moveDisplayName(reference, moveOption.name, locale),
-          searchText: moveSearchText(moveOption, locale),
-          description: `${moveType} · ${moveCategory}`,
-          media: <span className={`type-chip type-${moveOption.type.toLowerCase()}`}>{moveType}</span>,
-          details: (
-            <span className="move-result-details">
-              <span>{moveCategory}</span>
-              {isStab ? <span className="stab-chip">STAB</span> : null}
-              <span>Puissance {moveStatValue(moveOption.power)}</span>
-              <span>Précision {moveStatValue(moveOption.accuracy)}</span>
-              <span>PP {moveStatValue(moveOption.pp)}</span>
-            </span>
-          ),
+          value: nature,
+          label: natureDisplayName(reference, nature, locale),
+          searchText: `${nature} ${effect} ${description ?? ''}`,
+          description: effect,
+          media: <span className="nature-effect-token">{effect || 'neutre'}</span>,
+          details: description ? <span>{description}</span> : undefined,
         };
       }),
-    [filteredMoveOptions, locale, reference, selectedPokemon],
+    [activeSlot.nature, locale, natureOptions, reference],
   );
   const sourceLabel =
     referenceStatus === 'complete'
@@ -517,6 +517,31 @@ export function TeamBuilder({
       : referenceStatus === 'error'
         ? 'Source démo active'
         : 'Source démo, chargement complet';
+
+  function movePickerOptionsForIndex(moveIndex: number) {
+    return moveOptionsForSlot(activeSlot, selectedPokemon, moveOptions, moveIndex).map((moveOption) => {
+      const moveType = typeDisplayName(reference, moveOption.type, locale);
+      const moveCategory = MOVE_CATEGORY_LABELS[moveOption.category][locale];
+      const isStab = isStabMove(moveOption, selectedPokemon);
+
+      return {
+        value: moveOption.name,
+        label: moveDisplayName(reference, moveOption.name, locale),
+        searchText: moveSearchText(moveOption, locale),
+        description: `${moveType} · ${moveCategory}`,
+        media: <span className={`type-chip type-${moveOption.type.toLowerCase()}`}>{moveType}</span>,
+        details: (
+          <span className="move-result-details">
+            <span className={`move-category-pill category-${moveOption.category.toLowerCase()}`}>{moveCategory}</span>
+            {isStab ? <span className="stab-chip">STAB</span> : null}
+            <span>Puissance {moveStatValue(moveOption.power)}</span>
+            <span>Précision {moveStatValue(moveOption.accuracy)}</span>
+            <span>PP {moveStatValue(moveOption.pp)}</span>
+          </span>
+        ),
+      };
+    });
+  }
 
   return (
     <section className="panel team-builder" id="builder">
@@ -602,7 +627,7 @@ export function TeamBuilder({
 
           <div className="move-grid">
             {activeSlot.moves.map((move, index) => {
-              const selectedMove = filteredMoveOptions.find((moveOption) => moveOption.name === move);
+              const selectedMove = moveOptions.find((moveOption) => moveOption.name === move);
 
               return (
                 <div className="move-picker-stack" key={`${activeSlot.id}-${index}`}>
@@ -610,7 +635,7 @@ export function TeamBuilder({
                     label={`Slot ${activeSlot.id} Attaque ${index + 1}`}
                     value={move || undefined}
                     placeholder={selectedPokemon ? `Attaque ${index + 1}...` : "Choisis d'abord un Pokémon"}
-                    options={selectedPokemon ? movePickerOptions : []}
+                    options={selectedPokemon ? movePickerOptionsForIndex(index) : []}
                     emptyLabel="Aucune attaque trouvée"
                     onChange={(value) =>
                       onSlotChange(activeSlot.id, {
@@ -654,22 +679,16 @@ export function TeamBuilder({
             {showAdvancedDetails ? (
               <>
                 <div className="slot-details-section advanced-slot-basics">
-                  <label className="field nature-field">
-                    <span>Slot {activeSlot.id} Nature</span>
-                    <select
-                      value={activeSlot.nature ?? ''}
-                      onChange={(event) => onSlotChange(activeSlot.id, { nature: event.target.value || undefined })}
-                    >
-                      <option value="">Choisir</option>
-                      {withCurrentOption(natureOptions, activeSlot.nature).map((nature) => (
-                        <option key={nature} value={nature}>
-                          {natureDisplayName(reference, nature, locale)}
-                        </option>
-                      ))}
-                    </select>
-                    {activeNatureEffect ? <small className="nature-effect-pill">{activeNatureEffect}</small> : null}
-                    {activeNatureDescription ? <small className="field-help">{activeNatureDescription}</small> : null}
-                  </label>
+                  <div className="nature-field">
+                    <SearchablePicker
+                      label={`Slot ${activeSlot.id} Nature`}
+                      value={activeSlot.nature}
+                      placeholder="Chercher une nature"
+                      options={naturePickerOptions}
+                      emptyLabel="Aucune nature trouvée"
+                      onChange={(value) => onSlotChange(activeSlot.id, { nature: value })}
+                    />
+                  </div>
                   <TeraChoiceGroup
                     slot={activeSlot}
                     reference={reference}

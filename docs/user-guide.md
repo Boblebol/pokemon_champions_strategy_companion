@@ -81,7 +81,10 @@ réglages visibles dans la maquette mobile : talent par défaut, nature cohéren
 avec le profil offensif, type Tera principal et répartition EV 252 / 252 / 6. Le
 bouton `Détails avancés` ouvre ces réglages sans encombrer le slot fermé. La
 sélection Tera se fait par chips de type et la jauge EV indique immédiatement si
-les 510 points sont utilisés.
+les 510 points sont utilisés. Les natures se recherchent comme les attaques avec
+leur bonus/malus visible avant sélection. Les attaques proposées restent limitées
+au movepool du Pokémon choisi et une attaque déjà choisie dans le slot est
+retirée des autres champs.
 
 Le roster local vient du mod Pokémon Showdown `champions`. Il est filtré pour ne
 pas proposer les entrées marquées `Illegal` dans

@@ -373,7 +373,7 @@ export default function MobileAppPage() {
                           {pokemon ? (
                             <span className="mobile-team-slot-types">
                               {pokemon.types.slice(0, 1).map((type) => (
-                                <span className="type-chip" key={type}>
+                                <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
                                   {typeDisplayName(dataBundle.reference, type, locale)}
                                 </span>
                               ))}
@@ -502,7 +502,7 @@ export default function MobileAppPage() {
                     {currentSlot?.species && currentPokemon ? (
                       <div className="active-pick-preview">
                         {currentPokemon.types.map((type) => (
-                          <span className="type-chip" key={type}>
+                          <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
                             {typeDisplayName(dataBundle.reference, type, locale)}
                           </span>
                         ))}
@@ -541,7 +541,7 @@ export default function MobileAppPage() {
                     >
                       <span>{pokemonDisplayName(dataBundle.reference, species, locale)}</span>
                       {pokemon?.types.slice(0, 1).map((type) => (
-                        <span className="type-chip" key={type}>
+                        <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
                           {typeDisplayName(dataBundle.reference, type, locale)}
                         </span>
                       ))}

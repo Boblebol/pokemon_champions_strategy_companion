@@ -264,13 +264,55 @@ describe('App', () => {
 
     await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
 
-    const natureSelect = screen.getByLabelText(/slot 1 nature/i);
-    await user.selectOptions(natureSelect, 'Jolly');
+    await selectPickerOption(user, /slot 1 nature/i, 'Jovial', /Jovial/i);
     expect(screen.getAllByText(/\+vitesse \/ -attaque spéciale/i).length).toBeGreaterThan(0);
 
     await user.click(screen.getByRole('button', { name: /attaquant physique rapide/i }));
     expect(screen.getAllByText(/510\/510 EV/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/nature : jovial/i).length).toBeGreaterThan(0);
+  }, 10000);
+
+  it('uses a searchable nature picker that previews the bonus and malus before selection', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
+
+    const natureInput = screen.getByLabelText(/slot 1 nature/i);
+    expect(natureInput.tagName).toBe('INPUT');
+
+    await user.clear(natureInput);
+    await user.type(natureInput, 'Jovial');
+
+    const jollyOption = await screen.findByRole('option', { name: /jovial/i });
+    expect(within(jollyOption).getAllByText(/\+vitesse \/ -attaque spéciale/i).length).toBeGreaterThan(0);
+
+    await user.click(jollyOption);
+
+    expect(natureInput).toHaveValue('Jovial');
+  }, 10000);
+
+  it('keeps move choices unique while searching the selected Pokemon movepool', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+
+    await selectPickerOption(user, /slot 1 attaque 1/i, 'Vitesse', /Vitesse Extrême/i);
+    await user.clear(screen.getByLabelText(/slot 1 attaque 2/i));
+    await user.type(screen.getByLabelText(/slot 1 attaque 2/i), 'Vitesse');
+
+    expect(screen.queryByRole('option', { name: /vitesse extrême/i })).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await user.clear(screen.getByLabelText(/slot 2 attaque 1/i));
+    await user.type(screen.getByLabelText(/slot 2 attaque 1/i), 'Vitesse');
+
+    expect(screen.queryByRole('option', { name: /vitesse extrême/i })).not.toBeInTheDocument();
   }, 10000);
 
   it('hydrates slot details with mockup-style defaults when a Pokemon is selected', async () => {
