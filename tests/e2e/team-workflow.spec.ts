@@ -38,16 +38,52 @@ test.describe('workflow équipe mobile', () => {
     await expect(dragonClawRow).toContainText('PP 15');
   });
 
-  test('garde les recherches utilisables après switch FR vers EN', async ({ page }) => {
+  test('garde les résultats des attaques empilés sans chevauchement', async ({ page }) => {
+    await gotoMobileApp(page);
+    await openMobileTab(page, 'Build');
+    await pickSearchResult(page, /slot 1 pokémon/i, 'draco', /Dracolosse/i);
+
+    await page.getByRole('combobox', { name: /slot 1 attaque 1/i }).fill('draco');
+    const listbox = page.getByRole('listbox', { name: /résultats de recherche/i });
+    await expect(listbox).toBeVisible();
+    await expect.poll(async () => listbox.getByRole('option').count()).toBeGreaterThan(1);
+
+    const geometry = await listbox.getByRole('option').evaluateAll((nodes) => {
+      const boxes = nodes.map((node) => {
+        const rect = node.getBoundingClientRect();
+        return { top: rect.top, bottom: rect.bottom, height: rect.height, scrollHeight: node.scrollHeight };
+      });
+
+      return boxes.map((box, index) => ({
+        overlapsPrevious: index > 0 && box.top < boxes[index - 1].bottom - 1,
+        clipsContent: box.scrollHeight > box.height + 1,
+      }));
+    });
+
+    expect(geometry.some((row) => row.overlapsPrevious || row.clipsContent)).toBe(false);
+  });
+
+  test('garde les recherches et libellés cohérents au switch FR vers EN', async ({ page }) => {
     await gotoMobileApp(page);
 
-    await page.getByRole('button', { name: 'EN' }).click();
     await openMobileTab(page, 'Build');
     await expect(page.getByRole('heading', { name: 'Build' })).toBeVisible();
 
-    await pickSearchResult(page, /slot 1 pokémon/i, 'dragonite', /Dragonite/i);
-    await pickSearchResult(page, /slot 1 objet/i, 'heavy', /Heavy-Duty Boots/i);
-    await pickSearchResult(page, /slot 1 attaque 1/i, 'dragon claw', /Dragon Claw/i);
+    await pickSearchResult(page, /slot 1 pokémon/i, 'dragonite', /Dracolosse/i);
+    await pickSearchResult(page, /slot 1 objet/i, 'heavy', /Grosses Bottes/i);
+    await pickSearchResult(page, /slot 1 attaque 1/i, 'dragon claw', /Draco-Griffe/i);
+    await expect(page.getByRole('combobox', { name: /slot 1 pokémon/i })).toHaveValue('Dracolosse');
+
+    const languageSwitch = page.getByLabel('Langue');
+    await languageSwitch.getByRole('button', { name: 'EN', exact: true }).click();
+    await expect(page.getByRole('combobox', { name: /slot 1 pokémon/i })).toHaveValue('Dragonite');
+    await expect(page.getByRole('combobox', { name: /slot 1 objet/i })).toHaveValue('Heavy-Duty Boots');
+    await expect(page.getByRole('combobox', { name: /slot 1 attaque 1/i })).toHaveValue('Dragon Claw');
+
+    await languageSwitch.getByRole('button', { name: 'FR', exact: true }).click();
+    await expect(page.getByRole('combobox', { name: /slot 1 pokémon/i })).toHaveValue('Dracolosse');
+    await expect(page.getByRole('combobox', { name: /slot 1 objet/i })).toHaveValue('Grosses Bottes');
+    await expect(page.getByRole('combobox', { name: /slot 1 attaque 1/i })).toHaveValue('Draco-Griffe');
 
     const exportText = await readTeamExport(page);
     expect(exportText).toContain('Dragonite @ Heavy-Duty Boots');

@@ -135,13 +135,13 @@ export function defaultAbilityForPokemon(pokemon: PokemonReference | undefined):
 
 export function hydrateSlotForPokemon(
   pokemon: PokemonReference | undefined,
-  natureOptions: string[],
+  _natureOptions: string[],
 ): Partial<Omit<BuilderSlot, 'id'>> {
   return {
     species: pokemon?.name,
     ability: defaultAbilityForPokemon(pokemon),
     teraType: defaultTeraTypeForPokemon(pokemon),
-    nature: defaultNatureForPokemon(pokemon, natureOptions),
+    nature: undefined,
     evs: defaultEvsForPokemon(pokemon),
     moves: emptyMoves(),
   };

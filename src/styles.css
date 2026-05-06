@@ -2440,7 +2440,7 @@ small {
   display: grid;
   gap: 14px;
   margin-bottom: 18px;
-  overflow: hidden;
+  overflow: visible;
   border-color: rgba(20, 27, 45, 0.1);
   background:
     linear-gradient(180deg, #ffffff, #f8fbff),
@@ -5086,6 +5086,54 @@ body,
 
 .mockup-mobile-shell .slot-details-section .searchable-picker {
   width: 100%;
+}
+
+.mockup-mobile-shell .picker-results {
+  max-height: min(420px, 58svh);
+  overflow-y: auto;
+}
+
+.mockup-mobile-shell .picker-option,
+.mockup-mobile-shell .move-grid .picker-option {
+  min-height: auto;
+  align-items: flex-start;
+  overflow: visible;
+  padding: 10px;
+}
+
+.mockup-mobile-shell .picker-option > span {
+  align-self: start;
+}
+
+.mockup-mobile-shell .move-result-details {
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.mockup-mobile-shell .combat-calculator {
+  width: 100%;
+  overflow: visible;
+}
+
+.mockup-mobile-shell .combat-calculator .panel-heading,
+.mockup-mobile-shell .combat-layout,
+.mockup-mobile-shell .combat-opponents,
+.mockup-mobile-shell .combat-results,
+.mockup-mobile-shell .damage-columns,
+.mockup-mobile-shell .combat-field-grid,
+.mockup-mobile-shell .combat-screens,
+.mockup-mobile-shell .combat-flags {
+  grid-template-columns: 1fr;
+}
+
+.mockup-mobile-shell .combat-main-toggle,
+.mockup-mobile-shell .combat-advanced-toggle {
+  width: 100%;
+  max-width: none;
+}
+
+.mockup-mobile-shell .combat-mod-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 /* Maquette v1 exact conformance on top of the real-data controls. */

@@ -448,8 +448,8 @@ export function CombatCalculator({ format, selectedTeam, reference, locale }: Co
         {result.matchups.map((matchup) => (
           <article className="combat-result-card" key={`${matchup.friendly.slot}-${matchup.opponent.id}`}>
             <h3>
-              {pokemonDisplayName(reference, matchup.friendly.species)} vs{' '}
-              {matchup.opponent.species ? pokemonDisplayName(reference, matchup.opponent.species) : 'adversaire'}
+              {pokemonDisplayName(reference, matchup.friendly.species, locale)} vs{' '}
+              {matchup.opponent.species ? pokemonDisplayName(reference, matchup.opponent.species, locale) : 'adversaire'}
             </h3>
             <div className="damage-columns">
               <div>
@@ -457,7 +457,7 @@ export function CombatCalculator({ format, selectedTeam, reference, locale }: Co
                 {matchup.friendlyDamage.length === 0 ? <p>Aucune attaque offensive côté allié.</p> : null}
                 {matchup.friendlyDamage.map((row) => (
                   <p className="damage-row" key={row.move}>
-                    <strong>{moveDisplayName(reference, row.move)}</strong>
+                    <strong>{moveDisplayName(reference, row.move, locale)}</strong>
                     <span>
                       {row.minPercent}% - {row.maxPercent}% · {row.koChanceLabel}
                     </span>
@@ -469,7 +469,7 @@ export function CombatCalculator({ format, selectedTeam, reference, locale }: Co
                 {matchup.opponentDamage.length === 0 ? <p>Aucune attaque offensive adverse trouvée.</p> : null}
                 {matchup.opponentDamage.map((row) => (
                   <p className="damage-row danger" key={row.move}>
-                    <strong>{moveDisplayName(reference, row.move)}</strong>
+                    <strong>{moveDisplayName(reference, row.move, locale)}</strong>
                     <span>
                       {row.minPercent}% - {row.maxPercent}% · {row.koChanceLabel}
                     </span>

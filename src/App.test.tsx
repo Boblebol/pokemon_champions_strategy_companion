@@ -112,6 +112,8 @@ describe('App', () => {
     expect(within(nav).queryByRole('button', { name: /données/i })).not.toBeInTheDocument();
     expect(within(nav).queryByRole('button', { name: /^combat$/i })).not.toBeInTheDocument();
     expect(within(nav).queryByRole('button', { name: /analyse/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^fr$/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: /^en$/i })).toHaveAttribute('aria-pressed', 'false');
 
     expect(screen.getByText(/mon équipe/i)).toBeInTheDocument();
     expect(screen.getByText(/^team vide$/i)).toBeInTheDocument();
@@ -214,18 +216,22 @@ describe('App', () => {
     expect(await screen.findByRole('heading', { name: /match rapide/i })).toBeInTheDocument();
   });
 
-  it('switches picker display and search between French and English', async () => {
+  it('switches picker display and search between French and English without mixed labels', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
     await openBuildTab(user);
 
-    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangourex', /Kangourex/i);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangaskhan', /Kangourex/i);
+    expect(screen.getByLabelText(/slot 1 pokémon/i)).toHaveValue('Kangourex');
     expect(screen.queryByText(/Kangourex \(Kangaskhan\)/i)).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /^EN$/i }));
-    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangaskhan', /Kangaskhan/i);
-    expect(screen.getAllByText(/^Kangaskhan$/i).length).toBeGreaterThan(0);
-    expect(screen.queryByText(/Kangourex \(Kangaskhan\)/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/slot 1 pokémon/i)).toHaveValue('Kangaskhan');
+    expect(screen.getByRole('button', { name: /^Active$/i })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /^FR$/i }));
+    expect(screen.getByLabelText(/slot 1 pokémon/i)).toHaveValue('Kangourex');
+    expect(screen.getByRole('button', { name: /^Actifs$/i })).toBeInTheDocument();
   }, 10000);
 
   it('searches moves from the selected Pokemon and shows battle metadata', async () => {
@@ -268,7 +274,7 @@ describe('App', () => {
     expect(screen.getByLabelText(/slot 1 ev hp/i)).toBeInTheDocument();
   });
 
-  it('adapts the mockup build controls to real ability, nature and EV data', async () => {
+  it('adapts the mockup build controls to real ability, manual nature and EV data', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
     await openBuildTab(user);
@@ -281,6 +287,7 @@ describe('App', () => {
 
     await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
 
+    expect(screen.getByLabelText(/slot 1 nature/i)).toHaveValue('');
     await selectPickerOption(user, /slot 1 nature/i, 'Jovial', /Jovial/i);
     expect(screen.getAllByText(/\+vitesse \/ -attaque spéciale/i).length).toBeGreaterThan(0);
 
@@ -332,7 +339,7 @@ describe('App', () => {
     expect(screen.queryByRole('option', { name: /vitesse extrême/i })).not.toBeInTheDocument();
   }, 10000);
 
-  it('hydrates slot details with mockup-style defaults when a Pokemon is selected', async () => {
+  it('hydrates slot details with tera and EV defaults while keeping nature empty', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
     await openBuildTab(user);
@@ -343,7 +350,8 @@ describe('App', () => {
 
     await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
 
-    expect(screen.getAllByText(/nature : jovial/i).length).toBeGreaterThan(0);
+    expect(screen.getByLabelText(/slot 1 nature/i)).toHaveValue('');
+    expect(screen.queryByText(/nature : jovial/i)).not.toBeInTheDocument();
     expect(screen.getByText(/tera dragon/i)).toBeInTheDocument();
 
     const teraGroup = screen.getByRole('group', { name: /types tera slot 1/i });
@@ -355,6 +363,49 @@ describe('App', () => {
     );
     expect(screen.getByLabelText(/slot 1 ev atk/i)).toHaveValue(252);
     expect(screen.getByLabelText(/slot 1 ev spe/i)).toHaveValue(252);
+  }, 10000);
+
+  it('hides Pokemon already selected in another team slot', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await user.clear(screen.getByLabelText(/slot 2 pokémon/i));
+    await user.type(screen.getByLabelText(/slot 2 pokémon/i), 'Dracolosse');
+
+    expect(screen.queryByRole('option', { name: /dracolosse/i })).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /modifier slot 1/i }));
+    await user.clear(screen.getByLabelText(/slot 1 pokémon/i));
+    await user.type(screen.getByLabelText(/slot 1 pokémon/i), 'Dracolosse');
+
+    expect(await screen.findByRole('option', { name: /dracolosse/i })).toBeInTheDocument();
+  }, 10000);
+
+  it('hides active Pokemon already selected in another active picker', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await user.click(screen.getByRole('button', { name: /^actifs$/i }));
+
+    expect(screen.getByText(/multiécaille/i)).toBeInTheDocument();
+    expect(screen.queryByText(/multiscale/i)).not.toBeInTheDocument();
+
+    await user.clear(screen.getByLabelText(/actif 2/i));
+    await user.type(screen.getByLabelText(/actif 2/i), 'Dracolosse');
+
+    expect(screen.queryByRole('option', { name: /dracolosse/i })).not.toBeInTheDocument();
+
+    await user.clear(screen.getByLabelText(/actif 1/i));
+    await user.type(screen.getByLabelText(/actif 1/i), 'Dracolosse');
+
+    expect(await screen.findByRole('option', { name: /dracolosse/i })).toBeInTheDocument();
   }, 10000);
 
   it('saves, loads, deletes and exports teams from local browser storage', async () => {

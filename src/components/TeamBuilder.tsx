@@ -370,6 +370,13 @@ export function TeamBuilder({
   const remainingEvs = Math.max(0, EV_TOTAL_LIMIT - activeEvTotal);
   const activeNatureDescription = natureDescription(reference, activeSlot.nature);
   const activeNatureEffect = natureEffectLabel(activeSlot.nature, locale);
+  const speciesSelectedInOtherSlots = useMemo(
+    () =>
+      new Set(
+        state.slots.flatMap((slot) => (slot.id !== activeSlot.id && slot.species ? [slot.species] : [])),
+      ),
+    [activeSlot.id, state.slots],
+  );
   const evStatus =
     activeEvTotal > EV_TOTAL_LIMIT
       ? `EV utilisés : ${activeEvTotal}/${EV_TOTAL_LIMIT} · baisse une stat.`
@@ -378,14 +385,16 @@ export function TeamBuilder({
         : `EV utilisés : ${activeEvTotal}/${EV_TOTAL_LIMIT} · reste ${remainingEvs}.`;
   const pokemonPickerOptions = useMemo(
     () =>
-      pokemonOptions.map((pokemon) => ({
-        value: pokemon.name,
-        label: pokemonDisplayName(reference, pokemon.name, locale),
-        searchText: pokemonSearchText(pokemon, locale),
-        description: `Type : ${pokemon.types.map((type) => typeDisplayName(reference, type, locale)).join(' / ')}`,
-        media: <PokemonAvatar reference={reference} species={pokemon.name} />,
-      })),
-    [locale, pokemonOptions, reference],
+      pokemonOptions
+        .filter((pokemon) => pokemon.name === activeSlot.species || !speciesSelectedInOtherSlots.has(pokemon.name))
+        .map((pokemon) => ({
+          value: pokemon.name,
+          label: pokemonDisplayName(reference, pokemon.name, locale),
+          searchText: pokemonSearchText(pokemon, locale),
+          description: `Type : ${pokemon.types.map((type) => typeDisplayName(reference, type, locale)).join(' / ')}`,
+          media: <PokemonAvatar reference={reference} species={pokemon.name} />,
+        })),
+    [activeSlot.species, locale, pokemonOptions, reference, speciesSelectedInOtherSlots],
   );
   const itemPickerOptions = useMemo(
     () =>
@@ -454,8 +463,7 @@ export function TeamBuilder({
           <h2>Build rapide</h2>
           <p>Cherche le Pokémon, l'objet et les attaques. Les réglages avancés restent dans les détails.</p>
           <p className="builder-source">
-            {sourceLabel} : {referenceSource} · {pokemonOptions.length} Pokémon · {moveOptions.length} attaques ·
-            labels {locale.toUpperCase()}
+            {sourceLabel} : {referenceSource} · {pokemonOptions.length} Pokémon · {moveOptions.length} attaques
           </p>
         </div>
       </div>

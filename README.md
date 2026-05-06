@@ -57,8 +57,8 @@ Documentation repo :
   brûlure, coup critique, Téracristallisation et recherche rapide adversaire.
 - Images Pokémon dans le constructeur, l'équipe et les panneaux de dangers via
   les URLs publiques `PokeAPI/sprites`, sans stocker les images dans le repo.
-- Switch FR/EN pour Pokémon, attaques, objets, talents, natures et types. L'UI
-  affiche une seule langue à la fois, mais les valeurs internes et l'export
+- Switch FR/EN pour Pokémon, attaques, objets, talents, natures et types, avec
+  libellés cohérents dans la langue active. Les valeurs internes et l'export
   restent compatibles Pokémon Showdown en anglais.
 - Référence locale filtrée par le roster Showdown Champions via `@pkmn/dex` et
   `@pkmn/data` : Pokémon légaux, talents, learnsets, objets et natures.
@@ -178,7 +178,8 @@ sélection jouée :
 - 1 allié actif en `[Champions] BSS Reg M-A` et `[Champions] OU`, 2 alliés
   actifs en `[Champions] VGC 2026 Reg M-A`.
 - 1 adversaire en solo, jusqu'à 2 adversaires en duo.
-- Recherche adversaire locale FR/EN, insensible aux accents.
+- Recherche adversaire locale par alias français et anglais, insensible aux
+  accents.
 - Dégâts donnés depuis les attaques du set ou toutes les attaques apprenables.
 - Dégâts reçus classés depuis les attaques apprenables de l'adversaire.
 - Modificateurs : boosts, Téracristallisation, brûlure, coup critique, météo, terrain, protections

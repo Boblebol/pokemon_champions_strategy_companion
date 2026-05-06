@@ -79,7 +79,9 @@ la référence locale filtrée par le roster Showdown Champions et générée av
 affiche les résultats dans la langue active, triés alphabétiquement, avec images
 Pokémon, images d'objets et descriptions d'objets quand la source les fournit.
 Les attaques affichent aussi type, catégorie, STAB, puissance, précision et PP.
-Les valeurs internes et l'export restent compatibles Pokémon Showdown en anglais.
+Le switch `FR/EN` change les libellés affichés sans mélanger les noms dans un
+même contrôle. Les valeurs internes et l'export restent compatibles Pokémon
+Showdown en anglais.
 La présentation mobile suit la maquette
 `docs/design_mockup/maquette_v1/standalone_version_html.html` : rail de slots
 compact, résumé du slot actif, contrôles principaux visibles et détails avancés

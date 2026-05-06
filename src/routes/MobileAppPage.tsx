@@ -17,7 +17,7 @@ import { createDataStore } from '../domain/dataStore';
 import { toId } from '../domain/ids';
 import { localizedSearchText } from '../domain/localization';
 import { getPickSize } from '../domain/matchSelection';
-import { moveDisplayName, pokemonDisplayName, typeDisplayName } from '../domain/referenceDisplay';
+import { abilityDisplayName, moveDisplayName, pokemonDisplayName, typeDisplayName } from '../domain/referenceDisplay';
 import type { SavedTeam } from '../domain/savedTeams';
 import { refreshSnapshots } from '../domain/snapshotRefresh';
 import { parseShowdownTeam } from '../domain/teamImport';
@@ -195,9 +195,14 @@ export default function MobileAppPage() {
     pokemonDisplayName(dataBundle.reference, member.species, locale),
   );
   const topThreat = analysis.threats[0];
-  const activePickerOptions = useMemo(
-    () =>
-      filledSlots.map((slot) => {
+  function activePickerOptionsForIndex(index: number) {
+    const selectedInOtherFields = new Set(
+      selectedSlots.filter((slotId, slotIndex) => slotIndex !== index && Boolean(slotId)),
+    );
+
+    return filledSlots
+      .filter((slot) => !selectedInOtherFields.has(slot.id))
+      .map((slot) => {
         const species = slot.species as string;
         const pokemon = dataBundle.reference.pokemon[toId(species)];
         const label = pokemonDisplayName(dataBundle.reference, species, locale);
@@ -209,9 +214,8 @@ export default function MobileAppPage() {
           description: `Slot ${slot.id}`,
           media: <PokemonAvatar reference={dataBundle.reference} species={species} />,
         };
-      }),
-    [dataBundle.reference, filledSlots, locale],
-  );
+      });
+  }
 
   function handleFormatChange(nextFormat: FormatId) {
     const nextPickSize = getPickSize(nextFormat);
@@ -514,7 +518,7 @@ export default function MobileAppPage() {
                       label={`Actif ${index + 1}`}
                       value={currentValue}
                       placeholder={`Actif ${index + 1}...`}
-                      options={activePickerOptions}
+                      options={activePickerOptionsForIndex(index)}
                       emptyLabel="Remplis d'abord un slot d'équipe"
                       onChange={(value) => handleActivePickChange(index, value)}
                     />
@@ -525,7 +529,9 @@ export default function MobileAppPage() {
                             {typeDisplayName(dataBundle.reference, type, locale)}
                           </span>
                         ))}
-                        {currentSlot.ability ? <span>{currentSlot.ability}</span> : null}
+                        {currentSlot.ability ? (
+                          <span>{abilityDisplayName(dataBundle.reference, currentSlot.ability, locale)}</span>
+                        ) : null}
                         {currentSlot.teraType ? (
                           <span>Tera {typeDisplayName(dataBundle.reference, currentSlot.teraType, locale)}</span>
                         ) : null}
@@ -550,6 +556,7 @@ export default function MobileAppPage() {
                       type="button"
                       className="available-team-chip"
                       data-active={isActive}
+                      disabled={isActive || (!isActive && selectedSlots.length >= pickSize)}
                       onClick={() => {
                         if (isActive || selectedSlots.length >= pickSize) {
                           return;

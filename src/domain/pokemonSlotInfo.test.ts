@@ -24,14 +24,14 @@ function slot(overrides: Partial<BuilderSlot>): BuilderSlot {
 }
 
 describe('pokemonSlotInfo', () => {
-  it('hydrates a selected Pokemon with mockup-style battle defaults', () => {
+  it('hydrates a selected Pokemon with battle defaults but leaves nature empty', () => {
     const dragonite = reference.pokemon[toId('Dragonite')];
 
     expect(hydrateSlotForPokemon(dragonite, reference.natures)).toMatchObject({
       species: 'Dragonite',
       ability: 'Multiscale',
       teraType: 'Dragon',
-      nature: 'Jolly',
+      nature: undefined,
       evs: { hp: 6, atk: 252, spe: 252 },
       moves: ['', '', '', ''],
     });

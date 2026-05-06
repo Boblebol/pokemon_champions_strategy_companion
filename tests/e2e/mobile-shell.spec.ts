@@ -61,6 +61,37 @@ test.describe('shell mobile unique', () => {
     await expect(page.getByRole('heading', { name: 'Team' })).toBeVisible();
   });
 
+  test('adapte le calculateur Combat à la largeur mobile', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await gotoMobileApp(page);
+    await openMobileTab(page, 'Match');
+
+    const combat = page.locator('.combat-calculator');
+    const layout = page.locator('.combat-layout');
+    await expect(combat).toBeVisible();
+
+    const gridColumns = await layout.evaluate((element) => getComputedStyle(element).gridTemplateColumns);
+    expect(gridColumns.trim().split(/\s+/)).toHaveLength(1);
+    await expect
+      .poll(async () => combat.evaluate((element) => getComputedStyle(element).overflowY))
+      .not.toBe('hidden');
+
+    const metrics = await layout.evaluate((element) => {
+      const layoutBox = element.getBoundingClientRect();
+      const combatBox = element.closest('.combat-calculator')?.getBoundingClientRect();
+
+      return {
+        layoutWidth: Math.ceil(layoutBox.width),
+        combatWidth: Math.floor(combatBox?.width ?? 0),
+        layoutRight: Math.ceil(layoutBox.right),
+        combatRight: Math.floor(combatBox?.right ?? 0),
+      };
+    });
+
+    expect(metrics.layoutWidth).toBeLessThanOrEqual(metrics.combatWidth);
+    expect(metrics.layoutRight).toBeLessThanOrEqual(metrics.combatRight + 1);
+  });
+
   test('expose le manifest et enregistre le service worker du shell PWA', async ({ page, request }) => {
     const manifestResponse = await request.get('/manifest.webmanifest');
     expect(manifestResponse.ok()).toBe(true);
