@@ -111,6 +111,7 @@ const QUICK_MODES: Array<{ format: FormatId; label: string; description: string 
   { format: 'champions-bss', label: '1v1 actif', description: '3 Pokémon à choisir' },
   { format: 'champions-vgc', label: '2v2 actif', description: '4 Pokémon à choisir' },
 ];
+const SAVED_TEAM_NAME_INPUT_ID = 'mobile-saved-team-name';
 
 function teamExportHref(value: string): string {
   return `data:text/plain;charset=utf-8,${encodeURIComponent(value)}`;
@@ -413,11 +414,29 @@ export default function MobileAppPage() {
               <button type="button" className="secondary-action" onClick={handleCreateEmptyTeam}>
                 Créer une team vide
               </button>
-              <a className="team-file-action" href={teamExportHref(paste)} download="pokemon-champions-team.txt">
+              <button
+                type="button"
+                className="team-file-action"
+                aria-controls={SAVED_TEAM_NAME_INPUT_ID}
+                onClick={() => document.getElementById(SAVED_TEAM_NAME_INPUT_ID)?.focus()}
+              >
+                Sauvegarder
+              </button>
+              <a
+                className="team-file-action"
+                href={teamExportHref(paste)}
+                download="pokemon-champions-team.txt"
+                aria-label="Exporter l'équipe"
+              >
                 Exporter
               </a>
             </div>
-            <SavedTeamManager paste={paste} format={format} onLoad={handleLoadSavedTeam} />
+            <SavedTeamManager
+              paste={paste}
+              format={format}
+              onLoad={handleLoadSavedTeam}
+              nameInputId={SAVED_TEAM_NAME_INPUT_ID}
+            />
           </section>
           <div className="mobile-summary-grid">
             <article>
@@ -447,7 +466,7 @@ export default function MobileAppPage() {
       ) : null}
 
       {activeTab === 'build' ? (
-        <section className="mobile-screen" aria-label="Build mobile">
+        <section className="mobile-screen mobile-build-screen" aria-label="Build mobile">
           <TeamBuilder
             state={builderState}
             pokemonOptions={pokemonOptions}
@@ -551,15 +570,13 @@ export default function MobileAppPage() {
               </div>
             </section>
           ) : null}
-          {!canUseMatchTools ? (
-            <p className="warning">Complète les actifs pour fiabiliser la couverture. Le match reste accessible en mode partiel.</p>
-          ) : null}
           <button
             type="button"
-            className="mobile-primary-action"
-            onClick={() => setActiveTab(canUseMatchTools ? 'match' : 'build')}
+            className={`mobile-primary-action ${canUseMatchTools ? 'success' : ''}`}
+            disabled={activeReadyCount === 0}
+            onClick={() => setActiveTab('match')}
           >
-            {canUseMatchTools ? 'Ouvrir le match' : 'Compléter dans le build'}
+            Ouvrir le match
           </button>
         </section>
       ) : null}

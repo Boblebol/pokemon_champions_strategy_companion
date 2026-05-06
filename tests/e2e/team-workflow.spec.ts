@@ -10,11 +10,11 @@ test.describe('workflow équipe mobile', () => {
 
     await buildDragoniteCore(page);
 
-    await page.getByText('Détails du slot').click();
-    await page.getByLabel(/slot 1 nature/i).selectOption({ label: 'Rigide' });
-    await expect(page.getByText('+Attaque / -Attaque Spéciale', { exact: true })).toBeVisible();
+    await page.getByRole('button', { name: /détails avancés slot 1/i }).click();
+    await pickSearchResult(page, /slot 1 nature/i, 'rigide', /Rigide/i);
+    await expect(page.locator('.ev-nature-note')).toContainText('+Attaque / -Attaque Spéciale');
     await page.getByRole('button', { name: /Attaquant physique rapide/i }).click();
-    await expect(page.getByText('510/510 EV')).toBeVisible();
+    await expect(page.locator('.ev-total-pill')).toHaveText('510/510 EV');
 
     const exportText = await readTeamExport(page);
     expect(exportText).toContain('Dragonite @ Heavy-Duty Boots');
@@ -29,16 +29,13 @@ test.describe('workflow équipe mobile', () => {
     await gotoMobileApp(page);
     await buildDragoniteCore(page);
 
-    const moveInput = page.getByRole('combobox', { name: /slot 1 attaque 3/i });
-    await moveInput.fill('draco');
-
-    const dragonClawOption = page.getByRole('option', { name: /Draco-Griffe/i }).first();
-    await expect(dragonClawOption).toContainText('Dragon');
-    await expect(dragonClawOption).toContainText('Physique');
-    await expect(dragonClawOption).toContainText('STAB');
-    await expect(dragonClawOption).toContainText('Puissance 80');
-    await expect(dragonClawOption).toContainText('Précision 100');
-    await expect(dragonClawOption).toContainText('PP 15');
+    const dragonClawRow = page.locator('.selected-move-row').filter({ hasText: 'Draco-Griffe' }).first();
+    await expect(dragonClawRow).toContainText('Dragon');
+    await expect(dragonClawRow).toContainText('Physique');
+    await expect(dragonClawRow).toContainText('STAB');
+    await expect(dragonClawRow).toContainText('80');
+    await expect(dragonClawRow).toContainText('100%');
+    await expect(dragonClawRow).toContainText('PP 15');
   });
 
   test('garde les recherches utilisables après switch FR vers EN', async ({ page }) => {

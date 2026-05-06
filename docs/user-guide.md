@@ -75,6 +75,10 @@ affiche les résultats dans la langue active, triés alphabétiquement, avec ima
 Pokémon, images d'objets et descriptions d'objets quand la source les fournit.
 Les attaques affichent aussi type, catégorie, STAB, puissance, précision et PP.
 Les valeurs internes et l'export restent compatibles Pokémon Showdown en anglais.
+La présentation mobile suit la maquette
+`docs/design_mockup/maquette_v1/standalone_version_html.html` : rail de slots
+compact, résumé du slot actif, contrôles principaux visibles et détails avancés
+pliés tant qu'ils ne sont pas nécessaires.
 
 Quand un Pokémon est choisi dans un slot, le constructeur hydrate directement les
 réglages visibles dans la maquette mobile : talent par défaut, nature cohérente

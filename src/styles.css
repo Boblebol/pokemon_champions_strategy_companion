@@ -3492,6 +3492,11 @@ body,
   gap: 12px;
 }
 
+.mockup-mobile-shell .mobile-build-screen {
+  gap: 0;
+  padding: 0;
+}
+
 .mockup-card,
 .mockup-mobile-shell .panel,
 .mockup-mobile-shell .compact-export,
@@ -3838,9 +3843,15 @@ body,
 .mockup-mobile-shell .team-builder {
   display: flex;
   flex: 1 1 auto;
+  width: 100%;
   min-height: 0;
   flex-direction: column;
   overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  margin: 0;
   padding: 0;
 }
 
@@ -3853,6 +3864,7 @@ body,
   flex: 1 1 auto;
   min-height: 0;
   flex-direction: column;
+  align-items: stretch;
 }
 
 .mockup-mobile-shell .builder-summary {
@@ -3972,6 +3984,7 @@ body,
 
 .mockup-mobile-shell .builder-slot-editor {
   flex: 1 1 auto;
+  width: 100%;
   min-height: 0;
   overflow-y: auto;
   border: 0;
@@ -5073,4 +5086,239 @@ body,
 
 .mockup-mobile-shell .slot-details-section .searchable-picker {
   width: 100%;
+}
+
+/* Maquette v1 exact conformance on top of the real-data controls. */
+.type-chip.type-normal { background: #a8a878; color: #ffffff; }
+.type-chip.type-fire { background: #f08030; color: #ffffff; }
+.type-chip.type-water { background: #6890f0; color: #ffffff; }
+.type-chip.type-electric { background: #f8d030; color: #1a1a1a; }
+.type-chip.type-grass { background: #78c850; color: #ffffff; }
+.type-chip.type-ice { background: #98d8d8; color: #1a1a1a; }
+.type-chip.type-fighting { background: #c03028; color: #ffffff; }
+.type-chip.type-poison { background: #a040a0; color: #ffffff; }
+.type-chip.type-ground { background: #e0c068; color: #1a1a1a; }
+.type-chip.type-flying { background: #a890f0; color: #ffffff; }
+.type-chip.type-psychic { background: #f85888; color: #ffffff; }
+.type-chip.type-bug { background: #a8b820; color: #ffffff; }
+.type-chip.type-rock { background: #b8a038; color: #ffffff; }
+.type-chip.type-ghost { background: #705898; color: #ffffff; }
+.type-chip.type-dragon { background: #7038f8; color: #ffffff; }
+.type-chip.type-dark { background: #705848; color: #ffffff; }
+.type-chip.type-steel { background: #b8b8d0; color: #1a1a1a; }
+.type-chip.type-fairy { background: #ee99ac; color: #1a1a1a; }
+
+.mockup-mobile-shell .roster-summary-list {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+  scroll-padding-inline: 14px;
+  scroll-snap-type: x proximity;
+}
+
+.mockup-mobile-shell .roster-summary-card {
+  position: relative;
+  display: flex;
+  flex: 0 0 52px;
+  width: 52px;
+  min-width: 52px;
+  height: 52px;
+  min-height: 52px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 2px solid var(--neutral-35);
+  border-radius: 8px;
+  background: var(--neutral-20);
+  color: var(--fg-subtle);
+  padding: 3px 2px;
+  box-shadow: none;
+  scroll-snap-align: start;
+}
+
+.mockup-mobile-shell .roster-summary-card[data-filled="true"] {
+  border-color: var(--border);
+  background: var(--bg-muted);
+  color: var(--fg);
+}
+
+.mockup-mobile-shell .roster-summary-card.active {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.mockup-mobile-shell .roster-summary-card[data-selected="true"]:not(.active) {
+  border-color: var(--success);
+  background: var(--bg-muted);
+}
+
+.mockup-mobile-shell .roster-summary-name,
+.mockup-mobile-shell .roster-summary-empty {
+  max-width: 48px;
+  overflow: hidden;
+  color: inherit;
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mockup-mobile-shell .roster-summary-types {
+  display: flex;
+  max-width: 48px;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.mockup-mobile-shell .roster-summary-card.active .type-chip {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.mockup-mobile-shell .roster-summary-complete {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--success);
+}
+
+.mockup-mobile-shell .builder-active-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 0 0 auto;
+  padding: 8px 14px 0;
+}
+
+.mockup-mobile-shell .builder-active-name {
+  color: var(--fg);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.mockup-mobile-shell .builder-summary-pill {
+  min-height: 18px;
+  border-radius: 999px;
+  background: var(--primary-alpha);
+  color: var(--primary);
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.mockup-mobile-shell .builder-summary-pill.muted {
+  border: 1px solid var(--border);
+  background: var(--bg-muted);
+  color: var(--fg-muted);
+}
+
+.mockup-mobile-shell .slot-header {
+  display: none;
+}
+
+.mockup-mobile-shell .pokemon-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.mockup-mobile-shell .pokemon-search-row .searchable-picker {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.mockup-mobile-shell .pokemon-search-types {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 3px;
+}
+
+.mockup-mobile-shell .ability-choice-group {
+  margin-bottom: 10px;
+}
+
+.mockup-mobile-shell .slot-basics {
+  margin-bottom: 10px;
+}
+
+.mockup-mobile-shell .slot-details-summary {
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 6px 0;
+}
+
+.mockup-mobile-shell .slot-details-summary > span:nth-child(2) {
+  flex: 0 0 auto;
+}
+
+.mockup-mobile-shell .slot-details-chevron {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  color: currentColor;
+}
+
+.mockup-mobile-shell .slot-details-chevron::before {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translate(1px, -1px);
+  transition: transform 0.15s ease;
+  content: "";
+}
+
+.mockup-mobile-shell .slot-advanced-details[data-open="true"] .slot-details-chevron::before {
+  transform: rotate(225deg) translate(-2px, -1px);
+}
+
+.mockup-mobile-shell .slot-details-badges {
+  margin-left: auto;
+}
+
+.mockup-mobile-shell .slot-detail-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--fg-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.mockup-mobile-shell .slot-detail-block {
+  min-width: 0;
+}
+
+.mockup-mobile-shell .slot-comment {
+  min-height: 58px;
+}
+
+.mockup-mobile-shell .mobile-primary-action.success {
+  background: var(--success);
+}
+
+.mockup-mobile-shell .mobile-primary-action:disabled {
+  background: var(--neutral-35);
+  color: var(--fg-subtle);
+  cursor: not-allowed;
+  opacity: 1;
 }

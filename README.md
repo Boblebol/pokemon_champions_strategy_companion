@@ -33,6 +33,9 @@ Documentation repo :
 - Navigation tactile par écrans : `Team`, `Build`, `Actifs` et `Match`.
 - Vue mobile unique sur `/app`, avec `/`, `/mobile` et les anciennes routes
   publiques redirigées vers le même cockpit tactile.
+- Shell mobile aligné sur `docs/design_mockup/maquette_v1/standalone_version_html.html`,
+  avec les mêmes rails de slots, actions rapides, chips de types et panneaux de
+  détails, branchés sur les données réelles Pokémon Champions.
 - PWA installable sans store depuis le navigateur, avec manifest, service worker
   et cache applicatif local.
 - Interface française avec cartes d'équipe, audit et adversaires dangereux.
