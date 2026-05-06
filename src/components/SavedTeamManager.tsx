@@ -22,8 +22,10 @@ export function SavedTeamManager({
   onLoad: (team: SavedTeam) => void;
 }) {
   const [name, setName] = useState('');
+  const [query, setQuery] = useState('');
   const [teams, setTeams] = useState<SavedTeam[]>(() => readSavedTeams(window.localStorage));
   const [message, setMessage] = useState<string>();
+  const visibleTeams = teams.filter((team) => team.name.toLowerCase().includes(query.trim().toLowerCase()));
 
   function handleSave() {
     const saved = saveCurrentTeam({ storage: window.localStorage, name, paste, format });
@@ -62,14 +64,26 @@ export function SavedTeamManager({
           Sauvegarder l'équipe
         </button>
       </div>
+      {teams.length > 0 ? (
+        <label className="saved-team-search">
+          Rechercher une sauvegarde
+          <input
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Nom de team"
+            type="search"
+          />
+        </label>
+      ) : null}
       {message ? (
         <p role="status" aria-live="polite">
           {message}
         </p>
       ) : null}
       {teams.length === 0 ? <p>Aucune équipe sauvegardée.</p> : null}
+      {teams.length > 0 && visibleTeams.length === 0 ? <p>Aucune sauvegarde trouvée.</p> : null}
       <div className="saved-team-list">
-        {teams.map((team) => (
+        {visibleTeams.map((team) => (
           <article className="saved-team-card" key={team.id}>
             <div>
               <strong>{team.name}</strong>

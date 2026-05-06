@@ -225,6 +225,7 @@ export function TeamBuilder({
   onToggleSelection: (slotId: number, selected: boolean) => void;
 }) {
   const [activeSlotId, setActiveSlotId] = useState(1);
+  const [showAdvancedDetails, setShowAdvancedDetails] = useState(false);
   const activeSlot = state.slots.find((slot) => slot.id === activeSlotId) ?? state.slots[0];
 
   if (!activeSlot) {
@@ -309,8 +310,8 @@ export function TeamBuilder({
     <section className="panel team-builder" id="builder">
       <div className="panel-heading">
         <div>
-          <h2>Constructeur d'équipe</h2>
-          <p>Sélection de match : choisis {pickSize} Pokémon parmi ton équipe de 6.</p>
+          <h2>Build rapide</h2>
+          <p>Cherche le Pokémon, l'objet et les attaques. Les réglages avancés restent dans les détails.</p>
           <p className="builder-source">
             {sourceLabel} : {referenceSource} · {pokemonOptions.length} Pokémon · {moveOptions.length} attaques ·
             labels {locale.toUpperCase()}
@@ -318,39 +319,6 @@ export function TeamBuilder({
         </div>
       </div>
       <div className="builder-workspace">
-        <aside className="builder-funnel" aria-label="Étapes constructeur">
-          <h3>Étapes constructeur</h3>
-          <ol>
-            <li className="funnel-step done">
-              <span>1</span>
-              <strong>Format</strong>
-              <small>{pickSize} Pokémon joués</small>
-            </li>
-            <li className={completedSlots > 0 ? 'funnel-step done' : 'funnel-step'}>
-              <span>2</span>
-              <strong>Équipe</strong>
-              <small>{completedSlots}/6 slots remplis</small>
-            </li>
-            <li className={activeSlot.species ? 'funnel-step active' : 'funnel-step'}>
-              <span>3</span>
-              <strong>Fiche active</strong>
-              <small>Slot {activeSlot.id}</small>
-            </li>
-            <li className={selectedSlots.length === pickSize ? 'funnel-step done' : 'funnel-step active'}>
-              <span>4</span>
-              <strong>Sélection match</strong>
-              <small>
-                {selectedSlots.length}/{pickSize} choisis
-              </small>
-            </li>
-            <li className="funnel-step">
-              <span>5</span>
-              <strong>Analyse</strong>
-              <small>Points faibles et adversaires dangereux</small>
-            </li>
-          </ol>
-        </aside>
-
         <TeamSlotRail
           slots={state.slots}
           activeSlotId={activeSlot.id}
@@ -406,55 +374,6 @@ export function TeamBuilder({
               emptyLabel="Aucun objet trouvé"
               onChange={(value) => onSlotChange(activeSlot.id, { item: value })}
             />
-            <label className="field">
-              <span>Slot {activeSlot.id} Talent</span>
-              <select
-                value={activeSlot.ability ?? ''}
-                disabled={!selectedPokemon}
-                onChange={(event) => onSlotChange(activeSlot.id, { ability: event.target.value || undefined })}
-              >
-                <option value="">Choisir</option>
-                {abilityOptions.map((ability) => (
-                  <option key={ability} value={ability}>
-                    {abilityDisplayName(reference, ability, locale)}
-                  </option>
-                ))}
-              </select>
-              {activeAbilityDescription ? <small className="field-help">{activeAbilityDescription}</small> : null}
-            </label>
-            <label className="field">
-              <span>Slot {activeSlot.id} Téracristallisation (Type Tera)</span>
-              <select
-                value={activeSlot.teraType ?? ''}
-                onChange={(event) =>
-                  onSlotChange(activeSlot.id, {
-                    teraType: (event.target.value || undefined) as PokemonType | undefined,
-                  })
-                }
-              >
-                <option value="">Choisir</option>
-                {POKEMON_TYPES.map((type) => (
-                  <option key={type} value={type}>
-                    {typeDisplayName(reference, type, locale)}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="field">
-              <span>Slot {activeSlot.id} Nature</span>
-              <select
-                value={activeSlot.nature ?? ''}
-                onChange={(event) => onSlotChange(activeSlot.id, { nature: event.target.value || undefined })}
-              >
-                <option value="">Choisir</option>
-                {withCurrentOption(natureOptions, activeSlot.nature).map((nature) => (
-                  <option key={nature} value={nature}>
-                    {natureDisplayName(reference, nature, locale)}
-                  </option>
-                ))}
-              </select>
-              {activeNatureDescription ? <small className="field-help">{activeNatureDescription}</small> : null}
-            </label>
           </div>
 
           <div className="move-grid">
@@ -475,69 +394,135 @@ export function TeamBuilder({
             ))}
           </div>
 
-          <section className="ev-helper" aria-label={`Aide EV slot ${activeSlot.id}`}>
-            <div className="ev-helper-heading">
-              <div>
-                <strong>Points d'entraînement (EV)</strong>
-                <small>Choisis un modèle 252 / 252 / 6. Les stats non remplies valent 0.</small>
-              </div>
-              <span className={activeEvTotal > EV_TOTAL_LIMIT ? 'ev-status warning' : 'ev-status'} aria-live="polite">
-                {evStatus}
-              </span>
-            </div>
-            <div className="ev-preset-list" aria-label={`Modèles EV slot ${activeSlot.id}`}>
-              {EV_PRESETS.map((preset) => (
-                <button
-                  type="button"
-                  key={preset.label}
-                  className="ev-preset-button"
-                  onClick={() => onSlotChange(activeSlot.id, { evs: preset.evs })}
-                >
-                  <strong>{preset.label}</strong>
-                  <small>{preset.description}</small>
-                </button>
-              ))}
-              <button
-                type="button"
-                className="ev-preset-button subtle"
-                onClick={() => onSlotChange(activeSlot.id, { evs: {} })}
-              >
-                <strong>Vider les EV</strong>
-                <small>Remet toutes les stats à vide</small>
-              </button>
-            </div>
-          </section>
+          <details
+            className="slot-advanced-details"
+            open={showAdvancedDetails}
+            onToggle={(event) => setShowAdvancedDetails(event.currentTarget.open)}
+          >
+            <summary>Détails du slot</summary>
+            {showAdvancedDetails ? (
+              <>
+                <div className="slot-basics advanced-slot-basics">
+                  <label className="field">
+                    <span>Slot {activeSlot.id} Talent</span>
+                    <select
+                      value={activeSlot.ability ?? ''}
+                      disabled={!selectedPokemon}
+                      onChange={(event) => onSlotChange(activeSlot.id, { ability: event.target.value || undefined })}
+                    >
+                      <option value="">Choisir</option>
+                      {abilityOptions.map((ability) => (
+                        <option key={ability} value={ability}>
+                          {abilityDisplayName(reference, ability, locale)}
+                        </option>
+                      ))}
+                    </select>
+                    {activeAbilityDescription ? <small className="field-help">{activeAbilityDescription}</small> : null}
+                  </label>
+                  <label className="field">
+                    <span>Slot {activeSlot.id} Téracristallisation (Type Tera)</span>
+                    <select
+                      value={activeSlot.teraType ?? ''}
+                      onChange={(event) =>
+                        onSlotChange(activeSlot.id, {
+                          teraType: (event.target.value || undefined) as PokemonType | undefined,
+                        })
+                      }
+                    >
+                      <option value="">Choisir</option>
+                      {POKEMON_TYPES.map((type) => (
+                        <option key={type} value={type}>
+                          {typeDisplayName(reference, type, locale)}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="field">
+                    <span>Slot {activeSlot.id} Nature</span>
+                    <select
+                      value={activeSlot.nature ?? ''}
+                      onChange={(event) => onSlotChange(activeSlot.id, { nature: event.target.value || undefined })}
+                    >
+                      <option value="">Choisir</option>
+                      {withCurrentOption(natureOptions, activeSlot.nature).map((nature) => (
+                        <option key={nature} value={nature}>
+                          {natureDisplayName(reference, nature, locale)}
+                        </option>
+                      ))}
+                    </select>
+                    {activeNatureDescription ? <small className="field-help">{activeNatureDescription}</small> : null}
+                  </label>
+                </div>
 
-          <div className="ev-grid">
-            {STAT_FIELDS.map((stat) => (
-              <label className="field compact-field" key={stat.id}>
-                <span>
-                  Slot {activeSlot.id} EV {stat.label}
-                </span>
-                <input
-                  inputMode="numeric"
-                  min="0"
-                  max="252"
-                  type="number"
-                  value={numberInputValue(activeSlot.evs[stat.id])}
-                  onChange={(event) =>
-                    onSlotChange(activeSlot.id, {
-                      evs: nextEvs(activeSlot.evs, stat.id, event.target.value),
-                    })
-                  }
-                />
-              </label>
-            ))}
-          </div>
+                <section className="ev-helper" aria-label={`Aide EV slot ${activeSlot.id}`}>
+                  <div className="ev-helper-heading">
+                    <div>
+                      <strong>Points d'entraînement (EV)</strong>
+                      <small>Choisis un modèle 252 / 252 / 6. Les stats non remplies valent 0.</small>
+                    </div>
+                    <span
+                      className={activeEvTotal > EV_TOTAL_LIMIT ? 'ev-status warning' : 'ev-status'}
+                      aria-live="polite"
+                    >
+                      {evStatus}
+                    </span>
+                  </div>
+                  <div className="ev-preset-list" aria-label={`Modèles EV slot ${activeSlot.id}`}>
+                    {EV_PRESETS.map((preset) => (
+                      <button
+                        type="button"
+                        key={preset.label}
+                        className="ev-preset-button"
+                        onClick={() => onSlotChange(activeSlot.id, { evs: preset.evs })}
+                      >
+                        <strong>{preset.label}</strong>
+                        <small>{preset.description}</small>
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      className="ev-preset-button subtle"
+                      onClick={() => onSlotChange(activeSlot.id, { evs: {} })}
+                    >
+                      <strong>Vider les EV</strong>
+                      <small>Remet toutes les stats à vide</small>
+                    </button>
+                  </div>
+                </section>
 
-          <label className="field">
-            <span>Commentaire slot {activeSlot.id}</span>
-            <textarea
-              className="slot-comment"
-              value={activeSlot.comment}
-              onChange={(event) => onSlotChange(activeSlot.id, { comment: event.target.value })}
-            />
-          </label>
+                <div className="ev-grid">
+                  {STAT_FIELDS.map((stat) => (
+                    <label className="field compact-field" key={stat.id}>
+                      <span>
+                        Slot {activeSlot.id} EV {stat.label}
+                      </span>
+                      <input
+                        inputMode="numeric"
+                        min="0"
+                        max="252"
+                        type="number"
+                        value={numberInputValue(activeSlot.evs[stat.id])}
+                        onChange={(event) =>
+                          onSlotChange(activeSlot.id, {
+                            evs: nextEvs(activeSlot.evs, stat.id, event.target.value),
+                          })
+                        }
+                      />
+                    </label>
+                  ))}
+                </div>
+
+                <label className="field">
+                  <span>Commentaire slot {activeSlot.id}</span>
+                  <textarea
+                    className="slot-comment"
+                    value={activeSlot.comment}
+                    onChange={(event) => onSlotChange(activeSlot.id, { comment: event.target.value })}
+                  />
+                </label>
+              </>
+            ) : null}
+          </details>
         </article>
       </div>
     </section>

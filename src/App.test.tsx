@@ -24,15 +24,16 @@ async function renderDocsPage() {
   return result;
 }
 
-async function openTeamTab(user: ReturnType<typeof userEvent.setup>) {
+async function openBuildTab(user: ReturnType<typeof userEvent.setup>) {
   const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
-  await user.click(within(nav).getByRole('button', { name: /^équipe$/i }));
+  await user.click(within(nav).getByRole('button', { name: /^build$/i }));
   expect(await screen.findByText(/roster showdown champions/i, undefined, { timeout: 5000 })).toBeInTheDocument();
 }
 
-async function openDataTab(user: ReturnType<typeof userEvent.setup>) {
-  await user.click(screen.getByRole('button', { name: /données/i }));
-  expect(await screen.findByLabelText(/export équipe/i, undefined, { timeout: 5000 })).toBeInTheDocument();
+async function openMatchTab(user: ReturnType<typeof userEvent.setup>) {
+  const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
+  await user.click(within(nav).getByRole('button', { name: /^match$/i }));
+  expect(await screen.findByRole('heading', { name: /match rapide/i }, { timeout: 5000 })).toBeInTheDocument();
 }
 
 async function selectPickerOption(
@@ -115,45 +116,49 @@ describe('App', () => {
     );
   });
 
-  it('starts on quick team management and keeps analysis locked until the active pick is ready', async () => {
+  it('starts as a four-step assistant with an empty team ready to build', async () => {
     await renderAppRoute();
-
-    expect(screen.getByRole('heading', { name: /préparer la team/i })).toBeInTheDocument();
-    expect(screen.getByLabelText(/sauvegardes locales/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /créer une team vide/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /1v1 actif/i })).toHaveAttribute('aria-pressed', 'true');
-    expect(screen.getByRole('button', { name: /2v2 actif/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/1\/3 actifs prêts/i).length).toBeGreaterThan(0);
 
     const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
-    expect(within(nav).getByRole('button', { name: /analyse/i })).toBeDisabled();
-    expect(within(nav).getByRole('button', { name: /combat/i })).toBeDisabled();
+    expect(within(nav).getByRole('button', { name: /^team$/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(within(nav).getByRole('button', { name: /^build$/i })).toBeInTheDocument();
+    expect(within(nav).getByRole('button', { name: /^actifs$/i })).toBeInTheDocument();
+    expect(within(nav).getByRole('button', { name: /^match$/i })).toBeInTheDocument();
+    expect(within(nav).queryByRole('button', { name: /données/i })).not.toBeInTheDocument();
+    expect(within(nav).queryByRole('button', { name: /^combat$/i })).not.toBeInTheDocument();
+    expect(within(nav).queryByRole('button', { name: /analyse/i })).not.toBeInTheDocument();
+
+    expect(screen.getByRole('heading', { name: /gérer la team/i })).toBeInTheDocument();
+    expect(screen.getByText(/team vide prête/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/sauvegardes locales/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /créer une team vide/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /exporter l'équipe/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /1v1 actif/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: /2v2 actif/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/0\/3 actifs prêts/i).length).toBeGreaterThan(0);
   });
 
-  it('unlocks coverage and dangerous Pokemon after three searched active picks without requiring six filled slots', async () => {
+  it('auto-fills active picks while building and opens match without requiring six filled slots', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
-    await openTeamTab(user);
+    await openBuildTab(user);
 
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
     await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
     await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
     await user.click(screen.getByRole('button', { name: /modifier slot 3/i }));
     await selectPickerOption(user, /slot 3 pokémon/i, 'Kangourex', /Kangourex/i);
 
-    const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
-    await user.click(within(nav).getByRole('button', { name: /sélection/i }));
-
-    await selectPickerOption(user, /actif 2/i, 'Carchacrok', /Carchacrok/i);
-    await selectPickerOption(user, /actif 3/i, 'Kangourex', /Kangourex/i);
+    await user.click(screen.getByRole('button', { name: /^actifs$/i }));
 
     expect(screen.getByText(/3\/3 actifs prêts/i)).toBeInTheDocument();
-    const analyzeButton = screen.getByRole('button', { name: /voir couverture et menaces/i });
-    expect(analyzeButton).toBeEnabled();
+    expect(screen.getByText(/dracolosse, carchacrok, kangourex/i)).toBeInTheDocument();
 
-    await user.click(analyzeButton);
+    await openMatchTab(user);
 
+    expect(await screen.findByRole('heading', { name: /^combat$/i }, { timeout: 5000 })).toBeInTheDocument();
     expect(await screen.findByRole('heading', { name: /couverture rapide/i })).toBeInTheDocument();
-    expect(screen.getByText(/joués : dracolosse, carchacrok, kangourex/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/joués : dracolosse, carchacrok, kangourex/i).length).toBeGreaterThan(0);
     expect(screen.getByRole('heading', { name: /adversaires fréquents dangereux/i })).toBeInTheDocument();
   }, 15000);
 
@@ -162,22 +167,22 @@ describe('App', () => {
     await renderAppRoute();
 
     const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
-    expect(within(nav).getByRole('button', { name: /accueil/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(within(nav).getByRole('button', { name: /^team$/i })).toHaveAttribute('aria-pressed', 'true');
 
-    await user.click(within(nav).getByRole('button', { name: /équipe/i }));
-    expect(await screen.findByRole('heading', { name: /constructeur d'équipe/i })).toBeInTheDocument();
+    await user.click(within(nav).getByRole('button', { name: /^build$/i }));
+    expect(await screen.findByRole('heading', { name: /build rapide/i })).toBeInTheDocument();
 
-    await user.click(within(nav).getByRole('button', { name: /sélection/i }));
+    await user.click(within(nav).getByRole('button', { name: /^actifs$/i }));
     expect(await screen.findByRole('heading', { name: /actifs du match/i })).toBeInTheDocument();
 
-    expect(within(nav).getByRole('button', { name: /combat/i })).toBeDisabled();
-    expect(within(nav).getByRole('button', { name: /analyse/i })).toBeDisabled();
+    await user.click(within(nav).getByRole('button', { name: /^match$/i }));
+    expect(await screen.findByRole('heading', { name: /match rapide/i })).toBeInTheDocument();
   });
 
   it('switches picker display and search between French and English', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
-    await openTeamTab(user);
+    await openBuildTab(user);
 
     await selectPickerOption(user, /slot 1 pokémon/i, 'Kangourex', /Kangourex/i);
     expect(screen.queryByText(/Kangourex \(Kangaskhan\)/i)).not.toBeInTheDocument();
@@ -191,8 +196,9 @@ describe('App', () => {
   it('searches moves from the selected Pokemon and shows battle metadata', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
-    await openTeamTab(user);
+    await openBuildTab(user);
 
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
     await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
     await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
 
@@ -210,14 +216,30 @@ describe('App', () => {
 
     await user.click(earthquake);
 
-    await openDataTab(user);
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
     const exportLink = screen.getByRole('link', { name: /exporter l'équipe/i });
     expect(decodeURIComponent(exportLink.getAttribute('href') ?? '')).toContain('- Earthquake');
   }, 10000);
 
+  it('keeps advanced build fields folded behind details by default', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    expect(screen.queryByLabelText(/slot 1 ev hp/i)).not.toBeInTheDocument();
+
+    await user.click(screen.getByText(/détails du slot/i));
+
+    expect(screen.getByLabelText(/slot 1 ev hp/i)).toBeInTheDocument();
+  });
+
   it('saves, loads, deletes and exports teams from local browser storage', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
+
+    await user.click(screen.getByRole('button', { name: /^build$/i }));
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
 
     await user.type(screen.getByLabelText(/nom de sauvegarde/i), 'Ladder BO1');
     await user.click(screen.getByRole('button', { name: /sauvegarder l'équipe/i }));
@@ -225,25 +247,45 @@ describe('App', () => {
     expect(screen.getByText(/équipe sauvegardée localement/i)).toBeInTheDocument();
     expect(within(screen.getByLabelText(/sauvegardes locales/i)).getByText(/^Ladder BO1$/i)).toBeInTheDocument();
 
-    await openDataTab(user);
     const teamExportLink = screen.getByRole('link', { name: /exporter l'équipe/i });
     expect(teamExportLink).toHaveAttribute('download', 'pokemon-champions-team.txt');
-    expect(decodeURIComponent(teamExportLink.getAttribute('href') ?? '')).toContain('Dragonite @ Heavy-Duty Boots');
+    expect(decodeURIComponent(teamExportLink.getAttribute('href') ?? '')).toContain('Dragonite');
 
-    await user.click(screen.getByRole('button', { name: /accueil/i }));
     await user.click(screen.getByRole('button', { name: /charger Ladder BO1/i }));
-    expect(await screen.findByRole('heading', { name: /constructeur d'équipe/i })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /build rapide/i })).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /accueil/i }));
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
 
     await user.click(screen.getByRole('button', { name: /supprimer Ladder BO1/i }));
     expect(screen.getByText(/aucune équipe sauvegardée/i)).toBeInTheDocument();
   });
 
-  it('exports a markdown analysis report from the data screen', async () => {
+  it('filters saved teams by search before loading', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
-    await openDataTab(user);
+
+    await user.click(screen.getByRole('button', { name: /^build$/i }));
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
+    await user.type(screen.getByLabelText(/nom de sauvegarde/i), 'Ladder BO1');
+    await user.click(screen.getByRole('button', { name: /sauvegarder l'équipe/i }));
+
+    await user.click(screen.getByRole('button', { name: /créer une team vide/i }));
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangourex', /Kangourex/i);
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
+    await user.type(screen.getByLabelText(/nom de sauvegarde/i), 'Casual test');
+    await user.click(screen.getByRole('button', { name: /sauvegarder l'équipe/i }));
+
+    await user.type(screen.getByLabelText(/rechercher une sauvegarde/i), 'ladder');
+
+    expect(within(screen.getByLabelText(/sauvegardes locales/i)).getByText(/^Ladder BO1$/i)).toBeInTheDocument();
+    expect(within(screen.getByLabelText(/sauvegardes locales/i)).queryByText(/^Casual test$/i)).not.toBeInTheDocument();
+  }, 15000);
+
+  it('exports a markdown analysis report from the match screen', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openMatchTab(user);
 
     const exportLink = screen.getByRole('link', { name: /exporter l'analyse/i });
     expect(exportLink).toHaveAttribute('download', 'pokemon-champions-analyse.md');

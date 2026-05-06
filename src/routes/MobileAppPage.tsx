@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { AnalysisExport } from '../components/AnalysisExport';
 import { AuditPanel } from '../components/AuditPanel';
 import { DeferredCombatCalculator } from '../components/DeferredCombatCalculator';
-import { HelpPanel } from '../components/HelpPanel';
 import { PossibleThreatPanel } from '../components/PossibleThreatPanel';
 import { ProjectCreditPanel } from '../components/ProjectCreditPanel';
 import { PwaStatus } from '../components/PwaStatus';
@@ -11,7 +10,6 @@ import { SavedTeamManager } from '../components/SavedTeamManager';
 import { SearchablePicker } from '../components/SearchablePicker';
 import { SnapshotStatus } from '../components/SnapshotStatus';
 import { TeamBuilder } from '../components/TeamBuilder';
-import { TeamPreview } from '../components/TeamPreview';
 import { ThreatPanel } from '../components/ThreatPanel';
 import { demoDataBundle } from '../data/demoSnapshots';
 import { getPkmnReferenceSnapshot } from '../data/pkmnReference';
@@ -34,15 +32,13 @@ import {
 import type { BuilderSlot } from '../domain/teamBuilder';
 import type { DataBundle, FormatId, LocaleId } from '../domain/types';
 
-type MobileTab = 'home' | 'team' | 'selection' | 'combat' | 'analysis' | 'data';
+type MobileTab = 'team' | 'build' | 'active' | 'match';
 
 const MOBILE_TABS: Array<{ id: MobileTab; label: string }> = [
-  { id: 'home', label: 'Accueil' },
-  { id: 'team', label: 'Équipe' },
-  { id: 'selection', label: 'Sélection' },
-  { id: 'combat', label: 'Combat' },
-  { id: 'analysis', label: 'Analyse' },
-  { id: 'data', label: 'Données' },
+  { id: 'team', label: 'Team' },
+  { id: 'build', label: 'Build' },
+  { id: 'active', label: 'Actifs' },
+  { id: 'match', label: 'Match' },
 ];
 
 const QUICK_MODES: Array<{ format: FormatId; label: string; description: string }> = [
@@ -50,29 +46,19 @@ const QUICK_MODES: Array<{ format: FormatId; label: string; description: string 
   { format: 'champions-vgc', label: '2v2 actif', description: '4 Pokémon à choisir' },
 ];
 
-const initialPaste = `Dragonite @ Heavy-Duty Boots
-Ability: Multiscale
-Tera Type: Normal
-EVs: 252 Atk / 4 SpD / 252 Spe
-Jolly Nature
-- Dragon Dance
-- Extreme Speed
-- Earthquake
-- Roost`;
-
 function teamExportHref(value: string): string {
   return `data:text/plain;charset=utf-8,${encodeURIComponent(value)}`;
 }
 
-function isMatchToolTab(tab: MobileTab): boolean {
-  return tab === 'combat' || tab === 'analysis';
+function filledSlotIds(state: ReturnType<typeof createEmptyBuilderState>, limit: number): number[] {
+  return state.slots.flatMap((slot) => (slot.species ? [slot.id] : [])).slice(0, limit);
 }
 
 export default function MobileAppPage() {
-  const [activeTab, setActiveTab] = useState<MobileTab>('home');
+  const [activeTab, setActiveTab] = useState<MobileTab>('team');
   const [format, setFormat] = useState<FormatId>('champions-bss');
-  const [builderState, setBuilderState] = useState(() => builderStateFromMembers(parseShowdownTeam(initialPaste).members));
-  const [selectedSlots, setSelectedSlots] = useState<number[]>([1]);
+  const [builderState, setBuilderState] = useState(() => createEmptyBuilderState());
+  const [selectedSlots, setSelectedSlots] = useState<number[]>([]);
   const [dataBundle, setDataBundle] = useState<DataBundle>(demoDataBundle);
   const [locale, setLocale] = useState<LocaleId>('fr');
   const [referenceStatus, setReferenceStatus] = useState<'loading' | 'complete' | 'error'>('loading');
@@ -134,6 +120,7 @@ export default function MobileAppPage() {
     .filter((slotId) => builderState.slots.some((slot) => slot.id === slotId && slot.species)).length;
   const canUseMatchTools = activeReadyCount >= pickSize;
   const readyLabel = `${activeReadyCount}/${pickSize} actifs prêts`;
+  const teamStatusLabel = filledSlots.length > 0 ? `${filledSlots.length}/6 Pokémon dans la team` : 'Team vide prête';
   const selectedNames = analysis.selectedTeam.members.map((member) =>
     pokemonDisplayName(dataBundle.reference, member.species, locale),
   );
@@ -159,27 +146,40 @@ export default function MobileAppPage() {
   function handleFormatChange(nextFormat: FormatId) {
     const nextPickSize = getPickSize(nextFormat);
     setFormat(nextFormat);
-    setSelectedSlots((currentSlots) => currentSlots.slice(0, nextPickSize));
-  }
+    setSelectedSlots((currentSlots) => {
+      const validCurrentSlots = currentSlots.filter((slotId) =>
+        builderState.slots.some((slot) => slot.id === slotId && slot.species),
+      );
+      const nextSlots = validCurrentSlots.length > 0 ? validCurrentSlots : filledSlotIds(builderState, nextPickSize);
 
-  function handleTabChange(tab: MobileTab) {
-    if (isMatchToolTab(tab) && !canUseMatchTools) {
-      return;
-    }
-
-    setActiveTab(tab);
+      return nextSlots.slice(0, nextPickSize);
+    });
   }
 
   function handleCreateEmptyTeam() {
     const nextState = createEmptyBuilderState();
     setBuilderState(nextState);
     setSelectedSlots([]);
-    setActiveTab('team');
+    setActiveTab('build');
   }
 
   function handleBuilderSlotChange(slotId: number, patch: Partial<Omit<BuilderSlot, 'id'>>) {
     const nextState = updateBuilderSlot(builderState, slotId, patch);
     setBuilderState(nextState);
+    if (Object.prototype.hasOwnProperty.call(patch, 'species')) {
+      setSelectedSlots((currentSlots) => {
+        const slotStillFilled = nextState.slots.some((slot) => slot.id === slotId && slot.species);
+        const validSlots = currentSlots.filter((currentSlot) =>
+          nextState.slots.some((slot) => slot.id === currentSlot && slot.species),
+        );
+
+        if (slotStillFilled && !validSlots.includes(slotId) && validSlots.length < pickSize) {
+          return [...validSlots, slotId].slice(0, pickSize);
+        }
+
+        return validSlots.slice(0, pickSize);
+      });
+    }
   }
 
   function handleToggleSelection(slotId: number, selected: boolean) {
@@ -195,9 +195,10 @@ export default function MobileAppPage() {
   function handleLoadSavedTeam(team: SavedTeam) {
     setFormat(team.format);
     const parsedTeam = parseShowdownTeam(team.paste);
-    setBuilderState(builderStateFromMembers(parsedTeam.members));
-    setSelectedSlots(parsedTeam.members.length > 0 ? [1] : []);
-    setActiveTab('team');
+    const nextState = builderStateFromMembers(parsedTeam.members);
+    setBuilderState(nextState);
+    setSelectedSlots(filledSlotIds(nextState, getPickSize(team.format)));
+    setActiveTab('build');
   }
 
   function handleActivePickChange(index: number, value: string | undefined) {
@@ -252,34 +253,30 @@ export default function MobileAppPage() {
       </header>
 
       <nav className="mobile-tabbar" aria-label="Navigation mobile tactile">
-        {MOBILE_TABS.map((tab) => {
-          const disabled = isMatchToolTab(tab.id) && !canUseMatchTools;
-
-          return (
-            <button
-              type="button"
-              aria-pressed={activeTab === tab.id}
-              className={activeTab === tab.id ? 'active' : ''}
-              disabled={disabled}
-              onClick={() => handleTabChange(tab.id)}
-              key={tab.id}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
+        {MOBILE_TABS.map((tab) => (
+          <button
+            type="button"
+            aria-pressed={activeTab === tab.id}
+            className={activeTab === tab.id ? 'active' : ''}
+            onClick={() => setActiveTab(tab.id)}
+            key={tab.id}
+          >
+            {tab.label}
+          </button>
+        ))}
       </nav>
 
-      {activeTab === 'home' ? (
-        <section className="mobile-screen mobile-home" aria-label="Accueil mobile">
+      {activeTab === 'team' ? (
+        <section className="mobile-screen mobile-home" aria-label="Team mobile">
           <section className="mobile-quick-start" aria-label="Préparer la team">
             <div className="panel-heading">
               <div>
-                <h2>Préparer la team</h2>
-                <p>Crée, charge et sauve depuis le premier écran, puis remplis juste les actifs nécessaires.</p>
+                <h2>Gérer la team</h2>
+                <p>Charge, sauvegarde ou exporte sans quitter le parcours de match.</p>
               </div>
               <strong className={canUseMatchTools ? 'ready-pill done' : 'ready-pill'}>{readyLabel}</strong>
             </div>
+            <p className="team-state-line">{teamStatusLabel}</p>
             <div className="quick-mode-switch" aria-label="Mode de match rapide">
               {QUICK_MODES.map((mode) => (
                 <button
@@ -294,14 +291,21 @@ export default function MobileAppPage() {
               ))}
             </div>
             <div className="quick-actions">
-              <button type="button" className="mobile-primary-action" onClick={() => setActiveTab('team')}>
-                Continuer l'équipe
+              <button type="button" className="mobile-primary-action" onClick={() => setActiveTab('build')}>
+                Continuer le build
               </button>
               <button type="button" className="secondary-action" onClick={handleCreateEmptyTeam}>
                 Créer une team vide
               </button>
             </div>
             <SavedTeamManager paste={paste} format={format} onLoad={handleLoadSavedTeam} />
+            <section className="team-export-panel compact-export" aria-label="Export équipe">
+              <h2>Export équipe</h2>
+              <p>Compatible Pokémon Showdown.</p>
+              <a className="team-file-action" href={teamExportHref(paste)} download="pokemon-champions-team.txt">
+                Exporter l'équipe
+              </a>
+            </section>
           </section>
           <div className="mobile-summary-grid">
             <article>
@@ -328,8 +332,8 @@ export default function MobileAppPage() {
         </section>
       ) : null}
 
-      {activeTab === 'team' ? (
-        <section className="mobile-screen" aria-label="Équipe mobile">
+      {activeTab === 'build' ? (
+        <section className="mobile-screen" aria-label="Build mobile">
           <TeamBuilder
             state={builderState}
             pokemonOptions={pokemonOptions}
@@ -348,10 +352,10 @@ export default function MobileAppPage() {
         </section>
       ) : null}
 
-      {activeTab === 'selection' ? (
-        <section className="mobile-screen" aria-label="Sélection mobile">
+      {activeTab === 'active' ? (
+        <section className="mobile-screen" aria-label="Actifs mobile">
           <h2>Actifs du match</h2>
-          <p>{readyLabel}. Les slots restants peuvent rester vides tant que ces actifs sont prêts.</p>
+          <p>{readyLabel}. {selectedNames.join(', ') || 'Cherche tes Pokémon dès que le build commence.'}</p>
           <div className="active-pick-grid">
             {Array.from({ length: pickSize }, (_, index) => {
               const currentValue = selectedSlots[index] ? String(selectedSlots[index]) : undefined;
@@ -370,33 +374,37 @@ export default function MobileAppPage() {
             })}
           </div>
           {!canUseMatchTools ? (
-            <p className="warning">Il faut {pickSize} Pokémon actifs remplis pour ouvrir la couverture et le combat.</p>
+            <p className="warning">Complète les actifs pour fiabiliser la couverture. Le match reste accessible en mode partiel.</p>
           ) : null}
           <button
             type="button"
             className="mobile-primary-action"
-            disabled={!canUseMatchTools}
-            onClick={() => setActiveTab('analysis')}
+            onClick={() => setActiveTab(canUseMatchTools ? 'match' : 'build')}
           >
-            Voir couverture et menaces
+            {canUseMatchTools ? 'Ouvrir le match' : 'Compléter dans le build'}
           </button>
         </section>
       ) : null}
 
-      {activeTab === 'combat' ? (
-        <section className="mobile-screen" aria-label="Combat mobile">
+      {activeTab === 'match' ? (
+        <section className="mobile-screen" aria-label="Match mobile">
+          <section className="match-header-panel">
+            <div>
+              <h2>Match rapide</h2>
+              <p>{canUseMatchTools ? `Joués : ${selectedNames.join(', ')}` : `${readyLabel}. Ajoute les actifs manquants.`}</p>
+            </div>
+            {!canUseMatchTools ? (
+              <button type="button" className="secondary-action" onClick={() => setActiveTab('active')}>
+                Compléter les actifs
+              </button>
+            ) : null}
+          </section>
           <DeferredCombatCalculator
             format={format}
             selectedTeam={analysis.selectedTeam.members}
             reference={dataBundle.reference}
             locale={locale}
           />
-        </section>
-      ) : null}
-
-      {activeTab === 'analysis' ? (
-        <section className="mobile-screen" aria-label="Analyse mobile">
-          <TeamPreview reference={dataBundle.reference} team={analysis.selectedTeam} locale={locale} />
           <section className="panel selected-analysis">
             <h2>Plan de match</h2>
             <p>Joués : {selectedNames.join(', ') || 'aucun'}</p>
@@ -415,12 +423,7 @@ export default function MobileAppPage() {
             pickSize={analysis.pickSize}
             locale={locale}
           />
-          <HelpPanel />
-        </section>
-      ) : null}
-
-      {activeTab === 'data' ? (
-        <section className="mobile-screen" aria-label="Données mobile">
+          <AnalysisExport analysis={analysis} reference={dataBundle.reference} format={format} />
           <SnapshotStatus
             label={analysis.snapshotStatus.label}
             source={analysis.snapshotStatus.source}
@@ -428,14 +431,6 @@ export default function MobileAppPage() {
             refreshMessage={refreshMessage}
             isRefreshing={isRefreshing}
           />
-          <section className="panel team-export-panel" aria-label="Export équipe">
-            <h2>Export équipe</h2>
-            <p>Le fichier reste compatible Pokémon Showdown.</p>
-            <a className="team-file-action" href={teamExportHref(paste)} download="pokemon-champions-team.txt">
-              Exporter l'équipe
-            </a>
-          </section>
-          <AnalysisExport analysis={analysis} reference={dataBundle.reference} format={format} />
         </section>
       ) : null}
     </main>

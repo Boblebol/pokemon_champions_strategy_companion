@@ -866,7 +866,10 @@ small {
 }
 
 .mobile-shell {
+  width: 100%;
+  max-width: 100vw;
   min-height: 100dvh;
+  overflow-x: hidden;
   background:
     linear-gradient(180deg, #edf4fb 0, #f8fbff 280px),
     repeating-linear-gradient(90deg, rgba(19, 36, 58, 0.04) 0 1px, transparent 1px 70px);
@@ -887,6 +890,14 @@ small {
   background: rgba(248, 251, 255, 0.94);
   padding: 12px;
   backdrop-filter: blur(14px);
+}
+
+.mobile-topbar > *,
+.mobile-screen > *,
+.mobile-quick-start,
+.quick-mode-switch > *,
+.quick-actions > * {
+  min-width: 0;
 }
 
 .mobile-topbar h1 {
@@ -951,7 +962,7 @@ small {
   bottom: 10px;
   left: 10px;
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
   border: 1px solid rgba(19, 36, 58, 0.14);
   border-radius: 8px;
@@ -972,7 +983,8 @@ small {
   background: transparent;
   color: #52637a;
   padding: 4px;
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 850;
 }
 
 .mobile-tabbar button.active,
@@ -1027,6 +1039,13 @@ small {
   color: #1f6844;
 }
 
+.team-state-line {
+  margin: 0;
+  color: #314159;
+  font-size: 15px;
+  font-weight: 900;
+}
+
 .quick-mode-switch {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1059,6 +1078,48 @@ small {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 8px;
+}
+
+.compact-export {
+  display: grid;
+  gap: 6px;
+  border: 1px solid #d9e4f0;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.compact-export h2,
+.compact-export p {
+  margin: 0;
+}
+
+.compact-export p {
+  color: #52637a;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.match-header-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+  border: 1px solid #d9e4f0;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 14px;
+  box-shadow: var(--shadow-soft);
+}
+
+.match-header-panel h2,
+.match-header-panel p {
+  margin: 0;
+}
+
+.match-header-panel p {
+  color: #52637a;
+  font-weight: 800;
 }
 
 .mobile-summary-grid {
@@ -1429,6 +1490,14 @@ small {
   font-weight: 850;
 }
 
+.saved-team-search {
+  display: grid;
+  gap: 6px;
+  color: #4b5c73;
+  font-size: 13px;
+  font-weight: 850;
+}
+
 .saved-team-list {
   display: grid;
   gap: 8px;
@@ -1500,8 +1569,8 @@ small {
 
 .builder-workspace {
   display: grid;
-  grid-template-columns: minmax(210px, 0.58fr) minmax(440px, 1.52fr) minmax(260px, 0.78fr);
-  grid-template-areas: "funnel editor rail";
+  grid-template-columns: minmax(240px, 0.62fr) minmax(0, 1.38fr);
+  grid-template-areas: "rail editor";
   gap: 14px;
   align-items: start;
   width: 100%;
@@ -1918,6 +1987,36 @@ small {
 
 .builder-slot-editor .slot-basics {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.slot-advanced-details {
+  display: grid;
+  gap: 12px;
+  border: 1px solid #dfe7f1;
+  border-radius: 8px;
+  background: #f8fbff;
+  padding: 0;
+}
+
+.slot-advanced-details summary {
+  min-height: 48px;
+  padding: 13px 14px;
+  color: var(--navy);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.slot-advanced-details[open] {
+  padding: 0 12px 12px;
+}
+
+.slot-advanced-details[open] summary {
+  margin: 0 -12px 2px;
+  border-bottom: 1px solid #dfe7f1;
+}
+
+.builder-slot-editor .advanced-slot-basics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .move-grid {
@@ -2569,9 +2668,7 @@ small {
 
   .builder-workspace {
     grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1.45fr);
-    grid-template-areas:
-      "funnel editor"
-      "rail rail";
+    grid-template-areas: "rail editor";
   }
 
   .combat-layout {
@@ -2689,6 +2786,7 @@ small {
   .builder-grid,
   .slot-basics,
   .builder-slot-editor .slot-basics,
+  .builder-slot-editor .advanced-slot-basics,
   .move-grid,
   .ev-preset-list,
   .ev-grid,
@@ -2718,6 +2816,10 @@ small {
   }
 
   .combat-calculator .panel-heading {
+    display: grid;
+  }
+
+  .match-header-panel {
     display: grid;
   }
 
@@ -2848,6 +2950,34 @@ small {
 
   .app-footer {
     width: calc(100% - 28px);
+  }
+}
+
+@media (max-width: 520px) {
+  .mobile-topbar {
+    grid-template-columns: 1fr;
+  }
+
+  .locale-switch,
+  .ready-pill {
+    justify-self: start;
+  }
+
+  .mobile-quick-start .panel-heading {
+    display: grid;
+  }
+
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-mode-switch {
+    grid-template-columns: 1fr;
+  }
+
+  .quick-mode-switch button {
+    min-width: 0;
+    padding-inline: 10px;
   }
 }
 

@@ -7,18 +7,21 @@ Showdown dédiés à Pokémon Champions.
 ## Parcours rapide
 
 1. Ouvrir l'app tactile `/app`. `/mobile` reste un alias compatible.
-2. Depuis l'accueil, créer une team vide ou charger une sauvegarde locale.
+2. Dans `Team`, créer une team vide, charger une sauvegarde locale ou exporter
+   la team courante.
 3. Choisir `1v1 actif` pour préparer 3 Pokémon ou `2v2 actif` pour préparer 4
    Pokémon.
-4. Remplir seulement les slots nécessaires dans le constructeur ; les 6 slots ne
-   sont pas obligatoires pour commencer l'analyse.
-5. Dans `Sélection`, chercher les Pokémon réellement joués dans ta team.
-6. Lire `Couverture rapide`, puis les adversaires dangereux.
-7. Utiliser le panneau Combat pour simuler les dégâts contre un ou deux
+4. Dans `Build`, remplir seulement les slots nécessaires ; les 6 slots ne sont
+   pas obligatoires pour commencer l'analyse.
+5. Dans `Actifs`, ajuster par recherche les Pokémon réellement joués dans ta
+   team. Les premiers slots remplis sont proposés automatiquement.
+6. Dans `Match`, lire `Couverture rapide`, puis les adversaires dangereux.
+7. Utiliser le panneau Combat du même écran pour simuler les dégâts contre un ou deux
    adversaires.
 
-Les onglets `Analyse` et `Combat` restent verrouillés tant que les 3 ou 4 actifs
-du mode choisi ne sont pas remplis.
+Le parcours reste utilisable même si la team n'a que 3 ou 4 Pokémon remplis.
+Quand des actifs manquent, l'écran `Match` affiche un rappel et garde le calcul
+en mode partiel.
 
 ## Installation mobile
 
@@ -80,7 +83,7 @@ slot d'équipe directement sélectionnable, comme les Méga, Gigamax, Primo,
 Eternamax, Totem ou formes battle-only, ne sont pas proposées comme Pokémon
 séparés dans le constructeur.
 
-Dans l'écran Données, `Exporter l'équipe` télécharge le paste actuel dans
+Dans l'écran `Team`, `Exporter l'équipe` télécharge le paste actuel dans
 `pokemon-champions-team.txt`, pratique pour le garder localement ou le partager.
 La sauvegarde et le chargement des teams sont disponibles dès l'accueil pour
 éviter de chercher le management en pleine partie.

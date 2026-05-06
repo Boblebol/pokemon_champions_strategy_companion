@@ -2,9 +2,9 @@
 
 Compagnon local-first pour préparer une équipe Pokémon Champions dans le
 navigateur, alignée sur les formats Pokémon Showdown dédiés à Pokémon Champions.
-L'app permet d'importer un paste Pokémon Showdown, de construire une équipe avec
-le builder intégré, de choisir une sélection de match, d'analyser les menaces et
-de simuler les dégâts avec le calculateur Combat.
+L'app permet de créer, charger, sauvegarder ou exporter une team, de construire
+les slots utiles avec recherche partout, de choisir les actifs du match, puis de
+lire rapidement la couverture, les menaces et le calculateur Combat.
 
 Les équipes restent côté navigateur. Le refresh Smogon est une tentative
 best-effort pour récupérer des statistiques publiques récentes ; si le réseau,
@@ -31,8 +31,7 @@ Documentation repo :
 
 ## Fonctionnalités
 
-- Navigation tactile par écrans : accueil, équipe, sélection, Combat, analyse et
-  données.
+- Navigation tactile par écrans : `Team`, `Build`, `Actifs` et `Match`.
 - Landing marketing séparée, cockpit applicatif séparé et documentation
   utilisateur dédiée.
 - Vue applicative unique sur `/app`, avec `/mobile` conservé comme alias pour les
@@ -40,17 +39,18 @@ Documentation repo :
 - PWA installable sans store depuis le navigateur, avec manifest, service worker
   et cache applicatif local.
 - Interface française avec cartes d'équipe, audit et adversaires dangereux.
-- Accueil orienté partie en cours : créer une team vide, charger une sauvegarde,
-  sauvegarder vite et choisir le mode `1v1 actif` ou `2v2 actif`.
-- Constructeur d'équipe guidé sur 6 slots avec parcours étape par étape,
-  Pokémon, attaques, objet, talent, nature, points d'entraînement (EV) et notes
-  privées.
+- Accueil orienté partie en cours : team vide par défaut, créer ou charger une
+  sauvegarde, sauvegarder vite, exporter et choisir le mode `1v1 actif` ou `2v2
+  actif`.
+- Constructeur d'équipe rapide sur 6 slots : Pokémon, objet et attaques au
+  premier niveau, puis talent, nature, points d'entraînement (EV) et notes
+  privées dans les détails du slot.
 - Recherche Pokémon, objets et attaques selon la langue active, triée
   alphabétiquement, avec image, description d'objet et compatibilité Showdown en
   anglais.
 - Résultats d'attaques enrichis avec type, catégorie, STAB, puissance, précision
   et PP.
-- Calculateur Combat après validation de la sélection : dégâts donnés, dégâts
+- Calculateur Combat dans l'écran `Match` : dégâts donnés, dégâts
   reçus les plus dangereux, boosts, météo, terrain, protections par côté,
   brûlure, coup critique, Téracristallisation et recherche rapide adversaire.
 - Images Pokémon dans le constructeur, l'équipe et les panneaux de dangers via
@@ -60,12 +60,13 @@ Documentation repo :
   restent compatibles Pokémon Showdown en anglais.
 - Référence locale filtrée par le roster Showdown Champions via `@pkmn/dex` et
   `@pkmn/data` : Pokémon légaux, talents, learnsets, objets et natures.
-- Export Showdown généré automatiquement depuis le constructeur, avec téléchargement
-  `.txt` depuis l'assistant.
+- Export Showdown généré automatiquement depuis le constructeur, avec
+  téléchargement `.txt` depuis l'écran `Team`.
 - Formats Pokémon Showdown pour Pokémon Champions : `[Champions] BSS Reg M-A`,
   `[Champions] VGC 2026 Reg M-A` et `[Champions] OU`.
-- Sélection de match par recherche dans ta team : 3 Pokémon en BSS, 4 en VGC,
-  sans obligation de remplir les 6 slots avant d'analyser.
+- Sélection de match par recherche dans ta team, auto-remplie au fil du build :
+  3 Pokémon en BSS, 4 en VGC, sans obligation de remplir les 6 slots avant
+  d'analyser.
 - Analyse centrée sur les actifs joués : couverture offensive et défensive,
   rôles, vitesses et adversaires dangereux.
 - Audit défensif, types que tes attaques menacent, rôles et vitesses exactes.
@@ -118,15 +119,17 @@ local et ne perd pas l'équipe en cours.
 
 ## Workflow recommandé
 
-1. Depuis l'accueil, choisir `1v1 actif` ou `2v2 actif`, créer une team vide ou
+1. Dans `Team`, choisir `1v1 actif` ou `2v2 actif`, créer une team vide ou
    charger une sauvegarde.
-2. Remplir rapidement les Pokémon nécessaires dans le constructeur. Les 6 slots
-   peuvent rester incomplets.
-3. Dans `Sélection`, chercher les 3 ou 4 Pokémon réellement joués.
-4. Lire la couverture rapide et les adversaires dangereux dès que les actifs sont prêts.
+2. Dans `Build`, remplir rapidement les Pokémon nécessaires. Les 6 slots peuvent
+   rester incomplets.
+3. Dans `Actifs`, ajuster les 3 ou 4 Pokémon réellement joués si l'auto-sélection
+   ne suffit pas.
+4. Dans `Match`, lire la couverture rapide et les adversaires dangereux dès que
+   les actifs sont prêts.
 5. Simuler un adversaire dans le panneau Combat pour comparer les dégâts que tu
    fais et les dégâts que tu peux recevoir.
-6. Télécharger l'export `.txt` pour conserver ou partager l'équipe.
+6. Revenir dans `Team` pour télécharger l'export `.txt` ou sauvegarder l'équipe.
 7. Cliquer sur `Mettre à jour` pour tenter de récupérer les derniers usages
    Smogon disponibles.
 

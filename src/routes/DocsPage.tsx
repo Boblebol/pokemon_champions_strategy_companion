@@ -27,8 +27,9 @@ export default function DocsPage() {
           <article>
             <h2>1. Démarrer avec l'assistant</h2>
             <p>
-              Utilise <code>/app</code> pour une navigation tactile par écrans : accueil, équipe, sélection, Combat,
-              analyse et données. <code>/mobile</code> reste un alias compatible pour les anciens liens.
+              Utilise <code>/app</code> pour une navigation tactile par écrans : <code>Team</code>, <code>Build</code>,{' '}
+              <code>Actifs</code> et <code>Match</code>. <code>/mobile</code> reste un alias compatible pour les
+              anciens liens.
             </p>
           </article>
           <article>
@@ -41,9 +42,10 @@ export default function DocsPage() {
           <article>
             <h2>3. Construire l'équipe</h2>
             <p>
-              Utilise les menus du constructeur pour choisir un Pokémon, son talent, son objet, sa nature, ses points
-              d'entraînement (EV) et ses quatre attaques disponibles dans la source locale filtrée. Le switch FR/EN
-              change les libellés et les recherches, tandis que l'export reste en anglais compatible Showdown.
+              Utilise les recherches du constructeur pour choisir un Pokémon, son objet et ses quatre attaques
+              disponibles dans la source locale filtrée. Talent, nature, EV et notes restent dans les détails du slot.
+              Le switch FR/EN change les libellés et les recherches, tandis que l'export reste en anglais compatible
+              Showdown.
             </p>
           </article>
           <article>
@@ -59,7 +61,8 @@ export default function DocsPage() {
           <article>
             <h2>4. Verrouiller les Pokémon joués</h2>
             <p>
-              Les panneaux défensifs, offensifs, adversaires fréquents, vitesses et adversaires rares deviennent beaucoup plus
+              L'écran <code>Actifs</code> se remplit avec les premiers slots créés et reste modifiable par recherche.
+              Les panneaux défensifs, offensifs, adversaires fréquents, vitesses et adversaires rares deviennent plus
               utiles quand la sélection jouée est complète : 3 en [Champions] BSS Reg M-A, 4 en [Champions] VGC 2026
               Reg M-A, 6 en [Champions] OU.
             </p>
@@ -67,9 +70,10 @@ export default function DocsPage() {
           <article>
             <h2>5. Simuler le combat</h2>
             <p>
-              Le panneau Combat calcule les dégâts que tu fais et les dégâts que tu peux recevoir avec
-              <code>@smogon/calc</code>. Il prend en compte niveau du format, boosts, météo, terrain, protections par
-              côté, brûlure, coup critique, Téracristallisation et attaques apprenables.
+              L'écran <code>Match</code> rassemble Combat, couverture rapide, dangers et export d'analyse. Le panneau
+              Combat calcule les dégâts que tu fais et les dégâts que tu peux recevoir avec <code>@smogon/calc</code>.
+              Il prend en compte niveau du format, boosts, météo, terrain, protections par côté, brûlure, coup critique,
+              Téracristallisation et attaques apprenables.
             </p>
           </article>
           <article>
