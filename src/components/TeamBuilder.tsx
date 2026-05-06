@@ -120,6 +120,40 @@ const EV_PRESETS: Array<{ label: string; description: string; evs: StatTable }> 
   },
 ];
 
+function defaultNatureForPokemon(pokemon: PokemonReference | undefined, natureOptions: string[]): string | undefined {
+  if (!pokemon) {
+    return undefined;
+  }
+
+  const preferred = pokemon.baseStats.atk >= pokemon.baseStats.spa
+    ? pokemon.baseStats.spe >= 80
+      ? 'Jolly'
+      : 'Adamant'
+    : pokemon.baseStats.spe >= 80
+      ? 'Timid'
+      : 'Modest';
+
+  if (natureOptions.includes(preferred)) {
+    return preferred;
+  }
+
+  return natureOptions[0];
+}
+
+function defaultEvsForPokemon(pokemon: PokemonReference | undefined): StatTable {
+  if (!pokemon) {
+    return {};
+  }
+
+  return pokemon.baseStats.atk >= pokemon.baseStats.spa
+    ? { hp: 6, atk: 252, spe: 252 }
+    : { hp: 6, spa: 252, spe: 252 };
+}
+
+function defaultTeraTypeForPokemon(pokemon: PokemonReference | undefined): PokemonType | undefined {
+  return pokemon?.types[0];
+}
+
 function numberInputValue(value: number | undefined): string {
   return typeof value === 'number' ? String(value) : '';
 }
@@ -200,6 +234,74 @@ function moveOptionsForSlot(
   return moveOptions.filter((move) => allowedMoveIds.has(move.id) || currentMoves.has(move.name));
 }
 
+function SelectedMoveRow({
+  move,
+  pokemon,
+  reference,
+  locale,
+}: {
+  move: MoveReference | undefined;
+  pokemon: PokemonReference | undefined;
+  reference: ReferenceSnapshot;
+  locale: LocaleId;
+}) {
+  if (!move) {
+    return null;
+  }
+
+  const moveType = typeDisplayName(reference, move.type, locale);
+  const moveCategory = MOVE_CATEGORY_LABELS[move.category][locale];
+
+  return (
+    <div className="selected-move-row">
+      <strong>{moveDisplayName(reference, move.name, locale)}</strong>
+      <div>
+        <span className={`type-chip type-${move.type.toLowerCase()}`}>{moveType}</span>
+        <span className={`move-category-pill category-${move.category.toLowerCase()}`}>{moveCategory}</span>
+        {isStabMove(move, pokemon) ? <span className="stab-chip">STAB</span> : null}
+        <span>{moveStatValue(move.power)}</span>
+        <span>{moveStatValue(move.accuracy)}%</span>
+        <span>PP {moveStatValue(move.pp)}</span>
+      </div>
+    </div>
+  );
+}
+
+function TeraChoiceGroup({
+  slot,
+  reference,
+  locale,
+  onSlotChange,
+}: {
+  slot: BuilderSlot;
+  reference: ReferenceSnapshot;
+  locale: LocaleId;
+  onSlotChange: (slotId: number, patch: Partial<Omit<BuilderSlot, 'id'>>) => void;
+}) {
+  return (
+    <fieldset className="tera-choice-group" aria-label={`Types Tera slot ${slot.id}`}>
+      <legend>Tera</legend>
+      <div className="tera-choice-list">
+        {POKEMON_TYPES.map((type) => {
+          const typeLabel = typeDisplayName(reference, type, locale);
+
+          return (
+            <button
+              type="button"
+              aria-pressed={slot.teraType === type}
+              className="tera-choice"
+              onClick={() => onSlotChange(slot.id, { teraType: type })}
+              key={type}
+            >
+              <span className={`type-chip type-${type.toLowerCase()}`}>{typeLabel}</span>
+            </button>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
 function TeamSlotRail({
   slots,
   activeSlotId,
@@ -238,7 +340,7 @@ function TeamSlotRail({
               key={slot.id}
             >
               <div className="roster-summary-main">
-                <PokemonAvatar reference={reference} species={slot.species} />
+                <PokemonAvatar reference={reference} species={slot.species} variant="artwork" />
                 <div>
                   <strong>Slot {slot.id}</strong>
                   <span>{slot.species ? pokemonDisplayName(reference, slot.species, locale) : 'Libre'}</span>
@@ -465,14 +567,18 @@ export function TeamBuilder({
             placeholder="Chercher un Pokémon en français"
             options={pokemonPickerOptions}
             emptyLabel="Aucun Pokémon trouvé"
-            onChange={(value) =>
-              onSlotChange(activeSlot.id, {
+            onChange={(value) => {
+              const nextPokemon = findPokemon(pokemonOptions, value);
+
+              return onSlotChange(activeSlot.id, {
                 species: value,
-                ability: findPokemon(pokemonOptions, value)?.abilities[0],
-                teraType: undefined,
+                ability: nextPokemon?.abilities[0],
+                teraType: defaultTeraTypeForPokemon(nextPokemon),
+                nature: defaultNatureForPokemon(nextPokemon, natureOptions),
+                evs: defaultEvsForPokemon(nextPokemon),
                 moves: ['', '', '', ''],
-              })
-            }
+              });
+            }}
           />
 
           <AbilityChoiceGroup
@@ -495,51 +601,60 @@ export function TeamBuilder({
           </div>
 
           <div className="move-grid">
-            {activeSlot.moves.map((move, index) => (
-              <SearchablePicker
-                label={`Slot ${activeSlot.id} Attaque ${index + 1}`}
-                value={move || undefined}
-                placeholder={selectedPokemon ? 'Chercher une attaque' : "Choisis d'abord un Pokémon"}
-                options={selectedPokemon ? movePickerOptions : []}
-                emptyLabel="Aucune attaque trouvée"
-                onChange={(value) =>
-                  onSlotChange(activeSlot.id, {
-                    moves: replaceMove(activeSlot.moves, index, value ?? ''),
-                  })
-                }
-                key={`${activeSlot.id}-${index}`}
-              />
-            ))}
+            {activeSlot.moves.map((move, index) => {
+              const selectedMove = filteredMoveOptions.find((moveOption) => moveOption.name === move);
+
+              return (
+                <div className="move-picker-stack" key={`${activeSlot.id}-${index}`}>
+                  <SearchablePicker
+                    label={`Slot ${activeSlot.id} Attaque ${index + 1}`}
+                    value={move || undefined}
+                    placeholder={selectedPokemon ? `Attaque ${index + 1}...` : "Choisis d'abord un Pokémon"}
+                    options={selectedPokemon ? movePickerOptions : []}
+                    emptyLabel="Aucune attaque trouvée"
+                    onChange={(value) =>
+                      onSlotChange(activeSlot.id, {
+                        moves: replaceMove(activeSlot.moves, index, value ?? ''),
+                      })
+                    }
+                  />
+                  <SelectedMoveRow
+                    move={selectedMove}
+                    pokemon={selectedPokemon}
+                    reference={reference}
+                    locale={locale}
+                  />
+                </div>
+              );
+            })}
           </div>
 
-          <details
+          <section
             className="slot-advanced-details"
-            open={showAdvancedDetails}
-            onToggle={(event) => setShowAdvancedDetails(event.currentTarget.open)}
+            data-open={showAdvancedDetails}
           >
-            <summary>Détails du slot</summary>
+            <button
+              type="button"
+              className="slot-details-summary"
+              aria-expanded={showAdvancedDetails}
+              aria-label={`Détails avancés slot ${activeSlot.id}`}
+              onClick={() => setShowAdvancedDetails((currentValue) => !currentValue)}
+            >
+              <span>Détails avancés</span>
+              <span className="slot-details-badges">
+                {activeSlot.nature ? (
+                  <span>Nature : {natureDisplayName(reference, activeSlot.nature, locale)}</span>
+                ) : null}
+                {activeSlot.teraType ? (
+                  <span>Tera {typeDisplayName(reference, activeSlot.teraType, locale)}</span>
+                ) : null}
+                <span>{activeEvTotal}/{EV_TOTAL_LIMIT} EV</span>
+              </span>
+            </button>
             {showAdvancedDetails ? (
               <>
-                <div className="slot-basics advanced-slot-basics">
-                  <label className="field">
-                    <span>Slot {activeSlot.id} Téracristallisation (Type Tera)</span>
-                    <select
-                      value={activeSlot.teraType ?? ''}
-                      onChange={(event) =>
-                        onSlotChange(activeSlot.id, {
-                          teraType: (event.target.value || undefined) as PokemonType | undefined,
-                        })
-                      }
-                    >
-                      <option value="">Choisir</option>
-                      {POKEMON_TYPES.map((type) => (
-                        <option key={type} value={type}>
-                          {typeDisplayName(reference, type, locale)}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  <label className="field">
+                <div className="slot-details-section advanced-slot-basics">
+                  <label className="field nature-field">
                     <span>Slot {activeSlot.id} Nature</span>
                     <select
                       value={activeSlot.nature ?? ''}
@@ -555,6 +670,12 @@ export function TeamBuilder({
                     {activeNatureEffect ? <small className="nature-effect-pill">{activeNatureEffect}</small> : null}
                     {activeNatureDescription ? <small className="field-help">{activeNatureDescription}</small> : null}
                   </label>
+                  <TeraChoiceGroup
+                    slot={activeSlot}
+                    reference={reference}
+                    locale={locale}
+                    onSlotChange={onSlotChange}
+                  />
                 </div>
 
                 <section className="ev-helper" aria-label={`Aide EV slot ${activeSlot.id}`}>
@@ -580,6 +701,16 @@ export function TeamBuilder({
                         {evStatus}
                       </span>
                     </div>
+                  </div>
+                  <div
+                    className="ev-progress"
+                    role="progressbar"
+                    aria-label={`Progression EV slot ${activeSlot.id}`}
+                    aria-valuemin={0}
+                    aria-valuemax={EV_TOTAL_LIMIT}
+                    aria-valuenow={Math.min(activeEvTotal, EV_TOTAL_LIMIT)}
+                  >
+                    <span style={{ width: `${Math.min((activeEvTotal / EV_TOTAL_LIMIT) * 100, 100)}%` }} />
                   </div>
                   <div className="ev-preset-list" aria-label={`Modèles EV slot ${activeSlot.id}`}>
                     {EV_PRESETS.map((preset) => (
@@ -636,7 +767,7 @@ export function TeamBuilder({
                 </label>
               </>
             ) : null}
-          </details>
+          </section>
         </article>
       </div>
     </section>

@@ -351,11 +351,15 @@ export default function MobileAppPage() {
                 {builderState.slots.map((slot) => {
                   const pokemon = slot.species ? dataBundle.reference.pokemon[toId(slot.species)] : undefined;
                   const isActiveSlot = selectedSlots.includes(slot.id);
+                  const slotLabel = slot.species
+                    ? pokemonDisplayName(dataBundle.reference, slot.species, locale)
+                    : 'Libre';
 
                   return (
                     <button
                       type="button"
                       className="mobile-team-slot"
+                      aria-label={`Slot ${slot.id} ${slotLabel}${isActiveSlot ? ' actif' : ''}`}
                       data-filled={Boolean(slot.species)}
                       data-active-slot={isActiveSlot}
                       onClick={() => setActiveTab('build')}
@@ -363,17 +367,26 @@ export default function MobileAppPage() {
                     >
                       {slot.species && pokemon ? (
                         <>
-                          <span>{pokemonDisplayName(dataBundle.reference, slot.species, locale)}</span>
-                          <span className="mobile-team-slot-types">
-                            {pokemon.types.slice(0, 1).map((type) => (
-                              <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
-                                {typeDisplayName(dataBundle.reference, type, locale)}
-                              </span>
-                            ))}
-                          </span>
+                          <span className="mobile-team-slot-index">S{slot.id}</span>
+                          <PokemonAvatar reference={dataBundle.reference} species={slot.species} variant="artwork" />
+                          <span className="mobile-team-slot-name">{slotLabel}</span>
+                          {pokemon ? (
+                            <span className="mobile-team-slot-types">
+                              {pokemon.types.slice(0, 1).map((type) => (
+                                <span className="type-chip" key={type}>
+                                  {typeDisplayName(dataBundle.reference, type, locale)}
+                                </span>
+                              ))}
+                            </span>
+                          ) : null}
                         </>
                       ) : (
-                        <span aria-hidden="true">+</span>
+                        <>
+                          <span className="mobile-team-slot-index">S{slot.id}</span>
+                          <span className="mobile-team-slot-empty" aria-hidden="true">
+                            +
+                          </span>
+                        </>
                       )}
                     </button>
                   );
@@ -400,15 +413,11 @@ export default function MobileAppPage() {
               <button type="button" className="secondary-action" onClick={handleCreateEmptyTeam}>
                 Créer une team vide
               </button>
+              <a className="team-file-action" href={teamExportHref(paste)} download="pokemon-champions-team.txt">
+                Exporter
+              </a>
             </div>
             <SavedTeamManager paste={paste} format={format} onLoad={handleLoadSavedTeam} />
-            <section className="team-export-panel compact-export" aria-label="Export équipe">
-              <h2>Export équipe</h2>
-              <p>Compatible Pokémon Showdown.</p>
-              <a className="team-file-action" href={teamExportHref(paste)} download="pokemon-champions-team.txt">
-                Exporter l'équipe
-              </a>
-            </section>
           </section>
           <div className="mobile-summary-grid">
             <article>
@@ -458,26 +467,90 @@ export default function MobileAppPage() {
       ) : null}
 
       {activeTab === 'active' ? (
-        <section className="mobile-screen" aria-label="Actifs mobile">
-          <h2>Actifs du match</h2>
-          <p>{readyLabel}. {selectedNames.join(', ') || 'Cherche tes Pokémon dès que le build commence.'}</p>
-          <div className="active-pick-grid">
+        <section className="mobile-screen active-screen" aria-label="Actifs mobile">
+          <div className="active-status-heading">
+            <h2>Actifs</h2>
+            <strong className={`status-pill ${activeStatusClass}`}>{readyLabel}</strong>
+          </div>
+          <p className="active-intro">
+            {selectedNames.join(', ') || 'Cherche tes Pokémon dès que le build commence.'}
+          </p>
+          <div className="active-pick-card" aria-label="Sélection des actifs">
             {Array.from({ length: pickSize }, (_, index) => {
               const currentValue = selectedSlots[index] ? String(selectedSlots[index]) : undefined;
+              const currentSlot = currentValue
+                ? builderState.slots.find((slot) => String(slot.id) === currentValue)
+                : undefined;
+              const currentPokemon = currentSlot?.species
+                ? dataBundle.reference.pokemon[toId(currentSlot.species)]
+                : undefined;
 
               return (
-                <SearchablePicker
-                  label={`Actif ${index + 1}`}
-                  value={currentValue}
-                  placeholder="Chercher dans ta team"
-                  options={activePickerOptions}
-                  emptyLabel="Remplis d'abord un slot d'équipe"
-                  onChange={(value) => handleActivePickChange(index, value)}
-                  key={index}
-                />
+                <div className="active-pick-row" data-filled={Boolean(currentSlot?.species)} key={index}>
+                  <span className="active-pick-index" aria-hidden="true">
+                    {currentSlot?.species ? '✓' : index + 1}
+                  </span>
+                  <div className="active-pick-control">
+                    <SearchablePicker
+                      label={`Actif ${index + 1}`}
+                      value={currentValue}
+                      placeholder={`Actif ${index + 1}...`}
+                      options={activePickerOptions}
+                      emptyLabel="Remplis d'abord un slot d'équipe"
+                      onChange={(value) => handleActivePickChange(index, value)}
+                    />
+                    {currentSlot?.species && currentPokemon ? (
+                      <div className="active-pick-preview">
+                        {currentPokemon.types.map((type) => (
+                          <span className="type-chip" key={type}>
+                            {typeDisplayName(dataBundle.reference, type, locale)}
+                          </span>
+                        ))}
+                        {currentSlot.ability ? <span>{currentSlot.ability}</span> : null}
+                        {currentSlot.teraType ? (
+                          <span>Tera {typeDisplayName(dataBundle.reference, currentSlot.teraType, locale)}</span>
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
               );
             })}
           </div>
+          {filledSlots.length > 0 ? (
+            <section className="available-team" aria-label="Team disponible">
+              <h3>Team disponible</h3>
+              <div className="available-team-list">
+                {filledSlots.map((slot) => {
+                  const species = slot.species as string;
+                  const pokemon = dataBundle.reference.pokemon[toId(species)];
+                  const isActive = selectedSlots.includes(slot.id);
+
+                  return (
+                    <button
+                      type="button"
+                      className="available-team-chip"
+                      data-active={isActive}
+                      onClick={() => {
+                        if (isActive || selectedSlots.length >= pickSize) {
+                          return;
+                        }
+                        setSelectedSlots((currentSlots) => [...currentSlots, slot.id].slice(0, pickSize));
+                      }}
+                      key={slot.id}
+                    >
+                      <span>{pokemonDisplayName(dataBundle.reference, species, locale)}</span>
+                      {pokemon?.types.slice(0, 1).map((type) => (
+                        <span className="type-chip" key={type}>
+                          {typeDisplayName(dataBundle.reference, type, locale)}
+                        </span>
+                      ))}
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null}
           {!canUseMatchTools ? (
             <p className="warning">Complète les actifs pour fiabiliser la couverture. Le match reste accessible en mode partiel.</p>
           ) : null}
@@ -493,6 +566,18 @@ export default function MobileAppPage() {
 
       {activeTab === 'match' ? (
         <section className="mobile-screen" aria-label="Match mobile">
+          <div className="match-active-strip" aria-label="Actifs sélectionnés">
+            {Array.from({ length: pickSize }, (_, index) => {
+              const slot = selectedSlots[index]
+                ? builderState.slots.find((candidate) => candidate.id === selectedSlots[index])
+                : undefined;
+              return (
+                <span className="match-active-chip" data-filled={Boolean(slot?.species)} key={index}>
+                  {slot?.species ? pokemonDisplayName(dataBundle.reference, slot.species, locale) : `Actif ${index + 1}`}
+                </span>
+              );
+            })}
+          </div>
           <section className="match-header-panel">
             <div>
               <h2>Match rapide</h2>

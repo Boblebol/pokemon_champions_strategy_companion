@@ -82,13 +82,17 @@ export function SearchablePicker({
     });
   }, [isExpanded, visibleOptions.length]);
 
+  useEffect(() => {
+    setQuery(selected?.label ?? '');
+  }, [selected?.label]);
+
   function optionId(index: number): string {
     return `${resultsId}-option-${index}`;
   }
 
   function selectOption(option: PickerOption) {
     onChange(option.value);
-    setQuery('');
+    setQuery(option.label);
     setIsExpanded(false);
     setActiveIndex(-1);
   }
@@ -96,6 +100,7 @@ export function SearchablePicker({
   return (
     <div
       className="field searchable-picker"
+      data-has-value={Boolean(selected)}
       ref={pickerRef}
       onBlur={(event) => {
         if (!pickerRef.current?.contains(event.relatedTarget)) {

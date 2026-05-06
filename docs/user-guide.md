@@ -76,6 +76,13 @@ Pokémon, images d'objets et descriptions d'objets quand la source les fournit.
 Les attaques affichent aussi type, catégorie, STAB, puissance, précision et PP.
 Les valeurs internes et l'export restent compatibles Pokémon Showdown en anglais.
 
+Quand un Pokémon est choisi dans un slot, le constructeur hydrate directement les
+réglages visibles dans la maquette mobile : talent par défaut, nature cohérente
+avec le profil offensif, type Tera principal et répartition EV 252 / 252 / 6. Le
+bouton `Détails avancés` ouvre ces réglages sans encombrer le slot fermé. La
+sélection Tera se fait par chips de type et la jauge EV indique immédiatement si
+les 510 points sont utilisés.
+
 Le roster local vient du mod Pokémon Showdown `champions`. Il est filtré pour ne
 pas proposer les entrées marquées `Illegal` dans
 `data/mods/champions/formats-data.ts`. Les formes qui ne correspondent pas à un
