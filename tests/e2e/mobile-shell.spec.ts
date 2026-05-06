@@ -2,13 +2,25 @@ import { expect, test } from '@playwright/test';
 import { expectNoHorizontalOverflow, gotoMobileApp, openMobileTab } from './helpers';
 
 test.describe('shell mobile unique', () => {
-  test('garde toutes les routes publiques sur la vue mobile', async ({ page }) => {
-    for (const path of ['/', '/app', '/mobile', '/landing', '/docs', '/?path=/docs']) {
+  test('présente la PWA sur la racine GitHub Pages avec un lien vers app', async ({ page }) => {
+    for (const path of ['/', '/landing', '/docs', '/?path=/docs']) {
+      await page.goto(path);
+      await expect(page.getByLabel(/présentation pwa champions/i)).toBeVisible();
+      await expect(page.getByRole('heading', { name: /Champions Companion/i })).toBeVisible();
+      const appLinks = page.getByRole('link', { name: /ouvrir l'app/i });
+      await expect(appLinks.first()).toHaveAttribute('href', /\/app$/);
+      await expect(page.getByRole('heading', { name: /Installer sur iPhone/i })).toBeVisible();
+      await expect(page.getByRole('heading', { name: /Installer sur Android/i })).toBeVisible();
+      await expectNoHorizontalOverflow(page);
+    }
+  });
+
+  test('garde les routes app sur la vue mobile', async ({ page }) => {
+    for (const path of ['/app', '/mobile']) {
       await gotoMobileApp(page, path);
       await expect(page.getByRole('heading', { name: 'Team' })).toBeVisible();
       await expect(page.getByText('Mon équipe')).toBeVisible();
-      await expect(page.getByRole('heading', { name: /documentation/i })).toHaveCount(0);
-      await expect(page.getByRole('heading', { name: /assistant stratégique/i })).toHaveCount(0);
+      await expect(page.getByLabel(/présentation pwa champions/i)).toHaveCount(0);
     }
   });
 
@@ -38,7 +50,7 @@ test.describe('shell mobile unique', () => {
     await expect(page.getByLabel(/build mobile/i)).toBeVisible();
 
     await openMobileTab(page, 'Actifs');
-    await expect(page.getByRole('heading', { name: 'Actifs', exact: true })).toBeVisible();
+    await expect(page.getByLabel(/actifs mobile/i).getByRole('heading', { name: 'Actifs' })).toBeVisible();
     await expect(page.getByText(/Cherche tes Pokémon/i)).toBeVisible();
 
     await openMobileTab(page, 'Match');

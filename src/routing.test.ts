@@ -8,29 +8,28 @@ describe('routing helpers', () => {
 
   it('builds app route hrefs from the configured base path', () => {
     expect(pageHref('app')).toBe('/app');
+    expect(pageHref('landing')).toBe('/');
   });
 
-  it('keeps every public path on the mobile app', () => {
+  it('routes GitHub Pages root and install docs to the landing page', () => {
     window.history.pushState({}, '', '/');
+    expect(resolvePage()).toBe('landing');
 
-    expect(resolvePage()).toBe('app');
+    window.history.pushState({}, '', '/landing');
+    expect(resolvePage()).toBe('landing');
 
+    window.history.pushState({}, '', '/docs');
+    expect(resolvePage()).toBe('landing');
+
+    window.history.pushState({}, '', '/?path=/docs');
+    expect(resolvePage()).toBe('landing');
+  });
+
+  it('keeps app routes on the mobile PWA shell', () => {
     window.history.pushState({}, '', '/app');
     expect(resolvePage()).toBe('app');
 
     window.history.pushState({}, '', '/mobile');
-    expect(resolvePage()).toBe('app');
-
-    window.history.pushState({}, '', '/landing');
-    expect(resolvePage()).toBe('app');
-
-    window.history.pushState({}, '', '/docs');
-    expect(resolvePage()).toBe('app');
-  });
-
-  it('resolves GitHub Pages redirect query paths to the mobile app', () => {
-    window.history.pushState({}, '', '/?path=/docs');
-
     expect(resolvePage()).toBe('app');
   });
 });

@@ -5322,3 +5322,156 @@ body,
   cursor: not-allowed;
   opacity: 1;
 }
+
+.route-loading {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  background: var(--bg-app);
+  color: var(--fg);
+  font-weight: 800;
+}
+
+.pwa-landing-page {
+  background: #f4f7fb;
+}
+
+.pwa-landing-hero {
+  display: grid;
+  align-content: start;
+  min-height: 82svh;
+  padding: 22px 24px 56px;
+  background:
+    linear-gradient(90deg, rgba(13, 22, 37, 0.96) 0%, rgba(18, 37, 58, 0.9) 46%, rgba(20, 37, 66, 0.36) 100%),
+    url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/149.png")
+      right 8% bottom 12% / min(52vw, 520px) no-repeat,
+    #112033;
+}
+
+.pwa-landing-hero::after {
+  height: 52px;
+  background: linear-gradient(180deg, rgba(244, 247, 251, 0), #f4f7fb 92%);
+}
+
+.pwa-landing-nav {
+  margin-bottom: 64px;
+}
+
+.pwa-hero-copy {
+  position: relative;
+  z-index: 1;
+  width: min(680px, 100%);
+  color: #ffffff;
+}
+
+.pwa-hero-copy .eyebrow {
+  color: #9ce0b8;
+}
+
+.pwa-hero-copy h1 {
+  max-width: 12ch;
+  margin-bottom: 18px;
+  color: #ffffff;
+  font-size: 88px;
+  line-height: 0.92;
+}
+
+.pwa-hero-copy p:not(.eyebrow) {
+  max-width: 620px;
+  margin-bottom: 24px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.pwa-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pwa-install-section {
+  padding-top: 42px;
+}
+
+.pwa-install-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.pwa-install-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  padding: 18px;
+  box-shadow: var(--shadow-soft);
+}
+
+.pwa-install-card h3 {
+  margin-bottom: 12px;
+  color: var(--fg);
+  font-size: 16px;
+}
+
+.pwa-install-card ol {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--fg-muted);
+  font-weight: 700;
+}
+
+.pwa-app-link-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 30px;
+}
+
+.pwa-app-link-band > div {
+  max-width: 720px;
+}
+
+.pwa-app-link-band .primary-cta {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 760px) {
+  .pwa-landing-hero {
+    min-height: 78svh;
+    padding: 18px 16px 44px;
+    background:
+      linear-gradient(180deg, rgba(13, 22, 37, 0.96) 0%, rgba(18, 37, 58, 0.86) 58%, rgba(20, 37, 66, 0.42) 100%),
+      url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/149.png")
+        right -32px bottom 22px / 240px no-repeat,
+      #112033;
+  }
+
+  .pwa-landing-nav {
+    margin-bottom: 42px;
+  }
+
+  .pwa-hero-copy h1 {
+    font-size: 52px;
+  }
+
+  .pwa-hero-copy p:not(.eyebrow) {
+    font-size: 15px;
+  }
+
+  .pwa-install-grid,
+  .pwa-app-link-band {
+    grid-template-columns: 1fr;
+  }
+
+  .pwa-app-link-band {
+    display: grid;
+  }
+
+  .pwa-app-link-band .primary-cta {
+    width: 100%;
+  }
+}

@@ -10,6 +10,13 @@ async function renderAppRoute(path = '/app') {
   return result;
 }
 
+async function renderLandingRoute(path = '/') {
+  window.history.pushState({}, '', path);
+  const result = render(<App />);
+  await screen.findByLabelText(/présentation pwa champions/i, undefined, { timeout: 5000 });
+  return result;
+}
+
 async function openBuildTab(user: ReturnType<typeof userEvent.setup>) {
   const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
   await user.click(within(nav).getByRole('button', { name: /^build$/i }));
@@ -59,23 +66,31 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /^team$/i })).toBeInTheDocument();
   });
 
-  it('renders the local root route as the touch-first app in development', async () => {
-    await renderAppRoute('/');
+  it('renders the GitHub Pages root as a PWA landing page with a direct app link', async () => {
+    await renderLandingRoute('/');
 
-    expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
-    expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /champions companion/i })).toBeInTheDocument();
+    expect(screen.getByText(/pwa installable/i)).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: /ouvrir l'app/i }).map((link) => link.getAttribute('href'))).toContain(
+      '/app',
+    );
+    expect(screen.getByRole('heading', { name: /installer sur iphone/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /installer sur android/i })).toBeInTheDocument();
+    expect(screen.queryByLabelText(/application mobile champions/i)).not.toBeInTheDocument();
   });
 
-  it('routes former landing and docs pages to the mobile app only', async () => {
-    const landing = await renderAppRoute('/landing');
+  it('routes landing and docs aliases to the PWA install landing', async () => {
+    const landing = await renderLandingRoute('/landing');
 
-    expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
-    expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/présentation pwa champions/i)).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: /ouvrir l'app/i }).map((link) => link.getAttribute('href'))).toContain(
+      '/app',
+    );
     landing.unmount();
 
-    const docs = await renderAppRoute('/docs');
-    expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
-    expect(screen.queryByLabelText(/documentation/i)).not.toBeInTheDocument();
+    const docs = await renderLandingRoute('/docs');
+    expect(screen.getByLabelText(/présentation pwa champions/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /comment l'installer/i })).toBeInTheDocument();
     docs.unmount();
   });
 

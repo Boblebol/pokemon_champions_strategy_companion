@@ -6,7 +6,8 @@ Showdown dédiés à Pokémon Champions.
 
 ## Parcours rapide
 
-1. Ouvrir l'app tactile `/app`. `/mobile` reste un alias compatible.
+1. Ouvrir la landing PWA `/` pour les instructions d'installation, puis lancer
+   l'app tactile `/app`. `/mobile` reste un alias compatible.
 2. Dans `Team`, créer une team vide, charger une sauvegarde locale ou exporter
    la team courante.
 3. Choisir `1v1 actif` pour préparer 3 Pokémon ou `2v2 actif` pour préparer 4
@@ -25,14 +26,16 @@ en mode partiel.
 
 ## Installation mobile
 
-L'app est prévue pour fonctionner comme PWA. Sur mobile, elle peut être ajoutée à
-l'écran d'accueil depuis le navigateur, sans store. Une fois chargée au moins une
-fois, le shell mobile, la route applicative et les assets versionnés sont gardés
-en cache par le service worker.
+L'app est prévue pour fonctionner comme PWA. La racine GitHub Pages `/` affiche
+la page d'installation avec un lien direct vers `/app`. Sur mobile, elle peut
+être ajoutée à l'écran d'accueil depuis le navigateur, sans store. Une fois
+chargée au moins une fois, le shell mobile, la route applicative et les assets
+versionnés sont gardés en cache par le service worker.
 
 Sur iOS ou iPadOS :
 
-1. Ouvre `/app` dans Safari.
+1. Ouvre `/` dans Safari, ou directement `/app` si tu veux installer depuis le
+   builder.
 2. Appuie sur le bouton de partage.
 3. Choisis `Sur l'écran d'accueil`.
 4. Valide le nom proposé ou renomme l'app.
@@ -40,7 +43,8 @@ Sur iOS ou iPadOS :
 
 Sur Android :
 
-1. Ouvre `/app` dans Chrome ou un navigateur compatible PWA.
+1. Ouvre `/` dans Chrome ou un navigateur compatible PWA, ou directement `/app`
+   si tu veux installer depuis le builder.
 2. Ouvre le menu du navigateur.
 3. Choisis `Installer l'application` ou `Ajouter à l'écran d'accueil`.
 4. Valide l'installation.
@@ -50,9 +54,10 @@ Le statut PWA indique si l'app est en ligne ou hors ligne. Hors
 ligne, les données locales et les équipes sauvegardées restent disponibles ; la
 mise à jour Smogon attend simplement le retour du réseau.
 
-Les anciennes routes publiques ouvrent maintenant la même vue mobile. L'alias
-`/mobile` utilise les mêmes données, les mêmes formats, les mêmes calculs et les
-mêmes exports pour préserver les anciens liens.
+Les routes publiques `/landing` et `/docs` ouvrent la même page d'installation
+PWA que la racine. L'alias `/mobile` utilise les mêmes données, les mêmes
+formats, les mêmes calculs et les mêmes exports que `/app` pour préserver les
+anciens liens vers l'app.
 
 ## Formats
 

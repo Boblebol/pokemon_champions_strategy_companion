@@ -1,8 +1,12 @@
-export type PageId = 'app';
+export type PageId = 'landing' | 'app';
 
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 export function pageHref(page: PageId): string {
+  if (page === 'landing') {
+    return `${basePath}/` || '/';
+  }
+
   return `${basePath}/${page}` || `/${page}`;
 }
 
@@ -18,7 +22,11 @@ function routePath(): string {
 }
 
 export function resolvePage(): PageId {
-  routePath();
+  const path = routePath().replace(/\/$/, '') || '/';
+
+  if (path === '/' || path === '/landing' || path === '/docs') {
+    return 'landing';
+  }
 
   return 'app';
 }
