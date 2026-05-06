@@ -3757,6 +3757,7 @@ body,
 }
 
 .mockup-mobile-shell .roster-summary-card {
+  position: relative;
   width: 52px;
   height: 52px;
   flex: 0 0 52px;
@@ -3764,6 +3765,7 @@ body,
   border-radius: 8px;
   background: var(--neutral-20);
   padding: 0;
+  overflow: hidden;
   box-shadow: none;
 }
 

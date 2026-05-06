@@ -81,6 +81,18 @@ pnpm install
 pnpm run dev
 ```
 
+Tests principaux :
+
+```bash
+pnpm run check
+pnpm run test:e2e
+```
+
+Les tests E2E Playwright buildent l'app puis lancent automatiquement un serveur
+`vite preview` local. Hors CI, ils utilisent Chrome installé sur la machine. En
+CI ou sur une machine sans Chrome, lancer d'abord `pnpm run test:e2e:install`
+pour installer le navigateur Chromium géré par Playwright.
+
 En local, la racine ouvre directement le cockpit mobile. Les anciennes routes
 `/landing`, `/docs` et `/mobile` restent compatibles, mais affichent la même vue
 mobile unique.

@@ -1,0 +1,98 @@
+import { expect, test } from '@playwright/test';
+import { buildDragoniteCore, gotoMobileApp, openMobileTab, pickSearchResult, readTeamExport } from './helpers';
+
+test.describe('workflow équipe mobile', () => {
+  test('crée une team vide puis construit un set exportable', async ({ page }) => {
+    await gotoMobileApp(page);
+
+    await page.getByRole('button', { name: /créer une team vide/i }).click();
+    await expect(page.getByRole('heading', { name: 'Build' })).toBeVisible();
+
+    await buildDragoniteCore(page);
+
+    await page.getByText('Détails du slot').click();
+    await page.getByLabel(/slot 1 nature/i).selectOption({ label: 'Rigide' });
+    await expect(page.getByText('+Attaque / -Attaque Spéciale', { exact: true })).toBeVisible();
+    await page.getByRole('button', { name: /Attaquant physique rapide/i }).click();
+    await expect(page.getByText('510/510 EV')).toBeVisible();
+
+    const exportText = await readTeamExport(page);
+    expect(exportText).toContain('Dragonite @ Heavy-Duty Boots');
+    expect(exportText).toContain('Ability: Multiscale');
+    expect(exportText).toContain('EVs: 6 HP / 252 Atk / 252 Spe');
+    expect(exportText).toContain('Adamant Nature');
+    expect(exportText).toContain('- Dragon Claw');
+    expect(exportText).toContain('- Earthquake');
+  });
+
+  test('affiche les détails enrichis des attaques, dont le STAB', async ({ page }) => {
+    await gotoMobileApp(page);
+    await buildDragoniteCore(page);
+
+    const moveInput = page.getByRole('combobox', { name: /slot 1 attaque 3/i });
+    await moveInput.fill('draco');
+
+    const dragonClawOption = page.getByRole('option', { name: /Draco-Griffe/i }).first();
+    await expect(dragonClawOption).toContainText('Dragon');
+    await expect(dragonClawOption).toContainText('Physique');
+    await expect(dragonClawOption).toContainText('STAB');
+    await expect(dragonClawOption).toContainText('Puissance 80');
+    await expect(dragonClawOption).toContainText('Précision 100');
+    await expect(dragonClawOption).toContainText('PP 15');
+  });
+
+  test('garde les recherches utilisables après switch FR vers EN', async ({ page }) => {
+    await gotoMobileApp(page);
+
+    await page.getByRole('button', { name: 'EN' }).click();
+    await openMobileTab(page, 'Build');
+    await expect(page.getByRole('heading', { name: 'Build' })).toBeVisible();
+
+    await pickSearchResult(page, /slot 1 pokémon/i, 'dragonite', /Dragonite/i);
+    await pickSearchResult(page, /slot 1 objet/i, 'heavy', /Heavy-Duty Boots/i);
+    await pickSearchResult(page, /slot 1 attaque 1/i, 'dragon claw', /Dragon Claw/i);
+
+    const exportText = await readTeamExport(page);
+    expect(exportText).toContain('Dragonite @ Heavy-Duty Boots');
+    expect(exportText).toContain('- Dragon Claw');
+  });
+
+  test('sauvegarde localement puis recharge une team', async ({ page }) => {
+    await gotoMobileApp(page);
+    await buildDragoniteCore(page);
+    await openMobileTab(page, 'Team');
+
+    await page.getByLabel(/nom de sauvegarde/i).fill('Ladder BO1');
+    await page.getByRole('button', { name: /sauvegarder l'équipe/i }).click();
+    await expect(page.getByRole('status')).toContainText('Ladder BO1');
+
+    await page.reload();
+    await expect(page.getByRole('heading', { name: 'Team' })).toBeVisible();
+    await expect(page.locator('.saved-team-card').filter({ hasText: 'Ladder BO1' })).toBeVisible();
+
+    await page.getByRole('button', { name: /Charger Ladder BO1/i }).click();
+    await expect(page.getByRole('heading', { name: 'Build' })).toBeVisible();
+
+    const exportText = await readTeamExport(page);
+    expect(exportText).toContain('Dragonite @ Heavy-Duty Boots');
+  });
+
+  test('prépare les actifs 1v1 et 2v2 même avec une team partielle', async ({ page }) => {
+    await gotoMobileApp(page);
+    await buildDragoniteCore(page);
+
+    await openMobileTab(page, 'Actifs');
+    await expect(page.getByText(/1\/3 actifs prêts/i)).toBeVisible();
+    await expect(page.getByRole('combobox', { name: /actif 1/i })).toBeVisible();
+
+    await openMobileTab(page, 'Team');
+    await page.getByRole('button', { name: /2v2 actif/i }).click();
+    await expect(page.getByLabel(/préparer la team/i).getByText(/1\/4 actifs prêts/i)).toBeVisible();
+
+    await openMobileTab(page, 'Match');
+    await expect(page.getByRole('heading', { name: 'Match', exact: true })).toBeVisible();
+    await expect(page.getByText('Couverture offensive')).toBeVisible();
+    await expect(page.getByText('Couverture défensive')).toBeVisible();
+    await expect(page.getByText(/Adversaires fréquents dangereux/i)).toBeVisible();
+  });
+});

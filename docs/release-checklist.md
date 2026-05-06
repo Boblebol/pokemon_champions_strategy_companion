@@ -2,6 +2,7 @@
 
 - [ ] `pnpm install --frozen-lockfile`
 - [ ] `pnpm run check`
+- [ ] `pnpm run test:e2e`
 - [ ] `pnpm audit --audit-level moderate`
 - [ ] Lancer le serveur local : `pnpm exec vite --host 127.0.0.1 --port 5175 --strictPort`
 - [ ] Smoke browser : `LIGHTPANDA_BIN=/tmp/lightpanda APP_URL=http://127.0.0.1:5175 pnpm run smoke:browser`

@@ -17,6 +17,8 @@
     "check": "pnpm lint && pnpm test && pnpm build && pnpm pwa:check && pnpm check:bundle",
     "check:bundle": "node scripts/check-bundle-budget.mjs",
     "pwa:check": "node scripts/check-pwa.mjs",
+    "test:e2e": "playwright test -c tests/e2e/playwright.config.ts",
+    "test:e2e:install": "playwright install chromium",
     "audit": "pnpm audit --audit-level moderate",
     "deps:outdated": "pnpm outdated",
     "fetch:assets": "node scripts/fetch-poke-assets.mjs && pnpm run generate:reference",
@@ -35,6 +37,7 @@
   "devDependencies": {
     "@pkmn/data": "^0.10.7",
     "@pkmn/dex": "^0.10.7",
+    "@playwright/test": "^1.59.1",
     "@testing-library/jest-dom": "^6.6.0",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.0",
