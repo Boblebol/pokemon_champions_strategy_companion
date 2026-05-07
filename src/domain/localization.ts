@@ -18,6 +18,14 @@ export function localizedName(
   return names?.[locale] || names?.en || canonicalName;
 }
 
+export function displayLocalizedName(
+  canonicalName: string,
+  names: LocalizedNames | undefined,
+  locale: LocaleId = DEFAULT_LOCALE,
+): string {
+  return localizedName(canonicalName, names, locale);
+}
+
 export function formatLocalizedName(
   canonicalName: string,
   names: LocalizedNames | undefined,
@@ -25,6 +33,16 @@ export function formatLocalizedName(
 ): string {
   const displayName = localizedName(canonicalName, names, locale);
   return toSearchId(displayName) === toSearchId(canonicalName) ? canonicalName : `${displayName} (${canonicalName})`;
+}
+
+export function localizedSearchText(
+  canonicalName: string,
+  names: LocalizedNames | undefined,
+  locale: LocaleId = DEFAULT_LOCALE,
+): string {
+  const activeName = localizedName(canonicalName, names, locale);
+  const values = [activeName, canonicalName, names?.fr, names?.en, names?.ja].filter(Boolean);
+  return Array.from(new Set(values)).join(' ');
 }
 
 export function localizedLabelMap(

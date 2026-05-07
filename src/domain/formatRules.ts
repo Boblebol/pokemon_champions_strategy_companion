@@ -3,7 +3,9 @@ import type { FormatDefinition } from './types';
 export const SUPPORTED_FORMATS: FormatDefinition[] = [
   {
     id: 'champions-vgc',
-    label: 'Champions VGC 4v4 Duo',
+    label: '[Champions] VGC 2026 Reg M-A',
+    showdownName: '[Gen 9 Champions] VGC 2026 Reg M-A',
+    smogonSlug: 'gen9championsvgc2026regma',
     battleStyle: 'doubles',
     teamSize: 6,
     pickSize: 4,
@@ -11,15 +13,19 @@ export const SUPPORTED_FORMATS: FormatDefinition[] = [
   },
   {
     id: 'champions-bss',
-    label: 'Champions 3v3',
+    label: '[Champions] BSS Reg M-A',
+    showdownName: '[Gen 9 Champions] BSS Reg M-A',
+    smogonSlug: 'gen9championsbssregma',
     battleStyle: 'singles',
     teamSize: 6,
     pickSize: 3,
-    defaultLevel: 100,
+    defaultLevel: 50,
   },
   {
     id: 'champions-ou',
-    label: 'Champions OU',
+    label: '[Champions] OU',
+    showdownName: '[Gen 9 Champions] OU',
+    smogonSlug: 'gen9championsou',
     battleStyle: 'six-vs-six',
     teamSize: 6,
     pickSize: 6,

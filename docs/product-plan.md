@@ -2,13 +2,15 @@
 
 ## Audience
 
-Joueurs Pokémon Champions, VGC, BSS et OU qui veulent préparer rapidement une
-équipe avant un match, un entraînement ou un tournoi.
+Joueurs Pokémon Champions qui préparent des équipes pour les formats Pokémon
+Showdown `[Champions] BSS Reg M-A`, `[Champions] VGC 2026 Reg M-A` et
+`[Champions] OU` avant un match, un entraînement ou un tournoi.
 
 ## Promesse
 
 Comprendre les menaces principales, choisir une sélection solide et vérifier les
-lignes de dégâts importantes sans quitter le navigateur.
+lignes de dégâts importantes sans quitter le navigateur, avec des libellés et
+données alignés sur les tiers Pokémon Showdown pour Pokémon Champions.
 
 ## Non-objectifs
 
@@ -30,7 +32,9 @@ lignes de dégâts importantes sans quitter le navigateur.
   avec les snapshots locaux.
 - Un échec de refresh Smogon affiche un message clair et conserve les données
   locales.
-- Les pages `/`, `/landing`, `/app` et `/docs` se construisent et se chargent via
-  le fallback GitHub Pages.
+- La landing GitHub Pages se charge via `/`, `/landing` et `/docs`, explique que
+  l'app est une PWA installable et propose un lien direct vers `/app`.
+- La vue mobile unique se charge via `/app`, avec `/mobile` comme alias
+  compatible grâce au fallback GitHub Pages.
 - `pnpm run check` passe avant tag de version.
 - Le changelog décrit les changements produit, QA et documentation livrés.
