@@ -2,11 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   calculateCombatScenario,
   createDefaultCombatState,
-  searchCombatPokemon,
 } from '../domain/damageCalculator';
 import { toId } from '../domain/ids';
 import { localizedSearchText } from '../domain/localization';
-import { moveDisplayName, pokemonDisplayName } from '../domain/referenceDisplay';
+import { moveDisplayName, pokemonDisplayName, typeDisplayName } from '../domain/referenceDisplay';
 import type { CombatOpponent, CombatPokemonModifiers, CombatState } from '../domain/damageCalculator';
 import type { FormatId, LocaleId, ReferenceSnapshot, StatId, TeamMember } from '../domain/types';
 import { PokemonAvatar } from './PokemonMedia';
@@ -175,13 +174,11 @@ export interface CombatCalculatorProps {
 export function CombatCalculator({ format, selectedTeam, reference, locale }: CombatCalculatorProps) {
   const defaultStateKey = stateKey(format, selectedTeam);
   const [state, setState] = useState<CombatState>(() => createDefaultCombatState(format, selectedTeam));
-  const [queries, setQueries] = useState<Record<string, string>>({});
   const [includeAllFriendlyMoves, setIncludeAllFriendlyMoves] = useState(false);
   const [showAdvancedControls, setShowAdvancedControls] = useState(false);
 
   useEffect(() => {
     setState(createDefaultCombatState(format, selectedTeam));
-    setQueries({});
   }, [defaultStateKey, format, selectedTeam]);
 
   const result = useMemo(
@@ -204,6 +201,30 @@ export function CombatCalculator({ format, selectedTeam, reference, locale }: Co
         };
       }),
     [locale, reference, selectedTeam],
+  );
+  const opponentPickerOptions = useMemo(
+    () =>
+      Object.values(reference.pokemon).map((pokemon) => {
+        const label = pokemonDisplayName(reference, pokemon.name, locale);
+
+        return {
+          value: pokemon.name,
+          label,
+          searchText: localizedSearchText(pokemon.name, pokemon.localizedNames, locale),
+          description: pokemon.types.map((type) => typeDisplayName(reference, type, locale)).join(' / '),
+          media: <PokemonAvatar reference={reference} species={pokemon.name} />,
+          details: (
+            <span className="picker-type-row">
+              {pokemon.types.map((type) => (
+                <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
+                  {typeDisplayName(reference, type, locale)}
+                </span>
+              ))}
+            </span>
+          ),
+        };
+      }),
+    [locale, reference],
   );
   const activeAdvancedOptions = useMemo(() => {
     const fieldOptions = Number(state.weather !== 'none') + Number(state.terrain !== 'none');
@@ -367,44 +388,25 @@ export function CombatCalculator({ format, selectedTeam, reference, locale }: Co
 
         <div className="combat-opponents">
           {state.opponents.map((opponent, index) => {
-            const query = queries[opponent.id] ?? '';
-            const options = searchCombatPokemon(reference, query).sort((left, right) =>
-              pokemonDisplayName(reference, left.name, locale).localeCompare(
-                pokemonDisplayName(reference, right.name, locale),
-                locale,
-              ),
-            );
             return (
               <article className="combat-opponent-card" key={opponent.id}>
                 <div className="slot-header">
                   <strong>Adversaire {index + 1}</strong>
                   <span>{opponent.species ? pokemonDisplayName(reference, opponent.species, locale) : 'Non défini'}</span>
                 </div>
-                <label className="field">
-                  <span>Rechercher adversaire {index + 1}</span>
-                  <input
-                    value={query}
-                    onChange={(event) => setQueries((current) => ({ ...current, [opponent.id]: event.target.value }))}
-                    placeholder="Nom FR ou EN"
-                  />
-                </label>
-                <div className="combat-search-results" aria-label={`Résultats adversaire ${index + 1}`}>
-                  {options.map((pokemon) => (
-                    <button
-                      type="button"
-                      key={pokemon.id}
-                      onClick={() =>
-                        setState((current) => ({
-                          ...current,
-                          opponents: replaceOpponent(current.opponents, opponent.id, { species: pokemon.name }),
-                        }))
-                      }
-                    >
-                      <PokemonAvatar reference={reference} species={pokemon.name} />
-                      <span>{pokemonDisplayName(reference, pokemon.name, locale)}</span>
-                    </button>
-                  ))}
-                </div>
+                <SearchablePicker
+                  label={`Adversaire ${index + 1}`}
+                  value={opponent.species}
+                  placeholder="Nom FR ou EN"
+                  options={opponentPickerOptions}
+                  emptyLabel="Aucun adversaire trouvé"
+                  onChange={(species) =>
+                    setState((current) => ({
+                      ...current,
+                      opponents: replaceOpponent(current.opponents, opponent.id, { species }),
+                    }))
+                  }
+                />
                 <div id={opponentAdvancedControlsId(opponent.id)} hidden={!showAdvancedControls}>
                   <ModifierControls
                     title="Modifs adversaire"

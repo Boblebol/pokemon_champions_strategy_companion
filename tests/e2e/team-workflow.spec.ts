@@ -128,4 +128,15 @@ test.describe('workflow équipe mobile', () => {
     await expect(page.getByText('Couverture défensive')).toBeVisible();
     await expect(page.getByText(/Adversaires fréquents dangereux/i)).toBeVisible();
   });
+
+  test("remplit le sélecteur d'adversaire dans Combat après sélection", async ({ page }) => {
+    await gotoMobileApp(page);
+    await buildDragoniteCore(page);
+    await openMobileTab(page, 'Match');
+
+    await pickSearchResult(page, /adversaire 1/i, 'kang', /Kangourex/i);
+
+    await expect(page.getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
+    await expect(page.getByRole('heading', { name: /Dracolosse vs Kangourex/i })).toBeVisible();
+  });
 });

@@ -1961,6 +1961,12 @@ small {
   margin-top: 7px;
 }
 
+.picker-type-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
 .move-result-details span,
 .type-chip,
 .stab-chip {

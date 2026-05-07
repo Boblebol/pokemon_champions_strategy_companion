@@ -169,6 +169,23 @@ describe('App', () => {
     expect(screen.getByLabelText(/actif 1/i)).toHaveValue('Dracolosse');
   }, 10000);
 
+  it('fills the combat opponent picker after selecting an adversary', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await openMatchTab(user);
+
+    const opponentInput = await screen.findByRole('combobox', { name: /adversaire 1/i }, { timeout: 5000 });
+    await user.clear(opponentInput);
+    await user.type(opponentInput, 'kang');
+
+    await user.click(await screen.findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    expect(opponentInput).toHaveValue('Kangourex');
+    expect(await screen.findByRole('heading', { name: /dracolosse vs kangourex/i })).toBeInTheDocument();
+  }, 10000);
+
   it('uses the standalone-like Team action and saves layout', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
