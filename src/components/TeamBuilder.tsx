@@ -4,6 +4,16 @@ import { PokemonAvatar } from './PokemonMedia';
 import { SearchablePicker } from './SearchablePicker';
 import type { BuilderSlot, TeamBuilderState } from '../domain/teamBuilder';
 import { toId } from '../domain/ids';
+import { localizedSearchText } from '../domain/localization';
+import {
+  EV_TOTAL_LIMIT,
+  STAT_FIELDS,
+  evTotal,
+  hydrateSlotForPokemon,
+  isStabMove,
+  moveOptionsForSlot,
+  natureEffectLabel,
+} from '../domain/pokemonSlotInfo';
 import {
   abilityDescription,
   abilityDisplayName,
@@ -16,18 +26,22 @@ import {
   typeDisplayName,
 } from '../domain/referenceDisplay';
 import { POKEMON_TYPES } from '../domain/types';
-import type { MoveReference, PokemonReference, PokemonType, ReferenceSnapshot, StatId, StatTable } from '../domain/types';
+import type {
+  LocaleId,
+  MoveCategory,
+  MoveReference,
+  PokemonReference,
+  PokemonType,
+  ReferenceSnapshot,
+  StatId,
+  StatTable,
+} from '../domain/types';
 
-const STAT_FIELDS: Array<{ id: StatId; label: string }> = [
-  { id: 'hp', label: 'HP' },
-  { id: 'atk', label: 'Atk' },
-  { id: 'def', label: 'Def' },
-  { id: 'spa', label: 'SpA' },
-  { id: 'spd', label: 'SpD' },
-  { id: 'spe', label: 'Spe' },
-];
-
-const EV_TOTAL_LIMIT = 510;
+const MOVE_CATEGORY_LABELS: Record<MoveCategory, Record<LocaleId, string>> = {
+  Physical: { fr: 'Physique', en: 'Physical', ja: 'Physical' },
+  Special: { fr: 'Spécial', en: 'Special', ja: 'Special' },
+  Status: { fr: 'Statut', en: 'Status', ja: 'Status' },
+};
 
 const EV_PRESETS: Array<{ label: string; description: string; evs: StatTable }> = [
   {
@@ -54,10 +68,6 @@ const EV_PRESETS: Array<{ label: string; description: string; evs: StatTable }> 
 
 function numberInputValue(value: number | undefined): string {
   return typeof value === 'number' ? String(value) : '';
-}
-
-function evTotal(evs: StatTable): number {
-  return STAT_FIELDS.reduce((total, stat) => total + (evs[stat.id] ?? 0), 0);
 }
 
 function nextEvs(evs: StatTable, stat: StatId, rawValue: string): StatTable {
@@ -87,28 +97,89 @@ function findPokemon(pokemonOptions: PokemonReference[], species: string | undef
   return pokemonOptions.find((pokemon) => pokemon.name === species);
 }
 
-function pokemonSearchText(pokemon: PokemonReference): string {
-  return [pokemon.name, pokemon.localizedNames?.fr, pokemon.localizedNames?.en, pokemon.localizedNames?.ja]
-    .filter(Boolean)
-    .join(' ');
+function pokemonSearchText(pokemon: PokemonReference, locale: LocaleId): string {
+  return localizedSearchText(pokemon.name, pokemon.localizedNames, locale);
 }
 
-function itemSearchText(reference: ReferenceSnapshot, item: string): string {
+function itemSearchText(reference: ReferenceSnapshot, item: string, locale: LocaleId): string {
   const itemReference = reference.itemDetails[toId(item)];
-  return [item, itemReference?.localizedNames?.fr, itemReference?.localizedNames?.en, itemReference?.localizedNames?.ja]
-    .filter(Boolean)
-    .join(' ');
+  return localizedSearchText(item, itemReference?.localizedNames, locale);
 }
 
-function moveOptionsForSlot(
-  slot: BuilderSlot,
-  pokemon: PokemonReference | undefined,
-  moveOptions: MoveReference[],
-): MoveReference[] {
-  const allowedMoveIds = new Set(pokemon?.moveIds ?? []);
-  const currentMoves = new Set(slot.moves.filter(Boolean));
+function moveSearchText(move: MoveReference, locale: LocaleId): string {
+  return localizedSearchText(move.name, move.localizedNames, locale);
+}
 
-  return moveOptions.filter((move) => allowedMoveIds.has(move.id) || currentMoves.has(move.name));
+function moveStatValue(value: number | undefined): string {
+  return typeof value === 'number' ? String(value) : '-';
+}
+
+function SelectedMoveRow({
+  move,
+  pokemon,
+  reference,
+  locale,
+}: {
+  move: MoveReference | undefined;
+  pokemon: PokemonReference | undefined;
+  reference: ReferenceSnapshot;
+  locale: LocaleId;
+}) {
+  if (!move) {
+    return null;
+  }
+
+  const moveType = typeDisplayName(reference, move.type, locale);
+  const moveCategory = MOVE_CATEGORY_LABELS[move.category][locale];
+
+  return (
+    <div className="selected-move-row">
+      <strong>{moveDisplayName(reference, move.name, locale)}</strong>
+      <div>
+        <span className={`type-chip type-${move.type.toLowerCase()}`}>{moveType}</span>
+        <span className={`move-category-pill category-${move.category.toLowerCase()}`}>{moveCategory}</span>
+        {isStabMove(move, pokemon) ? <span className="stab-chip">STAB</span> : null}
+        <span>{moveStatValue(move.power)}</span>
+        <span>{moveStatValue(move.accuracy)}%</span>
+        <span>PP {moveStatValue(move.pp)}</span>
+      </div>
+    </div>
+  );
+}
+
+function TeraChoiceGroup({
+  slot,
+  reference,
+  locale,
+  onSlotChange,
+}: {
+  slot: BuilderSlot;
+  reference: ReferenceSnapshot;
+  locale: LocaleId;
+  onSlotChange: (slotId: number, patch: Partial<Omit<BuilderSlot, 'id'>>) => void;
+}) {
+  return (
+    <fieldset className="tera-choice-group" aria-label={`Types Tera slot ${slot.id}`}>
+      <legend>Tera</legend>
+      <div className="tera-choice-list">
+        {POKEMON_TYPES.map((type) => {
+          const typeLabel = typeDisplayName(reference, type, locale);
+
+          return (
+            <button
+              type="button"
+              aria-pressed={slot.teraType === type}
+              className="tera-choice"
+              onClick={() => onSlotChange(slot.id, { teraType: type })}
+              key={type}
+            >
+              <span className={`type-chip type-${type.toLowerCase()}`}>{typeLabel}</span>
+            </button>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
 }
 
 function TeamSlotRail({
@@ -117,6 +188,7 @@ function TeamSlotRail({
   selectedSlots,
   pickSize,
   reference,
+  locale,
   onActiveSlotChange,
 }: {
   slots: BuilderSlot[];
@@ -124,6 +196,7 @@ function TeamSlotRail({
   selectedSlots: number[];
   pickSize: number;
   reference: ReferenceSnapshot;
+  locale: LocaleId;
   onActiveSlotChange: (slotId: number) => void;
 }) {
   return (
@@ -138,35 +211,115 @@ function TeamSlotRail({
         {slots.map((slot) => {
           const slotSelected = selectedSlots.includes(slot.id);
           const slotActive = slot.id === activeSlotId;
+          const pokemon = slot.species ? reference.pokemon[toId(slot.species)] : undefined;
+          const slotName = slot.species ? pokemonDisplayName(reference, slot.species, locale) : `S${slot.id}`;
+          const evDone = evTotal(slot.evs) === EV_TOTAL_LIMIT;
 
           return (
-            <article
+            <button
+              type="button"
               className={`roster-summary-card ${slotActive ? 'active' : ''}`}
+              aria-label={`Modifier slot ${slot.id} ${slot.species ? slotName : 'Libre'}`}
+              aria-pressed={slotActive}
               data-selected={slotSelected}
               data-filled={Boolean(slot.species)}
+              data-ev-complete={evDone}
+              onClick={() => onActiveSlotChange(slot.id)}
               key={slot.id}
             >
-              <div className="roster-summary-main">
-                <PokemonAvatar reference={reference} species={slot.species} />
-                <div>
-                  <strong>Slot {slot.id}</strong>
-                  <span>{slot.species ? pokemonDisplayName(reference, slot.species) : 'Libre'}</span>
-                  <small>{slotSelected ? 'Joué au match' : 'Dans l’équipe'}</small>
-                </div>
-              </div>
-              <button
-                type="button"
-                className="slot-edit-button"
-                aria-pressed={slotActive}
-                onClick={() => onActiveSlotChange(slot.id)}
-              >
-                Modifier slot {slot.id}
-              </button>
-            </article>
+              {slot.species ? (
+                <>
+                  <span className="roster-summary-name">{slotName}</span>
+                  <span className="roster-summary-types">
+                    {pokemon?.types.slice(0, 1).map((type) => (
+                      <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
+                        {typeDisplayName(reference, type, locale)}
+                      </span>
+                    ))}
+                  </span>
+                  {evDone && !slotActive ? <span className="roster-summary-complete" aria-hidden="true" /> : null}
+                </>
+              ) : (
+                <span className="roster-summary-empty">S{slot.id}</span>
+              )}
+            </button>
           );
         })}
       </div>
     </aside>
+  );
+}
+
+function ActiveSlotSummary({
+  slot,
+  pokemon,
+  reference,
+  locale,
+}: {
+  slot: BuilderSlot;
+  pokemon: PokemonReference | undefined;
+  reference: ReferenceSnapshot;
+  locale: LocaleId;
+}) {
+  return (
+    <div className="builder-active-summary" aria-label={`Résumé slot ${slot.id}`}>
+      <span className="builder-active-name">
+        {slot.species ? pokemonDisplayName(reference, slot.species, locale) : `Slot ${slot.id}`}
+      </span>
+      {pokemon?.types.map((type) => (
+        <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
+          {typeDisplayName(reference, type, locale)}
+        </span>
+      ))}
+      {slot.ability ? <span className="builder-summary-pill">{abilityDisplayName(reference, slot.ability, locale)}</span> : null}
+      {slot.item ? <span className="builder-summary-pill muted">{itemDisplayName(reference, slot.item, locale)}</span> : null}
+    </div>
+  );
+}
+
+function AbilityChoiceGroup({
+  slot,
+  pokemon,
+  reference,
+  locale,
+  onSlotChange,
+}: {
+  slot: BuilderSlot;
+  pokemon: PokemonReference | undefined;
+  reference: ReferenceSnapshot;
+  locale: LocaleId;
+  onSlotChange: (slotId: number, patch: Partial<Omit<BuilderSlot, 'id'>>) => void;
+}) {
+  if (!pokemon || pokemon.abilities.length === 0) {
+    return null;
+  }
+
+  const abilityOptions = withCurrentOption(pokemon.abilities, slot.ability);
+  const selectedAbility = slot.ability ?? pokemon.abilities[0];
+
+  return (
+    <fieldset className="ability-choice-group" aria-label={`Talents slot ${slot.id}`}>
+      <legend>Talent</legend>
+      <div className="ability-choice-list">
+        {abilityOptions.map((ability) => {
+          const isSelected = selectedAbility === ability;
+          const description = abilityDescription(reference, ability);
+
+          return (
+            <button
+              type="button"
+              className="ability-choice"
+              aria-pressed={isSelected}
+              onClick={() => onSlotChange(slot.id, { ability })}
+              key={ability}
+            >
+              <strong>{abilityDisplayName(reference, ability, locale)}</strong>
+              {description ? <span>{description}</span> : null}
+            </button>
+          );
+        })}
+      </div>
+    </fieldset>
   );
 }
 
@@ -177,6 +330,7 @@ export function TeamBuilder({
   itemOptions,
   natureOptions,
   reference,
+  locale,
   referenceStatus,
   referenceSource,
   selectedSlots,
@@ -190,6 +344,7 @@ export function TeamBuilder({
   itemOptions: string[];
   natureOptions: string[];
   reference: ReferenceSnapshot;
+  locale: LocaleId;
   referenceStatus: 'loading' | 'complete' | 'error';
   referenceSource: string;
   selectedSlots: number[];
@@ -198,23 +353,30 @@ export function TeamBuilder({
   onToggleSelection: (slotId: number, selected: boolean) => void;
 }) {
   const [activeSlotId, setActiveSlotId] = useState(1);
+  const [showAdvancedDetails, setShowAdvancedDetails] = useState(false);
   const activeSlot = state.slots.find((slot) => slot.id === activeSlotId) ?? state.slots[0];
 
   if (!activeSlot) {
     return null;
   }
 
-  const completedSlots = state.slots.filter((slot) => Boolean(slot.species)).length;
   const isSelected = selectedSlots.includes(activeSlot.id);
   const cannotSelectMore = !isSelected && selectedSlots.length >= pickSize;
   const selectedPokemon = findPokemon(pokemonOptions, activeSlot.species);
-  const abilityOptions = withCurrentOption(selectedPokemon?.abilities ?? [], activeSlot.ability);
-  const filteredMoveOptions = moveOptionsForSlot(activeSlot, selectedPokemon, moveOptions);
-  const activePokemonLabel = activeSlot.species ? pokemonDisplayName(reference, activeSlot.species) : 'Choisir un Pokémon';
+  const activePokemonLabel = activeSlot.species
+    ? pokemonDisplayName(reference, activeSlot.species, locale)
+    : 'Choisir un Pokémon';
   const activeEvTotal = evTotal(activeSlot.evs);
   const remainingEvs = Math.max(0, EV_TOTAL_LIMIT - activeEvTotal);
-  const activeAbilityDescription = abilityDescription(reference, activeSlot.ability);
   const activeNatureDescription = natureDescription(reference, activeSlot.nature);
+  const activeNatureEffect = natureEffectLabel(activeSlot.nature, locale);
+  const speciesSelectedInOtherSlots = useMemo(
+    () =>
+      new Set(
+        state.slots.flatMap((slot) => (slot.id !== activeSlot.id && slot.species ? [slot.species] : [])),
+      ),
+    [activeSlot.id, state.slots],
+  );
   const evStatus =
     activeEvTotal > EV_TOTAL_LIMIT
       ? `EV utilisés : ${activeEvTotal}/${EV_TOTAL_LIMIT} · baisse une stat.`
@@ -223,86 +385,104 @@ export function TeamBuilder({
         : `EV utilisés : ${activeEvTotal}/${EV_TOTAL_LIMIT} · reste ${remainingEvs}.`;
   const pokemonPickerOptions = useMemo(
     () =>
-      pokemonOptions.map((pokemon) => ({
-        value: pokemon.name,
-        label: pokemonDisplayName(reference, pokemon.name),
-        searchText: pokemonSearchText(pokemon),
-        description: `Type : ${pokemon.types.map((type) => typeDisplayName(reference, type)).join(' / ')}`,
-        media: <PokemonAvatar reference={reference} species={pokemon.name} />,
-      })),
-    [pokemonOptions, reference],
+      pokemonOptions
+        .filter((pokemon) => pokemon.name === activeSlot.species || !speciesSelectedInOtherSlots.has(pokemon.name))
+        .map((pokemon) => ({
+          value: pokemon.name,
+          label: pokemonDisplayName(reference, pokemon.name, locale),
+          searchText: pokemonSearchText(pokemon, locale),
+          description: `Type : ${pokemon.types.map((type) => typeDisplayName(reference, type, locale)).join(' / ')}`,
+          media: <PokemonAvatar reference={reference} species={pokemon.name} />,
+        })),
+    [activeSlot.species, locale, pokemonOptions, reference, speciesSelectedInOtherSlots],
   );
   const itemPickerOptions = useMemo(
     () =>
       withCurrentOption(itemOptions, activeSlot.item).map((item) => ({
         value: item,
-        label: itemDisplayName(reference, item),
-        searchText: itemSearchText(reference, item),
+        label: itemDisplayName(reference, item, locale),
+        searchText: itemSearchText(reference, item, locale),
         description: itemDescription(reference, item),
         media: <ItemIcon reference={reference} item={item} />,
       })),
-    [activeSlot.item, itemOptions, reference],
+    [activeSlot.item, itemOptions, locale, reference],
+  );
+  const naturePickerOptions = useMemo(
+    () =>
+      withCurrentOption(natureOptions, activeSlot.nature).map((nature) => {
+        const effect = natureEffectLabel(nature, locale);
+        const description = natureDescription(reference, nature);
+
+        return {
+          value: nature,
+          label: natureDisplayName(reference, nature, locale),
+          searchText: `${nature} ${effect} ${description ?? ''}`,
+          description: effect,
+          media: <span className="nature-effect-token">{effect || 'neutre'}</span>,
+          details: description ? <span>{description}</span> : undefined,
+        };
+      }),
+    [activeSlot.nature, locale, natureOptions, reference],
   );
   const sourceLabel =
     referenceStatus === 'complete'
-      ? 'Source complète'
+      ? 'Roster Showdown Champions'
       : referenceStatus === 'error'
         ? 'Source démo active'
         : 'Source démo, chargement complet';
+
+  function movePickerOptionsForIndex(moveIndex: number) {
+    return moveOptionsForSlot(activeSlot, selectedPokemon, moveOptions, moveIndex).map((moveOption) => {
+      const moveType = typeDisplayName(reference, moveOption.type, locale);
+      const moveCategory = MOVE_CATEGORY_LABELS[moveOption.category][locale];
+      const isStab = isStabMove(moveOption, selectedPokemon);
+
+      return {
+        value: moveOption.name,
+        label: moveDisplayName(reference, moveOption.name, locale),
+        searchText: moveSearchText(moveOption, locale),
+        description: `${moveType} · ${moveCategory}`,
+        media: <span className={`type-chip type-${moveOption.type.toLowerCase()}`}>{moveType}</span>,
+        details: (
+          <span className="move-result-details">
+            <span className={`move-category-pill category-${moveOption.category.toLowerCase()}`}>{moveCategory}</span>
+            {isStab ? <span className="stab-chip">STAB</span> : null}
+            <span>Puissance {moveStatValue(moveOption.power)}</span>
+            <span>Précision {moveStatValue(moveOption.accuracy)}</span>
+            <span>PP {moveStatValue(moveOption.pp)}</span>
+          </span>
+        ),
+      };
+    });
+  }
 
   return (
     <section className="panel team-builder" id="builder">
       <div className="panel-heading">
         <div>
-          <h2>Constructeur d'équipe</h2>
-          <p>Sélection de match : choisis {pickSize} Pokémon parmi ton équipe de 6.</p>
+          <h2>Build rapide</h2>
+          <p>Cherche le Pokémon, l'objet et les attaques. Les réglages avancés restent dans les détails.</p>
           <p className="builder-source">
-            {sourceLabel} : {referenceSource} · {pokemonOptions.length} Pokémon · {moveOptions.length} attaques ·
-            labels FR
+            {sourceLabel} : {referenceSource} · {pokemonOptions.length} Pokémon · {moveOptions.length} attaques
           </p>
         </div>
       </div>
       <div className="builder-workspace">
-        <aside className="builder-funnel" aria-label="Étapes constructeur">
-          <h3>Étapes constructeur</h3>
-          <ol>
-            <li className="funnel-step done">
-              <span>1</span>
-              <strong>Format</strong>
-              <small>{pickSize} Pokémon joués</small>
-            </li>
-            <li className={completedSlots > 0 ? 'funnel-step done' : 'funnel-step'}>
-              <span>2</span>
-              <strong>Équipe</strong>
-              <small>{completedSlots}/6 slots remplis</small>
-            </li>
-            <li className={activeSlot.species ? 'funnel-step active' : 'funnel-step'}>
-              <span>3</span>
-              <strong>Fiche active</strong>
-              <small>Slot {activeSlot.id}</small>
-            </li>
-            <li className={selectedSlots.length === pickSize ? 'funnel-step done' : 'funnel-step active'}>
-              <span>4</span>
-              <strong>Sélection match</strong>
-              <small>
-                {selectedSlots.length}/{pickSize} choisis
-              </small>
-            </li>
-            <li className="funnel-step">
-              <span>5</span>
-              <strong>Analyse</strong>
-              <small>Points faibles et adversaires dangereux</small>
-            </li>
-          </ol>
-        </aside>
-
         <TeamSlotRail
           slots={state.slots}
           activeSlotId={activeSlot.id}
           selectedSlots={selectedSlots}
           pickSize={pickSize}
           reference={reference}
+          locale={locale}
           onActiveSlotChange={setActiveSlotId}
+        />
+
+        <ActiveSlotSummary
+          slot={activeSlot}
+          pokemon={selectedPokemon}
+          reference={reference}
+          locale={locale}
         />
 
         <article className={`builder-slot builder-slot-editor ${isSelected ? 'selected' : ''}`}>
@@ -325,20 +505,36 @@ export function TeamBuilder({
             </label>
           </div>
 
-          <SearchablePicker
-            label={`Slot ${activeSlot.id} Pokémon`}
-            value={activeSlot.species}
-            placeholder="Chercher un Pokémon en français"
-            options={pokemonPickerOptions}
-            emptyLabel="Aucun Pokémon trouvé"
-            onChange={(value) =>
-              onSlotChange(activeSlot.id, {
-                species: value,
-                ability: undefined,
-                teraType: undefined,
-                moves: ['', '', '', ''],
-              })
-            }
+          <div className="pokemon-search-row">
+            <SearchablePicker
+              label={`Slot ${activeSlot.id} Pokémon`}
+              value={activeSlot.species}
+              placeholder="Rechercher un Pokémon..."
+              options={pokemonPickerOptions}
+              emptyLabel="Aucun Pokémon trouvé"
+              onChange={(value) => {
+                const nextPokemon = findPokemon(pokemonOptions, value);
+
+                return onSlotChange(activeSlot.id, hydrateSlotForPokemon(nextPokemon, natureOptions));
+              }}
+            />
+            {selectedPokemon ? (
+              <div className="pokemon-search-types" aria-label={`Types ${activePokemonLabel}`}>
+                {selectedPokemon.types.map((type) => (
+                  <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
+                    {typeDisplayName(reference, type, locale)}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </div>
+
+          <AbilityChoiceGroup
+            slot={activeSlot}
+            pokemon={selectedPokemon}
+            reference={reference}
+            locale={locale}
+            onSlotChange={onSlotChange}
           />
 
           <div className="slot-basics">
@@ -350,146 +546,174 @@ export function TeamBuilder({
               emptyLabel="Aucun objet trouvé"
               onChange={(value) => onSlotChange(activeSlot.id, { item: value })}
             />
-            <label className="field">
-              <span>Slot {activeSlot.id} Talent</span>
-              <select
-                value={activeSlot.ability ?? ''}
-                disabled={!selectedPokemon}
-                onChange={(event) => onSlotChange(activeSlot.id, { ability: event.target.value || undefined })}
-              >
-                <option value="">Choisir</option>
-                {abilityOptions.map((ability) => (
-                  <option key={ability} value={ability}>
-                    {abilityDisplayName(reference, ability)}
-                  </option>
-                ))}
-              </select>
-              {activeAbilityDescription ? <small className="field-help">{activeAbilityDescription}</small> : null}
-            </label>
-            <label className="field">
-              <span>Slot {activeSlot.id} Téracristallisation (Type Tera)</span>
-              <select
-                value={activeSlot.teraType ?? ''}
-                onChange={(event) =>
-                  onSlotChange(activeSlot.id, {
-                    teraType: (event.target.value || undefined) as PokemonType | undefined,
-                  })
-                }
-              >
-                <option value="">Choisir</option>
-                {POKEMON_TYPES.map((type) => (
-                  <option key={type} value={type}>
-                    {typeDisplayName(reference, type)}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="field">
-              <span>Slot {activeSlot.id} Nature</span>
-              <select
-                value={activeSlot.nature ?? ''}
-                onChange={(event) => onSlotChange(activeSlot.id, { nature: event.target.value || undefined })}
-              >
-                <option value="">Choisir</option>
-                {withCurrentOption(natureOptions, activeSlot.nature).map((nature) => (
-                  <option key={nature} value={nature}>
-                    {natureDisplayName(reference, nature)}
-                  </option>
-                ))}
-              </select>
-              {activeNatureDescription ? <small className="field-help">{activeNatureDescription}</small> : null}
-            </label>
           </div>
 
           <div className="move-grid">
-            {activeSlot.moves.map((move, index) => (
-              <label className="field" key={`${activeSlot.id}-${index}`}>
-                <span>
-                  Slot {activeSlot.id} Attaque {index + 1}
-                </span>
-                <select
-                  value={move}
-                  disabled={!selectedPokemon}
-                  onChange={(event) =>
-                    onSlotChange(activeSlot.id, {
-                      moves: replaceMove(activeSlot.moves, index, event.target.value),
-                    })
-                  }
-                >
-                  <option value="">Choisir</option>
-                  {filteredMoveOptions.map((moveOption) => (
-                    <option key={moveOption.id} value={moveOption.name}>
-                      {moveDisplayName(reference, moveOption.name)}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            ))}
+            {activeSlot.moves.map((move, index) => {
+              const selectedMove = moveOptions.find((moveOption) => moveOption.name === move);
+
+              return (
+                <div className="move-picker-stack" key={`${activeSlot.id}-${index}`}>
+                  <SearchablePicker
+                    label={`Slot ${activeSlot.id} Attaque ${index + 1}`}
+                    value={move || undefined}
+                    placeholder={selectedPokemon ? `Attaque ${index + 1}...` : "Choisis d'abord un Pokémon"}
+                    options={selectedPokemon ? movePickerOptionsForIndex(index) : []}
+                    emptyLabel="Aucune attaque trouvée"
+                    onChange={(value) =>
+                      onSlotChange(activeSlot.id, {
+                        moves: replaceMove(activeSlot.moves, index, value ?? ''),
+                      })
+                    }
+                  />
+                  <SelectedMoveRow
+                    move={selectedMove}
+                    pokemon={selectedPokemon}
+                    reference={reference}
+                    locale={locale}
+                  />
+                </div>
+              );
+            })}
           </div>
 
-          <section className="ev-helper" aria-label={`Aide EV slot ${activeSlot.id}`}>
-            <div className="ev-helper-heading">
-              <div>
-                <strong>Points d'entraînement (EV)</strong>
-                <small>Choisis un modèle 252 / 252 / 6. Les stats non remplies valent 0.</small>
-              </div>
-              <span className={activeEvTotal > EV_TOTAL_LIMIT ? 'ev-status warning' : 'ev-status'} aria-live="polite">
-                {evStatus}
+          <section
+            className="slot-advanced-details"
+            data-open={showAdvancedDetails}
+          >
+            <button
+              type="button"
+              className="slot-details-summary"
+              aria-expanded={showAdvancedDetails}
+              aria-label={`Détails avancés slot ${activeSlot.id}`}
+              onClick={() => setShowAdvancedDetails((currentValue) => !currentValue)}
+            >
+              <span className="slot-details-chevron" aria-hidden="true" />
+              <span>Détails avancés</span>
+              <span className="slot-details-badges">
+                {activeSlot.nature ? (
+                  <span>Nature : {natureDisplayName(reference, activeSlot.nature, locale)}</span>
+                ) : null}
+                {activeSlot.teraType ? (
+                  <span>Tera {typeDisplayName(reference, activeSlot.teraType, locale)}</span>
+                ) : null}
+                <span>{activeEvTotal}/{EV_TOTAL_LIMIT} EV</span>
               </span>
-            </div>
-            <div className="ev-preset-list" aria-label={`Modèles EV slot ${activeSlot.id}`}>
-              {EV_PRESETS.map((preset) => (
-                <button
-                  type="button"
-                  key={preset.label}
-                  className="ev-preset-button"
-                  onClick={() => onSlotChange(activeSlot.id, { evs: preset.evs })}
-                >
-                  <strong>{preset.label}</strong>
-                  <small>{preset.description}</small>
-                </button>
-              ))}
-              <button
-                type="button"
-                className="ev-preset-button subtle"
-                onClick={() => onSlotChange(activeSlot.id, { evs: {} })}
-              >
-                <strong>Vider les EV</strong>
-                <small>Remet toutes les stats à vide</small>
-              </button>
-            </div>
+            </button>
+            {showAdvancedDetails ? (
+              <>
+                <div className="slot-details-section advanced-slot-basics">
+                  <div className="slot-detail-block nature-field">
+                    <span className="slot-detail-label">Nature</span>
+                    <SearchablePicker
+                      label={`Slot ${activeSlot.id} Nature`}
+                      value={activeSlot.nature}
+                      placeholder="Chercher une nature"
+                      options={naturePickerOptions}
+                      emptyLabel="Aucune nature trouvée"
+                      onChange={(value) => onSlotChange(activeSlot.id, { nature: value })}
+                    />
+                  </div>
+                  <TeraChoiceGroup
+                    slot={activeSlot}
+                    reference={reference}
+                    locale={locale}
+                    onSlotChange={onSlotChange}
+                  />
+                </div>
+
+                <section className="ev-helper" aria-label={`Aide EV slot ${activeSlot.id}`}>
+                  <span className="slot-detail-label">EV</span>
+                  <div className="ev-helper-heading">
+                    <div>
+                      <strong>Points d'entraînement (EV)</strong>
+                      <small>Choisis un modèle 252 / 252 / 6. Les stats non remplies valent 0.</small>
+                      {activeSlot.nature ? (
+                        <small className="ev-nature-note">
+                          Nature : {natureDisplayName(reference, activeSlot.nature, locale)}
+                          {activeNatureEffect ? ` (${activeNatureEffect})` : ''}
+                        </small>
+                      ) : null}
+                    </div>
+                    <div className="ev-status-stack">
+                      <strong className={activeEvTotal > EV_TOTAL_LIMIT ? 'ev-total-pill warning' : 'ev-total-pill'}>
+                        {activeEvTotal}/{EV_TOTAL_LIMIT} EV
+                      </strong>
+                      <span
+                        className={activeEvTotal > EV_TOTAL_LIMIT ? 'ev-status warning' : 'ev-status'}
+                        aria-live="polite"
+                      >
+                        {evStatus}
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    className="ev-progress"
+                    role="progressbar"
+                    aria-label={`Progression EV slot ${activeSlot.id}`}
+                    aria-valuemin={0}
+                    aria-valuemax={EV_TOTAL_LIMIT}
+                    aria-valuenow={Math.min(activeEvTotal, EV_TOTAL_LIMIT)}
+                  >
+                    <span style={{ width: `${Math.min((activeEvTotal / EV_TOTAL_LIMIT) * 100, 100)}%` }} />
+                  </div>
+                  <div className="ev-preset-list" aria-label={`Modèles EV slot ${activeSlot.id}`}>
+                    {EV_PRESETS.map((preset) => (
+                      <button
+                        type="button"
+                        key={preset.label}
+                        className="ev-preset-button"
+                        onClick={() => onSlotChange(activeSlot.id, { evs: preset.evs })}
+                      >
+                        <strong>{preset.label}</strong>
+                        <small>{preset.description}</small>
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      className="ev-preset-button subtle"
+                      onClick={() => onSlotChange(activeSlot.id, { evs: {} })}
+                    >
+                      <strong>Vider les EV</strong>
+                      <small>Remet toutes les stats à vide</small>
+                    </button>
+                  </div>
+                </section>
+
+                <div className="ev-grid">
+                  {STAT_FIELDS.map((stat) => (
+                    <label className="field compact-field" key={stat.id}>
+                      <span>
+                        Slot {activeSlot.id} EV {stat.label}
+                      </span>
+                      <input
+                        inputMode="numeric"
+                        min="0"
+                        max="252"
+                        type="number"
+                        value={numberInputValue(activeSlot.evs[stat.id])}
+                        onChange={(event) =>
+                          onSlotChange(activeSlot.id, {
+                            evs: nextEvs(activeSlot.evs, stat.id, event.target.value),
+                          })
+                        }
+                      />
+                    </label>
+                  ))}
+                </div>
+
+                <label className="field">
+                  <span className="slot-detail-label">Note</span>
+                  <textarea
+                    aria-label={`Commentaire slot ${activeSlot.id}`}
+                    className="slot-comment"
+                    value={activeSlot.comment}
+                    onChange={(event) => onSlotChange(activeSlot.id, { comment: event.target.value })}
+                  />
+                </label>
+              </>
+            ) : null}
           </section>
-
-          <div className="ev-grid">
-            {STAT_FIELDS.map((stat) => (
-              <label className="field compact-field" key={stat.id}>
-                <span>
-                  Slot {activeSlot.id} EV {stat.label}
-                </span>
-                <input
-                  inputMode="numeric"
-                  min="0"
-                  max="252"
-                  type="number"
-                  value={numberInputValue(activeSlot.evs[stat.id])}
-                  onChange={(event) =>
-                    onSlotChange(activeSlot.id, {
-                      evs: nextEvs(activeSlot.evs, stat.id, event.target.value),
-                    })
-                  }
-                />
-              </label>
-            ))}
-          </div>
-
-          <label className="field">
-            <span>Commentaire slot {activeSlot.id}</span>
-            <textarea
-              className="slot-comment"
-              value={activeSlot.comment}
-              onChange={(event) => onSlotChange(activeSlot.id, { comment: event.target.value })}
-            />
-          </label>
         </article>
       </div>
     </section>

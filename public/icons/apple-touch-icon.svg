@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title">
+  <title id="title">Champions Companion</title>
+  <rect width="180" height="180" rx="40" fill="#17324d"/>
+  <circle cx="90" cy="90" r="60" fill="#f7fbff"/>
+  <path d="M32 90h116" stroke="#17324d" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="90" cy="90" r="22" fill="#17324d"/>
+  <circle cx="90" cy="90" r="10" fill="#f7fbff"/>
+  <path d="M54 58c21-18 55-20 77-1" fill="none" stroke="#f2b84b" stroke-width="10" stroke-linecap="round"/>
+  <path d="M54 123c24 17 56 17 77 0" fill="none" stroke="#2f9b72" stroke-width="10" stroke-linecap="round"/>
+</svg>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatLocalizedName, toSearchId } from './localization';
+import { displayLocalizedName, formatLocalizedName, localizedSearchText, toSearchId } from './localization';
 
 describe('localization', () => {
   it('normalizes accented names for search aliases', () => {
@@ -14,5 +14,19 @@ describe('localization', () => {
     );
     expect(formatLocalizedName('Garchomp', { en: 'Garchomp', fr: 'Garchomp' }, 'fr')).toBe('Garchomp');
     expect(formatLocalizedName('Thunderbolt', undefined, 'fr')).toBe('Thunderbolt');
+  });
+
+  it('displays one active locale without appending the canonical name', () => {
+    const names = { en: 'Great Tusk', fr: 'Fort-Ivoire' };
+
+    expect(displayLocalizedName('Great Tusk', names, 'fr')).toBe('Fort-Ivoire');
+    expect(displayLocalizedName('Great Tusk', names, 'en')).toBe('Great Tusk');
+  });
+
+  it('keeps canonical names searchable even when one locale is displayed', () => {
+    const names = { en: 'Heavy-Duty Boots', fr: 'Grosses Bottes' };
+
+    expect(localizedSearchText('Heavy-Duty Boots', names, 'fr')).toBe('Grosses Bottes Heavy-Duty Boots');
+    expect(localizedSearchText('Heavy-Duty Boots', names, 'en')).toBe('Heavy-Duty Boots Grosses Bottes');
   });
 });

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { getFormatDefinition } from '../domain/formatRules';
 import { deleteSavedTeam, readSavedTeams, saveCurrentTeam, type SavedTeam } from '../domain/savedTeams';
 import type { FormatId } from '../domain/types';
@@ -16,16 +16,36 @@ export function SavedTeamManager({
   paste,
   format,
   onLoad,
+  nameInputId = 'saved-team-name',
 }: {
   paste: string;
   format: FormatId;
   onLoad: (team: SavedTeam) => void;
+  nameInputId?: string;
 }) {
   const [name, setName] = useState('');
+  const [query, setQuery] = useState('');
   const [teams, setTeams] = useState<SavedTeam[]>(() => readSavedTeams(window.localStorage));
   const [message, setMessage] = useState<string>();
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const normalizedQuery = query.trim().toLowerCase();
+  const visibleTeams = teams.filter((team) => {
+    const searchableText = `${team.name} ${team.paste} ${team.format}`.toLowerCase();
+    return searchableText.includes(normalizedQuery);
+  });
 
   function handleSave() {
+    if (!name.trim()) {
+      nameInputRef.current?.focus();
+      setMessage('Donne un nom à la sauvegarde avant de continuer.');
+      return;
+    }
+
+    if (!paste.trim()) {
+      setMessage("Ajoute au moins un Pokémon avant de sauvegarder l'équipe.");
+      return;
+    }
+
     const saved = saveCurrentTeam({ storage: window.localStorage, name, paste, format });
     setTeams(readSavedTeams(window.localStorage));
     setName('');
@@ -46,30 +66,42 @@ export function SavedTeamManager({
     <section className="panel saved-teams" aria-label="Sauvegardes locales">
       <div className="panel-heading">
         <div>
-          <h2>Équipes sauvegardées</h2>
+          <h2>Sauvegardes</h2>
           <p>Les équipes restent dans ce navigateur, sans compte ni serveur.</p>
         </div>
+        <span className="saved-team-count">{teams.length} teams</span>
       </div>
       <div className="saved-team-form">
-        <label htmlFor="saved-team-name">Nom de sauvegarde</label>
+        <label htmlFor={nameInputId}>Nom de sauvegarde</label>
         <input
-          id="saved-team-name"
+          id={nameInputId}
+          ref={nameInputRef}
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="Ex. Ladder BO1"
         />
-        <button type="button" onClick={handleSave} disabled={paste.trim().length === 0}>
+        <button type="button" onClick={handleSave}>
           Sauvegarder l'équipe
         </button>
       </div>
+      <label className="saved-team-search">
+        Rechercher une sauvegarde
+        <input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Rechercher une sauvegarde..."
+          type="search"
+        />
+      </label>
       {message ? (
         <p role="status" aria-live="polite">
           {message}
         </p>
       ) : null}
       {teams.length === 0 ? <p>Aucune équipe sauvegardée.</p> : null}
+      {teams.length > 0 && visibleTeams.length === 0 ? <p>Aucune sauvegarde trouvée.</p> : null}
       <div className="saved-team-list">
-        {teams.map((team) => (
+        {visibleTeams.map((team) => (
           <article className="saved-team-card" key={team.id}>
             <div>
               <strong>{team.name}</strong>

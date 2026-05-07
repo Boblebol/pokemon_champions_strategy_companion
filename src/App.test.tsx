@@ -2,30 +2,31 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import App from './App';
-import { SAVED_TEAMS_STORAGE_KEY } from './domain/savedTeams';
 
-async function renderAppPage() {
+async function renderAppRoute(path = '/app') {
+  window.history.pushState({}, '', path);
   const result = render(<App />);
-  await screen.findByLabelText(/cockpit d'analyse/i, undefined, { timeout: 5000 });
+  await screen.findByLabelText(/application mobile champions/i, undefined, { timeout: 5000 });
   return result;
 }
 
-async function renderLandingPage() {
-  window.history.pushState({}, '', '/landing');
+async function renderLandingRoute(path = '/') {
+  window.history.pushState({}, '', path);
   const result = render(<App />);
-  await screen.findByLabelText(/présentation marketing/i, undefined, { timeout: 5000 });
+  await screen.findByLabelText(/présentation pwa champions/i, undefined, { timeout: 5000 });
   return result;
 }
 
-async function renderDocsPage() {
-  window.history.pushState({}, '', '/docs');
-  const result = render(<App />);
-  await screen.findByLabelText(/documentation/i, undefined, { timeout: 5000 });
-  return result;
+async function openBuildTab(user: ReturnType<typeof userEvent.setup>) {
+  const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
+  await user.click(within(nav).getByRole('button', { name: /^build$/i }));
+  expect(await screen.findByText(/roster showdown champions/i, undefined, { timeout: 5000 })).toBeInTheDocument();
 }
 
-async function waitForCompleteReference() {
-  expect(await screen.findByText(/source complète/i, undefined, { timeout: 5000 })).toBeInTheDocument();
+async function openMatchTab(user: ReturnType<typeof userEvent.setup>) {
+  const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
+  await user.click(within(nav).getByRole('button', { name: /^match$/i }));
+  expect(await screen.findByRole('heading', { name: /match rapide/i }, { timeout: 5000 })).toBeInTheDocument();
 }
 
 async function selectPickerOption(
@@ -40,10 +41,6 @@ async function selectPickerOption(
   await user.click(await screen.findByRole('option', { name: optionName }, { timeout: 5000 }));
 }
 
-async function openSetupWizard(user: ReturnType<typeof userEvent.setup>) {
-  await user.click(screen.getByRole('button', { name: /afficher l'assistant/i }));
-}
-
 describe('App', () => {
   afterEach(() => {
     window.history.pushState({}, '', '/');
@@ -51,559 +48,532 @@ describe('App', () => {
     vi.unstubAllGlobals();
   });
 
-  it('opens the app directly on the local root route', async () => {
-    await renderAppPage();
+  it('opens the touch-first app on the app route', async () => {
+    const { container } = await renderAppRoute('/app');
 
-    expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
-    expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
-  });
-
-  it('renders a marketing landing page with app and doc entry points', async () => {
-    await renderLandingPage();
-
-    const landing = screen.getByLabelText(/présentation marketing/i);
-    expect(landing).toBeInTheDocument();
-    expect(within(landing).getByRole('heading', { name: /gagne du temps au team preview/i })).toBeInTheDocument();
-    expect(within(landing).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
-    expect(within(landing).getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
-    expect(within(landing).getByText(/analyse 3v3 niveau 100/i)).toBeInTheDocument();
-    expect(within(landing).getAllByText(/adversaires rares/i).length).toBeGreaterThan(0);
-    expect(within(landing).getAllByText(/équipe de 6/i).length).toBeGreaterThan(0);
+    expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
+    expect(container.querySelector('.mockup-mobile-shell')).toHaveAttribute('data-design-source', 'maquette_v1');
+    expect(screen.getByRole('heading', { name: /^team$/i })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: /champions mobile/i })).not.toBeInTheDocument();
     expect(screen.queryByLabelText(/cockpit d'analyse/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /desktop/i })).not.toBeInTheDocument();
   });
 
-  it('renders a standalone documentation page', async () => {
-    await renderDocsPage();
+  it('keeps the mobile route as a compatibility alias', async () => {
+    await renderAppRoute('/mobile');
 
-    const docs = screen.getByLabelText(/documentation/i);
-    expect(within(docs).getByRole('heading', { name: /documentation champions companion/i })).toBeInTheDocument();
-    expect(within(docs).getByRole('link', { name: /ouvrir l'app/i })).toHaveAttribute('href', '/app');
-    expect(within(docs).getByText(/1\. démarrer avec l'assistant/i)).toBeInTheDocument();
-    expect(within(docs).getByText(/importer un fichier \.txt/i)).toBeInTheDocument();
-    expect(within(docs).getByText(/5\. simuler le combat/i)).toBeInTheDocument();
-    expect(within(docs).getByText(/6\. lire les attaques dangereuses/i)).toBeInTheDocument();
-    expect(within(docs).getByText(/le refresh smogon peut échouer/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /^team$/i })).toBeInTheDocument();
   });
 
-  it('renders the app route without the landing page', async () => {
-    window.history.pushState({}, '', '/app');
-    await renderAppPage();
+  it('renders the GitHub Pages root as a PWA landing page with a direct app link', async () => {
+    await renderLandingRoute('/');
 
-    expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /ouvrir la doc/i })).toHaveAttribute('href', '/docs');
-    expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /champions companion/i })).toBeInTheDocument();
+    expect(screen.getByText(/pwa installable/i)).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: /ouvrir l'app/i }).map((link) => link.getAttribute('href'))).toContain(
+      '/app',
+    );
+    expect(screen.getByRole('heading', { name: /installer sur iphone/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /installer sur android/i })).toBeInTheDocument();
+    expect(screen.queryByLabelText(/application mobile champions/i)).not.toBeInTheDocument();
   });
 
-  it('keeps responsive layout hooks available for cockpit sections', async () => {
-    const { container } = await renderAppPage();
+  it('routes landing and docs aliases to the PWA install landing', async () => {
+    const landing = await renderLandingRoute('/landing');
 
-    expect(container.querySelector('.top-bar')).not.toBeNull();
-    expect(container.querySelector('.setup-guide')).not.toBeNull();
-    expect(container.querySelector('.builder-workspace')).not.toBeNull();
-    expect(container.querySelector('.combat-layout')).not.toBeNull();
-    expect(container.querySelector('.dashboard')).not.toBeNull();
+    expect(screen.getByLabelText(/présentation pwa champions/i)).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: /ouvrir l'app/i }).map((link) => link.getAttribute('href'))).toContain(
+      '/app',
+    );
+    landing.unmount();
+
+    const docs = await renderLandingRoute('/docs');
+    expect(screen.getByLabelText(/présentation pwa champions/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /comment l'installer/i })).toBeInTheDocument();
+    docs.unmount();
   });
 
-  it('groups dashboard analysis panels for desktop scanning', async () => {
-    const { container } = await renderAppPage();
+  it('keeps the active app free of non-mockup project chrome', async () => {
+    await renderAppRoute();
 
-    const dashboardPrimary = container.querySelector('.dashboard-primary');
-    const dashboardSecondary = container.querySelector('.dashboard-secondary');
-
-    expect(dashboardPrimary).not.toBeNull();
-    expect(dashboardSecondary).not.toBeNull();
-
-    const primaryPanels = within(dashboardPrimary as HTMLElement);
-    const secondaryPanels = within(dashboardSecondary as HTMLElement);
-
-    expect(primaryPanels.getByRole('heading', { name: /^équipe$/i })).toBeInTheDocument();
-    expect(primaryPanels.getByRole('heading', { name: /plan de match 3v3/i })).toBeInTheDocument();
-    expect(secondaryPanels.getByRole('heading', { name: /audit d'équipe/i })).toBeInTheDocument();
-    expect(secondaryPanels.getByRole('heading', { name: /adversaires fréquents dangereux/i })).toBeInTheDocument();
-    expect(secondaryPanels.getByRole('heading', { name: /adversaires rares dangereux/i })).toBeInTheDocument();
-    expect(secondaryPanels.getByRole('heading', { name: /aides rapides/i })).toBeInTheDocument();
+    expect(screen.queryByLabelText(/infos projet et créateur/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/disponible hors ligne/i)).toBeInTheDocument();
   });
 
-  it('renders the French graphical wizard and dashboard regions', async () => {
+  it('starts as a four-step assistant with an empty team ready to build', async () => {
+    await renderAppRoute();
+
+    const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
+    expect(within(nav).getByRole('button', { name: /^team$/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(within(nav).getByRole('button', { name: /^build$/i })).toBeInTheDocument();
+    expect(within(nav).getByRole('button', { name: /^actifs$/i })).toBeInTheDocument();
+    expect(within(nav).getByRole('button', { name: /^match$/i })).toBeInTheDocument();
+    expect(within(nav).queryByRole('button', { name: /données/i })).not.toBeInTheDocument();
+    expect(within(nav).queryByRole('button', { name: /^combat$/i })).not.toBeInTheDocument();
+    expect(within(nav).queryByRole('button', { name: /analyse/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^fr$/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: /^en$/i })).toHaveAttribute('aria-pressed', 'false');
+
+    expect(screen.getByText(/mon équipe/i)).toBeInTheDocument();
+    expect(screen.getByText(/^team vide$/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/sauvegardes locales/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /créer une team vide/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^sauvegarder$/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /exporter l'équipe/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /1v1 actif/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: /2v2 actif/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/0\/3 actifs prêts/i).length).toBeGreaterThan(0);
+  });
+
+  it('auto-fills active picks while building and opens match without requiring six filled slots', async () => {
     const user = userEvent.setup();
-    await renderAppPage();
+    await renderAppRoute();
+    await openBuildTab(user);
 
-    await openSetupWizard(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 3/i }));
+    await selectPickerOption(user, /slot 3 pokémon/i, 'Kangourex', /Kangourex/i);
 
-    expect(screen.getByRole('heading', { name: /cockpit stratégique/i })).toBeInTheDocument();
-    expect(screen.getByText(/1\s+format/i)).toBeInTheDocument();
-    expect(screen.getByText(/2\s+équipe/i)).toBeInTheDocument();
-    expect(screen.getByText(/3\s+sélection/i)).toBeInTheDocument();
-    expect(screen.getByText(/4\s+combat/i)).toBeInTheDocument();
-    expect(screen.getByText(/5\s+analyse/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/format champions/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/équipe showdown/i)).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /audit d'équipe/i })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /^actifs$/i }));
+
+    expect(screen.getByText(/3\/3 actifs prêts/i)).toBeInTheDocument();
+    expect(screen.getByText(/dracolosse, carchacrok, kangourex/i)).toBeInTheDocument();
+
+    await openMatchTab(user);
+
+    expect(await screen.findByRole('heading', { name: /^combat$/i }, { timeout: 5000 })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /couverture offensive/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /couverture défensive/i })).toBeInTheDocument();
+    expect(screen.getAllByText(/joués : dracolosse, carchacrok, kangourex/i).length).toBeGreaterThan(0);
     expect(screen.getByRole('heading', { name: /adversaires fréquents dangereux/i })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /adversaires rares dangereux/i })).toBeInTheDocument();
-    expect(screen.getByText(/choisis 3 pokémon pour voir les adversaires rares/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/cockpit d'analyse/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/équipe de 6/i).length).toBeGreaterThan(0);
-    expect(screen.getByRole('heading', { name: /plan de match 3v3/i })).toBeInTheDocument();
-    expect(screen.getAllByText(/niveau 100/i).length).toBeGreaterThan(0);
-  });
+  }, 15000);
 
-  it('renders contextual help for strategy and data freshness', async () => {
-    await renderAppPage();
-
-    expect(screen.getByRole('heading', { name: /aides rapides/i })).toBeInTheDocument();
-    expect(screen.getByText(/assistant de départ/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/combat/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/adversaire dangereux/i)).toBeInTheDocument();
-    expect(screen.getByText(/données à jour/i)).toBeInTheDocument();
-  });
-
-  it('renders the setup wizard compact by default and can expand it', async () => {
+  it('fills picker inputs with the selected value like the standalone mockup', async () => {
     const user = userEvent.setup();
-    await renderAppPage();
+    await renderAppRoute();
+    await openBuildTab(user);
 
-    expect(screen.queryByLabelText(/équipe showdown/i)).not.toBeInTheDocument();
-    expect(screen.getByLabelText(/résumé assistant/i)).toBeInTheDocument();
-    const toggle = screen.getByRole('button', { name: /afficher l'assistant/i });
-    expect(toggle).toBeInTheDocument();
-    expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    expect(toggle).toHaveAttribute('aria-controls');
-    const regionId = toggle.getAttribute('aria-controls');
-    expect(regionId).toBeTruthy();
-    expect(document.getElementById(regionId!)).toBeInTheDocument();
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
 
-    await user.click(toggle);
+    expect(screen.getByLabelText(/slot 1 pokémon/i)).toHaveValue('Dracolosse');
 
-    expect(screen.getByLabelText(/équipe showdown/i)).toBeInTheDocument();
-    expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    expect(document.getElementById(regionId!)).toBeInTheDocument();
-    expect(window.localStorage.getItem('champions-companion.setup-wizard')).toBe('visible');
+    await selectPickerOption(user, /slot 1 objet/i, 'Grosses', /Grosses Bottes/i);
 
-    await user.click(toggle);
+    expect(screen.getByLabelText(/slot 1 objet/i)).toHaveValue('Grosses Bottes');
 
-    expect(screen.queryByLabelText(/équipe showdown/i)).not.toBeInTheDocument();
-    expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    expect(window.localStorage.getItem('champions-companion.setup-wizard')).toBe('hidden');
-  });
+    await user.click(screen.getByRole('button', { name: /^actifs$/i }));
 
-  it('announces refresh messages as a polite status', async () => {
+    expect(screen.getByLabelText(/actif 1/i)).toHaveValue('Dracolosse');
+  }, 10000);
+
+  it('fills the combat opponent picker after selecting an adversary', async () => {
     const user = userEvent.setup();
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValue({
-        ok: false,
-        status: 503,
-        json: vi.fn(),
-      }),
+    await renderAppRoute();
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await openMatchTab(user);
+
+    const opponentInput = await screen.findByRole('combobox', { name: /adversaire 1/i }, { timeout: 5000 });
+    await user.clear(opponentInput);
+    await user.type(opponentInput, 'kang');
+
+    await user.click(await screen.findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    expect(opponentInput).toHaveValue('Kangourex');
+    expect(await screen.findByRole('heading', { name: /dracolosse vs kangourex/i })).toBeInTheDocument();
+  }, 10000);
+
+  it('keeps two combat opponent pickers in 2v2 mode', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await user.click(screen.getByRole('button', { name: /2v2 actif/i }));
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await openMatchTab(user);
+
+    const firstOpponentInput = await screen.findByRole('combobox', { name: /adversaire 1/i }, { timeout: 5000 });
+    const secondOpponentInput = await screen.findByRole('combobox', { name: /adversaire 2/i }, { timeout: 5000 });
+
+    await user.clear(firstOpponentInput);
+    await user.type(firstOpponentInput, 'kang');
+    await user.click(await screen.findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    await user.clear(secondOpponentInput);
+    await user.type(secondOpponentInput, 'scalpereur');
+    await user.click(await screen.findByRole('option', { name: /scalpereur/i }, { timeout: 5000 }));
+
+    expect(firstOpponentInput).toHaveValue('Kangourex');
+    expect(secondOpponentInput).toHaveValue('Scalpereur');
+    expect(await screen.findByRole('heading', { name: /dracolosse vs kangourex/i })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /carchacrok vs scalpereur/i })).toBeInTheDocument();
+  }, 15000);
+
+  it('sends a Team adverse threat card into the synced Combat opponent picker', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await openMatchTab(user);
+
+    const opponentTeam = await screen.findByRole('region', { name: /team adverse/i }, { timeout: 5000 });
+    const combat = await screen.findByRole('region', { name: /calculateur de combat/i }, { timeout: 5000 });
+
+    expect(opponentTeam.compareDocumentPosition(combat) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(within(opponentTeam).getByRole('button', { name: /replier la team adverse/i })).toHaveAttribute(
+      'aria-expanded',
+      'true',
     );
-    await renderAppPage();
 
-    await user.click(screen.getByRole('button', { name: /mettre à jour/i }));
+    const firstOpponentSlot = within(opponentTeam).getByRole('combobox', { name: /slot adverse 1/i });
+    await user.clear(firstOpponentSlot);
+    await user.type(firstOpponentSlot, 'kang');
+    await user.click(await within(opponentTeam).findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
 
-    const status = await screen.findByRole('status');
-    expect(status).toHaveAttribute('aria-live', 'polite');
-    expect(status).toHaveTextContent(/données smogon indisponibles/i);
-  });
-
-  it('renders a portfolio footer link', async () => {
-    await renderAppPage();
-
-    expect(screen.getByRole('contentinfo')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /alexandre enouf/i })).toHaveAttribute(
-      'href',
-      'https://alexandre-enouf.fr',
+    await user.click(
+      await within(opponentTeam).findByRole('button', { name: /envoyer kangourex en combat/i }, { timeout: 5000 }),
     );
-  });
 
-  it('renders the integrated team builder controls', async () => {
-    await renderAppPage();
+    expect(within(combat).getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
+    expect(await screen.findByRole('heading', { name: /dracolosse vs kangourex/i })).toBeInTheDocument();
+  }, 15000);
 
-    expect(screen.getByRole('heading', { name: /constructeur d'équipe/i })).toBeInTheDocument();
-    expect(screen.getByText(/étapes constructeur/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /modifier slot 2/i })).toBeInTheDocument();
-    expect(screen.getByLabelText(/slot 1 pokémon/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/slot 1 attaque 1/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/slot 1 ev atk/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/commentaire slot 1/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/jouer slot 1/i)).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /analyse sélection jouée/i })).toBeInTheDocument();
-  });
-
-  it('lets users switch slots from a compact team rail', async () => {
+  it('fills both synced Combat opponent pickers from Team adverse cards in 2v2 mode', async () => {
     const user = userEvent.setup();
-    await renderAppPage();
+    await renderAppRoute();
+    await user.click(screen.getByRole('button', { name: /2v2 actif/i }));
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await openMatchTab(user);
 
-    const slotRail = screen.getByLabelText(/slots de l'équipe/i);
-    const activeEditor = screen.getByLabelText(/slot 1 pokémon/i);
-    expect(slotRail.compareDocumentPosition(activeEditor) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    const opponentTeam = await screen.findByRole('region', { name: /team adverse/i }, { timeout: 5000 });
+    const combat = await screen.findByRole('region', { name: /calculateur de combat/i }, { timeout: 5000 });
+
+    const firstOpponentSlot = within(opponentTeam).getByRole('combobox', { name: /slot adverse 1/i });
+    await user.clear(firstOpponentSlot);
+    await user.type(firstOpponentSlot, 'kang');
+    await user.click(await within(opponentTeam).findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    const secondOpponentSlot = within(opponentTeam).getByRole('combobox', { name: /slot adverse 2/i });
+    await user.clear(secondOpponentSlot);
+    await user.type(secondOpponentSlot, 'scalp');
+    await user.click(await within(opponentTeam).findByRole('option', { name: /scalpereur/i }, { timeout: 5000 }));
+
+    await user.click(
+      await within(opponentTeam).findByRole('button', { name: /envoyer kangourex en combat/i }, { timeout: 5000 }),
+    );
+    await user.click(
+      await within(opponentTeam).findByRole('button', { name: /envoyer scalpereur en combat/i }, { timeout: 5000 }),
+    );
+
+    expect(within(combat).getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
+    expect(within(combat).getByRole('combobox', { name: /adversaire 2/i })).toHaveValue('Scalpereur');
+  }, 20000);
+
+  it('uses the standalone-like Team action and saves layout', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+
+    expect(screen.getByRole('button', { name: /créer une team vide/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^sauvegarder$/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /exporter l'équipe/i })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/rechercher une sauvegarde/i)).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /^sauvegarder$/i }));
+
+    expect(screen.getByLabelText(/nom de sauvegarde/i)).toHaveFocus();
+  });
+
+  it('fills selected mobile slots with visible Pokemon media', async () => {
+    const user = userEvent.setup();
+    const { container } = await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+
+    expect(container.querySelector('.searchable-picker[data-has-value="true"] .picker-current .pokemon-avatar')).not.toBeNull();
+    expect(container.querySelector('.roster-summary-card[data-filled="true"] .roster-summary-name')).not.toBeNull();
+    expect(container.querySelector('.roster-summary-card[data-filled="true"] .type-chip')).not.toBeNull();
+
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
+
+    expect(container.querySelector('.mobile-team-slot[data-filled="true"] .pokemon-avatar')).not.toBeNull();
+  }, 10000);
+
+  it('switches between mobile screens with the tabbar', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+
+    const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
+    expect(within(nav).getByRole('button', { name: /^team$/i })).toHaveAttribute('aria-pressed', 'true');
+
+    await user.click(within(nav).getByRole('button', { name: /^build$/i }));
+    expect(await screen.findByRole('heading', { name: /build rapide/i })).toBeInTheDocument();
+
+    await user.click(within(nav).getByRole('button', { name: /^actifs$/i }));
+    expect(within(await screen.findByLabelText(/actifs mobile/i)).getByRole('heading', { name: /^actifs$/i })).toBeInTheDocument();
+
+    await user.click(within(nav).getByRole('button', { name: /^match$/i }));
+    expect(await screen.findByRole('heading', { name: /match rapide/i })).toBeInTheDocument();
+  });
+
+  it('switches picker display and search between French and English without mixed labels', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangaskhan', /Kangourex/i);
+    expect(screen.getByLabelText(/slot 1 pokémon/i)).toHaveValue('Kangourex');
+    expect(screen.queryByText(/Kangourex \(Kangaskhan\)/i)).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /^EN$/i }));
+    expect(screen.getByLabelText(/slot 1 pokémon/i)).toHaveValue('Kangaskhan');
+    expect(screen.getByRole('button', { name: /^Active$/i })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /^FR$/i }));
+    expect(screen.getByLabelText(/slot 1 pokémon/i)).toHaveValue('Kangourex');
+    expect(screen.getByRole('button', { name: /^Actifs$/i })).toBeInTheDocument();
+  }, 10000);
+
+  it('searches moves from the selected Pokemon and shows battle metadata', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+
+    const moveInput = screen.getByLabelText(/slot 2 attaque 1/i);
+    await user.clear(moveInput);
+    await user.type(moveInput, 'Séisme');
+
+    const earthquake = await screen.findByRole('option', { name: /séisme/i });
+    expect(within(earthquake).getByText(/^Sol$/i)).toBeInTheDocument();
+    expect(within(earthquake).getByText(/^Physique$/i)).toBeInTheDocument();
+    expect(within(earthquake).getByText(/^STAB$/i)).toBeInTheDocument();
+    expect(within(earthquake).getByText(/puissance\s+100/i)).toBeInTheDocument();
+    expect(within(earthquake).getByText(/précision\s+100/i)).toBeInTheDocument();
+    expect(within(earthquake).getByText(/pp\s+10/i)).toBeInTheDocument();
+
+    await user.click(earthquake);
+
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
+    const exportLink = screen.getByRole('link', { name: /exporter l'équipe/i });
+    expect(decodeURIComponent(exportLink.getAttribute('href') ?? '')).toContain('- Earthquake');
+  }, 10000);
+
+  it('keeps advanced build fields folded behind details by default', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    expect(screen.queryByLabelText(/slot 1 ev hp/i)).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
+
+    expect(screen.getByLabelText(/slot 1 ev hp/i)).toBeInTheDocument();
+  });
+
+  it('adapts the mockup build controls to real ability, manual nature and EV data', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+
+    const abilityGroup = screen.getByRole('group', { name: /talents slot 1/i });
+    expect(within(abilityGroup).getByRole('button', { name: /multiécaille/i })).toBeInTheDocument();
+    expect(within(abilityGroup).getByText(/réduit/i)).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
+
+    expect(screen.getByLabelText(/slot 1 nature/i)).toHaveValue('');
+    await selectPickerOption(user, /slot 1 nature/i, 'Jovial', /Jovial/i);
+    expect(screen.getAllByText(/\+vitesse \/ -attaque spéciale/i).length).toBeGreaterThan(0);
+
+    await user.click(screen.getByRole('button', { name: /attaquant physique rapide/i }));
+    expect(screen.getAllByText(/510\/510 EV/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/nature : jovial/i).length).toBeGreaterThan(0);
+  }, 10000);
+
+  it('uses a searchable nature picker that previews the bonus and malus before selection', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
+
+    const natureInput = screen.getByLabelText(/slot 1 nature/i);
+    expect(natureInput.tagName).toBe('INPUT');
+
+    await user.clear(natureInput);
+    await user.type(natureInput, 'Jovial');
+
+    const jollyOption = await screen.findByRole('option', { name: /jovial/i });
+    expect(within(jollyOption).getAllByText(/\+vitesse \/ -attaque spéciale/i).length).toBeGreaterThan(0);
+
+    await user.click(jollyOption);
+
+    expect(natureInput).toHaveValue('Jovial');
+  }, 10000);
+
+  it('keeps move choices unique while searching the selected Pokemon movepool', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+
+    await selectPickerOption(user, /slot 1 attaque 1/i, 'Vitesse', /Vitesse Extrême/i);
+    await user.clear(screen.getByLabelText(/slot 1 attaque 2/i));
+    await user.type(screen.getByLabelText(/slot 1 attaque 2/i), 'Vitesse');
+
+    expect(screen.queryByRole('option', { name: /vitesse extrême/i })).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await user.clear(screen.getByLabelText(/slot 2 attaque 1/i));
+    await user.type(screen.getByLabelText(/slot 2 attaque 1/i), 'Vitesse');
 
-    expect(screen.getByLabelText(/slot 2 pokémon/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /modifier slot 1/i })).toHaveAttribute('aria-pressed', 'false');
-    expect(screen.getByRole('button', { name: /modifier slot 2/i })).toHaveAttribute('aria-pressed', 'true');
-  });
+    expect(screen.queryByRole('option', { name: /vitesse extrême/i })).not.toBeInTheDocument();
+  }, 10000);
 
-  it('keeps picker results closed until the user searches or focuses the picker', async () => {
+  it('hydrates slot details with tera and EV defaults while keeping nature empty', async () => {
     const user = userEvent.setup();
-    await renderAppPage();
+    await renderAppRoute();
+    await openBuildTab(user);
 
-    expect(screen.queryByRole('listbox', { name: /résultats de recherche/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('option', { name: /carchacrok/i })).not.toBeInTheDocument();
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
 
-    const pokemonInput = screen.getByLabelText(/slot 1 pokémon/i);
-    expect(pokemonInput).toHaveAttribute('aria-expanded', 'false');
-    await user.click(pokemonInput);
+    expect(screen.queryByRole('group', { name: /types tera slot 1/i })).not.toBeInTheDocument();
 
-    expect(pokemonInput).toHaveAttribute('aria-expanded', 'true');
-    expect(screen.getByRole('listbox', { name: /résultats de recherche/i })).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
 
-    await user.clear(pokemonInput);
-    await user.type(pokemonInput, 'Carcha');
+    expect(screen.getByLabelText(/slot 1 nature/i)).toHaveValue('');
+    expect(screen.queryByText(/nature : jovial/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/tera dragon/i)).toBeInTheDocument();
 
-    expect(await screen.findByRole('option', { name: /carchacrok/i })).toBeInTheDocument();
+    const teraGroup = screen.getByRole('group', { name: /types tera slot 1/i });
+    expect(within(teraGroup).getByRole('button', { name: /^dragon$/i })).toHaveAttribute('aria-pressed', 'true');
 
-    await user.click(screen.getByRole('option', { name: /carchacrok/i }));
+    expect(screen.getByRole('progressbar', { name: /progression ev slot 1/i })).toHaveAttribute(
+      'aria-valuenow',
+      '510',
+    );
+    expect(screen.getByLabelText(/slot 1 ev atk/i)).toHaveValue(252);
+    expect(screen.getByLabelText(/slot 1 ev spe/i)).toHaveValue(252);
+  }, 10000);
 
-    expect(pokemonInput).toHaveAttribute('aria-expanded', 'false');
-    expect(screen.queryByRole('option', { name: /dragonite/i })).not.toBeInTheDocument();
-  });
-
-  it('lets keyboard users highlight and select picker options', async () => {
+  it('hides Pokemon already selected in another team slot', async () => {
     const user = userEvent.setup();
-    await renderAppPage();
+    await renderAppRoute();
+    await openBuildTab(user);
 
-    const pokemonInput = screen.getByLabelText(/slot 1 pokémon/i);
-    await user.click(pokemonInput);
-    await user.type(pokemonInput, 'Carcha');
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await user.clear(screen.getByLabelText(/slot 2 pokémon/i));
+    await user.type(screen.getByLabelText(/slot 2 pokémon/i), 'Dracolosse');
 
-    const option = await screen.findByRole('option', { name: /carchacrok/i });
-    await user.keyboard('{ArrowDown}');
+    expect(screen.queryByRole('option', { name: /dracolosse/i })).not.toBeInTheDocument();
 
-    const activeOptionId = pokemonInput.getAttribute('aria-activedescendant');
-    expect(activeOptionId).toBeTruthy();
-    expect(document.getElementById(activeOptionId!)).toBe(option);
-    expect(option).toHaveAttribute('aria-selected', 'true');
+    await user.click(screen.getByRole('button', { name: /modifier slot 1/i }));
+    await user.clear(screen.getByLabelText(/slot 1 pokémon/i));
+    await user.type(screen.getByLabelText(/slot 1 pokémon/i), 'Dracolosse');
 
-    await user.keyboard('{Enter}');
+    expect(await screen.findByRole('option', { name: /dracolosse/i })).toBeInTheDocument();
+  }, 10000);
 
-    expect(screen.getAllByText(/Carchacrok \(Garchomp\)/i).length).toBeGreaterThan(0);
-    expect(pokemonInput).toHaveAttribute('aria-expanded', 'false');
-  });
-
-  it('closes picker results with Escape and clears the active option', async () => {
+  it('hides active Pokemon already selected in another active picker', async () => {
     const user = userEvent.setup();
-    await renderAppPage();
+    await renderAppRoute();
+    await openBuildTab(user);
 
-    const pokemonInput = screen.getByLabelText(/slot 1 pokémon/i);
-    await user.click(pokemonInput);
-    await user.type(pokemonInput, 'Carcha');
-    await screen.findByRole('option', { name: /carchacrok/i });
-    await user.keyboard('{ArrowDown}');
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await user.click(screen.getByRole('button', { name: /^actifs$/i }));
 
-    expect(pokemonInput).toHaveAttribute('aria-activedescendant');
+    expect(screen.getByText(/multiécaille/i)).toBeInTheDocument();
+    expect(screen.queryByText(/multiscale/i)).not.toBeInTheDocument();
 
-    await user.keyboard('{Escape}');
+    await user.clear(screen.getByLabelText(/actif 2/i));
+    await user.type(screen.getByLabelText(/actif 2/i), 'Dracolosse');
 
-    expect(pokemonInput).toHaveAttribute('aria-expanded', 'false');
-    expect(pokemonInput).not.toHaveAttribute('aria-activedescendant');
-    expect(screen.queryByRole('listbox', { name: /résultats de recherche/i })).not.toBeInTheDocument();
-  });
+    expect(screen.queryByRole('option', { name: /dracolosse/i })).not.toBeInTheDocument();
 
-  it('imports and exports a Showdown team file from the setup assistant', async () => {
+    await user.clear(screen.getByLabelText(/actif 1/i));
+    await user.type(screen.getByLabelText(/actif 1/i), 'Dracolosse');
+
+    expect(await screen.findByRole('option', { name: /dracolosse/i })).toBeInTheDocument();
+  }, 10000);
+
+  it('saves, loads, deletes and exports teams from local browser storage', async () => {
     const user = userEvent.setup();
-    await renderAppPage();
-    await openSetupWizard(user);
+    await renderAppRoute();
 
-    const importedPaste = `Dragonite @ Heavy-Duty Boots
-Ability: Multiscale
-Tera Type: Normal
-EVs: 252 Atk / 4 SpD / 252 Spe
-Jolly Nature
-- Extreme Speed`;
-    const file = new File([importedPaste], 'dragonite-team.txt', { type: 'text/plain' });
-
-    await user.upload(screen.getByLabelText(/importer un fichier équipe/i), file);
-    const status = await screen.findByRole('status');
-    expect(status).toHaveAttribute('aria-live', 'polite');
-    expect(status).toHaveTextContent(/équipe importée depuis le fichier/i);
-    expect(await screen.findByText(/fichier importé : dragonite-team\.txt/i)).toBeInTheDocument();
-
-    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
-    expect(paste.value).toContain('Dragonite @ Heavy-Duty Boots');
-    expect(await screen.findAllByText(/Dragonite/i)).not.toHaveLength(0);
-
-    const exportLink = screen.getByRole('link', { name: /exporter l'équipe/i });
-    expect(exportLink).toHaveAttribute('download', 'pokemon-champions-team.txt');
-    expect(decodeURIComponent(exportLink.getAttribute('href') ?? '')).toContain('Dragonite @ Heavy-Duty Boots');
-  });
-
-  it('saves, loads and deletes teams from local browser storage', async () => {
-    const user = userEvent.setup();
-    await renderAppPage();
+    await user.click(screen.getByRole('button', { name: /^build$/i }));
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
 
     await user.type(screen.getByLabelText(/nom de sauvegarde/i), 'Ladder BO1');
     await user.click(screen.getByRole('button', { name: /sauvegarder l'équipe/i }));
 
     expect(screen.getByText(/équipe sauvegardée localement/i)).toBeInTheDocument();
-    expect(JSON.parse(window.localStorage.getItem(SAVED_TEAMS_STORAGE_KEY) ?? '[]')).toHaveLength(1);
     expect(within(screen.getByLabelText(/sauvegardes locales/i)).getByText(/^Ladder BO1$/i)).toBeInTheDocument();
 
-    await openSetupWizard(user);
-    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
-    await user.clear(paste);
-    await user.type(
-      paste,
-      `Dragonite @ Heavy-Duty Boots
-Ability: Multiscale
-- Extreme Speed`,
-    );
-    expect(paste.value).toContain('Dragonite @ Heavy-Duty Boots');
+    const teamExportLink = screen.getByRole('link', { name: /exporter l'équipe/i });
+    expect(teamExportLink).toHaveAttribute('download', 'pokemon-champions-team.txt');
+    expect(decodeURIComponent(teamExportLink.getAttribute('href') ?? '')).toContain('Dragonite');
 
     await user.click(screen.getByRole('button', { name: /charger Ladder BO1/i }));
+    expect(await screen.findByRole('heading', { name: /build rapide/i })).toBeInTheDocument();
 
-    expect(paste.value).toContain('Great Tusk @ Booster Energy');
-    expect(screen.getByText(/équipe chargée depuis les sauvegardes locales/i)).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
 
     await user.click(screen.getByRole('button', { name: /supprimer Ladder BO1/i }));
-
     expect(screen.getByText(/aucune équipe sauvegardée/i)).toBeInTheDocument();
-    expect(JSON.parse(window.localStorage.getItem(SAVED_TEAMS_STORAGE_KEY) ?? '[]')).toEqual([]);
   });
 
-  it('exports a markdown analysis report and explains threat scores', async () => {
-    await renderAppPage();
+  it('filters saved teams by search before loading', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
 
-    expect(screen.getByText(/le score combine l'usage smogon/i)).toBeInTheDocument();
-    expect(screen.getByText(/hors top méta/i)).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: /^build$/i }));
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
+    await user.type(screen.getByLabelText(/nom de sauvegarde/i), 'Ladder BO1');
+    await user.click(screen.getByRole('button', { name: /sauvegarder l'équipe/i }));
+
+    await user.click(screen.getByRole('button', { name: /créer une team vide/i }));
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangourex', /Kangourex/i);
+    await user.click(screen.getByRole('button', { name: /^team$/i }));
+    await user.type(screen.getByLabelText(/nom de sauvegarde/i), 'Casual test');
+    await user.click(screen.getByRole('button', { name: /sauvegarder l'équipe/i }));
+
+    await user.type(screen.getByLabelText(/rechercher une sauvegarde/i), 'ladder');
+
+    expect(within(screen.getByLabelText(/sauvegardes locales/i)).getByText(/^Ladder BO1$/i)).toBeInTheDocument();
+    expect(within(screen.getByLabelText(/sauvegardes locales/i)).queryByText(/^Casual test$/i)).not.toBeInTheDocument();
+  }, 15000);
+
+  it('exports a markdown analysis report from the match screen', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openMatchTab(user);
 
     const exportLink = screen.getByRole('link', { name: /exporter l'analyse/i });
     expect(exportLink).toHaveAttribute('download', 'pokemon-champions-analyse.md');
     const decodedReport = decodeURIComponent(exportLink.getAttribute('href') ?? '');
     expect(decodedReport).toContain('# Rapport Champions Companion');
-    expect(decodedReport).toContain('Great Tusk');
+    expect(decodedReport).toContain('Dracolosse');
     expect(decodedReport).toContain('Menaces frequentes');
-  });
-
-  it('announces file import failures as a polite status', async () => {
-    const user = userEvent.setup();
-    await renderAppPage();
-    await openSetupWizard(user);
-
-    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
-    const initialPaste = paste.value;
-    const file = new File(['broken'], 'broken-team.txt', { type: 'text/plain' });
-    Object.defineProperty(file, 'text', {
-      configurable: true,
-      value: vi.fn().mockRejectedValue(new Error('lecture impossible')),
-    });
-
-    await user.upload(screen.getByLabelText(/importer un fichier équipe/i), file);
-
-    const status = await screen.findByRole('status');
-    expect(status).toHaveAttribute('aria-live', 'polite');
-    expect(status).toHaveTextContent(/impossible de lire ce fichier/i);
-    expect(status).toHaveTextContent(/collez l'équipe manuellement/i);
-    expect(paste.value).toBe(initialPaste);
-  });
-
-  it('helps users fill a standard 252 / 252 / 6 EV spread', async () => {
-    const user = userEvent.setup();
-    await renderAppPage();
-    await openSetupWizard(user);
-
-    await user.click(screen.getByRole('button', { name: /attaquant physique rapide/i }));
-
-    expect(screen.getByLabelText(/slot 1 ev hp/i)).toHaveValue(6);
-    expect(screen.getByLabelText(/slot 1 ev atk/i)).toHaveValue(252);
-    expect(screen.getByLabelText(/slot 1 ev def/i)).toHaveValue(null);
-    expect(screen.getByLabelText(/slot 1 ev spa/i)).toHaveValue(null);
-    expect(screen.getByLabelText(/slot 1 ev spd/i)).toHaveValue(null);
-    expect(screen.getByLabelText(/slot 1 ev spe/i)).toHaveValue(252);
-    expect(screen.getByText(/ev utilisés : 510\/510/i)).toBeInTheDocument();
-
-    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
-    expect(paste.value).toContain('EVs: 6 HP / 252 Atk / 252 Spe');
-  });
-
-  it('explains selected abilities and natures in simple French', async () => {
-    const user = userEvent.setup();
-    await renderAppPage();
-
-    expect(screen.getByText(/active paléosynthèse avec le soleil/i)).toBeInTheDocument();
-    await user.selectOptions(screen.getByLabelText(/slot 1 nature/i), 'Jolly');
-
-    expect(screen.getByText(/augmente la vitesse/i)).toBeInTheDocument();
-    expect(screen.getByText(/baisse l'attaque spéciale/i)).toBeInTheDocument();
-  });
-
-  it('shows a combat calculator after the team tools', async () => {
-    await renderAppPage();
-
-    expect(await screen.findByRole('heading', { level: 2, name: /^combat$/i })).toBeInTheDocument();
-    expect(screen.getByLabelText(/rechercher adversaire 1/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/dégâts que tu fais/i).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/dégâts que tu reçois/i).length).toBeGreaterThan(0);
-  });
-
-  it('hides advanced combat controls behind a disclosure', async () => {
-    const user = userEvent.setup();
-    await renderAppPage();
-
-    expect(screen.getByRole('heading', { level: 2, name: /^combat$/i })).toBeInTheDocument();
-    const advancedToggle = screen.getByRole('button', { name: /options combat avancées/i });
-    const controlledRegionIds = advancedToggle.getAttribute('aria-controls')?.split(/\s+/) ?? [];
-
-    expect(advancedToggle).toHaveAttribute('aria-expanded', 'false');
-    expect(controlledRegionIds).toContain('combat-advanced-controls');
-    expect(controlledRegionIds.some((id) => id.startsWith('combat-opponent-advanced-controls-'))).toBe(true);
-    expect(document.getElementById('combat-advanced-controls')).toBeInTheDocument();
-    expect(
-      controlledRegionIds.some((id) => id.startsWith('combat-opponent-advanced-controls-') && document.getElementById(id)),
-    ).toBe(true);
-    expect(screen.getByLabelText(/rechercher adversaire 1/i)).toBeInTheDocument();
-    expect(screen.queryByRole('combobox', { name: /météo/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('combobox', { name: /terrain/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: /protections alliées/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: /modifs allié/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: /modifs adversaire/i })).not.toBeInTheDocument();
-
-    await user.click(advancedToggle);
-
-    expect(advancedToggle).toHaveAttribute('aria-expanded', 'true');
-    expect(document.getElementById('combat-advanced-controls')).toBeInTheDocument();
-    expect(controlledRegionIds.some((id) => document.getElementById(id)?.textContent?.match(/modifs adversaire/i))).toBe(
-      true,
-    );
-    expect(screen.getByRole('combobox', { name: /météo/i })).toBeInTheDocument();
-    expect(screen.getByRole('combobox', { name: /terrain/i })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /protections alliées/i })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /modifs allié/i })).toBeInTheDocument();
-    expect(screen.getAllByRole('heading', { name: /modifs adversaire/i }).length).toBeGreaterThan(0);
-
-    await user.selectOptions(screen.getByRole('combobox', { name: /météo/i }), 'Sun');
-    await user.click(advancedToggle);
-
-    expect(advancedToggle).toHaveAttribute('aria-expanded', 'false');
-    expect(screen.queryByRole('combobox', { name: /météo/i })).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /options combat avancées · 1 active/i })).toBeInTheDocument();
-  });
-
-  it('loads the complete Showdown reference in the builder with French searchable media', async () => {
-    const user = userEvent.setup();
-    const { container } = await renderAppPage();
-
-    await waitForCompleteReference();
-    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangourex', /Kangourex \(Kangaskhan\)/i);
-    expect(container.querySelector('.picker-current img[src*="/pokemon/115.png"]')).not.toBeNull();
-
-    await selectPickerOption(user, /slot 1 objet/i, 'Heavy Duty Boots', /Grosses Bottes \(Heavy-Duty Boots\)/i);
-    expect(screen.getByText(/pièges posés de son côté/i)).toBeInTheDocument();
-    expect(container.querySelector('.picker-current img[src*="/items/gen8/heavy-duty-boots.png"]')).not.toBeNull();
-  }, 10000);
-
-  it('updates the roster from builder controls and exports the generated paste', async () => {
-    const user = userEvent.setup();
-    await renderAppPage();
-    await openSetupWizard(user);
-
-    await waitForCompleteReference();
-    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
-    await selectPickerOption(user, /slot 2 pokémon/i, 'Dracolosse', /Dracolosse \(Dragonite\)/i);
-    await selectPickerOption(user, /slot 2 objet/i, 'Grosses Bottes', /Grosses Bottes \(Heavy-Duty Boots\)/i);
-    await user.selectOptions(screen.getByLabelText(/slot 2 attaque 1/i), 'Extreme Speed');
-    await user.clear(screen.getByLabelText(/slot 2 ev atk/i));
-    await user.type(screen.getByLabelText(/slot 2 ev atk/i), '252');
-    await user.type(screen.getByLabelText(/commentaire slot 2/i), 'Win condition prioritaire.');
-
-    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
-    expect(paste.value).toContain('Dragonite @ Heavy-Duty Boots');
-    expect(paste.value).toContain('EVs: 252 Atk');
-    expect(paste.value).not.toContain('Win condition');
-    expect(await screen.findAllByText(/Dracolosse \(Dragonite\)/i)).not.toHaveLength(0);
-  });
-
-  it('filters set dropdowns from the selected Pokémon reference', async () => {
-    const user = userEvent.setup();
-    await renderAppPage();
-    await openSetupWizard(user);
-
-    await waitForCompleteReference();
-    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
-    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok \(Garchomp\)/i);
-
-    const abilitySelect = screen.getByLabelText(/slot 2 talent/i);
-    expect(within(abilitySelect).getByRole('option', { name: /Peau Dure \(Rough Skin\)/i })).toBeInTheDocument();
-    expect(within(abilitySelect).queryByRole('option', { name: /Multiscale/i })).not.toBeInTheDocument();
-    await user.selectOptions(abilitySelect, 'Rough Skin');
-
-    const firstMoveSelect = screen.getByLabelText(/slot 2 attaque 1/i);
-    expect(within(firstMoveSelect).getByRole('option', { name: /Séisme \(Earthquake\)/i })).toBeInTheDocument();
-    expect(within(firstMoveSelect).queryByRole('option', { name: /Moonblast/i })).not.toBeInTheDocument();
-    await user.selectOptions(firstMoveSelect, 'Earthquake');
-    await selectPickerOption(user, /slot 2 objet/i, 'Casque Brut', /Casque Brut \(Rocky Helmet\)/i);
-    await user.selectOptions(screen.getByLabelText(/slot 2 .*type tera/i), 'Ground');
-    await user.selectOptions(screen.getByLabelText(/slot 2 nature/i), 'Jolly');
-
-    const paste = screen.getByLabelText(/équipe showdown/i) as HTMLTextAreaElement;
-    expect(paste.value).toContain('Garchomp @ Rocky Helmet');
-    expect(paste.value).toContain('Ability: Rough Skin');
-    expect(paste.value).toContain('Tera Type: Ground');
-    expect(paste.value).toContain('Jolly Nature');
-    expect(paste.value).toContain('- Earthquake');
-  });
-
-  it('uses Champions 3v3 as the default pick 3 level 100 mode', async () => {
-    await renderAppPage();
-
-    expect(screen.getAllByText(/sélection de match : choisis 3 pokémon/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/sélection incomplète : choisis 3 pokémon/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/(Fort-Ivoire \(Great Tusk\)|Great Tusk): 300 exact/i).length).toBeGreaterThan(0);
-  });
-
-  it('adapts match selection to Champions BSS pick 3', async () => {
-    const user = userEvent.setup();
-    await renderAppPage();
-    await openSetupWizard(user);
-
-    await user.selectOptions(screen.getByLabelText(/format champions/i), 'champions-bss');
-
-    expect(screen.getAllByText(/sélection de match : choisis 3 pokémon/i).length).toBeGreaterThan(0);
-    expect(screen.getByText(/sélection incomplète : choisis 3 pokémon/i)).toBeInTheDocument();
-  });
-
-  it('parses a pasted team and displays threats', async () => {
-    const user = userEvent.setup();
-    await renderAppPage();
-    await openSetupWizard(user);
-
-    await user.clear(screen.getByLabelText(/équipe showdown/i));
-    await user.type(
-      screen.getByLabelText(/équipe showdown/i),
-      `Garchomp @ Rocky Helmet{enter}Ability: Rough Skin{enter}- Earthquake{enter}- Stealth Rock`,
-    );
-
-    expect((await screen.findAllByText(/Carchacrok \(Garchomp\)/i)).length).toBeGreaterThan(0);
-    expect(screen.getByText(/joués : carchacrok \(garchomp\)/i)).toBeInTheDocument();
-    const threatPanel = screen.getByRole('heading', { name: /adversaires fréquents dangereux/i }).closest('section');
-    expect(threatPanel).not.toBeNull();
-    expect(
-      within(threatPanel as HTMLElement).getByText(/Fort-Ivoire|Scalpereur|Corvaillus|Great Tusk|Kingambit|Corviknight/i),
-    ).toBeInTheDocument();
-  });
-
-  it('shows member parse warnings from pasted teams', async () => {
-    const user = userEvent.setup();
-    await renderAppPage();
-    await openSetupWizard(user);
-
-    await user.clear(screen.getByLabelText(/équipe showdown/i));
-    await user.type(
-      screen.getByLabelText(/équipe showdown/i),
-      `Garchomp @ Rocky Helmet{enter}Ability: Rough Skin{enter}Level: banana{enter}- Earthquake`,
-    );
-
-    expect(await screen.findByText('Niveau invalide dans la ligne : Level: banana')).toBeInTheDocument();
   });
 });

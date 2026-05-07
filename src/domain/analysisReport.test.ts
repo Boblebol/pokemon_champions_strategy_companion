@@ -23,7 +23,7 @@ Ability: Protosynthesis
     });
 
     expect(report).toContain('# Rapport Champions Companion');
-    expect(report).toContain('Format : Champions 3v3');
+    expect(report).toContain('Format : [Champions] BSS Reg M-A');
     expect(report).toContain('Great Tusk');
     expect(report).toContain('## Menaces frequentes');
     expect(report).toContain('Score');

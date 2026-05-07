@@ -92,7 +92,7 @@ Ability: Levitate
       'Kingambit',
       'Rotom-Wash',
     ]);
-    expect(result.selectedAudit.format.label).toBe('Champions 3v3');
+    expect(result.selectedAudit.format.label).toBe('[Champions] BSS Reg M-A');
     expect(result.selectedThreats.length).toBeGreaterThan(0);
     expect(result.selectionWarnings).toEqual([]);
   });
@@ -109,16 +109,17 @@ Ability: Multiscale
 - Dragon Dance
 - Extreme Speed
 
-Great Tusk @ Booster Energy
-Ability: Protosynthesis
-- Close Combat
+Kingambit @ Black Glasses
+Ability: Supreme Overlord
+- Sucker Punch
+- Iron Head
 `,
       format: 'champions-bss',
       store: createDataStore(demoDataBundle),
       selectedSlots: [1, 2, 3],
     });
 
-    expect(result.selectedPossibleThreats.map((threat) => threat.species)).toContain('Flutter Mane');
+    expect(result.selectedPossibleThreats.map((threat) => threat.species)).toContain('Palafin');
     expect(result.possibleThreats).toEqual([]);
   });
 
