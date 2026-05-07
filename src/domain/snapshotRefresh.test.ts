@@ -40,7 +40,7 @@ describe('refreshSnapshots', () => {
       status: 200,
       json: vi.fn().mockResolvedValue({
         info: {
-          metagame: 'gen9bssregi',
+          metagame: 'gen9championsbssregma',
           cutoff: 1760,
           'number of battles': 27977,
         },
@@ -67,7 +67,7 @@ describe('refreshSnapshots', () => {
     if (!result.ok) {
       throw new Error(result.message);
     }
-    expect(result.message).toBe('Données Smogon 2026-03 importées pour Champions 3v3.');
+    expect(result.message).toBe('Données Smogon/Showdown importées pour [Champions] BSS Reg M-A.');
     expect(result.importedAt).toEqual(expect.any(String));
     expect(result.snapshot.entries).toEqual([
       {
@@ -85,7 +85,7 @@ describe('refreshSnapshots', () => {
     ]);
     expect(result.snapshot.battleCount).toBe(27977);
     expect(fetcher).toHaveBeenCalledWith(
-      'https://www.smogon.com/stats/2026-03/chaos/gen9bssregi-1760.json',
+      'https://www.smogon.com/stats/2026-04/chaos/gen9championsbssregma-1760.json',
     );
   });
 
@@ -95,7 +95,7 @@ describe('refreshSnapshots', () => {
       status: 200,
       json: vi.fn().mockResolvedValue({
         info: {
-          metagame: 'gen9bssregi',
+          metagame: 'gen9championsbssregma',
           cutoff: 1630,
           'number of battles': 42123,
         },
@@ -118,18 +118,18 @@ describe('refreshSnapshots', () => {
     });
 
     expect(fetcher).toHaveBeenCalledWith(
-      'https://www.smogon.com/stats/2026-04/chaos/gen9bssregi-1630.json',
+      'https://www.smogon.com/stats/2026-04/chaos/gen9championsbssregma-1630.json',
     );
     expect(result.ok).toBe(true);
     if (!result.ok) {
       throw new Error(result.message);
     }
-    expect(result.message).toBe('Données Smogon 2026-04 importées pour Champions 3v3.');
+    expect(result.message).toBe('Données Smogon/Showdown importées pour [Champions] BSS Reg M-A.');
     expect(result.snapshot.date).toBe('2026-04');
     expect(result.snapshot.id).toBe('smogon-champions-bss-2026-04-1630');
-    expect(result.snapshot.label).toBe('Champions 3v3 Smogon 2026-04');
+    expect(result.snapshot.label).toBe('[Champions] BSS Reg M-A Smogon 2026-04');
     expect(result.snapshot.source).toBe(
-      'https://www.smogon.com/stats/2026-04/chaos/gen9bssregi-1630.json',
+      'https://www.smogon.com/stats/2026-04/chaos/gen9championsbssregma-1630.json',
     );
   });
 
@@ -139,7 +139,7 @@ describe('refreshSnapshots', () => {
       status: 200,
       json: vi.fn().mockResolvedValue({
         info: {
-          metagame: 'gen9nationaldex',
+          metagame: 'gen9championsou',
           cutoff: 1760,
           'number of battles': 100,
         },
@@ -160,10 +160,10 @@ describe('refreshSnapshots', () => {
     if (!result.ok) {
       throw new Error(result.message);
     }
-    expect(fetcher).toHaveBeenCalledWith('/smogon-stats/stats/2026-03/chaos/gen9nationaldex-1760.json');
+    expect(fetcher).toHaveBeenCalledWith('/smogon-stats/stats/2026-04/chaos/gen9championsou-1760.json');
     expect(result.snapshot.entries[0].usage).toBeCloseTo(35.2);
     expect(result.snapshot.source).toBe(
-      'https://www.smogon.com/stats/2026-03/chaos/gen9nationaldex-1760.json',
+      'https://www.smogon.com/stats/2026-04/chaos/gen9championsou-1760.json',
     );
   });
 });

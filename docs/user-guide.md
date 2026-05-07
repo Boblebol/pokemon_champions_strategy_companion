@@ -1,46 +1,114 @@
 # Guide utilisateur Champions Companion
 
 Ce guide complète la documentation intégrée de l'app. Il décrit le workflow local
-recommandé pour préparer une sélection Pokémon Champions.
+recommandé pour préparer une sélection Pokémon Champions avec les tiers Pokémon
+Showdown dédiés à Pokémon Champions.
 
 ## Parcours rapide
 
-1. Ouvrir l'app locale ou la page publique `/app`.
-2. Choisir le format : `Champions 3v3`, `Champions VGC 4v4 Duo` ou
-   `Champions OU`.
-3. Importer un paste Showdown, charger un fichier `.txt` ou construire les 6
-   slots dans le constructeur.
-4. Cocher les Pokémon réellement joués dans la sélection de match.
-5. Utiliser le panneau Combat pour simuler les dégâts contre un ou deux
-   adversaires.
-6. Lire les panneaux d'audit, d'adversaires fréquents dangereux, d'adversaires
-   rares dangereux et de vitesses.
+1. Ouvrir la landing PWA `/` pour les instructions d'installation, puis lancer
+   l'app tactile `/app`. `/mobile` reste un alias compatible.
+2. Dans `Team`, créer une team vide, charger une sauvegarde locale ou exporter
+   la team courante.
+3. Choisir `1v1 actif` pour préparer 3 Pokémon ou `2v2 actif` pour préparer 4
+   Pokémon.
+4. Dans `Build`, remplir seulement les slots nécessaires ; les 6 slots ne sont
+   pas obligatoires pour commencer l'analyse.
+5. Dans `Actifs`, ajuster par recherche les Pokémon réellement joués dans ta
+   team. Les premiers slots remplis sont proposés automatiquement.
+6. Dans `Match`, remplir `Team adverse` avec les Pokémon vus ou scoutés, puis
+   taper une carte menace pour l'envoyer directement dans `Combat`.
+7. Utiliser le panneau Combat du même écran pour simuler les dégâts contre un ou
+   deux adversaires selon le format.
 
-L'assistant de départ est optionnel. Il peut être masqué, puis rouvert depuis le
-résumé compact.
+Le parcours reste utilisable même si la team n'a que 3 ou 4 Pokémon remplis.
+Quand des actifs manquent, l'écran `Match` affiche un rappel et garde le calcul
+en mode partiel.
+
+## Installation mobile
+
+L'app est prévue pour fonctionner comme PWA. La racine GitHub Pages `/` affiche
+la page d'installation avec un lien direct vers `/app`. Sur mobile, elle peut
+être ajoutée à l'écran d'accueil depuis le navigateur, sans store. Une fois
+chargée au moins une fois, le shell mobile, la route applicative et les assets
+versionnés sont gardés en cache par le service worker.
+
+Sur iOS ou iPadOS :
+
+1. Ouvre `/` dans Safari, ou directement `/app` si tu veux installer depuis le
+   builder.
+2. Appuie sur le bouton de partage.
+3. Choisis `Sur l'écran d'accueil`.
+4. Valide le nom proposé ou renomme l'app.
+5. Lance Champions Companion depuis l'icône créée.
+
+Sur Android :
+
+1. Ouvre `/` dans Chrome ou un navigateur compatible PWA, ou directement `/app`
+   si tu veux installer depuis le builder.
+2. Ouvre le menu du navigateur.
+3. Choisis `Installer l'application` ou `Ajouter à l'écran d'accueil`.
+4. Valide l'installation.
+5. Lance Champions Companion depuis l'icône créée.
+
+Le statut PWA indique si l'app est en ligne ou hors ligne. Hors
+ligne, les données locales et les équipes sauvegardées restent disponibles ; la
+mise à jour Smogon attend simplement le retour du réseau.
+
+Les routes publiques `/landing` et `/docs` ouvrent la même page d'installation
+PWA que la racine. L'alias `/mobile` utilise les mêmes données, les mêmes
+formats, les mêmes calculs et les mêmes exports que `/app` pour préserver les
+anciens liens vers l'app.
 
 ## Formats
 
-| Format | Style | Équipe | Sélection | Niveau |
+| Format Showdown | Style | Équipe | Sélection | Niveau |
 | --- | --- | ---: | ---: | ---: |
-| Champions 3v3 | Solo | 6 | 3 | 100 |
-| Champions VGC 4v4 Duo | Duo | 6 | 4 | 50 |
-| Champions OU | 6v6 | 6 | 6 | 100 |
+| [Champions] BSS Reg M-A | Solo Flat Rules | 6 | 3 | 50 |
+| [Champions] VGC 2026 Reg M-A | Duo Flat Rules | 6 | 4 | 50 |
+| [Champions] OU | 6v6 | 6 | 6 | 100 |
 
 Le format pilote le niveau des calculs, le nombre de Pokémon joués, le style de
-Combat et les données d'usage Smogon utilisées.
+Combat et les données d'usage Smogon utilisées. Ces libellés sont les formats
+Pokémon Showdown pour Pokémon Champions.
 
 ## Constructeur
 
 Le constructeur propose les Pokémon, talents, objets, natures et attaques depuis
-la référence Gen 9 NatDex générée avec `@pkmn/dex` et `@pkmn/data`. La recherche
-affiche les résultats en français, triés alphabétiquement, avec images Pokémon,
-images d'objets et descriptions d'objets quand la source les fournit. Les valeurs
-internes et l'export restent compatibles Pokémon Showdown en anglais.
+la référence locale filtrée par le roster Showdown Champions et générée avec
+`@pkmn/dex` et `@pkmn/data`. La recherche
+affiche les résultats dans la langue active, triés alphabétiquement, avec images
+Pokémon, images d'objets et descriptions d'objets quand la source les fournit.
+Les attaques affichent aussi type, catégorie, STAB, puissance, précision et PP.
+Le switch `FR/EN` change les libellés affichés sans mélanger les noms dans un
+même contrôle. Les valeurs internes et l'export restent compatibles Pokémon
+Showdown en anglais.
+La présentation mobile suit la maquette
+`docs/design_mockup/maquette_v1/standalone_version_html.html` : rail de slots
+compact, résumé du slot actif, contrôles principaux visibles et détails avancés
+pliés tant qu'ils ne sont pas nécessaires.
 
-Dans l'assistant, `Importer un fichier` lit un `.txt` Showdown et remplace
-l'équipe courante. `Exporter l'équipe` télécharge le paste actuel dans
+Quand un Pokémon est choisi dans un slot, le constructeur hydrate directement les
+réglages visibles dans la maquette mobile : talent par défaut, nature cohérente
+avec le profil offensif, type Tera principal et répartition EV 252 / 252 / 6. Le
+bouton `Détails avancés` ouvre ces réglages sans encombrer le slot fermé. La
+sélection Tera se fait par chips de type et la jauge EV indique immédiatement si
+les 510 points sont utilisés. Les natures se recherchent comme les attaques avec
+leur bonus/malus visible avant sélection. Les attaques proposées restent limitées
+au movepool du Pokémon choisi et une attaque déjà choisie dans le slot est
+retirée des autres champs.
+
+Le roster local vient du mod Pokémon Showdown `champions`. Il est filtré pour ne
+pas proposer les entrées marquées `Illegal` dans
+`data/mods/champions/formats-data.ts`. Les formes qui ne correspondent pas à un
+slot d'équipe directement sélectionnable, comme les Méga, Gigamax, Primo,
+Eternamax, Totem ou formes battle-only, ne sont pas proposées comme Pokémon
+séparés dans le constructeur.
+
+Dans l'écran `Team`, `Exporter l'équipe` télécharge le paste actuel dans
 `pokemon-champions-team.txt`, pratique pour le garder localement ou le partager.
+La sauvegarde et le chargement des teams sont disponibles dès l'accueil pour
+éviter de chercher le management en pleine partie.
 
 Les commentaires restent privés au constructeur. Ils servent aux notes de plan de
 jeu et ne sont pas ajoutés au paste Showdown exporté.
@@ -57,8 +125,18 @@ Il calcule :
 - les effets des boosts, de la Téracristallisation, de la brûlure, du coup
   critique, de la météo, du terrain et des protections par côté.
 
-En Champions VGC 4v4 Duo, la scène peut contenir deux alliés actifs et deux
-adversaires. En Champions 3v3 et OU, elle démarre en 1v1.
+En `[Champions] VGC 2026 Reg M-A`, la scène peut contenir deux alliés actifs et
+deux adversaires. En `[Champions] BSS Reg M-A` et `[Champions] OU`, elle démarre
+en 1v1.
+Les alliés actifs se sélectionnent par recherche dans la sélection jouée, ce qui
+permet de changer vite de lead sans revenir dans le constructeur.
+
+Le bloc `Team adverse` placé au-dessus de Combat sert à préparer rapidement les
+menaces du match : jusqu'à 6 Pokémon adverses peuvent être renseignés, sans
+doublon entre slots. Les cartes de menace sont classées avec la couverture et la
+Vitesse disponibles dans la référence locale. Un tap sur une carte remplit les
+adversaires partagés avec Combat ; en double, le premier tap remplit
+`Adversaire 1` et le second remplit `Adversaire 2`.
 
 ## Données
 

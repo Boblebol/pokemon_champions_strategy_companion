@@ -39,6 +39,8 @@ export interface PokemonImageSet {
 export interface FormatDefinition {
   id: FormatId;
   label: string;
+  showdownName: string;
+  smogonSlug: string;
   battleStyle: 'doubles' | 'singles' | 'six-vs-six';
   teamSize: number;
   pickSize: number;
@@ -64,6 +66,7 @@ export interface MoveReference {
   category: MoveCategory;
   power?: number;
   accuracy?: number;
+  pp?: number;
   priority?: number;
   target?: string;
 }

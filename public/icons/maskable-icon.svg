@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Pokemon Champions Strategy Companion Maskable</title>
+  <rect width="512" height="512" fill="#17324d"/>
+  <circle cx="256" cy="256" r="184" fill="#f7fbff"/>
+  <path d="M72 256h368" stroke="#17324d" stroke-width="36" stroke-linecap="round"/>
+  <circle cx="256" cy="256" r="64" fill="#17324d"/>
+  <circle cx="256" cy="256" r="30" fill="#f7fbff"/>
+  <path d="M142 157c57-54 158-57 229-1" fill="none" stroke="#f2b84b" stroke-width="30" stroke-linecap="round"/>
+  <path d="M142 354c65 51 160 50 230-2" fill="none" stroke="#2f9b72" stroke-width="30" stroke-linecap="round"/>
+</svg>

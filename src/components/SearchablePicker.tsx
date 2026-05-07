@@ -7,6 +7,7 @@ export interface PickerOption {
   searchText: string;
   description?: string;
   media: ReactNode;
+  details?: ReactNode;
 }
 
 function normalizeSearch(value: string): string {
@@ -81,13 +82,17 @@ export function SearchablePicker({
     });
   }, [isExpanded, visibleOptions.length]);
 
+  useEffect(() => {
+    setQuery(selected?.label ?? '');
+  }, [selected?.label]);
+
   function optionId(index: number): string {
     return `${resultsId}-option-${index}`;
   }
 
   function selectOption(option: PickerOption) {
     onChange(option.value);
-    setQuery('');
+    setQuery(option.label);
     setIsExpanded(false);
     setActiveIndex(-1);
   }
@@ -95,6 +100,7 @@ export function SearchablePicker({
   return (
     <div
       className="field searchable-picker"
+      data-has-value={Boolean(selected)}
       ref={pickerRef}
       onBlur={(event) => {
         if (!pickerRef.current?.contains(event.relatedTarget)) {
@@ -204,6 +210,7 @@ export function SearchablePicker({
               <span>
                 <strong>{option.label}</strong>
                 {option.description ? <small>{option.description}</small> : null}
+                {option.details ? <span className="picker-option-details">{option.details}</span> : null}
               </span>
             </div>
           ))}
