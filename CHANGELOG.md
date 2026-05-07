@@ -14,6 +14,8 @@
   sélecteurs en mode 2v2 et sélection adversaire sans doublon.
 - Build: alignement des sélecteurs avec la maquette, libellés FR/EN cohérents,
   attaques limitées au movepool et choix uniques par slot.
+- Dépendances: mise à jour des actions GitHub, de `jsdom` et de `typescript`
+  avant la release.
 - QA: couverture Vitest et Playwright étendue sur le shell mobile, la PWA, les
   sélecteurs et les flows Combat 1v1/2v2.
 
