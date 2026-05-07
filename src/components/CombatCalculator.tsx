@@ -5,6 +5,7 @@ import {
 } from '../domain/damageCalculator';
 import { toId } from '../domain/ids';
 import { localizedSearchText } from '../domain/localization';
+import { normalizeCombatSlots } from '../domain/opponentTeam';
 import { moveDisplayName, pokemonDisplayName, typeDisplayName } from '../domain/referenceDisplay';
 import type { CombatOpponent, CombatPokemonModifiers, CombatState } from '../domain/damageCalculator';
 import type { FormatId, LocaleId, ReferenceSnapshot, StatId, TeamMember } from '../domain/types';
@@ -169,17 +170,41 @@ export interface CombatCalculatorProps {
   selectedTeam: TeamMember[];
   reference: ReferenceSnapshot;
   locale: LocaleId;
+  opponents?: CombatOpponent[];
+  onOpponentsChange?: (opponents: CombatOpponent[]) => void;
 }
 
-export function CombatCalculator({ format, selectedTeam, reference, locale }: CombatCalculatorProps) {
+export function CombatCalculator({
+  format,
+  selectedTeam,
+  reference,
+  locale,
+  opponents,
+  onOpponentsChange,
+}: CombatCalculatorProps) {
   const defaultStateKey = stateKey(format, selectedTeam);
+  const controlledOpponentsKey = opponents?.map((opponent) => `${opponent.id}:${opponent.species ?? ''}`).join('|') ?? '';
   const [state, setState] = useState<CombatState>(() => createDefaultCombatState(format, selectedTeam));
   const [includeAllFriendlyMoves, setIncludeAllFriendlyMoves] = useState(false);
   const [showAdvancedControls, setShowAdvancedControls] = useState(false);
 
   useEffect(() => {
-    setState(createDefaultCombatState(format, selectedTeam));
+    setState((current) => ({
+      ...createDefaultCombatState(format, selectedTeam),
+      opponents: normalizeCombatSlots(format, opponents ?? current.opponents),
+    }));
   }, [defaultStateKey, format, selectedTeam]);
+
+  useEffect(() => {
+    if (!opponents) {
+      return;
+    }
+
+    setState((current) => ({
+      ...current,
+      opponents: normalizeCombatSlots(format, opponents),
+    }));
+  }, [controlledOpponentsKey, format]);
 
   const result = useMemo(
     () => calculateCombatScenario({ format, reference, friendlyTeam: selectedTeam, state, includeAllFriendlyMoves }),
@@ -265,6 +290,15 @@ export function CombatCalculator({ format, selectedTeam, reference, locale }: Co
         friendlyActiveSlots: nextSlots.slice(0, activeLimit),
       };
     });
+  }
+
+  function handleOpponentChange(opponentId: string, species: string | undefined) {
+    const nextOpponents = normalizeCombatSlots(format, replaceOpponent(state.opponents, opponentId, { species }));
+    setState((current) => ({
+      ...current,
+      opponents: nextOpponents,
+    }));
+    onOpponentsChange?.(nextOpponents);
   }
 
   return (
@@ -388,6 +422,11 @@ export function CombatCalculator({ format, selectedTeam, reference, locale }: Co
 
         <div className="combat-opponents">
           {state.opponents.map((opponent, index) => {
+            const selectedInOtherFields = new Set(
+              state.opponents.flatMap((candidate, candidateIndex) =>
+                candidateIndex !== index && candidate.species ? [toId(candidate.species)] : [],
+              ),
+            );
             return (
               <article className="combat-opponent-card" key={opponent.id}>
                 <div className="slot-header">
@@ -398,14 +437,9 @@ export function CombatCalculator({ format, selectedTeam, reference, locale }: Co
                   label={`Adversaire ${index + 1}`}
                   value={opponent.species}
                   placeholder="Nom FR ou EN"
-                  options={opponentPickerOptions}
+                  options={opponentPickerOptions.filter((option) => !selectedInOtherFields.has(toId(option.value)))}
                   emptyLabel="Aucun adversaire trouvé"
-                  onChange={(species) =>
-                    setState((current) => ({
-                      ...current,
-                      opponents: replaceOpponent(current.opponents, opponent.id, { species }),
-                    }))
-                  }
+                  onChange={(species) => handleOpponentChange(opponent.id, species)}
                 />
                 <div id={opponentAdvancedControlsId(opponent.id)} hidden={!showAdvancedControls}>
                   <ModifierControls

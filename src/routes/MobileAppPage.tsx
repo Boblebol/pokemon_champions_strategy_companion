@@ -3,6 +3,7 @@ import type { ComponentType } from 'react';
 import { AnalysisExport } from '../components/AnalysisExport';
 import { AuditPanel } from '../components/AuditPanel';
 import { DeferredCombatCalculator } from '../components/DeferredCombatCalculator';
+import { OpponentTeamPanel } from '../components/OpponentTeamPanel';
 import { PossibleThreatPanel } from '../components/PossibleThreatPanel';
 import { PokemonAvatar } from '../components/PokemonMedia';
 import { SavedTeamManager } from '../components/SavedTeamManager';
@@ -17,6 +18,7 @@ import { createDataStore } from '../domain/dataStore';
 import { toId } from '../domain/ids';
 import { localizedSearchText } from '../domain/localization';
 import { getPickSize } from '../domain/matchSelection';
+import { normalizeCombatSlots } from '../domain/opponentTeam';
 import { abilityDisplayName, moveDisplayName, pokemonDisplayName, typeDisplayName } from '../domain/referenceDisplay';
 import type { SavedTeam } from '../domain/savedTeams';
 import { refreshSnapshots } from '../domain/snapshotRefresh';
@@ -29,6 +31,7 @@ import {
   updateBuilderSlot,
 } from '../domain/teamBuilder';
 import type { BuilderSlot } from '../domain/teamBuilder';
+import type { CombatOpponent } from '../domain/damageCalculator';
 import type { DataBundle, FormatId, LocaleId } from '../domain/types';
 
 type MobileTab = 'team' | 'build' | 'active' | 'match';
@@ -126,6 +129,7 @@ export default function MobileAppPage() {
   const [format, setFormat] = useState<FormatId>('champions-bss');
   const [builderState, setBuilderState] = useState(() => createEmptyBuilderState());
   const [selectedSlots, setSelectedSlots] = useState<number[]>([]);
+  const [combatSlots, setCombatSlots] = useState<CombatOpponent[]>(() => normalizeCombatSlots('champions-bss', []));
   const [dataBundle, setDataBundle] = useState<DataBundle>(demoDataBundle);
   const [locale, setLocale] = useState<LocaleId>('fr');
   const [referenceStatus, setReferenceStatus] = useState<'loading' | 'complete' | 'error'>('loading');
@@ -157,6 +161,10 @@ export default function MobileAppPage() {
       mounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    setCombatSlots((currentSlots) => normalizeCombatSlots(format, currentSlots));
+  }, [format]);
 
   const store = useMemo(() => createDataStore(dataBundle), [dataBundle]);
   const paste = useMemo(() => builderStateToShowdownPaste(builderState), [builderState]);
@@ -613,11 +621,21 @@ export default function MobileAppPage() {
               </button>
             ) : null}
           </section>
+          <OpponentTeamPanel
+            format={format}
+            selectedTeam={analysis.selectedTeam.members}
+            reference={dataBundle.reference}
+            locale={locale}
+            combatSlots={combatSlots}
+            onCombatSlotsChange={(nextSlots) => setCombatSlots(normalizeCombatSlots(format, nextSlots))}
+          />
           <DeferredCombatCalculator
             format={format}
             selectedTeam={analysis.selectedTeam.members}
             reference={dataBundle.reference}
             locale={locale}
+            opponents={combatSlots}
+            onOpponentsChange={(nextSlots) => setCombatSlots(normalizeCombatSlots(format, nextSlots))}
           />
           <section className="panel selected-analysis">
             <h2>Plan de match</h2>

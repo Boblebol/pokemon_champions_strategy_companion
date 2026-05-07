@@ -16,9 +16,10 @@ Showdown dédiés à Pokémon Champions.
    pas obligatoires pour commencer l'analyse.
 5. Dans `Actifs`, ajuster par recherche les Pokémon réellement joués dans ta
    team. Les premiers slots remplis sont proposés automatiquement.
-6. Dans `Match`, lire `Couverture rapide`, puis les adversaires dangereux.
-7. Utiliser le panneau Combat du même écran pour simuler les dégâts contre un ou deux
-   adversaires.
+6. Dans `Match`, remplir `Team adverse` avec les Pokémon vus ou scoutés, puis
+   taper une carte menace pour l'envoyer directement dans `Combat`.
+7. Utiliser le panneau Combat du même écran pour simuler les dégâts contre un ou
+   deux adversaires selon le format.
 
 Le parcours reste utilisable même si la team n'a que 3 ou 4 Pokémon remplis.
 Quand des actifs manquent, l'écran `Match` affiche un rappel et garde le calcul
@@ -129,6 +130,13 @@ deux adversaires. En `[Champions] BSS Reg M-A` et `[Champions] OU`, elle démarr
 en 1v1.
 Les alliés actifs se sélectionnent par recherche dans la sélection jouée, ce qui
 permet de changer vite de lead sans revenir dans le constructeur.
+
+Le bloc `Team adverse` placé au-dessus de Combat sert à préparer rapidement les
+menaces du match : jusqu'à 6 Pokémon adverses peuvent être renseignés, sans
+doublon entre slots. Les cartes de menace sont classées avec la couverture et la
+Vitesse disponibles dans la référence locale. Un tap sur une carte remplit les
+adversaires partagés avec Combat ; en double, le premier tap remplit
+`Adversaire 1` et le second remplit `Adversaire 2`.
 
 ## Données
 

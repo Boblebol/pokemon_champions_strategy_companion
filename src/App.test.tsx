@@ -213,6 +213,69 @@ describe('App', () => {
     expect(await screen.findByRole('heading', { name: /carchacrok vs scalpereur/i })).toBeInTheDocument();
   }, 15000);
 
+  it('sends a Team adverse threat card into the synced Combat opponent picker', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await openMatchTab(user);
+
+    const opponentTeam = await screen.findByRole('region', { name: /team adverse/i }, { timeout: 5000 });
+    const combat = await screen.findByRole('region', { name: /calculateur de combat/i }, { timeout: 5000 });
+
+    expect(opponentTeam.compareDocumentPosition(combat) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(within(opponentTeam).getByRole('button', { name: /replier la team adverse/i })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
+
+    const firstOpponentSlot = within(opponentTeam).getByRole('combobox', { name: /slot adverse 1/i });
+    await user.clear(firstOpponentSlot);
+    await user.type(firstOpponentSlot, 'kang');
+    await user.click(await within(opponentTeam).findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    await user.click(
+      await within(opponentTeam).findByRole('button', { name: /envoyer kangourex en combat/i }, { timeout: 5000 }),
+    );
+
+    expect(within(combat).getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
+    expect(await screen.findByRole('heading', { name: /dracolosse vs kangourex/i })).toBeInTheDocument();
+  }, 15000);
+
+  it('fills both synced Combat opponent pickers from Team adverse cards in 2v2 mode', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await user.click(screen.getByRole('button', { name: /2v2 actif/i }));
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await openMatchTab(user);
+
+    const opponentTeam = await screen.findByRole('region', { name: /team adverse/i }, { timeout: 5000 });
+    const combat = await screen.findByRole('region', { name: /calculateur de combat/i }, { timeout: 5000 });
+
+    const firstOpponentSlot = within(opponentTeam).getByRole('combobox', { name: /slot adverse 1/i });
+    await user.clear(firstOpponentSlot);
+    await user.type(firstOpponentSlot, 'kang');
+    await user.click(await within(opponentTeam).findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    const secondOpponentSlot = within(opponentTeam).getByRole('combobox', { name: /slot adverse 2/i });
+    await user.clear(secondOpponentSlot);
+    await user.type(secondOpponentSlot, 'scalp');
+    await user.click(await within(opponentTeam).findByRole('option', { name: /scalpereur/i }, { timeout: 5000 }));
+
+    await user.click(
+      await within(opponentTeam).findByRole('button', { name: /envoyer kangourex en combat/i }, { timeout: 5000 }),
+    );
+    await user.click(
+      await within(opponentTeam).findByRole('button', { name: /envoyer scalpereur en combat/i }, { timeout: 5000 }),
+    );
+
+    expect(within(combat).getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
+    expect(within(combat).getByRole('combobox', { name: /adversaire 2/i })).toHaveValue('Scalpereur');
+  }, 20000);
+
   it('uses the standalone-like Team action and saves layout', async () => {
     const user = userEvent.setup();
     await renderAppRoute();

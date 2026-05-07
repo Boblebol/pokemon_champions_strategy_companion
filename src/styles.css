@@ -2454,6 +2454,196 @@ small {
   box-shadow: var(--shadow);
 }
 
+.opponent-team-panel {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 12px;
+  overflow: visible;
+}
+
+.opponent-team-header {
+  display: grid;
+  min-width: 0;
+}
+
+.opponent-team-toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #d5e0ed;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--navy);
+  padding: 10px 12px;
+  text-align: left;
+  box-shadow: none;
+}
+
+.opponent-team-toggle span:first-child {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.opponent-team-toggle strong {
+  color: var(--navy);
+  font-size: 15px;
+}
+
+.opponent-team-toggle small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.opponent-team-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  border-radius: 999px;
+  background: var(--primary-alpha);
+  color: var(--primary);
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.opponent-team-body,
+.opponent-threat-list {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.opponent-team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+}
+
+.opponent-combat-summary {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  border: 1px solid #d9e1ed;
+  border-radius: 8px;
+  background: #f8fbff;
+  padding: 10px;
+}
+
+.opponent-combat-summary > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
+}
+
+.opponent-combat-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  max-width: 100%;
+  border: 1px solid #d9e1ed;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--muted);
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.opponent-combat-chip[data-filled="true"] {
+  border-color: var(--success);
+  background: var(--success-alpha);
+  color: var(--success);
+}
+
+.opponent-threat-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.opponent-threat-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px 10px;
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #d9e1ed;
+  border-left-width: 4px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--navy);
+  padding: 10px;
+  text-align: left;
+  box-shadow: none;
+}
+
+.opponent-threat-card.high {
+  border-left-color: var(--danger);
+}
+
+.opponent-threat-card.medium {
+  border-left-color: var(--warning);
+}
+
+.opponent-threat-card.low {
+  border-left-color: var(--success);
+}
+
+.opponent-threat-card[data-selected="true"] {
+  border-color: var(--primary);
+  border-left-color: var(--primary);
+  background: var(--primary-alpha);
+}
+
+.opponent-threat-card .pokemon-avatar {
+  width: 42px;
+  height: 42px;
+}
+
+.opponent-threat-main,
+.opponent-threat-score,
+.opponent-threat-reasons {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.opponent-threat-score,
+.opponent-threat-reasons,
+.opponent-threat-selected {
+  grid-column: 2;
+}
+
+.opponent-threat-card small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.opponent-threat-selected {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #ffffff;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
 .combat-main-toggle {
   max-width: 330px;
 }
