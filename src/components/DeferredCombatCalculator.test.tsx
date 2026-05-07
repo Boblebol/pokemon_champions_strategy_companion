@@ -7,11 +7,11 @@ import { DeferredCombatCalculator } from './DeferredCombatCalculator';
 const selectedTeam: TeamMember[] = [
   {
     slot: 1,
-    species: 'Great Tusk',
-    item: 'Booster Energy',
-    ability: 'Protosynthesis',
+    species: 'Dragonite',
+    item: 'Heavy-Duty Boots',
+    ability: 'Multiscale',
     evs: { atk: 252, spd: 4, spe: 252 },
-    moves: ['Earthquake', 'Close Combat'],
+    moves: ['Earthquake', 'Extreme Speed'],
     parseWarnings: [],
   },
 ];
@@ -23,9 +23,33 @@ describe('DeferredCombatCalculator', () => {
         format="champions-bss"
         selectedTeam={selectedTeam}
         reference={demoDataBundle.reference}
+        locale="fr"
       />,
     );
 
-    expect(await screen.findByRole('heading', { name: /^combat$/i })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /^combat$/i }, { timeout: 5000 })).toBeInTheDocument();
+  });
+
+  it('shows searchable friendly active pickers based on the battle style', async () => {
+    render(
+      <DeferredCombatCalculator
+        format="champions-vgc"
+        selectedTeam={[
+          ...selectedTeam,
+          {
+            slot: 2,
+            species: 'Garchomp',
+            evs: {},
+            moves: ['Earthquake'],
+            parseWarnings: [],
+          },
+        ]}
+        reference={demoDataBundle.reference}
+        locale="fr"
+      />,
+    );
+
+    expect(await screen.findByLabelText(/allié actif 1/i, undefined, { timeout: 5000 })).toBeInTheDocument();
+    expect(screen.getByLabelText(/allié actif 2/i)).toBeInTheDocument();
   });
 });

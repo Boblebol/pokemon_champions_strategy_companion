@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { getPokemonReference } from '../domain/referenceDisplay';
 import type { ReferenceSnapshot } from '../domain/types';
 
@@ -19,19 +20,22 @@ export function PokemonAvatar({
   species: string | undefined;
   variant?: 'sprite' | 'artwork';
 }) {
+  const [imageFailed, setImageFailed] = useState(false);
   const pokemon = getPokemonReference(reference, species);
   const image = variant === 'artwork' ? pokemon?.image?.artwork ?? pokemon?.image?.sprite : pokemon?.image?.sprite;
 
+  useEffect(() => {
+    setImageFailed(false);
+  }, [image]);
+
   return (
     <span className={`pokemon-avatar ${variant}`} aria-hidden="true">
-      {image ? (
+      {image && !imageFailed ? (
         <img
           alt=""
           loading="lazy"
           src={image}
-          onError={(event) => {
-            event.currentTarget.hidden = true;
-          }}
+          onError={() => setImageFailed(true)}
         />
       ) : (
         <span>{initials(species)}</span>

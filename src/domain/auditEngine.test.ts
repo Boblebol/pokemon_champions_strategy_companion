@@ -16,7 +16,6 @@ describe('auditTeam', () => {
       team: [
         member('Garchomp', ['Earthquake']),
         member('Dragonite', ['Extreme Speed']),
-        member('Great Tusk', ['Close Combat']),
       ],
       store,
       format: 'champions-ou',
@@ -46,21 +45,21 @@ describe('auditTeam', () => {
     expect(result.roles.missing).toContain('speed control');
   });
 
-  it('calculates exact level 100 speed tiers for Champions 3v3', () => {
+  it('calculates exact level 50 speed tiers for [Champions] BSS Reg M-A', () => {
     const result = auditTeam({
       team: [member('Garchomp', ['Earthquake'], { spe: 252 }, { nature: 'Jolly' })],
       store,
       format: 'champions-bss',
     });
 
-    expect(result.format.label).toBe('Champions 3v3');
-    expect(result.format.defaultLevel).toBe(100);
+    expect(result.format.label).toBe('[Champions] BSS Reg M-A');
+    expect(result.format.defaultLevel).toBe(50);
     expect(result.speed[0]).toMatchObject({
       species: 'Garchomp',
-      speed: 333,
+      speed: 169,
       estimated: false,
     });
-    expect(result.speed[0].benchmarks).toContainEqual({ label: '+1', speed: 499 });
+    expect(result.speed[0].benchmarks).toContainEqual({ label: '+1', speed: 253 });
   });
 
   it('exposes Champions VGC format context', () => {
@@ -70,7 +69,7 @@ describe('auditTeam', () => {
       format: 'champions-vgc',
     });
 
-    expect(result.format.label).toBe('Champions VGC 4v4 Duo');
+    expect(result.format.label).toBe('[Champions] VGC 2026 Reg M-A');
     expect(result.format.defaultLevel).toBe(50);
   });
 
@@ -81,7 +80,7 @@ describe('auditTeam', () => {
       format: 'champions-ou',
     });
 
-    expect(result.format.label).toBe('Champions OU');
+    expect(result.format.label).toBe('[Champions] OU');
     expect(result.format.defaultLevel).toBe(100);
   });
 
@@ -118,7 +117,7 @@ describe('auditTeam', () => {
     });
 
     expect(result.speed[0].estimated).toBe(false);
-    expect(result.speed[0].note).toContain('Champions OU');
+    expect(result.speed[0].note).toContain('[Champions] OU');
     expect(result.speed[0].note).toContain('niveau par défaut 100');
   });
 });

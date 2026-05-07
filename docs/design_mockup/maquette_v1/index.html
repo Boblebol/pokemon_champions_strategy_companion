@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Pokémon Champions Strategy Companion</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body, #root { height: 100%; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-app);
+    font-family: var(--font-sans);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+  }
+  input, button, textarea, select {
+    font-family: var(--font-sans);
+    -webkit-appearance: none;
+  }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--neutral-35); border-radius: 99px; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="TeamScreen.jsx"></script>
+<script type="text/babel" src="BuildScreen.jsx"></script>
+<script type="text/babel" src="ActifsScreen.jsx"></script>
+<script type="text/babel" src="MatchScreen.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<script type="text/babel">
+// ── App Shell ────────────────────────────────────────────────────────────
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#0266f1",
+  "compactMode": false,
+  "defaultLang": "fr"
+}/*EDITMODE-END*/;
+
+const NAV_ITEMS_FR = [
+  { id: 'team',   label: 'Team',   icon: TeamIcon },
+  { id: 'build',  label: 'Build',  icon: BuildIcon },
+  { id: 'actifs', label: 'Actifs', icon: ActifsIcon },
+  { id: 'match',  label: 'Match',  icon: MatchIcon },
+];
+const NAV_ITEMS_EN = [
+  { id: 'team',   label: 'Team',   icon: TeamIcon },
+  { id: 'build',  label: 'Build',  icon: BuildIcon },
+  { id: 'actifs', label: 'Active', icon: ActifsIcon },
+  { id: 'match',  label: 'Match',  icon: MatchIcon },
+];
+
+// ── Icons ────────────────────────────────────────────────────────────────
+function TeamIcon({ active }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.5 : 2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+  );
+}
+function BuildIcon({ active }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.5 : 2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </svg>
+  );
+}
+function ActifsIcon({ active }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.5 : 2} strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    </svg>
+  );
+}
+function MatchIcon({ active }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.5 : 2} strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="2" y1="12" x2="22" y2="12"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+  );
+}
+
+// ── Bottom Nav ────────────────────────────────────────────────────────────
+function BottomNav({ active, setActive, lang }) {
+  const items = lang === 'fr' ? NAV_ITEMS_FR : NAV_ITEMS_EN;
+  return (
+    <nav style={{
+      display: 'flex',
+      borderTop: '1px solid var(--border)',
+      background: 'rgba(255,255,255,0.96)',
+      backdropFilter: 'blur(8px)',
+      flexShrink: 0,
+      paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+    }}>
+      {items.map(item => {
+        const isActive = active === item.id;
+        return (
+          <button
+            key={item.id}
+            onClick={() => setActive(item.id)}
+            style={{
+              flex: 1, display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center',
+              gap: 3, padding: '8px 4px 6px',
+              background: 'none', border: 'none', cursor: 'pointer',
+              color: isActive ? 'var(--primary)' : 'var(--fg-subtle)',
+              transition: 'color 0.12s',
+              minHeight: 52,
+            }}
+          >
+            <item.icon active={isActive} />
+            <span style={{ fontSize: 10, fontWeight: isActive ? 700 : 500, lineHeight: 1 }}>{item.label}</span>
+            {isActive && (
+              <span style={{
+                position: 'absolute',
+                bottom: 'calc(env(safe-area-inset-bottom, 0px) + 52px)',
+                width: 28, height: 2,
+                background: 'var(--primary)',
+                borderRadius: 99,
+              }} />
+            )}
+          </button>
+        );
+      })}
+    </nav>
+  );
+}
+
+// ── Side Nav (desktop) ────────────────────────────────────────────────────
+function SideNav({ active, setActive, lang }) {
+  const items = lang === 'fr' ? NAV_ITEMS_FR : NAV_ITEMS_EN;
+  return (
+    <nav style={{
+      width: 64,
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center',
+      paddingTop: 16, gap: 4,
+      background: 'rgba(255,255,255,0.92)',
+      borderRight: '1px solid var(--border)',
+      flexShrink: 0,
+    }}>
+      {/* Logo mark */}
+      <div style={{
+        width: 36, height: 36, borderRadius: 10,
+        background: 'var(--primary)', color: '#fff',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: 14, fontWeight: 800, marginBottom: 8,
+        boxShadow: 'var(--shadow-initial)',
+      }}>P</div>
+      {items.map(item => {
+        const isActive = active === item.id;
+        return (
+          <button
+            key={item.id}
+            title={item.label}
+            onClick={() => setActive(item.id)}
+            style={{
+              width: 44, height: 44, borderRadius: 10,
+              display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center', gap: 2,
+              background: isActive ? 'var(--primary-alpha)' : 'transparent',
+              border: isActive ? '1px solid var(--primary-light)' : '1px solid transparent',
+              cursor: 'pointer',
+              color: isActive ? 'var(--primary)' : 'var(--fg-subtle)',
+              transition: 'all 0.12s',
+            }}
+            onMouseEnter={e => { if (!isActive) e.currentTarget.style.background = 'var(--bg-muted)'; }}
+            onMouseLeave={e => { if (!isActive) e.currentTarget.style.background = 'transparent'; }}
+          >
+            <item.icon active={isActive} />
+            <span style={{ fontSize: 8, fontWeight: 600, lineHeight: 1 }}>{item.label}</span>
+          </button>
+        );
+      })}
+    </nav>
+  );
+}
+
+// ── App Header ────────────────────────────────────────────────────────────
+function AppHeader({ screen, lang, setLang, isMobile }) {
+  const L = LABELS[lang];
+  const titles = {
+    team:   lang === 'fr' ? 'Team' : 'Team',
+    build:  lang === 'fr' ? 'Build' : 'Build',
+    actifs: lang === 'fr' ? 'Actifs' : 'Active',
+    match:  lang === 'fr' ? 'Match' : 'Match',
+  };
+  return (
+    <header style={{
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '12px 16px',
+      background: 'rgba(255,255,255,0.92)',
+      borderBottom: '1px solid var(--border)',
+      backdropFilter: 'blur(8px)',
+      flexShrink: 0,
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        {!isMobile && (
+          <div style={{
+            fontSize: 11, fontWeight: 700, color: 'var(--fg-subtle)',
+            letterSpacing: '0.06em', textTransform: 'uppercase',
+          }}>Pokémon Champions</div>
+        )}
+        <h1 style={{ fontSize: 16, fontWeight: 700, color: 'var(--fg)', margin: 0 }}>{titles[screen]}</h1>
+      </div>
+      {/* Language switch */}
+      <div style={{ display: 'flex', background: 'var(--bg-muted)', borderRadius: 99, padding: 2, border: '1px solid var(--border)' }}>
+        {['fr', 'en'].map(l => (
+          <button
+            key={l}
+            onClick={() => setLang(l)}
+            style={{
+              padding: '4px 10px', borderRadius: 99, fontSize: 11, fontWeight: 700,
+              background: lang === l ? '#fff' : 'transparent',
+              color: lang === l ? 'var(--fg)' : 'var(--fg-subtle)',
+              border: 'none', cursor: 'pointer',
+              boxShadow: lang === l ? 'var(--shadow-initial)' : 'none',
+              transition: 'all 0.12s',
+            }}
+          >{l.toUpperCase()}</button>
+        ))}
+      </div>
+    </header>
+  );
+}
+
+// ── Root App ──────────────────────────────────────────────────────────────
+function App() {
+  const [screen, setScreen] = React.useState('team');
+  const [lang, setLang] = React.useState(TWEAK_DEFAULTS.defaultLang || 'fr');
+  const [mode, setMode] = React.useState('2v2');
+
+  // Pre-populate team with 3 Pokémon for demo
+  const [team, setTeam] = React.useState(() => {
+    const t = Array(6).fill(null).map(() => emptySlot());
+    t[0] = {
+      ...emptySlot(), pokemon: POKEMON_DB[0], item: ITEMS_DB[3],
+      moves: [MOVES_DB[2], MOVES_DB[1], MOVES_DB[3], null],
+      ability: ABILITIES_DB['Dracolosse'][0],
+      nature: NATURES_DB.find(n => n.name === 'Jovial'),
+      evs: { hp: 6, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
+    };
+    t[1] = {
+      ...emptySlot(), pokemon: POKEMON_DB[1], item: ITEMS_DB[0],
+      moves: [MOVES_DB[0], MOVES_DB[3], null, null],
+      ability: ABILITIES_DB['Carchacrok'][0],
+      nature: NATURES_DB.find(n => n.name === 'Jovial'),
+      evs: { hp: 6, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
+    };
+    t[2] = {
+      ...emptySlot(), pokemon: POKEMON_DB[5], item: ITEMS_DB[1],
+      moves: [MOVES_DB[5], MOVES_DB[7], null, null],
+      ability: ABILITIES_DB['Amphinobi'][1],
+      nature: NATURES_DB.find(n => n.name === 'Timide'),
+      evs: { hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
+    };
+    return t;
+  });
+
+  const [showTweaks, setShowTweaks] = React.useState(false);
+  const { tweaks, setTweak } = useTweaks(TWEAK_DEFAULTS);
+
+  // Measure viewport width
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 640);
+  React.useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
+
+  // Tweaks panel protocol
+  React.useEffect(() => {
+    const handler = (e) => {
+      if (e.data?.type === '__activate_edit_mode') setShowTweaks(true);
+      if (e.data?.type === '__deactivate_edit_mode') setShowTweaks(false);
+    };
+    window.addEventListener('message', handler);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', handler);
+  }, []);
+
+  const screens = {
+    team:   <TeamScreen   lang={lang} team={team} setTeam={setTeam} mode={mode} setMode={setMode} onNavigate={setScreen} />,
+    build:  <BuildScreen  lang={lang} team={team} setTeam={setTeam} mode={mode} />,
+    actifs: <ActifsScreen lang={lang} team={team} mode={mode} onNavigate={setScreen} />,
+    match:  <MatchScreen  lang={lang} team={team} mode={mode} />,
+  };
+
+  return (
+    <div style={{
+      height: '100%', display: 'flex',
+      background: 'var(--bg-app)',
+      justifyContent: 'center',
+    }}>
+      {/* Centered shell */}
+      <div style={{
+        width: '100%',
+        maxWidth: isMobile ? '100%' : 480,
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        background: 'var(--bg-app)',
+        boxShadow: isMobile ? 'none' : '0 0 0 1px var(--border), var(--shadow-hover)',
+        position: 'relative',
+      }}>
+        {/* On desktop, show side nav beside the content */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'row', minHeight: 0 }}>
+          {!isMobile && (
+            <SideNav active={screen} setActive={setScreen} lang={lang} />
+          )}
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+            <AppHeader screen={screen} lang={lang} setLang={setLang} isMobile={isMobile} />
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+              {screens[screen]}
+            </div>
+          </div>
+        </div>
+        {isMobile && <BottomNav active={screen} setActive={setScreen} lang={lang} />}
+      </div>
+
+      {/* Tweaks panel */}
+      {showTweaks && (
+        <TweaksPanel onClose={() => {
+          setShowTweaks(false);
+          window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+        }}>
+          <TweakSection title="Langue / Language">
+            <TweakRadio
+              label="Langue"
+              value={lang}
+              options={[{label:'FR', value:'fr'},{label:'EN', value:'en'}]}
+              onChange={v => setLang(v)}
+            />
+          </TweakSection>
+          <TweakSection title="Mode">
+            <TweakRadio
+              label="Format"
+              value={mode}
+              options={[{label:'1v1',value:'1v1'},{label:'2v2',value:'2v2'}]}
+              onChange={v => setMode(v)}
+            />
+          </TweakSection>
+          <TweakSection title="Navigation">
+            <TweakRadio
+              label="Écran"
+              value={screen}
+              options={[
+                {label:'Team',value:'team'},
+                {label:'Build',value:'build'},
+                {label:'Actifs',value:'actifs'},
+                {label:'Match',value:'match'},
+              ]}
+              onChange={v => setScreen(v)}
+            />
+          </TweakSection>
+        </TweaksPanel>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
