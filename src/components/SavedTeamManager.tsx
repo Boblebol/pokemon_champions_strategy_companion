@@ -16,10 +16,12 @@ export function SavedTeamManager({
   paste,
   format,
   onLoad,
+  nameInputId = 'saved-team-name',
 }: {
   paste: string;
   format: FormatId;
   onLoad: (team: SavedTeam) => void;
+  nameInputId?: string;
 }) {
   const [name, setName] = useState('');
   const [query, setQuery] = useState('');
@@ -70,16 +72,16 @@ export function SavedTeamManager({
         <span className="saved-team-count">{teams.length} teams</span>
       </div>
       <div className="saved-team-form">
-        <label htmlFor="saved-team-name">Nom de sauvegarde</label>
+        <label htmlFor={nameInputId}>Nom de sauvegarde</label>
         <input
-          id="saved-team-name"
+          id={nameInputId}
           ref={nameInputRef}
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="Ex. Ladder BO1"
         />
         <button type="button" onClick={handleSave}>
-          Sauvegarder
+          Sauvegarder l'équipe
         </button>
       </div>
       <label className="saved-team-search">

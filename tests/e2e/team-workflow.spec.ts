@@ -10,11 +10,11 @@ test.describe('workflow équipe mobile', () => {
 
     await buildDragoniteCore(page);
 
-    await page.getByText('Détails du slot').click();
-    await page.getByLabel(/slot 1 nature/i).selectOption({ label: 'Rigide' });
-    await expect(page.getByText('+Attaque / -Attaque Spéciale', { exact: true })).toBeVisible();
+    await page.getByRole('button', { name: /détails avancés slot 1/i }).click();
+    await pickSearchResult(page, /slot 1 nature/i, 'rigide', /Rigide/i);
+    await expect(page.locator('.ev-nature-note')).toContainText('+Attaque / -Attaque Spéciale');
     await page.getByRole('button', { name: /Attaquant physique rapide/i }).click();
-    await expect(page.getByText('510/510 EV')).toBeVisible();
+    await expect(page.locator('.ev-total-pill')).toHaveText('510/510 EV');
 
     const exportText = await readTeamExport(page);
     expect(exportText).toContain('Dragonite @ Heavy-Duty Boots');
@@ -29,28 +29,61 @@ test.describe('workflow équipe mobile', () => {
     await gotoMobileApp(page);
     await buildDragoniteCore(page);
 
-    const moveInput = page.getByRole('combobox', { name: /slot 1 attaque 3/i });
-    await moveInput.fill('draco');
-
-    const dragonClawOption = page.getByRole('option', { name: /Draco-Griffe/i }).first();
-    await expect(dragonClawOption).toContainText('Dragon');
-    await expect(dragonClawOption).toContainText('Physique');
-    await expect(dragonClawOption).toContainText('STAB');
-    await expect(dragonClawOption).toContainText('Puissance 80');
-    await expect(dragonClawOption).toContainText('Précision 100');
-    await expect(dragonClawOption).toContainText('PP 15');
+    const dragonClawRow = page.locator('.selected-move-row').filter({ hasText: 'Draco-Griffe' }).first();
+    await expect(dragonClawRow).toContainText('Dragon');
+    await expect(dragonClawRow).toContainText('Physique');
+    await expect(dragonClawRow).toContainText('STAB');
+    await expect(dragonClawRow).toContainText('80');
+    await expect(dragonClawRow).toContainText('100%');
+    await expect(dragonClawRow).toContainText('PP 15');
   });
 
-  test('garde les recherches utilisables après switch FR vers EN', async ({ page }) => {
+  test('garde les résultats des attaques empilés sans chevauchement', async ({ page }) => {
+    await gotoMobileApp(page);
+    await openMobileTab(page, 'Build');
+    await pickSearchResult(page, /slot 1 pokémon/i, 'draco', /Dracolosse/i);
+
+    await page.getByRole('combobox', { name: /slot 1 attaque 1/i }).fill('draco');
+    const listbox = page.getByRole('listbox', { name: /résultats de recherche/i });
+    await expect(listbox).toBeVisible();
+    await expect.poll(async () => listbox.getByRole('option').count()).toBeGreaterThan(1);
+
+    const geometry = await listbox.getByRole('option').evaluateAll((nodes) => {
+      const boxes = nodes.map((node) => {
+        const rect = node.getBoundingClientRect();
+        return { top: rect.top, bottom: rect.bottom, height: rect.height, scrollHeight: node.scrollHeight };
+      });
+
+      return boxes.map((box, index) => ({
+        overlapsPrevious: index > 0 && box.top < boxes[index - 1].bottom - 1,
+        clipsContent: box.scrollHeight > box.height + 1,
+      }));
+    });
+
+    expect(geometry.some((row) => row.overlapsPrevious || row.clipsContent)).toBe(false);
+  });
+
+  test('garde les recherches et libellés cohérents au switch FR vers EN', async ({ page }) => {
     await gotoMobileApp(page);
 
-    await page.getByRole('button', { name: 'EN' }).click();
     await openMobileTab(page, 'Build');
     await expect(page.getByRole('heading', { name: 'Build' })).toBeVisible();
 
-    await pickSearchResult(page, /slot 1 pokémon/i, 'dragonite', /Dragonite/i);
-    await pickSearchResult(page, /slot 1 objet/i, 'heavy', /Heavy-Duty Boots/i);
-    await pickSearchResult(page, /slot 1 attaque 1/i, 'dragon claw', /Dragon Claw/i);
+    await pickSearchResult(page, /slot 1 pokémon/i, 'dragonite', /Dracolosse/i);
+    await pickSearchResult(page, /slot 1 objet/i, 'heavy', /Grosses Bottes/i);
+    await pickSearchResult(page, /slot 1 attaque 1/i, 'dragon claw', /Draco-Griffe/i);
+    await expect(page.getByRole('combobox', { name: /slot 1 pokémon/i })).toHaveValue('Dracolosse');
+
+    const languageSwitch = page.getByLabel('Langue');
+    await languageSwitch.getByRole('button', { name: 'EN', exact: true }).click();
+    await expect(page.getByRole('combobox', { name: /slot 1 pokémon/i })).toHaveValue('Dragonite');
+    await expect(page.getByRole('combobox', { name: /slot 1 objet/i })).toHaveValue('Heavy-Duty Boots');
+    await expect(page.getByRole('combobox', { name: /slot 1 attaque 1/i })).toHaveValue('Dragon Claw');
+
+    await languageSwitch.getByRole('button', { name: 'FR', exact: true }).click();
+    await expect(page.getByRole('combobox', { name: /slot 1 pokémon/i })).toHaveValue('Dracolosse');
+    await expect(page.getByRole('combobox', { name: /slot 1 objet/i })).toHaveValue('Grosses Bottes');
+    await expect(page.getByRole('combobox', { name: /slot 1 attaque 1/i })).toHaveValue('Draco-Griffe');
 
     const exportText = await readTeamExport(page);
     expect(exportText).toContain('Dragonite @ Heavy-Duty Boots');
@@ -94,5 +127,33 @@ test.describe('workflow équipe mobile', () => {
     await expect(page.getByText('Couverture offensive')).toBeVisible();
     await expect(page.getByText('Couverture défensive')).toBeVisible();
     await expect(page.getByText(/Adversaires fréquents dangereux/i)).toBeVisible();
+  });
+
+  test("remplit le sélecteur d'adversaire dans Combat après sélection", async ({ page }) => {
+    await gotoMobileApp(page);
+    await buildDragoniteCore(page);
+    await openMobileTab(page, 'Match');
+
+    await pickSearchResult(page, /adversaire 1/i, 'kang', /Kangourex/i);
+
+    await expect(page.getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
+    await expect(page.getByRole('heading', { name: /Dracolosse vs Kangourex/i })).toBeVisible();
+  });
+
+  test('garde deux sélecteurs adverses en Combat 2v2', async ({ page }) => {
+    await gotoMobileApp(page);
+    await page.getByRole('button', { name: /2v2 actif/i }).click();
+    await buildDragoniteCore(page);
+    await page.getByRole('button', { name: /modifier slot 2/i }).click();
+    await pickSearchResult(page, /slot 2 pokémon/i, 'carcha', /Carchacrok/i);
+    await openMobileTab(page, 'Match');
+
+    await pickSearchResult(page, /adversaire 1/i, 'kang', /Kangourex/i);
+    await pickSearchResult(page, /adversaire 2/i, 'scalp', /Scalpereur/i);
+
+    await expect(page.getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
+    await expect(page.getByRole('combobox', { name: /adversaire 2/i })).toHaveValue('Scalpereur');
+    await expect(page.getByRole('heading', { name: /Dracolosse vs Kangourex/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Carchacrok vs Scalpereur/i })).toBeVisible();
   });
 });

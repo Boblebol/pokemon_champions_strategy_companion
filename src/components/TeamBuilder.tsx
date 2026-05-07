@@ -6,6 +6,15 @@ import type { BuilderSlot, TeamBuilderState } from '../domain/teamBuilder';
 import { toId } from '../domain/ids';
 import { localizedSearchText } from '../domain/localization';
 import {
+  EV_TOTAL_LIMIT,
+  STAT_FIELDS,
+  evTotal,
+  hydrateSlotForPokemon,
+  isStabMove,
+  moveOptionsForSlot,
+  natureEffectLabel,
+} from '../domain/pokemonSlotInfo';
+import {
   abilityDescription,
   abilityDisplayName,
   itemDescription,
@@ -28,69 +37,6 @@ import type {
   StatTable,
 } from '../domain/types';
 
-const STAT_FIELDS: Array<{ id: StatId; label: string }> = [
-  { id: 'hp', label: 'HP' },
-  { id: 'atk', label: 'Atk' },
-  { id: 'def', label: 'Def' },
-  { id: 'spa', label: 'SpA' },
-  { id: 'spd', label: 'SpD' },
-  { id: 'spe', label: 'Spe' },
-];
-
-const EV_TOTAL_LIMIT = 510;
-const NATURE_EFFECTS: Partial<Record<string, { plus?: StatId; minus?: StatId }>> = {
-  adamant: { plus: 'atk', minus: 'spa' },
-  bashful: {},
-  bold: { plus: 'def', minus: 'atk' },
-  brave: { plus: 'atk', minus: 'spe' },
-  calm: { plus: 'spd', minus: 'atk' },
-  careful: { plus: 'spd', minus: 'spa' },
-  docile: {},
-  gentle: { plus: 'spd', minus: 'def' },
-  hardy: {},
-  hasty: { plus: 'spe', minus: 'def' },
-  impish: { plus: 'def', minus: 'spa' },
-  jolly: { plus: 'spe', minus: 'spa' },
-  lax: { plus: 'def', minus: 'spd' },
-  lonely: { plus: 'atk', minus: 'def' },
-  mild: { plus: 'spa', minus: 'def' },
-  modest: { plus: 'spa', minus: 'atk' },
-  naive: { plus: 'spe', minus: 'spd' },
-  naughty: { plus: 'atk', minus: 'spd' },
-  quiet: { plus: 'spa', minus: 'spe' },
-  quirky: {},
-  rash: { plus: 'spa', minus: 'spd' },
-  relaxed: { plus: 'def', minus: 'spe' },
-  sassy: { plus: 'spd', minus: 'spe' },
-  serious: {},
-  timid: { plus: 'spe', minus: 'atk' },
-};
-const STAT_EFFECT_LABELS: Record<LocaleId, Record<StatId, string>> = {
-  fr: {
-    hp: 'PV',
-    atk: 'Attaque',
-    def: 'Défense',
-    spa: 'Attaque Spéciale',
-    spd: 'Défense Spéciale',
-    spe: 'Vitesse',
-  },
-  en: {
-    hp: 'HP',
-    atk: 'Attack',
-    def: 'Defense',
-    spa: 'Special Attack',
-    spd: 'Special Defense',
-    spe: 'Speed',
-  },
-  ja: {
-    hp: 'HP',
-    atk: 'Attack',
-    def: 'Defense',
-    spa: 'Special Attack',
-    spd: 'Special Defense',
-    spe: 'Speed',
-  },
-};
 const MOVE_CATEGORY_LABELS: Record<MoveCategory, Record<LocaleId, string>> = {
   Physical: { fr: 'Physique', en: 'Physical', ja: 'Physical' },
   Special: { fr: 'Spécial', en: 'Special', ja: 'Special' },
@@ -120,46 +66,8 @@ const EV_PRESETS: Array<{ label: string; description: string; evs: StatTable }> 
   },
 ];
 
-function defaultNatureForPokemon(pokemon: PokemonReference | undefined, natureOptions: string[]): string | undefined {
-  if (!pokemon) {
-    return undefined;
-  }
-
-  const preferred = pokemon.baseStats.atk >= pokemon.baseStats.spa
-    ? pokemon.baseStats.spe >= 80
-      ? 'Jolly'
-      : 'Adamant'
-    : pokemon.baseStats.spe >= 80
-      ? 'Timid'
-      : 'Modest';
-
-  if (natureOptions.includes(preferred)) {
-    return preferred;
-  }
-
-  return natureOptions[0];
-}
-
-function defaultEvsForPokemon(pokemon: PokemonReference | undefined): StatTable {
-  if (!pokemon) {
-    return {};
-  }
-
-  return pokemon.baseStats.atk >= pokemon.baseStats.spa
-    ? { hp: 6, atk: 252, spe: 252 }
-    : { hp: 6, spa: 252, spe: 252 };
-}
-
-function defaultTeraTypeForPokemon(pokemon: PokemonReference | undefined): PokemonType | undefined {
-  return pokemon?.types[0];
-}
-
 function numberInputValue(value: number | undefined): string {
   return typeof value === 'number' ? String(value) : '';
-}
-
-function evTotal(evs: StatTable): number {
-  return STAT_FIELDS.reduce((total, stat) => total + (evs[stat.id] ?? 0), 0);
 }
 
 function nextEvs(evs: StatTable, stat: StatId, rawValue: string): StatTable {
@@ -204,34 +112,6 @@ function moveSearchText(move: MoveReference, locale: LocaleId): string {
 
 function moveStatValue(value: number | undefined): string {
   return typeof value === 'number' ? String(value) : '-';
-}
-
-function natureEffectLabel(nature: string | undefined, locale: LocaleId): string {
-  if (!nature) {
-    return '';
-  }
-
-  const effect = NATURE_EFFECTS[toId(nature)];
-  if (!effect?.plus || !effect.minus || effect.plus === effect.minus) {
-    return locale === 'fr' ? 'neutre' : 'neutral';
-  }
-
-  return `+${STAT_EFFECT_LABELS[locale][effect.plus]} / -${STAT_EFFECT_LABELS[locale][effect.minus]}`;
-}
-
-function isStabMove(move: MoveReference, pokemon: PokemonReference | undefined): boolean {
-  return Boolean(pokemon?.types.includes(move.type));
-}
-
-function moveOptionsForSlot(
-  slot: BuilderSlot,
-  pokemon: PokemonReference | undefined,
-  moveOptions: MoveReference[],
-): MoveReference[] {
-  const allowedMoveIds = new Set(pokemon?.moveIds ?? []);
-  const currentMoves = new Set(slot.moves.filter(Boolean));
-
-  return moveOptions.filter((move) => allowedMoveIds.has(move.id) || currentMoves.has(move.name));
 }
 
 function SelectedMoveRow({
@@ -331,35 +211,69 @@ function TeamSlotRail({
         {slots.map((slot) => {
           const slotSelected = selectedSlots.includes(slot.id);
           const slotActive = slot.id === activeSlotId;
+          const pokemon = slot.species ? reference.pokemon[toId(slot.species)] : undefined;
+          const slotName = slot.species ? pokemonDisplayName(reference, slot.species, locale) : `S${slot.id}`;
+          const evDone = evTotal(slot.evs) === EV_TOTAL_LIMIT;
 
           return (
-            <article
+            <button
+              type="button"
               className={`roster-summary-card ${slotActive ? 'active' : ''}`}
+              aria-label={`Modifier slot ${slot.id} ${slot.species ? slotName : 'Libre'}`}
+              aria-pressed={slotActive}
               data-selected={slotSelected}
               data-filled={Boolean(slot.species)}
+              data-ev-complete={evDone}
+              onClick={() => onActiveSlotChange(slot.id)}
               key={slot.id}
             >
-              <div className="roster-summary-main">
-                <PokemonAvatar reference={reference} species={slot.species} variant="artwork" />
-                <div>
-                  <strong>Slot {slot.id}</strong>
-                  <span>{slot.species ? pokemonDisplayName(reference, slot.species, locale) : 'Libre'}</span>
-                  <small>{slotSelected ? 'Joué au match' : 'Dans l’équipe'}</small>
-                </div>
-              </div>
-              <button
-                type="button"
-                className="slot-edit-button"
-                aria-pressed={slotActive}
-                onClick={() => onActiveSlotChange(slot.id)}
-              >
-                Modifier slot {slot.id}
-              </button>
-            </article>
+              {slot.species ? (
+                <>
+                  <span className="roster-summary-name">{slotName}</span>
+                  <span className="roster-summary-types">
+                    {pokemon?.types.slice(0, 1).map((type) => (
+                      <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
+                        {typeDisplayName(reference, type, locale)}
+                      </span>
+                    ))}
+                  </span>
+                  {evDone && !slotActive ? <span className="roster-summary-complete" aria-hidden="true" /> : null}
+                </>
+              ) : (
+                <span className="roster-summary-empty">S{slot.id}</span>
+              )}
+            </button>
           );
         })}
       </div>
     </aside>
+  );
+}
+
+function ActiveSlotSummary({
+  slot,
+  pokemon,
+  reference,
+  locale,
+}: {
+  slot: BuilderSlot;
+  pokemon: PokemonReference | undefined;
+  reference: ReferenceSnapshot;
+  locale: LocaleId;
+}) {
+  return (
+    <div className="builder-active-summary" aria-label={`Résumé slot ${slot.id}`}>
+      <span className="builder-active-name">
+        {slot.species ? pokemonDisplayName(reference, slot.species, locale) : `Slot ${slot.id}`}
+      </span>
+      {pokemon?.types.map((type) => (
+        <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
+          {typeDisplayName(reference, type, locale)}
+        </span>
+      ))}
+      {slot.ability ? <span className="builder-summary-pill">{abilityDisplayName(reference, slot.ability, locale)}</span> : null}
+      {slot.item ? <span className="builder-summary-pill muted">{itemDisplayName(reference, slot.item, locale)}</span> : null}
+    </div>
   );
 }
 
@@ -449,7 +363,6 @@ export function TeamBuilder({
   const isSelected = selectedSlots.includes(activeSlot.id);
   const cannotSelectMore = !isSelected && selectedSlots.length >= pickSize;
   const selectedPokemon = findPokemon(pokemonOptions, activeSlot.species);
-  const filteredMoveOptions = moveOptionsForSlot(activeSlot, selectedPokemon, moveOptions);
   const activePokemonLabel = activeSlot.species
     ? pokemonDisplayName(reference, activeSlot.species, locale)
     : 'Choisir un Pokémon';
@@ -457,6 +370,13 @@ export function TeamBuilder({
   const remainingEvs = Math.max(0, EV_TOTAL_LIMIT - activeEvTotal);
   const activeNatureDescription = natureDescription(reference, activeSlot.nature);
   const activeNatureEffect = natureEffectLabel(activeSlot.nature, locale);
+  const speciesSelectedInOtherSlots = useMemo(
+    () =>
+      new Set(
+        state.slots.flatMap((slot) => (slot.id !== activeSlot.id && slot.species ? [slot.species] : [])),
+      ),
+    [activeSlot.id, state.slots],
+  );
   const evStatus =
     activeEvTotal > EV_TOTAL_LIMIT
       ? `EV utilisés : ${activeEvTotal}/${EV_TOTAL_LIMIT} · baisse une stat.`
@@ -465,14 +385,16 @@ export function TeamBuilder({
         : `EV utilisés : ${activeEvTotal}/${EV_TOTAL_LIMIT} · reste ${remainingEvs}.`;
   const pokemonPickerOptions = useMemo(
     () =>
-      pokemonOptions.map((pokemon) => ({
-        value: pokemon.name,
-        label: pokemonDisplayName(reference, pokemon.name, locale),
-        searchText: pokemonSearchText(pokemon, locale),
-        description: `Type : ${pokemon.types.map((type) => typeDisplayName(reference, type, locale)).join(' / ')}`,
-        media: <PokemonAvatar reference={reference} species={pokemon.name} />,
-      })),
-    [locale, pokemonOptions, reference],
+      pokemonOptions
+        .filter((pokemon) => pokemon.name === activeSlot.species || !speciesSelectedInOtherSlots.has(pokemon.name))
+        .map((pokemon) => ({
+          value: pokemon.name,
+          label: pokemonDisplayName(reference, pokemon.name, locale),
+          searchText: pokemonSearchText(pokemon, locale),
+          description: `Type : ${pokemon.types.map((type) => typeDisplayName(reference, type, locale)).join(' / ')}`,
+          media: <PokemonAvatar reference={reference} species={pokemon.name} />,
+        })),
+    [activeSlot.species, locale, pokemonOptions, reference, speciesSelectedInOtherSlots],
   );
   const itemPickerOptions = useMemo(
     () =>
@@ -485,31 +407,22 @@ export function TeamBuilder({
       })),
     [activeSlot.item, itemOptions, locale, reference],
   );
-  const movePickerOptions = useMemo(
+  const naturePickerOptions = useMemo(
     () =>
-      filteredMoveOptions.map((moveOption) => {
-        const moveType = typeDisplayName(reference, moveOption.type, locale);
-        const moveCategory = MOVE_CATEGORY_LABELS[moveOption.category][locale];
-        const isStab = isStabMove(moveOption, selectedPokemon);
+      withCurrentOption(natureOptions, activeSlot.nature).map((nature) => {
+        const effect = natureEffectLabel(nature, locale);
+        const description = natureDescription(reference, nature);
 
         return {
-          value: moveOption.name,
-          label: moveDisplayName(reference, moveOption.name, locale),
-          searchText: moveSearchText(moveOption, locale),
-          description: `${moveType} · ${moveCategory}`,
-          media: <span className={`type-chip type-${moveOption.type.toLowerCase()}`}>{moveType}</span>,
-          details: (
-            <span className="move-result-details">
-              <span>{moveCategory}</span>
-              {isStab ? <span className="stab-chip">STAB</span> : null}
-              <span>Puissance {moveStatValue(moveOption.power)}</span>
-              <span>Précision {moveStatValue(moveOption.accuracy)}</span>
-              <span>PP {moveStatValue(moveOption.pp)}</span>
-            </span>
-          ),
+          value: nature,
+          label: natureDisplayName(reference, nature, locale),
+          searchText: `${nature} ${effect} ${description ?? ''}`,
+          description: effect,
+          media: <span className="nature-effect-token">{effect || 'neutre'}</span>,
+          details: description ? <span>{description}</span> : undefined,
         };
       }),
-    [filteredMoveOptions, locale, reference, selectedPokemon],
+    [activeSlot.nature, locale, natureOptions, reference],
   );
   const sourceLabel =
     referenceStatus === 'complete'
@@ -518,6 +431,31 @@ export function TeamBuilder({
         ? 'Source démo active'
         : 'Source démo, chargement complet';
 
+  function movePickerOptionsForIndex(moveIndex: number) {
+    return moveOptionsForSlot(activeSlot, selectedPokemon, moveOptions, moveIndex).map((moveOption) => {
+      const moveType = typeDisplayName(reference, moveOption.type, locale);
+      const moveCategory = MOVE_CATEGORY_LABELS[moveOption.category][locale];
+      const isStab = isStabMove(moveOption, selectedPokemon);
+
+      return {
+        value: moveOption.name,
+        label: moveDisplayName(reference, moveOption.name, locale),
+        searchText: moveSearchText(moveOption, locale),
+        description: `${moveType} · ${moveCategory}`,
+        media: <span className={`type-chip type-${moveOption.type.toLowerCase()}`}>{moveType}</span>,
+        details: (
+          <span className="move-result-details">
+            <span className={`move-category-pill category-${moveOption.category.toLowerCase()}`}>{moveCategory}</span>
+            {isStab ? <span className="stab-chip">STAB</span> : null}
+            <span>Puissance {moveStatValue(moveOption.power)}</span>
+            <span>Précision {moveStatValue(moveOption.accuracy)}</span>
+            <span>PP {moveStatValue(moveOption.pp)}</span>
+          </span>
+        ),
+      };
+    });
+  }
+
   return (
     <section className="panel team-builder" id="builder">
       <div className="panel-heading">
@@ -525,8 +463,7 @@ export function TeamBuilder({
           <h2>Build rapide</h2>
           <p>Cherche le Pokémon, l'objet et les attaques. Les réglages avancés restent dans les détails.</p>
           <p className="builder-source">
-            {sourceLabel} : {referenceSource} · {pokemonOptions.length} Pokémon · {moveOptions.length} attaques ·
-            labels {locale.toUpperCase()}
+            {sourceLabel} : {referenceSource} · {pokemonOptions.length} Pokémon · {moveOptions.length} attaques
           </p>
         </div>
       </div>
@@ -539,6 +476,13 @@ export function TeamBuilder({
           reference={reference}
           locale={locale}
           onActiveSlotChange={setActiveSlotId}
+        />
+
+        <ActiveSlotSummary
+          slot={activeSlot}
+          pokemon={selectedPokemon}
+          reference={reference}
+          locale={locale}
         />
 
         <article className={`builder-slot builder-slot-editor ${isSelected ? 'selected' : ''}`}>
@@ -561,25 +505,29 @@ export function TeamBuilder({
             </label>
           </div>
 
-          <SearchablePicker
-            label={`Slot ${activeSlot.id} Pokémon`}
-            value={activeSlot.species}
-            placeholder="Chercher un Pokémon en français"
-            options={pokemonPickerOptions}
-            emptyLabel="Aucun Pokémon trouvé"
-            onChange={(value) => {
-              const nextPokemon = findPokemon(pokemonOptions, value);
+          <div className="pokemon-search-row">
+            <SearchablePicker
+              label={`Slot ${activeSlot.id} Pokémon`}
+              value={activeSlot.species}
+              placeholder="Rechercher un Pokémon..."
+              options={pokemonPickerOptions}
+              emptyLabel="Aucun Pokémon trouvé"
+              onChange={(value) => {
+                const nextPokemon = findPokemon(pokemonOptions, value);
 
-              return onSlotChange(activeSlot.id, {
-                species: value,
-                ability: nextPokemon?.abilities[0],
-                teraType: defaultTeraTypeForPokemon(nextPokemon),
-                nature: defaultNatureForPokemon(nextPokemon, natureOptions),
-                evs: defaultEvsForPokemon(nextPokemon),
-                moves: ['', '', '', ''],
-              });
-            }}
-          />
+                return onSlotChange(activeSlot.id, hydrateSlotForPokemon(nextPokemon, natureOptions));
+              }}
+            />
+            {selectedPokemon ? (
+              <div className="pokemon-search-types" aria-label={`Types ${activePokemonLabel}`}>
+                {selectedPokemon.types.map((type) => (
+                  <span className={`type-chip type-${type.toLowerCase()}`} key={type}>
+                    {typeDisplayName(reference, type, locale)}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </div>
 
           <AbilityChoiceGroup
             slot={activeSlot}
@@ -602,7 +550,7 @@ export function TeamBuilder({
 
           <div className="move-grid">
             {activeSlot.moves.map((move, index) => {
-              const selectedMove = filteredMoveOptions.find((moveOption) => moveOption.name === move);
+              const selectedMove = moveOptions.find((moveOption) => moveOption.name === move);
 
               return (
                 <div className="move-picker-stack" key={`${activeSlot.id}-${index}`}>
@@ -610,7 +558,7 @@ export function TeamBuilder({
                     label={`Slot ${activeSlot.id} Attaque ${index + 1}`}
                     value={move || undefined}
                     placeholder={selectedPokemon ? `Attaque ${index + 1}...` : "Choisis d'abord un Pokémon"}
-                    options={selectedPokemon ? movePickerOptions : []}
+                    options={selectedPokemon ? movePickerOptionsForIndex(index) : []}
                     emptyLabel="Aucune attaque trouvée"
                     onChange={(value) =>
                       onSlotChange(activeSlot.id, {
@@ -640,6 +588,7 @@ export function TeamBuilder({
               aria-label={`Détails avancés slot ${activeSlot.id}`}
               onClick={() => setShowAdvancedDetails((currentValue) => !currentValue)}
             >
+              <span className="slot-details-chevron" aria-hidden="true" />
               <span>Détails avancés</span>
               <span className="slot-details-badges">
                 {activeSlot.nature ? (
@@ -654,22 +603,17 @@ export function TeamBuilder({
             {showAdvancedDetails ? (
               <>
                 <div className="slot-details-section advanced-slot-basics">
-                  <label className="field nature-field">
-                    <span>Slot {activeSlot.id} Nature</span>
-                    <select
-                      value={activeSlot.nature ?? ''}
-                      onChange={(event) => onSlotChange(activeSlot.id, { nature: event.target.value || undefined })}
-                    >
-                      <option value="">Choisir</option>
-                      {withCurrentOption(natureOptions, activeSlot.nature).map((nature) => (
-                        <option key={nature} value={nature}>
-                          {natureDisplayName(reference, nature, locale)}
-                        </option>
-                      ))}
-                    </select>
-                    {activeNatureEffect ? <small className="nature-effect-pill">{activeNatureEffect}</small> : null}
-                    {activeNatureDescription ? <small className="field-help">{activeNatureDescription}</small> : null}
-                  </label>
+                  <div className="slot-detail-block nature-field">
+                    <span className="slot-detail-label">Nature</span>
+                    <SearchablePicker
+                      label={`Slot ${activeSlot.id} Nature`}
+                      value={activeSlot.nature}
+                      placeholder="Chercher une nature"
+                      options={naturePickerOptions}
+                      emptyLabel="Aucune nature trouvée"
+                      onChange={(value) => onSlotChange(activeSlot.id, { nature: value })}
+                    />
+                  </div>
                   <TeraChoiceGroup
                     slot={activeSlot}
                     reference={reference}
@@ -679,6 +623,7 @@ export function TeamBuilder({
                 </div>
 
                 <section className="ev-helper" aria-label={`Aide EV slot ${activeSlot.id}`}>
+                  <span className="slot-detail-label">EV</span>
                   <div className="ev-helper-heading">
                     <div>
                       <strong>Points d'entraînement (EV)</strong>
@@ -758,8 +703,9 @@ export function TeamBuilder({
                 </div>
 
                 <label className="field">
-                  <span>Commentaire slot {activeSlot.id}</span>
+                  <span className="slot-detail-label">Note</span>
                   <textarea
+                    aria-label={`Commentaire slot ${activeSlot.id}`}
                     className="slot-comment"
                     value={activeSlot.comment}
                     onChange={(event) => onSlotChange(activeSlot.id, { comment: event.target.value })}

@@ -6,7 +6,8 @@ Showdown dédiés à Pokémon Champions.
 
 ## Parcours rapide
 
-1. Ouvrir l'app tactile `/app`. `/mobile` reste un alias compatible.
+1. Ouvrir la landing PWA `/` pour les instructions d'installation, puis lancer
+   l'app tactile `/app`. `/mobile` reste un alias compatible.
 2. Dans `Team`, créer une team vide, charger une sauvegarde locale ou exporter
    la team courante.
 3. Choisir `1v1 actif` pour préparer 3 Pokémon ou `2v2 actif` pour préparer 4
@@ -15,9 +16,10 @@ Showdown dédiés à Pokémon Champions.
    pas obligatoires pour commencer l'analyse.
 5. Dans `Actifs`, ajuster par recherche les Pokémon réellement joués dans ta
    team. Les premiers slots remplis sont proposés automatiquement.
-6. Dans `Match`, lire `Couverture rapide`, puis les adversaires dangereux.
-7. Utiliser le panneau Combat du même écran pour simuler les dégâts contre un ou deux
-   adversaires.
+6. Dans `Match`, remplir `Team adverse` avec les Pokémon vus ou scoutés, puis
+   taper une carte menace pour l'envoyer directement dans `Combat`.
+7. Utiliser le panneau Combat du même écran pour simuler les dégâts contre un ou
+   deux adversaires selon le format.
 
 Le parcours reste utilisable même si la team n'a que 3 ou 4 Pokémon remplis.
 Quand des actifs manquent, l'écran `Match` affiche un rappel et garde le calcul
@@ -25,14 +27,16 @@ en mode partiel.
 
 ## Installation mobile
 
-L'app est prévue pour fonctionner comme PWA. Sur mobile, elle peut être ajoutée à
-l'écran d'accueil depuis le navigateur, sans store. Une fois chargée au moins une
-fois, le shell mobile, la route applicative et les assets versionnés sont gardés
-en cache par le service worker.
+L'app est prévue pour fonctionner comme PWA. La racine GitHub Pages `/` affiche
+la page d'installation avec un lien direct vers `/app`. Sur mobile, elle peut
+être ajoutée à l'écran d'accueil depuis le navigateur, sans store. Une fois
+chargée au moins une fois, le shell mobile, la route applicative et les assets
+versionnés sont gardés en cache par le service worker.
 
 Sur iOS ou iPadOS :
 
-1. Ouvre `/app` dans Safari.
+1. Ouvre `/` dans Safari, ou directement `/app` si tu veux installer depuis le
+   builder.
 2. Appuie sur le bouton de partage.
 3. Choisis `Sur l'écran d'accueil`.
 4. Valide le nom proposé ou renomme l'app.
@@ -40,7 +44,8 @@ Sur iOS ou iPadOS :
 
 Sur Android :
 
-1. Ouvre `/app` dans Chrome ou un navigateur compatible PWA.
+1. Ouvre `/` dans Chrome ou un navigateur compatible PWA, ou directement `/app`
+   si tu veux installer depuis le builder.
 2. Ouvre le menu du navigateur.
 3. Choisis `Installer l'application` ou `Ajouter à l'écran d'accueil`.
 4. Valide l'installation.
@@ -50,9 +55,10 @@ Le statut PWA indique si l'app est en ligne ou hors ligne. Hors
 ligne, les données locales et les équipes sauvegardées restent disponibles ; la
 mise à jour Smogon attend simplement le retour du réseau.
 
-Les anciennes routes publiques ouvrent maintenant la même vue mobile. L'alias
-`/mobile` utilise les mêmes données, les mêmes formats, les mêmes calculs et les
-mêmes exports pour préserver les anciens liens.
+Les routes publiques `/landing` et `/docs` ouvrent la même page d'installation
+PWA que la racine. L'alias `/mobile` utilise les mêmes données, les mêmes
+formats, les mêmes calculs et les mêmes exports que `/app` pour préserver les
+anciens liens vers l'app.
 
 ## Formats
 
@@ -74,14 +80,23 @@ la référence locale filtrée par le roster Showdown Champions et générée av
 affiche les résultats dans la langue active, triés alphabétiquement, avec images
 Pokémon, images d'objets et descriptions d'objets quand la source les fournit.
 Les attaques affichent aussi type, catégorie, STAB, puissance, précision et PP.
-Les valeurs internes et l'export restent compatibles Pokémon Showdown en anglais.
+Le switch `FR/EN` change les libellés affichés sans mélanger les noms dans un
+même contrôle. Les valeurs internes et l'export restent compatibles Pokémon
+Showdown en anglais.
+La présentation mobile suit la maquette
+`docs/design_mockup/maquette_v1/standalone_version_html.html` : rail de slots
+compact, résumé du slot actif, contrôles principaux visibles et détails avancés
+pliés tant qu'ils ne sont pas nécessaires.
 
 Quand un Pokémon est choisi dans un slot, le constructeur hydrate directement les
 réglages visibles dans la maquette mobile : talent par défaut, nature cohérente
 avec le profil offensif, type Tera principal et répartition EV 252 / 252 / 6. Le
 bouton `Détails avancés` ouvre ces réglages sans encombrer le slot fermé. La
 sélection Tera se fait par chips de type et la jauge EV indique immédiatement si
-les 510 points sont utilisés.
+les 510 points sont utilisés. Les natures se recherchent comme les attaques avec
+leur bonus/malus visible avant sélection. Les attaques proposées restent limitées
+au movepool du Pokémon choisi et une attaque déjà choisie dans le slot est
+retirée des autres champs.
 
 Le roster local vient du mod Pokémon Showdown `champions`. Il est filtré pour ne
 pas proposer les entrées marquées `Illegal` dans
@@ -115,6 +130,13 @@ deux adversaires. En `[Champions] BSS Reg M-A` et `[Champions] OU`, elle démarr
 en 1v1.
 Les alliés actifs se sélectionnent par recherche dans la sélection jouée, ce qui
 permet de changer vite de lead sans revenir dans le constructeur.
+
+Le bloc `Team adverse` placé au-dessus de Combat sert à préparer rapidement les
+menaces du match : jusqu'à 6 Pokémon adverses peuvent être renseignés, sans
+doublon entre slots. Les cartes de menace sont classées avec la couverture et la
+Vitesse disponibles dans la référence locale. Un tap sur une carte remplit les
+adversaires partagés avec Combat ; en double, le premier tap remplit
+`Adversaire 1` et le second remplit `Adversaire 2`.
 
 ## Données
 

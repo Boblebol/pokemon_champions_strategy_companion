@@ -10,6 +10,13 @@ async function renderAppRoute(path = '/app') {
   return result;
 }
 
+async function renderLandingRoute(path = '/') {
+  window.history.pushState({}, '', path);
+  const result = render(<App />);
+  await screen.findByLabelText(/présentation pwa champions/i, undefined, { timeout: 5000 });
+  return result;
+}
+
 async function openBuildTab(user: ReturnType<typeof userEvent.setup>) {
   const nav = screen.getByRole('navigation', { name: /navigation mobile tactile/i });
   await user.click(within(nav).getByRole('button', { name: /^build$/i }));
@@ -59,23 +66,31 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /^team$/i })).toBeInTheDocument();
   });
 
-  it('renders the local root route as the touch-first app in development', async () => {
-    await renderAppRoute('/');
+  it('renders the GitHub Pages root as a PWA landing page with a direct app link', async () => {
+    await renderLandingRoute('/');
 
-    expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
-    expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /champions companion/i })).toBeInTheDocument();
+    expect(screen.getByText(/pwa installable/i)).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: /ouvrir l'app/i }).map((link) => link.getAttribute('href'))).toContain(
+      '/app',
+    );
+    expect(screen.getByRole('heading', { name: /installer sur iphone/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /installer sur android/i })).toBeInTheDocument();
+    expect(screen.queryByLabelText(/application mobile champions/i)).not.toBeInTheDocument();
   });
 
-  it('routes former landing and docs pages to the mobile app only', async () => {
-    const landing = await renderAppRoute('/landing');
+  it('routes landing and docs aliases to the PWA install landing', async () => {
+    const landing = await renderLandingRoute('/landing');
 
-    expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
-    expect(screen.queryByLabelText(/présentation marketing/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/présentation pwa champions/i)).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: /ouvrir l'app/i }).map((link) => link.getAttribute('href'))).toContain(
+      '/app',
+    );
     landing.unmount();
 
-    const docs = await renderAppRoute('/docs');
-    expect(screen.getByLabelText(/application mobile champions/i)).toBeInTheDocument();
-    expect(screen.queryByLabelText(/documentation/i)).not.toBeInTheDocument();
+    const docs = await renderLandingRoute('/docs');
+    expect(screen.getByLabelText(/présentation pwa champions/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /comment l'installer/i })).toBeInTheDocument();
     docs.unmount();
   });
 
@@ -97,12 +112,15 @@ describe('App', () => {
     expect(within(nav).queryByRole('button', { name: /données/i })).not.toBeInTheDocument();
     expect(within(nav).queryByRole('button', { name: /^combat$/i })).not.toBeInTheDocument();
     expect(within(nav).queryByRole('button', { name: /analyse/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^fr$/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: /^en$/i })).toHaveAttribute('aria-pressed', 'false');
 
     expect(screen.getByText(/mon équipe/i)).toBeInTheDocument();
     expect(screen.getByText(/^team vide$/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/sauvegardes locales/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /créer une team vide/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /^exporter$/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /^sauvegarder$/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /exporter l'équipe/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /1v1 actif/i })).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByRole('button', { name: /2v2 actif/i })).toBeInTheDocument();
     expect(screen.getAllByText(/0\/3 actifs prêts/i).length).toBeGreaterThan(0);
@@ -151,13 +169,120 @@ describe('App', () => {
     expect(screen.getByLabelText(/actif 1/i)).toHaveValue('Dracolosse');
   }, 10000);
 
+  it('fills the combat opponent picker after selecting an adversary', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await openMatchTab(user);
+
+    const opponentInput = await screen.findByRole('combobox', { name: /adversaire 1/i }, { timeout: 5000 });
+    await user.clear(opponentInput);
+    await user.type(opponentInput, 'kang');
+
+    await user.click(await screen.findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    expect(opponentInput).toHaveValue('Kangourex');
+    expect(await screen.findByRole('heading', { name: /dracolosse vs kangourex/i })).toBeInTheDocument();
+  }, 10000);
+
+  it('keeps two combat opponent pickers in 2v2 mode', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await user.click(screen.getByRole('button', { name: /2v2 actif/i }));
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await openMatchTab(user);
+
+    const firstOpponentInput = await screen.findByRole('combobox', { name: /adversaire 1/i }, { timeout: 5000 });
+    const secondOpponentInput = await screen.findByRole('combobox', { name: /adversaire 2/i }, { timeout: 5000 });
+
+    await user.clear(firstOpponentInput);
+    await user.type(firstOpponentInput, 'kang');
+    await user.click(await screen.findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    await user.clear(secondOpponentInput);
+    await user.type(secondOpponentInput, 'scalpereur');
+    await user.click(await screen.findByRole('option', { name: /scalpereur/i }, { timeout: 5000 }));
+
+    expect(firstOpponentInput).toHaveValue('Kangourex');
+    expect(secondOpponentInput).toHaveValue('Scalpereur');
+    expect(await screen.findByRole('heading', { name: /dracolosse vs kangourex/i })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /carchacrok vs scalpereur/i })).toBeInTheDocument();
+  }, 15000);
+
+  it('sends a Team adverse threat card into the synced Combat opponent picker', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await openMatchTab(user);
+
+    const opponentTeam = await screen.findByRole('region', { name: /team adverse/i }, { timeout: 5000 });
+    const combat = await screen.findByRole('region', { name: /calculateur de combat/i }, { timeout: 5000 });
+
+    expect(opponentTeam.compareDocumentPosition(combat) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(within(opponentTeam).getByRole('button', { name: /replier la team adverse/i })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
+
+    const firstOpponentSlot = within(opponentTeam).getByRole('combobox', { name: /slot adverse 1/i });
+    await user.clear(firstOpponentSlot);
+    await user.type(firstOpponentSlot, 'kang');
+    await user.click(await within(opponentTeam).findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    await user.click(
+      await within(opponentTeam).findByRole('button', { name: /envoyer kangourex en combat/i }, { timeout: 5000 }),
+    );
+
+    expect(within(combat).getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
+    expect(await screen.findByRole('heading', { name: /dracolosse vs kangourex/i })).toBeInTheDocument();
+  }, 15000);
+
+  it('fills both synced Combat opponent pickers from Team adverse cards in 2v2 mode', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await user.click(screen.getByRole('button', { name: /2v2 actif/i }));
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await openMatchTab(user);
+
+    const opponentTeam = await screen.findByRole('region', { name: /team adverse/i }, { timeout: 5000 });
+    const combat = await screen.findByRole('region', { name: /calculateur de combat/i }, { timeout: 5000 });
+
+    const firstOpponentSlot = within(opponentTeam).getByRole('combobox', { name: /slot adverse 1/i });
+    await user.clear(firstOpponentSlot);
+    await user.type(firstOpponentSlot, 'kang');
+    await user.click(await within(opponentTeam).findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    const secondOpponentSlot = within(opponentTeam).getByRole('combobox', { name: /slot adverse 2/i });
+    await user.clear(secondOpponentSlot);
+    await user.type(secondOpponentSlot, 'scalp');
+    await user.click(await within(opponentTeam).findByRole('option', { name: /scalpereur/i }, { timeout: 5000 }));
+
+    await user.click(
+      await within(opponentTeam).findByRole('button', { name: /envoyer kangourex en combat/i }, { timeout: 5000 }),
+    );
+    await user.click(
+      await within(opponentTeam).findByRole('button', { name: /envoyer scalpereur en combat/i }, { timeout: 5000 }),
+    );
+
+    expect(within(combat).getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
+    expect(within(combat).getByRole('combobox', { name: /adversaire 2/i })).toHaveValue('Scalpereur');
+  }, 20000);
+
   it('uses the standalone-like Team action and saves layout', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
 
     expect(screen.getByRole('button', { name: /créer une team vide/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /^sauvegarder$/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /^exporter$/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /exporter l'équipe/i })).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/rechercher une sauvegarde/i)).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /^sauvegarder$/i }));
@@ -173,7 +298,8 @@ describe('App', () => {
     await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
 
     expect(container.querySelector('.searchable-picker[data-has-value="true"] .picker-current .pokemon-avatar')).not.toBeNull();
-    expect(container.querySelector('.roster-summary-card[data-filled="true"] .pokemon-avatar')).not.toBeNull();
+    expect(container.querySelector('.roster-summary-card[data-filled="true"] .roster-summary-name')).not.toBeNull();
+    expect(container.querySelector('.roster-summary-card[data-filled="true"] .type-chip')).not.toBeNull();
 
     await user.click(screen.getByRole('button', { name: /^team$/i }));
 
@@ -197,18 +323,22 @@ describe('App', () => {
     expect(await screen.findByRole('heading', { name: /match rapide/i })).toBeInTheDocument();
   });
 
-  it('switches picker display and search between French and English', async () => {
+  it('switches picker display and search between French and English without mixed labels', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
     await openBuildTab(user);
 
-    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangourex', /Kangourex/i);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangaskhan', /Kangourex/i);
+    expect(screen.getByLabelText(/slot 1 pokémon/i)).toHaveValue('Kangourex');
     expect(screen.queryByText(/Kangourex \(Kangaskhan\)/i)).not.toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /^EN$/i }));
-    await selectPickerOption(user, /slot 1 pokémon/i, 'Kangaskhan', /Kangaskhan/i);
-    expect(screen.getAllByText(/^Kangaskhan$/i).length).toBeGreaterThan(0);
-    expect(screen.queryByText(/Kangourex \(Kangaskhan\)/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/slot 1 pokémon/i)).toHaveValue('Kangaskhan');
+    expect(screen.getByRole('button', { name: /^Active$/i })).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /^FR$/i }));
+    expect(screen.getByLabelText(/slot 1 pokémon/i)).toHaveValue('Kangourex');
+    expect(screen.getByRole('button', { name: /^Actifs$/i })).toBeInTheDocument();
   }, 10000);
 
   it('searches moves from the selected Pokemon and shows battle metadata', async () => {
@@ -235,7 +365,7 @@ describe('App', () => {
     await user.click(earthquake);
 
     await user.click(screen.getByRole('button', { name: /^team$/i }));
-    const exportLink = screen.getByRole('link', { name: /^exporter$/i });
+    const exportLink = screen.getByRole('link', { name: /exporter l'équipe/i });
     expect(decodeURIComponent(exportLink.getAttribute('href') ?? '')).toContain('- Earthquake');
   }, 10000);
 
@@ -251,7 +381,7 @@ describe('App', () => {
     expect(screen.getByLabelText(/slot 1 ev hp/i)).toBeInTheDocument();
   });
 
-  it('adapts the mockup build controls to real ability, nature and EV data', async () => {
+  it('adapts the mockup build controls to real ability, manual nature and EV data', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
     await openBuildTab(user);
@@ -264,8 +394,8 @@ describe('App', () => {
 
     await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
 
-    const natureSelect = screen.getByLabelText(/slot 1 nature/i);
-    await user.selectOptions(natureSelect, 'Jolly');
+    expect(screen.getByLabelText(/slot 1 nature/i)).toHaveValue('');
+    await selectPickerOption(user, /slot 1 nature/i, 'Jovial', /Jovial/i);
     expect(screen.getAllByText(/\+vitesse \/ -attaque spéciale/i).length).toBeGreaterThan(0);
 
     await user.click(screen.getByRole('button', { name: /attaquant physique rapide/i }));
@@ -273,7 +403,50 @@ describe('App', () => {
     expect(screen.getAllByText(/nature : jovial/i).length).toBeGreaterThan(0);
   }, 10000);
 
-  it('hydrates slot details with mockup-style defaults when a Pokemon is selected', async () => {
+  it('uses a searchable nature picker that previews the bonus and malus before selection', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
+
+    const natureInput = screen.getByLabelText(/slot 1 nature/i);
+    expect(natureInput.tagName).toBe('INPUT');
+
+    await user.clear(natureInput);
+    await user.type(natureInput, 'Jovial');
+
+    const jollyOption = await screen.findByRole('option', { name: /jovial/i });
+    expect(within(jollyOption).getAllByText(/\+vitesse \/ -attaque spéciale/i).length).toBeGreaterThan(0);
+
+    await user.click(jollyOption);
+
+    expect(natureInput).toHaveValue('Jovial');
+  }, 10000);
+
+  it('keeps move choices unique while searching the selected Pokemon movepool', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+
+    await selectPickerOption(user, /slot 1 attaque 1/i, 'Vitesse', /Vitesse Extrême/i);
+    await user.clear(screen.getByLabelText(/slot 1 attaque 2/i));
+    await user.type(screen.getByLabelText(/slot 1 attaque 2/i), 'Vitesse');
+
+    expect(screen.queryByRole('option', { name: /vitesse extrême/i })).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await user.clear(screen.getByLabelText(/slot 2 attaque 1/i));
+    await user.type(screen.getByLabelText(/slot 2 attaque 1/i), 'Vitesse');
+
+    expect(screen.queryByRole('option', { name: /vitesse extrême/i })).not.toBeInTheDocument();
+  }, 10000);
+
+  it('hydrates slot details with tera and EV defaults while keeping nature empty', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
     await openBuildTab(user);
@@ -284,7 +457,8 @@ describe('App', () => {
 
     await user.click(screen.getByRole('button', { name: /détails avancés slot 1/i }));
 
-    expect(screen.getAllByText(/nature : jovial/i).length).toBeGreaterThan(0);
+    expect(screen.getByLabelText(/slot 1 nature/i)).toHaveValue('');
+    expect(screen.queryByText(/nature : jovial/i)).not.toBeInTheDocument();
     expect(screen.getByText(/tera dragon/i)).toBeInTheDocument();
 
     const teraGroup = screen.getByRole('group', { name: /types tera slot 1/i });
@@ -298,6 +472,49 @@ describe('App', () => {
     expect(screen.getByLabelText(/slot 1 ev spe/i)).toHaveValue(252);
   }, 10000);
 
+  it('hides Pokemon already selected in another team slot', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await user.clear(screen.getByLabelText(/slot 2 pokémon/i));
+    await user.type(screen.getByLabelText(/slot 2 pokémon/i), 'Dracolosse');
+
+    expect(screen.queryByRole('option', { name: /dracolosse/i })).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: /modifier slot 1/i }));
+    await user.clear(screen.getByLabelText(/slot 1 pokémon/i));
+    await user.type(screen.getByLabelText(/slot 1 pokémon/i), 'Dracolosse');
+
+    expect(await screen.findByRole('option', { name: /dracolosse/i })).toBeInTheDocument();
+  }, 10000);
+
+  it('hides active Pokemon already selected in another active picker', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await openBuildTab(user);
+
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await user.click(screen.getByRole('button', { name: /^actifs$/i }));
+
+    expect(screen.getByText(/multiécaille/i)).toBeInTheDocument();
+    expect(screen.queryByText(/multiscale/i)).not.toBeInTheDocument();
+
+    await user.clear(screen.getByLabelText(/actif 2/i));
+    await user.type(screen.getByLabelText(/actif 2/i), 'Dracolosse');
+
+    expect(screen.queryByRole('option', { name: /dracolosse/i })).not.toBeInTheDocument();
+
+    await user.clear(screen.getByLabelText(/actif 1/i));
+    await user.type(screen.getByLabelText(/actif 1/i), 'Dracolosse');
+
+    expect(await screen.findByRole('option', { name: /dracolosse/i })).toBeInTheDocument();
+  }, 10000);
+
   it('saves, loads, deletes and exports teams from local browser storage', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
@@ -307,12 +524,12 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: /^team$/i }));
 
     await user.type(screen.getByLabelText(/nom de sauvegarde/i), 'Ladder BO1');
-    await user.click(screen.getByRole('button', { name: /^sauvegarder$/i }));
+    await user.click(screen.getByRole('button', { name: /sauvegarder l'équipe/i }));
 
     expect(screen.getByText(/équipe sauvegardée localement/i)).toBeInTheDocument();
     expect(within(screen.getByLabelText(/sauvegardes locales/i)).getByText(/^Ladder BO1$/i)).toBeInTheDocument();
 
-    const teamExportLink = screen.getByRole('link', { name: /^exporter$/i });
+    const teamExportLink = screen.getByRole('link', { name: /exporter l'équipe/i });
     expect(teamExportLink).toHaveAttribute('download', 'pokemon-champions-team.txt');
     expect(decodeURIComponent(teamExportLink.getAttribute('href') ?? '')).toContain('Dragonite');
 
@@ -333,13 +550,13 @@ describe('App', () => {
     await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
     await user.click(screen.getByRole('button', { name: /^team$/i }));
     await user.type(screen.getByLabelText(/nom de sauvegarde/i), 'Ladder BO1');
-    await user.click(screen.getByRole('button', { name: /^sauvegarder$/i }));
+    await user.click(screen.getByRole('button', { name: /sauvegarder l'équipe/i }));
 
     await user.click(screen.getByRole('button', { name: /créer une team vide/i }));
     await selectPickerOption(user, /slot 1 pokémon/i, 'Kangourex', /Kangourex/i);
     await user.click(screen.getByRole('button', { name: /^team$/i }));
     await user.type(screen.getByLabelText(/nom de sauvegarde/i), 'Casual test');
-    await user.click(screen.getByRole('button', { name: /^sauvegarder$/i }));
+    await user.click(screen.getByRole('button', { name: /sauvegarder l'équipe/i }));
 
     await user.type(screen.getByLabelText(/rechercher une sauvegarde/i), 'ladder');
 

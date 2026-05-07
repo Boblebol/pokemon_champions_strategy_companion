@@ -18,8 +18,8 @@ Démo publique : <https://boblebol.github.io/pokemon_champions_strategy_companio
 
 Application :
 
+- Landing PWA : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 - Vue mobile : <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
-- Racine compatible : <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 
 Documentation repo :
 
@@ -31,8 +31,13 @@ Documentation repo :
 ## Fonctionnalités
 
 - Navigation tactile par écrans : `Team`, `Build`, `Actifs` et `Match`.
-- Vue mobile unique sur `/app`, avec `/`, `/mobile` et les anciennes routes
-  publiques redirigées vers le même cockpit tactile.
+- Landing GitHub Pages sur `/`, `/landing` et `/docs`, avec explication PWA,
+  installation mobile et lien direct vers l'app.
+- Vue mobile unique sur `/app`, avec `/mobile` comme alias compatible vers le
+  même cockpit tactile.
+- Shell mobile aligné sur `docs/design_mockup/maquette_v1/standalone_version_html.html`,
+  avec les mêmes rails de slots, actions rapides, chips de types et panneaux de
+  détails, branchés sur les données réelles Pokémon Champions.
 - PWA installable sans store depuis le navigateur, avec manifest, service worker
   et cache applicatif local.
 - Interface française avec cartes d'équipe, audit et adversaires dangereux.
@@ -52,8 +57,8 @@ Documentation repo :
   brûlure, coup critique, Téracristallisation et recherche rapide adversaire.
 - Images Pokémon dans le constructeur, l'équipe et les panneaux de dangers via
   les URLs publiques `PokeAPI/sprites`, sans stocker les images dans le repo.
-- Switch FR/EN pour Pokémon, attaques, objets, talents, natures et types. L'UI
-  affiche une seule langue à la fois, mais les valeurs internes et l'export
+- Switch FR/EN pour Pokémon, attaques, objets, talents, natures et types, avec
+  libellés cohérents dans la langue active. Les valeurs internes et l'export
   restent compatibles Pokémon Showdown en anglais.
 - Référence locale filtrée par le roster Showdown Champions via `@pkmn/dex` et
   `@pkmn/data` : Pokémon légaux, talents, learnsets, objets et natures.
@@ -93,21 +98,23 @@ Les tests E2E Playwright buildent l'app puis lancent automatiquement un serveur
 CI ou sur une machine sans Chrome, lancer d'abord `pnpm run test:e2e:install`
 pour installer le navigateur Chromium géré par Playwright.
 
-En local, la racine ouvre directement le cockpit mobile. Les anciennes routes
-`/landing`, `/docs` et `/mobile` restent compatibles, mais affichent la même vue
-mobile unique.
+En local et sur GitHub Pages, la racine ouvre une landing PWA avec les étapes
+d'installation et un lien vers `/app`. Les routes `/landing` et `/docs`
+affichent la même aide d'installation. `/app` ouvre le cockpit mobile et
+`/mobile` reste un alias compatible vers cette app.
 
 ## PWA mobile
 
 L'app peut être ajoutée à l'écran d'accueil depuis le navigateur, sans passer par
-un store. Le manifest et le service worker gardent le shell mobile, la route
-applicative et les assets versionnés disponibles après le premier
-chargement.
+un store. La page publique explique l'installation et renvoie vers `/app`, qui
+est aussi la route de démarrage déclarée dans le manifest. Le service worker
+garde le shell mobile, la route applicative et les assets versionnés disponibles
+après le premier chargement.
 
 Installation sur iPhone ou iPad :
 
-1. Ouvrir l'app dans Safari :
-   <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
+1. Ouvrir la page publique dans Safari :
+   <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 2. Toucher le bouton de partage de Safari.
 3. Choisir `Sur l'écran d'accueil`.
 4. Valider le nom `Champions` ou le modifier.
@@ -115,8 +122,8 @@ Installation sur iPhone ou iPad :
 
 Installation sur Android :
 
-1. Ouvrir l'app dans Chrome ou un navigateur compatible PWA :
-   <https://boblebol.github.io/pokemon_champions_strategy_companion/app>
+1. Ouvrir la page publique dans Chrome ou un navigateur compatible PWA :
+   <https://boblebol.github.io/pokemon_champions_strategy_companion/>
 2. Ouvrir le menu du navigateur.
 3. Choisir `Installer l'application` ou `Ajouter à l'écran d'accueil`.
 4. Valider l'installation.
@@ -171,7 +178,8 @@ sélection jouée :
 - 1 allié actif en `[Champions] BSS Reg M-A` et `[Champions] OU`, 2 alliés
   actifs en `[Champions] VGC 2026 Reg M-A`.
 - 1 adversaire en solo, jusqu'à 2 adversaires en duo.
-- Recherche adversaire locale FR/EN, insensible aux accents.
+- Recherche adversaire locale par alias français et anglais, insensible aux
+  accents.
 - Dégâts donnés depuis les attaques du set ou toutes les attaques apprenables.
 - Dégâts reçus classés depuis les attaques apprenables de l'adversaire.
 - Modificateurs : boosts, Téracristallisation, brûlure, coup critique, météo, terrain, protections
