@@ -1,14 +1,8 @@
 import { getFormatDefinition } from './formatRules';
-import type { FormatId, MetaSnapshot, UsageEntry } from './types';
+import type { FormatId, FormatDefinition, MetaSnapshot, UsageEntry } from './types';
 
-export const DEFAULT_SMOGON_USAGE_MONTH = '2026-03';
+export const DEFAULT_SMOGON_USAGE_MONTH = '2026-04';
 export const DEFAULT_SMOGON_CUTOFF = 1760;
-
-const SMOGON_FORMAT_SLUGS: Record<FormatId, string> = {
-  'champions-vgc': 'gen9vgc2026regf',
-  'champions-bss': 'gen9bssregi',
-  'champions-ou': 'gen9nationaldex',
-};
 
 export type RefreshResult =
   | { ok: true; message: string; importedAt: string; snapshot: MetaSnapshot }
@@ -63,6 +57,7 @@ function readCommonMoves(entry: Record<string, unknown>): string[] {
 function parseSmogonChaosSnapshot({
   payload,
   format,
+  formatDefinition,
   source,
   importedAt,
   usageMonth,
@@ -70,6 +65,7 @@ function parseSmogonChaosSnapshot({
 }: {
   payload: unknown;
   format: FormatId;
+  formatDefinition: FormatDefinition;
   source: string;
   importedAt: string;
   usageMonth: string;
@@ -80,11 +76,6 @@ function parseSmogonChaosSnapshot({
   }
   const payloadRecord = payload as Record<string, unknown>;
   const info = isRecord(payloadRecord.info) ? payloadRecord.info : undefined;
-
-  const formatDefinition = getFormatDefinition(format);
-  if (!formatDefinition) {
-    throw new Error(`Format non supporté : ${format}`);
-  }
 
   const data = payloadRecord.data as Record<string, unknown>;
   const entries: UsageEntry[] = Object.entries(data)
@@ -139,13 +130,17 @@ export async function refreshSnapshots({
   format?: FormatId;
   useProxy?: boolean;
 } & SnapshotRefreshConfig = {}): Promise<RefreshResult> {
-  const fileName = `${SMOGON_FORMAT_SLUGS[format]}-${cutoff}.json`;
-  const statsPath = `/stats/${usageMonth}/chaos/${fileName}`;
-  const source = `https://www.smogon.com${statsPath}`;
-  const fetchUrl = useProxy ? `/smogon-stats${statsPath}` : source;
   const formatDefinition = getFormatDefinition(format);
 
   try {
+    if (!formatDefinition) {
+      throw new Error(`format Smogon/Showdown non supporté : ${format}`);
+    }
+
+    const fileName = `${formatDefinition.smogonSlug}-${cutoff}.json`;
+    const statsPath = `/stats/${usageMonth}/chaos/${fileName}`;
+    const source = `https://www.smogon.com${statsPath}`;
+    const fetchUrl = useProxy ? `/smogon-stats${statsPath}` : source;
     const response = await fetcher(fetchUrl);
     if (!response.ok) {
       return {
@@ -158,6 +153,7 @@ export async function refreshSnapshots({
     const snapshot = parseSmogonChaosSnapshot({
       payload: await response.json(),
       format,
+      formatDefinition,
       source,
       importedAt,
       usageMonth,
@@ -166,7 +162,7 @@ export async function refreshSnapshots({
 
     return {
       ok: true,
-      message: `Données Smogon ${usageMonth} importées pour ${formatDefinition?.label ?? format}.`,
+      message: `Données Smogon/Showdown importées pour ${formatDefinition.label}.`,
       importedAt,
       snapshot,
     };

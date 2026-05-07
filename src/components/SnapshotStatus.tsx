@@ -1,10 +1,12 @@
 export function SnapshotStatus({
+  id,
   label,
   source,
   onRefresh,
   refreshMessage,
   isRefreshing = false,
 }: {
+  id?: string;
   label: string;
   source: string;
   onRefresh: () => void;
@@ -12,7 +14,7 @@ export function SnapshotStatus({
   isRefreshing?: boolean;
 }) {
   return (
-    <section className="snapshot-status" aria-label="Statut des données">
+    <section className="snapshot-status" id={id} aria-label="Statut des données">
       <div>
         <strong>{label}</strong>
         <span>{source}</span>

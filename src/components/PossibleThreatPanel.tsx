@@ -2,18 +2,20 @@ import { PokemonAvatar } from './PokemonMedia';
 import { POSSIBLE_THREAT_SCORE_EXPLANATION } from '../domain/possibleThreats';
 import { moveDisplayName, pokemonDisplayName } from '../domain/referenceDisplay';
 import type { PossibleThreat } from '../domain/possibleThreats';
-import type { ReferenceSnapshot } from '../domain/types';
+import type { LocaleId, ReferenceSnapshot } from '../domain/types';
 
 export function PossibleThreatPanel({
   reference,
   threats,
   selectedCount,
   pickSize,
+  locale,
 }: {
   reference: ReferenceSnapshot;
   threats: PossibleThreat[];
   selectedCount: number;
   pickSize: number;
+  locale?: LocaleId;
 }) {
   const isSelectionComplete = selectedCount >= pickSize;
 
@@ -30,7 +32,7 @@ export function PossibleThreatPanel({
           <article className={`threat ${threat.severity}`} key={threat.species}>
             <div className="threat-main">
               <PokemonAvatar reference={reference} species={threat.species} />
-              <strong>{pokemonDisplayName(reference, threat.species)}</strong>
+              <strong>{pokemonDisplayName(reference, threat.species, locale)}</strong>
             </div>
             <span>
               Score {threat.score.toFixed(1)} · Vitesse max {threat.speed}
@@ -41,15 +43,15 @@ export function PossibleThreatPanel({
             <div className="coverage-list">
               {threat.coverageMoves.map((coverage) => (
                 <small key={coverage.move}>
-                  {moveDisplayName(reference, coverage.move)} :{' '}
-                  {coverage.targets.map((target) => pokemonDisplayName(reference, target)).join(', ')}
+                  {moveDisplayName(reference, coverage.move, locale)} :{' '}
+                  {coverage.targets.map((target) => pokemonDisplayName(reference, target, locale)).join(', ')}
                 </small>
               ))}
             </div>
             <div className="set-archetype-list">
               {threat.setArchetypes.map((set) => (
                 <small key={set.name}>
-                  {set.name} : {set.moves.map((move) => moveDisplayName(reference, move)).join(' / ')}
+                  {set.name} : {set.moves.map((move) => moveDisplayName(reference, move, locale)).join(' / ')}
                 </small>
               ))}
             </div>
