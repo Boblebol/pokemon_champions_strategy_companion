@@ -9,33 +9,42 @@ const FAILURE_MARKERS = ['CouldntConnect', 'fetch error', 'navigate failed', '$l
 const routes = [
   {
     path: '/app',
-    selector: '.dashboard',
+    selector: '.mobile-shell',
     expectedText: [
-      "Cockpit d'analyse",
-      "Constructeur d'équipe",
-      "Slots de l'équipe",
-      'Combat',
-      'Aides rapides',
+      'Application mobile Champions',
+      'Team',
+      'Mon équipe',
+      'Disponible hors ligne',
+    ],
+  },
+  {
+    path: '/mobile',
+    selector: '.mobile-shell',
+    expectedText: [
+      'Application mobile Champions',
+      'Team',
+      'Mon équipe',
+      'Disponible hors ligne',
     ],
   },
   {
     path: '/landing',
-    selector: '.marketing-hero',
+    selector: '.pwa-landing-page',
     expectedText: [
-      'Présentation marketing',
-      'Gagne du temps au team preview',
+      'Présentation PWA Champions',
+      'PWA installable',
       "Ouvrir l'app",
-      'Ouvrir la doc',
+      "Comment l'installer",
     ],
   },
   {
     path: '/docs',
-    selector: '.docs-shell',
+    selector: '.pwa-landing-page',
     expectedText: [
-      'Documentation Champions Companion',
-      "1. Démarrer avec l'assistant",
-      '5. Simuler le combat',
-      'Limites connues',
+      'Présentation PWA Champions',
+      'Installer sur iPhone',
+      'Installer sur Android',
+      "Ouvrir l'app",
     ],
   },
 ];

@@ -2,9 +2,17 @@ import { PokemonAvatar } from './PokemonMedia';
 import { META_THREAT_SCORE_EXPLANATION } from '../domain/metaThreats';
 import { pokemonDisplayName } from '../domain/referenceDisplay';
 import type { RankedThreat } from '../domain/metaThreats';
-import type { ReferenceSnapshot } from '../domain/types';
+import type { LocaleId, ReferenceSnapshot } from '../domain/types';
 
-export function ThreatPanel({ reference, threats }: { reference: ReferenceSnapshot; threats: RankedThreat[] }) {
+export function ThreatPanel({
+  reference,
+  threats,
+  locale,
+}: {
+  reference: ReferenceSnapshot;
+  threats: RankedThreat[];
+  locale?: LocaleId;
+}) {
   return (
     <section className="panel">
       <h2>Adversaires fréquents dangereux</h2>
@@ -16,7 +24,7 @@ export function ThreatPanel({ reference, threats }: { reference: ReferenceSnapsh
             <div className="threat-main">
               <PokemonAvatar reference={reference} species={threat.species} />
               <strong>
-                #{threat.rank} {pokemonDisplayName(reference, threat.species)}
+                #{threat.rank} {pokemonDisplayName(reference, threat.species, locale)}
               </strong>
             </div>
             <span>Score {threat.score.toFixed(1)}</span>

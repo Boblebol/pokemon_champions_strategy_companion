@@ -14,24 +14,28 @@ describe('rankPossibleThreats', () => {
   it('finds non-meta Pokemon with legal coverage into the selected team', () => {
     const threats = rankPossibleThreats({
       team: [
-        member('Garchomp', ['Earthquake'], { evs: { spe: 252 }, nature: 'Jolly' }),
+        member('Garchomp', ['Earthquake']),
         member('Dragonite', ['Extreme Speed']),
-        member('Great Tusk', ['Close Combat'], { evs: { spe: 252 }, nature: 'Jolly' }),
+        member('Kingambit', ['Sucker Punch']),
       ],
       store,
       format: 'champions-bss',
       limit: 3,
     });
 
-    const flutterMane = threats.find((threat) => threat.species === 'Flutter Mane');
+    const palafin = threats.find((threat) => threat.species === 'Palafin');
 
-    expect(flutterMane).toBeDefined();
-    expect(flutterMane?.isMeta).toBe(false);
-    expect(flutterMane?.coverageMoves).toContainEqual({
-      move: 'Moonblast',
-      targets: ['Garchomp', 'Dragonite', 'Great Tusk'],
+    expect(palafin).toBeDefined();
+    expect(palafin?.isMeta).toBe(false);
+    expect(palafin?.coverageMoves).toContainEqual({
+      move: 'Close Combat',
+      targets: ['Kingambit'],
     });
-    expect(flutterMane?.reasons.join(' ')).toContain('dépass');
+    expect(palafin?.coverageMoves).toContainEqual({
+      move: 'Ice Beam',
+      targets: ['Garchomp', 'Dragonite'],
+    });
+    expect(palafin?.reasons.join(' ')).toContain('dépass');
   });
 
   it('suggests compact set archetypes from possible moves', () => {
@@ -42,11 +46,11 @@ describe('rankPossibleThreats', () => {
       limit: 5,
     });
 
-    const flutterMane = threats.find((threat) => threat.species === 'Flutter Mane');
+    const clefable = threats.find((threat) => threat.species === 'Clefable');
 
-    expect(flutterMane?.setArchetypes[0]).toEqual({
+    expect(clefable?.setArchetypes[0]).toEqual({
       name: 'Attaquant spécial',
-      moves: ['Moonblast', 'Shadow Ball', 'Thunderbolt'],
+      moves: ['Moonblast', 'Thunderbolt', 'Fire Blast', 'Ice Beam'],
     });
   });
 
@@ -58,8 +62,8 @@ describe('rankPossibleThreats', () => {
         'champions-bss': {
           ...demoDataBundle.meta['champions-bss'],
           entries: [
-            { rank: 1, species: 'Gholdengo', usage: 31.4, commonMoves: ['Make It Rain', 'Shadow Ball'] },
-            { rank: 42, species: 'Flutter Mane', usage: 0.8, commonMoves: ['Moonblast'] },
+            { rank: 1, species: 'Kingambit', usage: 31.4, commonMoves: ['Sucker Punch', 'Iron Head'] },
+            { rank: 42, species: 'Clefable', usage: 0.8, commonMoves: ['Moonblast'] },
           ],
         },
       },
@@ -72,7 +76,7 @@ describe('rankPossibleThreats', () => {
       limit: 10,
     });
 
-    expect(threats.map((threat) => threat.species)).toContain('Flutter Mane');
-    expect(threats.map((threat) => threat.species)).not.toContain('Gholdengo');
+    expect(threats.map((threat) => threat.species)).toContain('Clefable');
+    expect(threats.map((threat) => threat.species)).not.toContain('Kingambit');
   });
 });
