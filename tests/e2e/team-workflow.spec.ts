@@ -139,4 +139,21 @@ test.describe('workflow équipe mobile', () => {
     await expect(page.getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
     await expect(page.getByRole('heading', { name: /Dracolosse vs Kangourex/i })).toBeVisible();
   });
+
+  test('garde deux sélecteurs adverses en Combat 2v2', async ({ page }) => {
+    await gotoMobileApp(page);
+    await page.getByRole('button', { name: /2v2 actif/i }).click();
+    await buildDragoniteCore(page);
+    await page.getByRole('button', { name: /modifier slot 2/i }).click();
+    await pickSearchResult(page, /slot 2 pokémon/i, 'carcha', /Carchacrok/i);
+    await openMobileTab(page, 'Match');
+
+    await pickSearchResult(page, /adversaire 1/i, 'kang', /Kangourex/i);
+    await pickSearchResult(page, /adversaire 2/i, 'scalp', /Scalpereur/i);
+
+    await expect(page.getByRole('combobox', { name: /adversaire 1/i })).toHaveValue('Kangourex');
+    await expect(page.getByRole('combobox', { name: /adversaire 2/i })).toHaveValue('Scalpereur');
+    await expect(page.getByRole('heading', { name: /Dracolosse vs Kangourex/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Carchacrok vs Scalpereur/i })).toBeVisible();
+  });
 });

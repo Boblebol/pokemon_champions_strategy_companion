@@ -186,6 +186,33 @@ describe('App', () => {
     expect(await screen.findByRole('heading', { name: /dracolosse vs kangourex/i })).toBeInTheDocument();
   }, 10000);
 
+  it('keeps two combat opponent pickers in 2v2 mode', async () => {
+    const user = userEvent.setup();
+    await renderAppRoute();
+    await user.click(screen.getByRole('button', { name: /2v2 actif/i }));
+    await openBuildTab(user);
+    await selectPickerOption(user, /slot 1 pokémon/i, 'Dracolosse', /Dracolosse/i);
+    await user.click(screen.getByRole('button', { name: /modifier slot 2/i }));
+    await selectPickerOption(user, /slot 2 pokémon/i, 'Carchacrok', /Carchacrok/i);
+    await openMatchTab(user);
+
+    const firstOpponentInput = await screen.findByRole('combobox', { name: /adversaire 1/i }, { timeout: 5000 });
+    const secondOpponentInput = await screen.findByRole('combobox', { name: /adversaire 2/i }, { timeout: 5000 });
+
+    await user.clear(firstOpponentInput);
+    await user.type(firstOpponentInput, 'kang');
+    await user.click(await screen.findByRole('option', { name: /kangourex/i }, { timeout: 5000 }));
+
+    await user.clear(secondOpponentInput);
+    await user.type(secondOpponentInput, 'scalpereur');
+    await user.click(await screen.findByRole('option', { name: /scalpereur/i }, { timeout: 5000 }));
+
+    expect(firstOpponentInput).toHaveValue('Kangourex');
+    expect(secondOpponentInput).toHaveValue('Scalpereur');
+    expect(await screen.findByRole('heading', { name: /dracolosse vs kangourex/i })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: /carchacrok vs scalpereur/i })).toBeInTheDocument();
+  }, 15000);
+
   it('uses the standalone-like Team action and saves layout', async () => {
     const user = userEvent.setup();
     await renderAppRoute();
